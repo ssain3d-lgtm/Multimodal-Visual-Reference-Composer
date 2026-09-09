@@ -1,0 +1,1000 @@
+{
+  "schema_version": "1.0",
+  "categories": ["lens"],
+  "version": 1,
+  "updated_at": "2026-09-09T00:00:00Z",
+  "nodes": [
+    {
+      "schema_version": "1.0",
+      "id": "lens.ultra_wide_like",
+      "category": "lens",
+      "label": "Ultra-wide-like perspective",
+      "aliases": [
+        "ultra wide",
+        "ultra-wide",
+        "ultrawide",
+        "ultra wide angle",
+        "very wide lens",
+        "super wide",
+        "wide angle look",
+        "expansive lens",
+        "ultra wide lense",
+        "gopro look"
+      ],
+      "related": [
+        "lens.ultra_wide_14mm_like",
+        "lens.fisheye_like",
+        "lens.wide_like",
+        "lens.barrel_distortion"
+      ],
+      "parent": null,
+      "children": ["lens.ultra_wide_14mm_like", "lens.fisheye_like"],
+      "description": "The widest ordinary lens family: it swallows a huge amount of the room and stretches whatever is nearest the camera, so hands, feet and edges of the frame look exaggerated. Focal length is INFERRED from those perspective cues, never read from the file, so the label always says 'like'.",
+      "examples": [
+        "a whole cramped bedroom visible from one corner",
+        "a skateboarder's board looming huge in the foreground"
+      ],
+      "conflicts_with": ["lens.compressed_perspective"],
+      "exclusivity_group": "focal_length_like",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "ultra-wide-angle-like perspective",
+      "negative_fragment": "not an ultra-wide-angle look",
+      "search_boost": 1.2,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.ultra_wide_14mm_like",
+      "category": "lens",
+      "label": "14mm-like ultra-wide perspective",
+      "aliases": [
+        "14mm",
+        "14 mm",
+        "14mm lens",
+        "14mm look",
+        "12mm",
+        "16mm wide",
+        "rectilinear ultra wide",
+        "architectural wide lens",
+        "14mm-like",
+        "14 mil"
+      ],
+      "related": [
+        "lens.ultra_wide_like",
+        "lens.wide_24mm_like",
+        "lens.fisheye_like",
+        "lens.barrel_distortion"
+      ],
+      "parent": "lens.ultra_wide_like",
+      "children": [],
+      "description": "An extremely wide view in which straight lines still stay straight, so whole interiors, tall buildings or huge skies fit in one frame while near objects balloon towards the viewer. The millimetre figure is an inference from that stretch, not a measurement.",
+      "examples": [
+        "an entire small kitchen captured from the doorway",
+        "a skyscraper leaning away overhead"
+      ],
+      "conflicts_with": ["lens.compressed_perspective"],
+      "exclusivity_group": "focal_length_like",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "14mm-like ultra-wide perspective",
+      "negative_fragment": "not a 14mm-like ultra-wide look",
+      "search_boost": 1.1,
+      "sort_order": 12
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.fisheye_like",
+      "category": "lens",
+      "label": "Fisheye-like perspective",
+      "aliases": [
+        "fisheye",
+        "fish eye",
+        "fish-eye",
+        "fisheye lens",
+        "circular fisheye",
+        "bulging lens look",
+        "curved horizon",
+        "skate video lens",
+        "fisheye distortion",
+        "fishey"
+      ],
+      "related": [
+        "lens.ultra_wide_like",
+        "lens.ultra_wide_14mm_like",
+        "lens.barrel_distortion"
+      ],
+      "parent": "lens.ultra_wide_like",
+      "children": [],
+      "description": "An extreme wide view that deliberately bends straight lines outward, so horizons curve and the middle of the picture bulges towards you. Unlike other wide lenses this bending is the point and is never corrected.",
+      "examples": [
+        "a skateboarder filmed from ground level with a curved horizon",
+        "a whole room bowing around a face pushed close to the camera"
+      ],
+      "conflicts_with": ["lens.compressed_perspective", "lens.tilt_shift_like"],
+      "exclusivity_group": "focal_length_like",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "fisheye-like ultra-wide perspective with curved lines",
+      "negative_fragment": "no fisheye curvature",
+      "search_boost": 1.3,
+      "sort_order": 14
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.wide_like",
+      "category": "lens",
+      "label": "Wide-angle-like perspective",
+      "aliases": [
+        "wide angle",
+        "wide-angle",
+        "wide lens",
+        "wideangle",
+        "wide angle lens",
+        "roomy perspective",
+        "environmental lens",
+        "wide angel lens",
+        "shows lots of background"
+      ],
+      "related": [
+        "lens.wide_24mm_like",
+        "lens.28mm_like",
+        "lens.35mm_like",
+        "lens.ultra_wide_like",
+        "lens.normal_like"
+      ],
+      "parent": null,
+      "children": ["lens.wide_24mm_like", "lens.28mm_like", "lens.35mm_like"],
+      "description": "A lens family that takes in noticeably more of the surroundings than the human eye finds natural, pushing the background away and giving near objects a gentle forward stretch. Focal length is INFERRED from those cues and is always rendered as an approximation.",
+      "examples": [
+        "a person in a doorway with the whole street visible behind them",
+        "a table setting with the entire dining room around it"
+      ],
+      "conflicts_with": ["lens.compressed_perspective"],
+      "exclusivity_group": "focal_length_like",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "wide-angle-like perspective",
+      "negative_fragment": "not a wide-angle look",
+      "search_boost": 1.3,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.wide_24mm_like",
+      "category": "lens",
+      "label": "24mm-like wide perspective",
+      "aliases": [
+        "24mm",
+        "24 mm",
+        "24mm lens",
+        "24mm look",
+        "24mm-like",
+        "wide 24",
+        "landscape lens",
+        "vlog lens",
+        "24 mil",
+        "24mm wide angle"
+      ],
+      "related": [
+        "lens.wide_like",
+        "lens.28mm_like",
+        "lens.ultra_wide_14mm_like",
+        "lens.barrel_distortion"
+      ],
+      "parent": "lens.wide_like",
+      "children": [],
+      "description": "A distinctly wide view that keeps a whole figure and a generous slice of the place in one frame, with visible stretch at the edges but no cartoon-like bending. The number is an estimate drawn from that perspective, not a claim about the camera.",
+      "examples": [
+        "a full-length figure with a wide street behind them",
+        "a handheld vlog frame holding both face and room"
+      ],
+      "conflicts_with": ["lens.compressed_perspective"],
+      "exclusivity_group": "focal_length_like",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "24mm-like wide-angle perspective",
+      "negative_fragment": "not a 24mm-like wide look",
+      "search_boost": 1.1,
+      "sort_order": 22
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.28mm_like",
+      "category": "lens",
+      "label": "28mm-like perspective",
+      "aliases": [
+        "28mm",
+        "28 mm",
+        "28mm lens",
+        "28mm look",
+        "28mm-like",
+        "phone camera lens",
+        "iphone main camera look",
+        "mild wide angle",
+        "28 mil"
+      ],
+      "related": [
+        "lens.wide_like",
+        "lens.35mm_like",
+        "lens.wide_24mm_like"
+      ],
+      "parent": "lens.wide_like",
+      "children": [],
+      "description": "A mildly wide view, close to what most phone cameras produce: a little more of the room than the eye expects, with only slight stretch near the edges.",
+      "examples": [
+        "a casual phone snapshot of friends at a table",
+        "a street portrait that still shows the shopfront behind"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "focal_length_like",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "28mm-like perspective",
+      "negative_fragment": "not a 28mm-like look",
+      "search_boost": 1.1,
+      "sort_order": 24
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.35mm_like",
+      "category": "lens",
+      "label": "35mm-like perspective",
+      "aliases": [
+        "35mm",
+        "35 mm",
+        "35mm lens",
+        "35mm look",
+        "35mm-like",
+        "documentary lens",
+        "reportage lens",
+        "street photography lens",
+        "35 mil",
+        "35mm perspective"
+      ],
+      "related": [
+        "lens.wide_like",
+        "lens.28mm_like",
+        "lens.50mm_like",
+        "lens.normal_like"
+      ],
+      "parent": "lens.wide_like",
+      "children": [],
+      "description": "The classic reportage view: slightly wider than the eye, so a person and the place they are standing in both read clearly without obvious distortion. This is inferred from how much context sits around the subject, never asserted as a fact about the camera.",
+      "examples": [
+        "a documentary frame of a person walking a busy pavement",
+        "an environmental portrait in a workshop"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "focal_length_like",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "35mm-like perspective",
+      "negative_fragment": "not a 35mm-like perspective",
+      "search_boost": 1.5,
+      "sort_order": 26
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.normal_like",
+      "category": "lens",
+      "label": "Normal-lens-like perspective",
+      "aliases": [
+        "normal lens",
+        "standard lens",
+        "nifty fifty",
+        "natural perspective",
+        "looks like the human eye",
+        "neutral lens",
+        "no distortion lens",
+        "normal focal length"
+      ],
+      "related": [
+        "lens.50mm_like",
+        "lens.35mm_like",
+        "lens.telephoto_like",
+        "lens.wide_like"
+      ],
+      "parent": null,
+      "children": ["lens.50mm_like"],
+      "description": "The neutral middle of the range, where near and far look about as far apart as they do to the naked eye and nothing is visibly stretched or squashed. Because there are no distortion cues to read, this class is the most cautious inference of all.",
+      "examples": [
+        "a straightforward portrait with an unremarkable background",
+        "a still life that looks the way it looked in the room"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "focal_length_like",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "normal-lens-like natural perspective",
+      "negative_fragment": "not a neutral normal-lens look",
+      "search_boost": 1.2,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.50mm_like",
+      "category": "lens",
+      "label": "50mm-like perspective",
+      "aliases": [
+        "50mm",
+        "50 mm",
+        "50mm lens",
+        "50mm look",
+        "50mm-like",
+        "nifty fifty",
+        "standard prime",
+        "50 mil",
+        "fifty millimeter",
+        "50mm perspective"
+      ],
+      "related": [
+        "lens.normal_like",
+        "lens.35mm_like",
+        "lens.85mm_like",
+        "lens.shallow_depth_of_field"
+      ],
+      "parent": "lens.normal_like",
+      "children": [],
+      "description": "The everyday standard view: a face is rendered honestly, the background sits at a believable distance, and nothing about the geometry draws attention to itself. The millimetre figure is a best guess read from the picture.",
+      "examples": [
+        "a half-length portrait with an ordinary room behind",
+        "a plate of food seen the way a diner would see it"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "focal_length_like",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "50mm-like natural perspective",
+      "negative_fragment": "not a 50mm-like perspective",
+      "search_boost": 1.5,
+      "sort_order": 32
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.telephoto_like",
+      "category": "lens",
+      "label": "Telephoto-like perspective",
+      "aliases": [
+        "telephoto",
+        "tele lens",
+        "long lens",
+        "zoom lens look",
+        "telephoto lens",
+        "flattened background",
+        "background looks close",
+        "telefoto",
+        "long focal length"
+      ],
+      "related": [
+        "lens.85mm_like",
+        "lens.135mm_like",
+        "lens.tele_200mm_like",
+        "lens.compressed_perspective",
+        "lens.normal_like"
+      ],
+      "parent": null,
+      "children": ["lens.85mm_like", "lens.135mm_like", "lens.tele_200mm_like"],
+      "description": "A long lens family that appears to pull distant things closer and stacks the background right up behind the subject, flattening the sense of depth. Focal length is INFERRED from that flattening and from how quickly the background falls out of focus.",
+      "examples": [
+        "a runner picked out of a crowd with the buildings squashed behind",
+        "a portrait where the far treeline sits directly behind the head"
+      ],
+      "conflicts_with": ["lens.barrel_distortion"],
+      "exclusivity_group": "focal_length_like",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "telephoto-like compressed perspective",
+      "negative_fragment": "not a telephoto look",
+      "search_boost": 1.3,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.85mm_like",
+      "category": "lens",
+      "label": "85mm-like perspective",
+      "aliases": [
+        "85mm",
+        "85 mm",
+        "85mm lens",
+        "85mm look",
+        "85mm-like",
+        "portrait lens",
+        "short telephoto",
+        "flattering portrait lens",
+        "85 mil",
+        "portrait prime"
+      ],
+      "related": [
+        "lens.telephoto_like",
+        "lens.135mm_like",
+        "lens.50mm_like",
+        "lens.shallow_depth_of_field",
+        "lens.bokeh_heavy"
+      ],
+      "parent": "lens.telephoto_like",
+      "children": [],
+      "description": "The classic portrait view: features are rendered flatteringly without stretch, and the background softens and closes in behind the head. Read from the gentle compression and background blur rather than from any camera data.",
+      "examples": [
+        "a head-and-shoulders portrait with a creamy background",
+        "a fashion shot where the wall behind sits soft and close"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "focal_length_like",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "85mm-like short-telephoto perspective",
+      "negative_fragment": "not an 85mm-like portrait perspective",
+      "search_boost": 1.5,
+      "sort_order": 42
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.135mm_like",
+      "category": "lens",
+      "label": "135mm-like perspective",
+      "aliases": [
+        "135mm",
+        "135 mm",
+        "135mm lens",
+        "135mm look",
+        "135mm-like",
+        "long portrait lens",
+        "tight telephoto",
+        "135 mil",
+        "strong compression"
+      ],
+      "related": [
+        "lens.telephoto_like",
+        "lens.85mm_like",
+        "lens.tele_200mm_like",
+        "lens.compressed_perspective"
+      ],
+      "parent": "lens.telephoto_like",
+      "children": [],
+      "description": "A longer portrait view that isolates the subject hard: the background is strongly flattened and dissolves quickly, and the camera is clearly standing well back.",
+      "examples": [
+        "a face isolated against a wash of distant city lights",
+        "a runway shot taken from the end of the catwalk"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "focal_length_like",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "135mm-like telephoto perspective",
+      "negative_fragment": "not a 135mm-like telephoto perspective",
+      "search_boost": 1.1,
+      "sort_order": 44
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.tele_200mm_like",
+      "category": "lens",
+      "label": "200mm-like long-telephoto perspective",
+      "aliases": [
+        "200mm",
+        "200 mm",
+        "200mm lens",
+        "200mm-like",
+        "long telephoto",
+        "super telephoto",
+        "sports lens",
+        "wildlife lens",
+        "big white lens",
+        "200 mil",
+        "paparazzi lens"
+      ],
+      "related": [
+        "lens.telephoto_like",
+        "lens.135mm_like",
+        "lens.compressed_perspective",
+        "camera_distance.very_far"
+      ],
+      "parent": "lens.telephoto_like",
+      "children": [],
+      "description": "A very long view shot from a long way off, so distant layers pile up almost on top of each other and the subject appears cut out of a soft wall of background. Sports and wildlife pictures look like this.",
+      "examples": [
+        "a footballer sharp against a melted blur of stadium crowd",
+        "a bird on a branch with the whole forest reduced to soft colour"
+      ],
+      "conflicts_with": ["lens.barrel_distortion"],
+      "exclusivity_group": "focal_length_like",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "200mm-like long-telephoto perspective with strongly compressed depth",
+      "negative_fragment": "not a long-telephoto look",
+      "search_boost": 1.2,
+      "sort_order": 46
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.macro_like",
+      "category": "lens",
+      "label": "Macro-like close focus",
+      "aliases": [
+        "macro",
+        "macro lens",
+        "close up lens",
+        "extreme close focus",
+        "life size magnification",
+        "1:1 macro",
+        "micro lens",
+        "makro",
+        "super close up detail",
+        "texture close up"
+      ],
+      "related": [
+        "lens.shallow_depth_of_field",
+        "lens.bokeh_heavy",
+        "camera_distance.macro",
+        "framing.extreme_close_up"
+      ],
+      "parent": null,
+      "children": [],
+      "description": "A lens able to focus so close that a small thing fills the whole frame at near life size, revealing texture the eye cannot normally resolve, with only a paper-thin sliver of the picture in focus.",
+      "examples": [
+        "the weave of a fabric filling the frame",
+        "a water droplet on a petal, everything else soft"
+      ],
+      "conflicts_with": [
+        "framing.extreme_wide_shot",
+        "framing.wide_shot",
+        "camera_distance.far",
+        "camera_distance.very_far",
+        "lens.deep_focus"
+      ],
+      "exclusivity_group": "focal_length_like",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "macro-like extreme close focus",
+      "negative_fragment": "not a macro-like close-focus shot",
+      "search_boost": 1.4,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.tilt_shift_like",
+      "category": "lens",
+      "label": "Tilt-shift-like plane of focus",
+      "aliases": [
+        "tilt shift",
+        "tilt-shift",
+        "tiltshift",
+        "miniature effect",
+        "toy town look",
+        "looks like a model village",
+        "perspective control lens",
+        "shift lens",
+        "selective focus band",
+        "tilt shift lens"
+      ],
+      "related": [
+        "lens.shallow_depth_of_field",
+        "lens.soft_focus",
+        "lens.macro_like"
+      ],
+      "parent": null,
+      "children": [],
+      "description": "A lens whose focus runs as a narrow band across the picture instead of a flat slab, so a real street can look like a tiny model with only one stripe sharp. It can also straighten converging building lines.",
+      "examples": [
+        "a city block from above looking like a toy set",
+        "a tall facade photographed with vertical lines kept parallel"
+      ],
+      "conflicts_with": ["lens.fisheye_like"],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "tilt-shift-like selective plane of focus",
+      "negative_fragment": "no tilt-shift miniature effect",
+      "search_boost": 1.3,
+      "sort_order": 54
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.anamorphic_like",
+      "category": "lens",
+      "label": "Anamorphic-like rendering",
+      "aliases": [
+        "anamorphic",
+        "anamorphic lens",
+        "cinemascope look",
+        "cinema lens",
+        "oval bokeh",
+        "widescreen lens",
+        "scope lens",
+        "anamorfic",
+        "2.39:1 look",
+        "film look lens"
+      ],
+      "related": [
+        "lens.anamorphic_flare",
+        "lens.bokeh_heavy",
+        "lens.shallow_depth_of_field"
+      ],
+      "parent": null,
+      "children": [],
+      "description": "The wide cinema lens character: out-of-focus highlights stretch into ovals rather than circles, the edges of the frame smear slightly, and bright lights streak sideways. It describes the rendering, not the focal length, so it can sit alongside any of the focal classes.",
+      "examples": [
+        "a night interior with oval highlight blobs behind the actor",
+        "a widescreen frame with a horizontal streak across a headlamp"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "anamorphic-like widescreen rendering with oval bokeh",
+      "negative_fragment": "no anamorphic character",
+      "search_boost": 1.3,
+      "sort_order": 58
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.shallow_depth_of_field",
+      "category": "lens",
+      "label": "Shallow depth of field",
+      "aliases": [
+        "shallow depth of field",
+        "shallow dof",
+        "blurry background",
+        "blurred background",
+        "background out of focus",
+        "wide open aperture",
+        "f1.4",
+        "f/1.8",
+        "portrait mode blur",
+        "thin focus",
+        "shallow depth of feild"
+      ],
+      "related": [
+        "lens.bokeh_heavy",
+        "lens.deep_focus",
+        "lens.85mm_like",
+        "lens.macro_like"
+      ],
+      "parent": null,
+      "children": [],
+      "description": "Only a thin slice of the picture is sharp and everything in front of and behind it melts away, which is what pulls a subject cleanly off its background.",
+      "examples": [
+        "sharp eyes with the ears already going soft",
+        "a coffee cup crisp while the cafe behind dissolves"
+      ],
+      "conflicts_with": ["lens.deep_focus"],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "shallow depth of field, the background falling away into soft blur like a fast lens wide open",
+      "negative_fragment": "no shallow depth of field, keep the background legible",
+      "search_boost": 1.6,
+      "sort_order": 70
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.deep_focus",
+      "category": "lens",
+      "label": "Deep focus",
+      "aliases": [
+        "deep focus",
+        "deep depth of field",
+        "everything in focus",
+        "sharp front to back",
+        "stopped down",
+        "f16",
+        "f/11",
+        "large depth of field",
+        "all sharp",
+        "no background blur"
+      ],
+      "related": [
+        "lens.shallow_depth_of_field",
+        "lens.bokeh_heavy",
+        "lens.wide_like"
+      ],
+      "parent": null,
+      "children": [],
+      "description": "Everything from the nearest object to the far distance stays sharp at once, so the viewer can read foreground and background as equally important.",
+      "examples": [
+        "a landscape where both the near rocks and the mountains are crisp",
+        "an interior where a face and the far doorway are both readable"
+      ],
+      "conflicts_with": [
+        "lens.shallow_depth_of_field",
+        "lens.bokeh_heavy",
+        "lens.macro_like",
+        "lens.focus_pull"
+      ],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "deep focus, foreground and distance both sharp like a stopped-down lens",
+      "negative_fragment": "not sharp front to back",
+      "search_boost": 1.3,
+      "sort_order": 72
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.bokeh_heavy",
+      "category": "lens",
+      "label": "Heavy bokeh",
+      "aliases": [
+        "bokeh",
+        "heavy bokeh",
+        "creamy bokeh",
+        "bokeh balls",
+        "light orbs",
+        "blurry lights in background",
+        "circle highlights",
+        "boke",
+        "bokah",
+        "dreamy blurred lights"
+      ],
+      "related": [
+        "lens.shallow_depth_of_field",
+        "lens.anamorphic_like",
+        "lens.85mm_like"
+      ],
+      "parent": null,
+      "children": [],
+      "description": "The out-of-focus areas are not merely blurred but decorative: bright points behind the subject bloom into soft rounded discs of light.",
+      "examples": [
+        "city lights behind a face turning into glowing circles",
+        "fairy lights melting into soft globes"
+      ],
+      "conflicts_with": ["lens.deep_focus"],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "heavy bokeh, background highlights blooming into soft rounded discs, reminiscent of a fast portrait lens",
+      "negative_fragment": "no pronounced bokeh highlights",
+      "search_boost": 1.5,
+      "sort_order": 74
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.soft_focus",
+      "category": "lens",
+      "label": "Soft focus",
+      "aliases": [
+        "soft focus",
+        "diffusion filter",
+        "dreamy soft",
+        "hazy glow",
+        "pro mist",
+        "black pro-mist",
+        "glowy highlights",
+        "misty lens",
+        "soft filter look",
+        "gauzy"
+      ],
+      "related": [
+        "lens.bokeh_heavy",
+        "lens.shallow_depth_of_field",
+        "lens.tilt_shift_like",
+        "lens.lens_flare"
+      ],
+      "parent": null,
+      "children": [],
+      "description": "The whole picture keeps its shapes but loses its hard edges, with bright areas glowing gently outwards, the way an old portrait or a diffusion filter looks.",
+      "examples": [
+        "a window-lit portrait with a gentle halo around the highlights",
+        "a hazy, romantic close-up with no crisp edges"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "soft-focus rendering, highlights glowing gently, reminiscent of a diffusion filter",
+      "negative_fragment": "no soft-focus diffusion, keep edges crisp",
+      "search_boost": 1.2,
+      "sort_order": 76
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.focus_pull",
+      "category": "lens",
+      "label": "Focus pull",
+      "aliases": [
+        "focus pull",
+        "rack focus",
+        "rack-focus",
+        "pull focus",
+        "focus shift",
+        "focus changes during the shot",
+        "shift focus to background",
+        "rackfocus",
+        "focus transition"
+      ],
+      "related": [
+        "lens.shallow_depth_of_field",
+        "lens.bokeh_heavy",
+        "camera_motion.dolly_in"
+      ],
+      "parent": null,
+      "children": [],
+      "description": "During the shot the sharp area travels from one thing to another, for example from a hand in the foreground to the face behind it, moving the viewer's attention without moving the camera. It only exists in moving footage.",
+      "examples": [
+        "focus drifting from the raindrops on the glass to the face beyond",
+        "sharpness handing over from the speaker to the listener"
+      ],
+      "conflicts_with": ["lens.deep_focus"],
+      "exclusivity_group": null,
+      "media_scope": ["video"],
+      "prompt_fragment": "a focus pull shifting sharpness from one plane to another, rack-focus-like",
+      "negative_fragment": "no focus pull, hold focus throughout",
+      "search_boost": 1.2,
+      "sort_order": 78
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.compressed_perspective",
+      "category": "lens",
+      "label": "Compressed perspective",
+      "aliases": [
+        "compression",
+        "compressed perspective",
+        "flattened depth",
+        "background looks closer",
+        "layers stacked together",
+        "lens compression",
+        "telephoto compression",
+        "flat perspective",
+        "squashed depth"
+      ],
+      "related": [
+        "lens.telephoto_like",
+        "lens.tele_200mm_like",
+        "lens.135mm_like"
+      ],
+      "parent": null,
+      "children": [],
+      "description": "Distant layers appear stacked almost on top of one another, so a far-off building or a crowd looks much closer to the subject than it really is. This is the main visual cue that a long lens was used.",
+      "examples": [
+        "a sunset sun looking enormous directly behind a walking figure",
+        "a row of parked cars squashed into a single flat band"
+      ],
+      "conflicts_with": [
+        "lens.barrel_distortion",
+        "lens.ultra_wide_like",
+        "lens.ultra_wide_14mm_like",
+        "lens.wide_like",
+        "lens.wide_24mm_like",
+        "lens.fisheye_like"
+      ],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "compressed perspective stacking the background close behind the subject, like a long lens",
+      "negative_fragment": "no telephoto compression",
+      "search_boost": 1.2,
+      "sort_order": 80
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.barrel_distortion",
+      "category": "lens",
+      "label": "Barrel distortion",
+      "aliases": [
+        "barrel distortion",
+        "bowed lines",
+        "curved straight lines",
+        "lens distortion",
+        "edges stretched",
+        "wide angle distortion",
+        "warped edges",
+        "barell distortion",
+        "bulging edges"
+      ],
+      "related": [
+        "lens.fisheye_like",
+        "lens.ultra_wide_like",
+        "lens.wide_24mm_like"
+      ],
+      "parent": null,
+      "children": [],
+      "description": "Straight lines such as door frames and horizons bow gently outwards and objects near the edge of the frame look stretched, a side effect of very wide lenses.",
+      "examples": [
+        "a doorway subtly bowing at the edge of the picture",
+        "a face near the frame edge looking slightly pulled sideways"
+      ],
+      "conflicts_with": [
+        "lens.compressed_perspective",
+        "lens.telephoto_like",
+        "lens.tele_200mm_like"
+      ],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "slight barrel distortion bowing straight lines outward, like a wide-angle lens",
+      "negative_fragment": "no barrel distortion, keep straight lines straight",
+      "search_boost": 1,
+      "sort_order": 82
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.vignetting",
+      "category": "lens",
+      "label": "Vignetting",
+      "aliases": [
+        "vignette",
+        "vignetting",
+        "dark corners",
+        "darkened edges",
+        "corner falloff",
+        "shadowed frame edges",
+        "vignet",
+        "vignetting effect",
+        "edges fade to black"
+      ],
+      "related": [
+        "lens.soft_focus",
+        "lens.anamorphic_like",
+        "lens.shallow_depth_of_field"
+      ],
+      "parent": null,
+      "children": [],
+      "description": "The corners of the picture sit noticeably darker than the middle, which quietly pushes the viewer's eye towards the centre.",
+      "examples": [
+        "a portrait whose corners fall gently into shadow",
+        "a film still with darkened frame edges"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "gentle corner vignetting, like a fast lens shot wide open",
+      "negative_fragment": "no vignetting, even brightness to the corners",
+      "search_boost": 1,
+      "sort_order": 84
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.lens_flare",
+      "category": "lens",
+      "label": "Lens flare",
+      "aliases": [
+        "lens flare",
+        "flare",
+        "sun flare",
+        "light streaks",
+        "glare into the lens",
+        "rainbow ghosting",
+        "shooting into the sun",
+        "lensflare",
+        "flair",
+        "veiling glare"
+      ],
+      "related": [
+        "lens.anamorphic_flare",
+        "lens.soft_focus",
+        "lens.vignetting"
+      ],
+      "parent": null,
+      "children": [],
+      "description": "A bright light source just inside or outside the frame scatters inside the lens, throwing streaks, coloured blobs or a milky haze across the picture.",
+      "examples": [
+        "a low sun throwing a streak across a face",
+        "a street lamp casting a coloured ghost across the frame"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "lens flare streaking from a bright light source, similar to an uncoated vintage lens",
+      "negative_fragment": "no lens flare",
+      "search_boost": 1.3,
+      "sort_order": 86
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lens.anamorphic_flare",
+      "category": "lens",
+      "label": "Anamorphic flare",
+      "aliases": [
+        "anamorphic flare",
+        "blue streak",
+        "horizontal flare",
+        "blue horizontal light streak",
+        "jj abrams flare",
+        "sci fi lens streak",
+        "cinematic blue flare",
+        "anamorfic flare",
+        "streaky highlight"
+      ],
+      "related": [
+        "lens.anamorphic_like",
+        "lens.lens_flare",
+        "lens.bokeh_heavy"
+      ],
+      "parent": null,
+      "children": [],
+      "description": "The signature horizontal blue-white streak that shoots sideways out of every bright light, the most recognisable trait of wide cinema lenses.",
+      "examples": [
+        "a headlamp drawing a long blue line across a night frame",
+        "a practical bulb streaking sideways behind an actor"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "horizontal blue streak flares from bright lights, anamorphic-like",
+      "negative_fragment": "no anamorphic streak flares",
+      "search_boost": 1.3,
+      "sort_order": 88
+    }
+  ]
+}

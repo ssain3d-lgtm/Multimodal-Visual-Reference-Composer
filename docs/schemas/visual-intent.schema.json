@@ -1,0 +1,2868 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.uvrc.dev/v1/visual-intent.schema.json",
+  "title": "VisualIntent",
+  "description": "The single structured representation that EVERY input mode (text, image, video, reference card, preset, recipe) converts into - identity pillar 2. Exactly the 20 keys the brief fixes: 19 array-valued visual categories plus the per-category `confidence` map. No more keys, no fewer; all 20 are REQUIRED and arrays may be empty, so every consumer can index any category without a null check.\n\nARRAY ELEMENT TYPE (canonical decision): each element is an IntentChip OBJECT, not a bare string. Bare strings make the product impossible: Selective Inheritance needs to know WHICH reference contributed a value (ref_id), the conflict UI needs to show two competing values with their sources side by side, 'AI output is a proposal, never a commitment' needs per-chip confidence and per-chip lock/edit, and video provenance needs a timespan. A bare string carries none of that, so a string-typed intent would collapse the product into the prompt builder the brief forbids.\n\nCOMPACT FORM: $defs/compact is the interop/export profile where every element is a bare taxonomy id. It is lossless with respect to the SEMANTIC PAYLOAD (the exact set of taxonomy ids per category, which is all a generation prompt depends on) and lossy only with respect to provenance metadata (source, ref_id, confidence, lock, evidence). Round-trip guarantee: compact -> normalizeVisualIntent -> compactVisualIntent returns the identical document.\n\nNORMALIZE CONTRACT - normalizeVisualIntent(input, ctx) -> VisualIntent (full):\n  input : anything matching $defs/ingest (partial, compact, full, or mixed)\n  ctx   : { taxonomy, default_source='user', default_ref_id=null, now, locale }\n  1. Fill every missing key of the 20 with [] (confidence with {}).\n  2. String element s -> { value:s, label: taxonomy[s].label ?? humanize(s), source: ctx.default_source, confidence: (source==='user' ? 1.0 : 0.5), locked:false }.\n  3. Object element -> fill label from taxonomy, confidence default as in (2), locked default false, custom default false.\n  4. Rewrite deprecated ids to replaced_by and append {from,to} to the returned rewrites log.\n  5. Move any props.* value found outside `scene` into `scene` with origin_category='props'.\n  6. Deduplicate by (category, value): keep max confidence, union contributors[], OR the locked flags, keep the earliest created_at. Duplicates are AGREEMENT, never conflict.\n  7. Sort each array by (order asc, confidence desc, value asc) for stable diffing.\n  8. Recompute confidence[c] via aggConfidence unless the caller passed keep_confidence=true.\n  Idempotent: normalize(normalize(x)) deep-equals normalize(x). Total: it never throws on a valid ingest document; unknown taxonomy ids become custom:true chips rather than errors.\n\nVisualIntent carries no schema_version of its own because that would be a 21st key. It is a VALUE OBJECT, always embedded in a versioned container (ExplorerState, VisualRecipe, history entry) - or wrapped in $defs/document when it must be persisted or exported standalone.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "subject",
+    "appearance",
+    "framing",
+    "camera_angle",
+    "camera_distance",
+    "lens",
+    "pose",
+    "action",
+    "motion",
+    "camera_motion",
+    "clothing",
+    "scene",
+    "lighting",
+    "composition",
+    "color",
+    "mood",
+    "style",
+    "time",
+    "weather",
+    "confidence"
+  ],
+  "properties": {
+    "subject": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^subject\\."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "Who or what is depicted. Multi-valued: a frame may hold several subjects."
+    },
+    "appearance": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^appearance\\."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "Physical attributes of the subject(s): hair, skin, age band, build, facial hair, makeup. Multi-valued facets."
+    },
+    "framing": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^framing\\."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "Shot type / how much of the subject the frame contains (close_up, medium_shot, wide_shot, full_body, two_shot). SINGLE-DOMINANT: a shot is one shot type. Distinct from camera_distance, which is the physical subject-to-camera distance band."
+    },
+    "camera_angle": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^camera_angle\\."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "Vertical/lateral viewpoint relative to the subject (low_angle, high_angle, eye_level, birds_eye, worms_eye). SINGLE-DOMINANT. Modifier nodes such as camera_angle.dutch_tilt carry exclusivity_group=null and never conflict."
+    },
+    "camera_distance": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^camera_distance\\."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "Physical subject-to-camera distance band (macro, near, mid, far, distant). SINGLE-DOMINANT. Kept separate from framing because a long lens at distance and a wide lens up close can produce the same framing with very different rendering."
+    },
+    "lens": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^lens\\."
+                }
+              }
+            }
+          },
+          {
+            "$comment": "INV-LENS-1: a value naming a focal length must carry the _like hedge.",
+            "if": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "[0-9]+mm"
+                }
+              },
+              "required": [
+                "value"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "pattern": "_like$"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "Optical character. HONESTY RULE: any value naming a focal length MUST end in _like (lens.35mm_like) and its label/prompt_fragment must be hedged ('35mm-like perspective'). Never assert EXIF the product cannot know. SINGLE-DOMINANT."
+    },
+    "pose": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^pose\\."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "Body configuration of the subject (standing_contrapposto, sitting_cross_legged, leaning_on_wall). SINGLE-DOMINANT for base poses; limb/head modifier nodes (pose.arms_crossed, pose.head_tilted) carry exclusivity_group=null and coexist freely."
+    },
+    "action": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^action\\."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "What the subject is semantically doing (drinking_coffee, looking_back, reading). Multi-valued: actions compose."
+    },
+    "motion": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^motion\\."
+                }
+              }
+            }
+          },
+          {
+            "$comment": "INV-VID-3: a still may only evidence IMPLIED subject motion (still_inferable nodes) and never above 0.6 confidence.",
+            "if": {
+              "properties": {
+                "source": {
+                  "const": "analyzer_image"
+                }
+              },
+              "required": [
+                "source"
+              ]
+            },
+            "then": {
+              "required": [
+                "evidence"
+              ],
+              "properties": {
+                "confidence": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 0.6
+                },
+                "evidence": {
+                  "properties": {
+                    "kind": {
+                      "const": "implied"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "SUBJECT motion, including implied motion visible in a still (hair_movement, clothing_movement) and locomotion (walking, running) plus a speed band. Multi-valued with exclusivity groups 'locomotion' and 'speed'."
+    },
+    "camera_motion": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^camera_motion\\."
+                }
+              }
+            }
+          },
+          {
+            "$comment": "INV-VID-1: a single still frame cannot evidence camera movement. analyzer_image may never author a camera_motion chip.",
+            "not": {
+              "properties": {
+                "source": {
+                  "const": "analyzer_image"
+                }
+              },
+              "required": [
+                "source"
+              ]
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "CAMERA movement over time (dolly_in, pan_left, orbit, handheld, push_in). Video-only evidence: see INV-VID-1/2. Multi-valued because compound moves are real ('dolly in while panning left'); camera_motion.static conflicts_with every other node."
+    },
+    "clothing": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^clothing\\."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "Garments, materials, fit and wardrobe styling. Multi-valued with per-slot exclusivity groups (garment_top, garment_bottom, garment_outer, garment_full_body, footwear, headwear)."
+    },
+    "scene": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^(scene|props)\\."
+                }
+              }
+            }
+          },
+          {
+            "$comment": "A chip whose value is in the props.* namespace MUST declare origin_category='props' so the round-trip back to a Reference or ReferenceMix is lossless.",
+            "if": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^props\\."
+                }
+              },
+              "required": [
+                "value"
+              ]
+            },
+            "then": {
+              "required": [
+                "origin_category"
+              ],
+              "properties": {
+                "origin_category": {
+                  "const": "props"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "Location, setting and environmental content. Multi-valued with exclusivity groups 'interiority' (indoor vs outdoor) and 'location'. ALSO the carrier category for inherited 'props' chips (chip.origin_category='props'), because the brief fixes VisualIntent at 20 keys."
+    },
+    "lighting": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^lighting\\."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "Light quality, direction and setup. Multi-valued with exclusivity groups 'key_level' (high_key vs low_key) and 'light_direction'."
+    },
+    "composition": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^composition\\."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "Frame geometry and arrangement. Multi-valued; exclusivity group 'frame_geometry' makes rule_of_thirds and centered_composition conflict while leading_lines and negative_space coexist."
+    },
+    "color": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^color\\."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "Palette, grade and color relationships. Multi-valued (assignment-mandated)."
+    },
+    "mood": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^mood\\."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "Emotional register. Multi-valued (assignment-mandated)."
+    },
+    "style": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^style\\."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "Aesthetic / medium / genre / era. Multi-valued (assignment-mandated)."
+    },
+    "time": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^time\\."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "Time of day or era-of-day the shot depicts (golden_hour, blue_hour, midday, night). SINGLE-DOMINANT: one shot happens at one time."
+    },
+    "weather": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/intent_chip"
+          },
+          {
+            "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+            "if": {
+              "properties": {
+                "custom": {
+                  "const": true
+                }
+              },
+              "required": [
+                "custom"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^weather\\."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "default": [],
+      "description": "Dominant meteorological condition (sunny, overcast, rain, snow). SINGLE-DOMINANT for the dominant condition; secondary atmospherics (weather.fog, weather.mist, weather.haze) are modifier nodes with exclusivity_group=null so 'rain + fog' never registers as a conflict."
+    },
+    "confidence": {
+      "type": "object",
+      "description": "PER-CATEGORY AGGREGATE confidence, category -> [0,1]. Per-VALUE confidence lives on each chip (IntentChip.confidence); this map answers 'how well do we believe this category is characterised at all', which is what the UI needs to grey out or flag a whole chip row. Default aggregation aggConfidence(c): 1.0 if any chip in c has locked=true or source='user'; otherwise max(chip.confidence) over the category, rounded to 3 decimals; absent (or 0) when the category array is empty. It is a STORED ADVISORY CACHE: writers may override it, readers must recompute after any chip edit.",
+      "propertyNames": {
+        "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/intent_category"
+      },
+      "additionalProperties": {
+        "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/unit_interval"
+      },
+      "default": {}
+    }
+  },
+  "$defs": {
+    "chip_source": {
+      "description": "Provenance of a chip. Answers 'who put this here', which the per-chip provenance UI renders and which precedence rules read.",
+      "oneOf": [
+        {
+          "const": "user",
+          "title": "user",
+          "description": "Typed, picked from browse, or hand-edited by the person. Highest precedence; never overwritten by a mix."
+        },
+        {
+          "const": "analyzer_image",
+          "title": "analyzer_image",
+          "description": "Produced by the image analyzer adapter over a still. Forbidden in camera_motion; capped at 0.6 with evidence.kind='implied' in motion."
+        },
+        {
+          "const": "analyzer_video",
+          "title": "analyzer_video",
+          "description": "Produced by the video analyzer adapter. The only source allowed to author camera_motion, and the only one that can carry a t_start_s/t_end_s timespan."
+        },
+        {
+          "const": "analyzer_text",
+          "title": "analyzer_text",
+          "description": "Produced by parsing/expanding a free-text query into taxonomy ids."
+        },
+        {
+          "const": "reference",
+          "title": "reference",
+          "description": "Inherited from a Reference's stored visual_attributes through a ReferenceMix (Selective Inheritance). ref_id is REQUIRED."
+        },
+        {
+          "const": "preset",
+          "title": "preset",
+          "description": "Came from a saved preset in data/presets.json."
+        },
+        {
+          "const": "query_expansion",
+          "title": "query_expansion",
+          "description": "Added automatically by alias/related-hop expansion of the user's query. Always low confidence and always removable in one click."
+        },
+        {
+          "const": "recipe",
+          "title": "recipe",
+          "description": "Restored from a loaded VisualRecipe."
+        },
+        {
+          "const": "mix_resolution",
+          "title": "mix_resolution",
+          "description": "Materialised by a user resolving a conflict (choosing a dominant reference). ref_id is REQUIRED and points at the winner."
+        },
+        {
+          "const": "inferred",
+          "title": "inferred",
+          "description": "Derived by a deterministic rule with no model involved (e.g. framing.close_up implies camera_distance.near). Never above 0.5 confidence."
+        }
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Where a chip came from inside the medium. This is what lets a video reference say 'the dolly-in happens between 1.2s and 3.4s' - an image reference structurally cannot fill the temporal fields.",
+      "properties": {
+        "kind": {
+          "enum": [
+            "observed",
+            "implied",
+            "stated",
+            "derived"
+          ],
+          "description": "observed = directly visible/measurable; implied = inferred from a static cue such as motion blur; stated = asserted by the user or by source metadata; derived = produced by a deterministic rule."
+        },
+        "bbox": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "minItems": 4,
+          "maxItems": 4,
+          "description": "[x, y, w, h] normalised to 0..1 in the source frame."
+        },
+        "t_start_s": {
+          "type": "number",
+          "minimum": 0,
+          "description": "VIDEO ONLY. Start of the interval evidencing this chip."
+        },
+        "t_end_s": {
+          "type": "number",
+          "minimum": 0,
+          "description": "VIDEO ONLY. End of the interval. MUST be >= t_start_s."
+        },
+        "frame_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "shot_index": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "VIDEO ONLY. Index into Reference.media.shot_boundaries."
+        },
+        "keyframe_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Thumbnail/keyframe URL used as the chip's visual proof. Never a data: URI of full media - binaries are never stored."
+        },
+        "detector": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "Adapter instance id that produced the evidence (e.g. 'analyzer-adapter:local@2'), NOT a hardcoded model name."
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 500
+        }
+      },
+      "dependentRequired": {
+        "t_end_s": [
+          "t_start_s"
+        ]
+      }
+    },
+    "intent_chip": {
+      "type": "object",
+      "additionalProperties": false,
+      "title": "IntentChip",
+      "description": "One value inside one VisualIntent category. Rendered by src/ui/intent-chips.js.",
+      "required": [
+        "value",
+        "source"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/chip_id",
+          "description": "Optional stable instance id (chip_...). Required only when the chip must be addressed across undo/redo or across a conflict record."
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "description": "A taxonomy id (default) or free text when custom=true."
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "description": "Display text. Derived from taxonomy[value].label when absent; user-editable without changing value. Lens example: value 'lens.35mm_like' -> label '35mm-like perspective'."
+        },
+        "source": {
+          "$ref": "#/$defs/chip_source"
+        },
+        "confidence": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/unit_interval",
+          "description": "Per-VALUE confidence in [0,1]. Defaults: 1.0 for source='user', 0.5 for analyzer/expansion sources when the adapter reports nothing."
+        },
+        "ref_id": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id",
+          "description": "The reference this chip was inherited from. REQUIRED when source is 'reference' or 'mix_resolution'."
+        },
+        "locked": {
+          "type": "boolean",
+          "default": false,
+          "description": "User pinned this value: applyMix, re-analysis and query expansion MUST NOT remove, replace or re-rank it. A locked chip still participates in conflict DISPLAY."
+        },
+        "origin_category": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category",
+          "description": "The category this chip semantically belongs to when it differs from the array it is stored in. Only legal use today: props.* chips stored in `scene`. Keeps Reference <-> intent round-trips lossless."
+        },
+        "custom": {
+          "type": "boolean",
+          "default": false,
+          "description": "True when value is free text outside the taxonomy. Custom chips are never used for structured metadata matching; they still reach the prompt and the keyword index."
+        },
+        "negate": {
+          "type": "boolean",
+          "default": false,
+          "description": "Exclusion. A chip with negate=true routes to the StructuredPrompt `constraints` slot regardless of its category, emitting negative_fragment (or 'no <prompt_fragment>')."
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Explicit ordering within the category. Primary use: an ordered camera_motion sequence ('dolly in, then pan left' = two chips, order 0 and 1, disjoint evidence timespans)."
+        },
+        "weight": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/unit_interval",
+          "default": 1,
+          "description": "Emphasis hint for formatters that support weighting. Never affects conflict detection."
+        },
+        "evidence": {
+          "$ref": "#/$defs/evidence"
+        },
+        "alternatives": {
+          "type": "array",
+          "default": [],
+          "description": "Runner-up values the analyzer considered. Powers the 'proposal, not commitment' swap menu.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "value"
+            ],
+            "properties": {
+              "value": {
+                "type": "string",
+                "maxLength": 120
+              },
+              "label": {
+                "type": "string",
+                "maxLength": 160
+              },
+              "confidence": {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/unit_interval"
+              }
+            }
+          }
+        },
+        "contributors": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id"
+          },
+          "default": [],
+          "description": "Every reference that contributed this same value. Two references agreeing is AGREEMENT, not conflict; the UI shows '2 references agree'."
+        },
+        "contested": {
+          "type": "boolean",
+          "default": false,
+          "description": "DERIVED CACHE. True when this chip participates in an open conflict in the active ReferenceMix. MUST be recomputed on load; never trusted from storage."
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "created_at": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime"
+        },
+        "updated_at": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime"
+        },
+        "x_ext": {
+          "type": "object"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "custom": {
+                "const": true
+              }
+            },
+            "required": [
+              "custom"
+            ]
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "value": {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "INV-INT-3: an inherited chip must name its source reference.",
+          "if": {
+            "properties": {
+              "source": {
+                "enum": [
+                  "reference",
+                  "mix_resolution"
+                ]
+              }
+            },
+            "required": [
+              "source"
+            ]
+          },
+          "then": {
+            "required": [
+              "ref_id"
+            ]
+          }
+        },
+        {
+          "$comment": "INV-INT-4: deterministic inference is never presented as strong evidence.",
+          "if": {
+            "properties": {
+              "source": {
+                "const": "inferred"
+              }
+            },
+            "required": [
+              "source"
+            ]
+          },
+          "then": {
+            "properties": {
+              "confidence": {
+                "type": "number",
+                "maximum": 0.5
+              }
+            }
+          }
+        }
+      ]
+    },
+    "compact": {
+      "title": "VisualIntentCompact",
+      "description": "Interop/export profile: every element is a bare taxonomy id string. Same 20 required keys. Lossless for the semantic payload, lossy for provenance. Produced by compactVisualIntent(full) = { c: unique(chips.map(ch => ch.value)).filter(v => !ch.custom && !ch.negate) }; custom and negated chips are dropped with a warning because they have no taxonomy id to carry.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "subject",
+        "appearance",
+        "framing",
+        "camera_angle",
+        "camera_distance",
+        "lens",
+        "pose",
+        "action",
+        "motion",
+        "camera_motion",
+        "clothing",
+        "scene",
+        "lighting",
+        "composition",
+        "color",
+        "mood",
+        "style",
+        "time",
+        "weather",
+        "confidence"
+      ],
+      "properties": {
+        "subject": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^subject\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "Who or what is depicted. Multi-valued: a frame may hold several subjects."
+        },
+        "appearance": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^appearance\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "Physical attributes of the subject(s): hair, skin, age band, build, facial hair, makeup. Multi-valued facets."
+        },
+        "framing": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^framing\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "Shot type / how much of the subject the frame contains (close_up, medium_shot, wide_shot, full_body, two_shot). SINGLE-DOMINANT: a shot is one shot type. Distinct from camera_distance, which is the physical subject-to-camera distance band."
+        },
+        "camera_angle": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^camera_angle\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "Vertical/lateral viewpoint relative to the subject (low_angle, high_angle, eye_level, birds_eye, worms_eye). SINGLE-DOMINANT. Modifier nodes such as camera_angle.dutch_tilt carry exclusivity_group=null and never conflict."
+        },
+        "camera_distance": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^camera_distance\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "Physical subject-to-camera distance band (macro, near, mid, far, distant). SINGLE-DOMINANT. Kept separate from framing because a long lens at distance and a wide lens up close can produce the same framing with very different rendering."
+        },
+        "lens": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^lens\\."
+              },
+              {
+                "if": {
+                  "type": "string",
+                  "pattern": "[0-9]+mm"
+                },
+                "then": {
+                  "pattern": "_like$"
+                }
+              }
+            ]
+          },
+          "default": [],
+          "description": "Optical character. HONESTY RULE: any value naming a focal length MUST end in _like (lens.35mm_like) and its label/prompt_fragment must be hedged ('35mm-like perspective'). Never assert EXIF the product cannot know. SINGLE-DOMINANT."
+        },
+        "pose": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^pose\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "Body configuration of the subject (standing_contrapposto, sitting_cross_legged, leaning_on_wall). SINGLE-DOMINANT for base poses; limb/head modifier nodes (pose.arms_crossed, pose.head_tilted) carry exclusivity_group=null and coexist freely."
+        },
+        "action": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^action\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "What the subject is semantically doing (drinking_coffee, looking_back, reading). Multi-valued: actions compose."
+        },
+        "motion": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^motion\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "SUBJECT motion, including implied motion visible in a still (hair_movement, clothing_movement) and locomotion (walking, running) plus a speed band. Multi-valued with exclusivity groups 'locomotion' and 'speed'."
+        },
+        "camera_motion": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^camera_motion\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "CAMERA movement over time (dolly_in, pan_left, orbit, handheld, push_in). Video-only evidence: see INV-VID-1/2. Multi-valued because compound moves are real ('dolly in while panning left'); camera_motion.static conflicts_with every other node."
+        },
+        "clothing": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^clothing\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "Garments, materials, fit and wardrobe styling. Multi-valued with per-slot exclusivity groups (garment_top, garment_bottom, garment_outer, garment_full_body, footwear, headwear)."
+        },
+        "scene": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^(scene|props)\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "Location, setting and environmental content. Multi-valued with exclusivity groups 'interiority' (indoor vs outdoor) and 'location'. ALSO the carrier category for inherited 'props' chips (chip.origin_category='props'), because the brief fixes VisualIntent at 20 keys."
+        },
+        "lighting": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^lighting\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "Light quality, direction and setup. Multi-valued with exclusivity groups 'key_level' (high_key vs low_key) and 'light_direction'."
+        },
+        "composition": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^composition\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "Frame geometry and arrangement. Multi-valued; exclusivity group 'frame_geometry' makes rule_of_thirds and centered_composition conflict while leading_lines and negative_space coexist."
+        },
+        "color": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^color\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "Palette, grade and color relationships. Multi-valued (assignment-mandated)."
+        },
+        "mood": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^mood\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "Emotional register. Multi-valued (assignment-mandated)."
+        },
+        "style": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^style\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "Aesthetic / medium / genre / era. Multi-valued (assignment-mandated)."
+        },
+        "time": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^time\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "Time of day or era-of-day the shot depicts (golden_hour, blue_hour, midday, night). SINGLE-DOMINANT: one shot happens at one time."
+        },
+        "weather": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+              },
+              {
+                "type": "string",
+                "pattern": "^weather\\."
+              }
+            ]
+          },
+          "default": [],
+          "description": "Dominant meteorological condition (sunny, overcast, rain, snow). SINGLE-DOMINANT for the dominant condition; secondary atmospherics (weather.fog, weather.mist, weather.haze) are modifier nodes with exclusivity_group=null so 'rain + fog' never registers as a conflict."
+        },
+        "confidence": {
+          "type": "object",
+          "description": "PER-CATEGORY AGGREGATE confidence, category -> [0,1]. Per-VALUE confidence lives on each chip (IntentChip.confidence); this map answers 'how well do we believe this category is characterised at all', which is what the UI needs to grey out or flag a whole chip row. Default aggregation aggConfidence(c): 1.0 if any chip in c has locked=true or source='user'; otherwise max(chip.confidence) over the category, rounded to 3 decimals; absent (or 0) when the category array is empty. It is a STORED ADVISORY CACHE: writers may override it, readers must recompute after any chip edit.",
+          "propertyNames": {
+            "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/intent_category"
+          },
+          "additionalProperties": {
+            "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/unit_interval"
+          },
+          "default": {}
+        }
+      }
+    },
+    "ingest": {
+      "title": "VisualIntentIngest",
+      "description": "The permissive wire shape accepted by normalizeVisualIntent: any subset of the 20 keys, elements may be bare ids, chips, or a mix. NEVER persist this shape.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "subject": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^subject\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^subject\\."
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "appearance": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^appearance\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^appearance\\."
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "framing": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^framing\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^framing\\."
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "camera_angle": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^camera_angle\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^camera_angle\\."
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "camera_distance": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^camera_distance\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^camera_distance\\."
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "lens": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^lens\\."
+                  },
+                  {
+                    "if": {
+                      "type": "string",
+                      "pattern": "[0-9]+mm"
+                    },
+                    "then": {
+                      "pattern": "_like$"
+                    }
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^lens\\."
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$comment": "INV-LENS-1: a value naming a focal length must carry the _like hedge.",
+                    "if": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "[0-9]+mm"
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "pattern": "_like$"
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "pose": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^pose\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^pose\\."
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "action": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^action\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^action\\."
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "motion": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^motion\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^motion\\."
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$comment": "INV-VID-3: a still may only evidence IMPLIED subject motion (still_inferable nodes) and never above 0.6 confidence.",
+                    "if": {
+                      "properties": {
+                        "source": {
+                          "const": "analyzer_image"
+                        }
+                      },
+                      "required": [
+                        "source"
+                      ]
+                    },
+                    "then": {
+                      "required": [
+                        "evidence"
+                      ],
+                      "properties": {
+                        "confidence": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 0.6
+                        },
+                        "evidence": {
+                          "properties": {
+                            "kind": {
+                              "const": "implied"
+                            }
+                          },
+                          "required": [
+                            "kind"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "camera_motion": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^camera_motion\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^camera_motion\\."
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$comment": "INV-VID-1: a single still frame cannot evidence camera movement. analyzer_image may never author a camera_motion chip.",
+                    "not": {
+                      "properties": {
+                        "source": {
+                          "const": "analyzer_image"
+                        }
+                      },
+                      "required": [
+                        "source"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "clothing": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^clothing\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^clothing\\."
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "scene": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^(scene|props)\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^(scene|props)\\."
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$comment": "A chip whose value is in the props.* namespace MUST declare origin_category='props' so the round-trip back to a Reference or ReferenceMix is lossless.",
+                    "if": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^props\\."
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ]
+                    },
+                    "then": {
+                      "required": [
+                        "origin_category"
+                      ],
+                      "properties": {
+                        "origin_category": {
+                          "const": "props"
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "lighting": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^lighting\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^lighting\\."
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "composition": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^composition\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^composition\\."
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "color": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^color\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^color\\."
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "mood": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^mood\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^mood\\."
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "style": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^style\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^style\\."
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "time": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^time\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^time\\."
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "weather": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^weather\\."
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/intent_chip"
+                  },
+                  {
+                    "$comment": "INV-INT-2 namespace rule: a chip's taxonomy namespace must equal its array category (scene additionally accepts props.* carried via origin_category).",
+                    "if": {
+                      "properties": {
+                        "custom": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "custom"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "pattern": "^weather\\."
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "default": []
+        },
+        "confidence": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/intent_category"
+          },
+          "additionalProperties": {
+            "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/unit_interval"
+          }
+        }
+      }
+    },
+    "document": {
+      "title": "VisualIntentDocument",
+      "description": "Envelope for persisting or exporting a standalone VisualIntent. Exists so VisualIntent itself can stay at exactly 20 keys while every PERSISTED object still carries schema_version.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "kind",
+        "form",
+        "intent"
+      ],
+      "properties": {
+        "schema_version": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/schema_version"
+        },
+        "kind": {
+          "const": "visual_intent"
+        },
+        "form": {
+          "enum": [
+            "full",
+            "compact"
+          ],
+          "description": "Which profile `intent` conforms to."
+        },
+        "intent": {
+          "anyOf": [
+            {
+              "$ref": "https://schema.uvrc.dev/v1/visual-intent.schema.json"
+            },
+            {
+              "$ref": "#/$defs/compact"
+            }
+          ],
+          "description": "Either profile; `form` is the discriminator and the allOf below pins it. anyOf (not oneOf) because a sparsely-populated intent can legitimately satisfy both profiles."
+        },
+        "created_at": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime"
+        },
+        "created_by": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "source_explorer_id": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/explorer_id"
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 2000
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "form": {
+                "const": "compact"
+              }
+            },
+            "required": [
+              "form"
+            ]
+          },
+          "then": {
+            "properties": {
+              "intent": {
+                "$ref": "#/$defs/compact"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "intent": {
+                "$ref": "https://schema.uvrc.dev/v1/visual-intent.schema.json"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

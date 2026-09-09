@@ -1,0 +1,1149 @@
+{
+  "schema_version": "1.0",
+  "categories": ["motion"],
+  "version": 1,
+  "updated_at": "2026-09-09T00:00:00Z",
+  "nodes": [
+    {
+      "schema_version": "1.0",
+      "id": "motion.locomotion",
+      "category": "motion",
+      "label": "Locomotion",
+      "aliases": [
+        "locomotion",
+        "moving through space",
+        "body movement",
+        "the subject is moving",
+        "person in motion",
+        "travelling movement",
+        "on the move",
+        "locomotive movement",
+        "lokomotion"
+      ],
+      "related": [
+        "motion.walking",
+        "motion.running",
+        "motion.speed",
+        "motion.motion_quality"
+      ],
+      "parent": null,
+      "children": [
+        "motion.standing",
+        "motion.walking",
+        "motion.running",
+        "motion.sitting",
+        "motion.jumping",
+        "motion.falling",
+        "motion.dancing",
+        "motion.turning",
+        "motion.approaching_camera",
+        "motion.moving_away_from_camera"
+      ],
+      "description": "The branch for what the body itself is doing — whether the subject is still, travelling across the ground, or changing level. Motion is a video-first attribute: a clip shows it directly, while a photograph can only hint at it, so pick a specific child node when you know which movement you mean.",
+      "examples": [
+        "a figure crossing the frame on foot",
+        "a dancer moving across a stage"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "moving through the space",
+      "negative_fragment": "no movement through the space",
+      "search_boost": 0.9,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.standing",
+      "category": "motion",
+      "label": "Standing",
+      "aliases": [
+        "standing",
+        "standing still",
+        "stood up",
+        "upright",
+        "on their feet",
+        "not moving",
+        "stationary",
+        "person standing still",
+        "standig"
+      ],
+      "related": [
+        "motion.walking",
+        "motion.sitting",
+        "motion.locomotion",
+        "motion.frozen_action"
+      ],
+      "parent": "motion.locomotion",
+      "children": [],
+      "description": "The subject is upright on their feet and is not travelling anywhere, so any movement left in the shot comes from small shifts, hair or clothing. A single still frame can show this reliably, which makes it one of the few motion values a photo evidences well.",
+      "examples": [
+        "someone standing still on a street corner",
+        "a figure holding position while the wind moves their coat"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "locomotion",
+      "media_scope": ["image", "video"],
+      "still_inferable": true,
+      "prompt_fragment": "standing still",
+      "negative_fragment": "not standing still",
+      "search_boost": 1.2,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.walking",
+      "category": "motion",
+      "label": "Walking",
+      "aliases": [
+        "walking",
+        "walk",
+        "strolling",
+        "stepping",
+        "person walking",
+        "walking down the street",
+        "pacing",
+        "striding",
+        "walkign",
+        "wlaking"
+      ],
+      "related": [
+        "motion.running",
+        "motion.standing",
+        "motion.approaching_camera",
+        "motion.medium_speed"
+      ],
+      "parent": "motion.locomotion",
+      "children": [],
+      "description": "The subject travels on foot at an ordinary pace, with one foot always in contact with the ground. This reads clearly in video; in a photo it can be confused with simply standing, so treat a still-image guess as a hint rather than a fact.",
+      "examples": [
+        "walking along a wet pavement at night",
+        "stepping through a crowd without hurrying"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "locomotion",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "walking",
+      "negative_fragment": "not walking",
+      "search_boost": 1.4,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.running",
+      "category": "motion",
+      "label": "Running",
+      "aliases": [
+        "running",
+        "run",
+        "sprinting",
+        "jogging",
+        "dashing",
+        "person running",
+        "running fast",
+        "sprint",
+        "runing",
+        "runnning"
+      ],
+      "related": [
+        "motion.walking",
+        "motion.jumping",
+        "motion.fast",
+        "motion.motion_blur"
+      ],
+      "parent": "motion.locomotion",
+      "children": [],
+      "description": "The subject travels on foot quickly, with a stride that lifts both feet off the ground at once. A still frame can evidence it through an airborne stride or streaked motion blur, but a clip shows it far more convincingly.",
+      "examples": [
+        "sprinting across an empty car park",
+        "jogging along a riverside path at dawn"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "locomotion",
+      "media_scope": ["image", "video"],
+      "still_inferable": true,
+      "prompt_fragment": "running",
+      "negative_fragment": "not running",
+      "search_boost": 1.4,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.sitting",
+      "category": "motion",
+      "label": "Sitting",
+      "aliases": [
+        "sitting",
+        "seated",
+        "sitting down",
+        "sat down",
+        "taking a seat",
+        "person sitting",
+        "sitting on a chair",
+        "siting"
+      ],
+      "related": [
+        "motion.standing",
+        "motion.locomotion",
+        "motion.falling",
+        "motion.slow"
+      ],
+      "parent": "motion.locomotion",
+      "children": [],
+      "description": "The subject is seated, or is in the act of lowering themselves into a seat, so the body is at rest and supported rather than travelling. Because the seated state holds still, a photograph evidences it just as well as a video.",
+      "examples": [
+        "seated on a café step with a coffee",
+        "lowering into a chair by a window"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "locomotion",
+      "media_scope": ["image", "video"],
+      "still_inferable": true,
+      "prompt_fragment": "sitting",
+      "negative_fragment": "not sitting",
+      "search_boost": 1.2,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.jumping",
+      "category": "motion",
+      "label": "Jumping",
+      "aliases": [
+        "jumping",
+        "jump",
+        "leaping",
+        "hopping",
+        "mid-air",
+        "in the air",
+        "jumping shot",
+        "airborne",
+        "jumpin"
+      ],
+      "related": [
+        "motion.running",
+        "motion.falling",
+        "motion.frozen_action",
+        "motion.sharp"
+      ],
+      "parent": "motion.locomotion",
+      "children": [],
+      "description": "The subject pushes off the ground and is airborne for a moment before landing. A still frame catches this well because being off the ground is visible in one image, though only a clip shows the take-off and landing.",
+      "examples": [
+        "caught mid-air over a puddle",
+        "a jump shot against a bright sky"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "locomotion",
+      "media_scope": ["image", "video"],
+      "still_inferable": true,
+      "prompt_fragment": "jumping in mid-air",
+      "negative_fragment": "not jumping",
+      "search_boost": 1.3,
+      "sort_order": 60
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.falling",
+      "category": "motion",
+      "label": "Falling",
+      "aliases": [
+        "falling",
+        "fall",
+        "dropping",
+        "tumbling",
+        "collapsing",
+        "falling down",
+        "free fall",
+        "falling backwards",
+        "faling"
+      ],
+      "related": [
+        "motion.jumping",
+        "motion.sitting",
+        "motion.fast",
+        "motion.staggered"
+      ],
+      "parent": "motion.locomotion",
+      "children": [],
+      "description": "The subject is dropping downward without control, pulled by gravity rather than stepping or jumping deliberately. Hair, limbs and clothing streaming upward can imply it in a photograph, but the direction of travel is only certain in video.",
+      "examples": [
+        "tumbling backwards onto soft ground",
+        "a figure falling through open air"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "locomotion",
+      "media_scope": ["image", "video"],
+      "still_inferable": true,
+      "prompt_fragment": "falling",
+      "negative_fragment": "not falling",
+      "search_boost": 1.1,
+      "sort_order": 70
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.dancing",
+      "category": "motion",
+      "label": "Dancing",
+      "aliases": [
+        "dancing",
+        "dance",
+        "dance move",
+        "swaying to music",
+        "choreography",
+        "person dancing",
+        "grooving",
+        "dancin",
+        "danceing"
+      ],
+      "related": [
+        "motion.rhythmic",
+        "motion.turning",
+        "motion.fluid",
+        "motion.clothing_movement"
+      ],
+      "parent": "motion.locomotion",
+      "children": [],
+      "description": "The subject moves expressively and usually in time to music, mixing steps, turns and gestures rather than simply travelling from A to B. This is strongly video-first: the pattern over time is the point, and one frame only shows a single pose from it.",
+      "examples": [
+        "dancing alone in a small lit room",
+        "a choreographed sequence across a studio floor"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "locomotion",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "dancing",
+      "negative_fragment": "not dancing",
+      "search_boost": 1.4,
+      "sort_order": 80
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.turning",
+      "category": "motion",
+      "label": "Turning",
+      "aliases": [
+        "turning",
+        "turn",
+        "spinning",
+        "twirling",
+        "rotating",
+        "turning around",
+        "looking over the shoulder",
+        "pivoting",
+        "turing"
+      ],
+      "related": [
+        "motion.dancing",
+        "motion.walking",
+        "motion.fluid",
+        "camera_motion.orbit"
+      ],
+      "parent": "motion.locomotion",
+      "children": [],
+      "description": "The subject rotates on the spot, changing which way the body or head faces — a spin, a pivot, or a glance back over the shoulder. Because the whole point is the change of facing, it needs video to be seen; a still only shows where the turn happened to stop.",
+      "examples": [
+        "spinning so a coat flares outward",
+        "turning back to look at the camera mid-walk"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "locomotion",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "turning",
+      "negative_fragment": "not turning",
+      "search_boost": 1.2,
+      "sort_order": 90
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.approaching_camera",
+      "category": "motion",
+      "label": "Moving toward camera",
+      "aliases": [
+        "walking toward the camera",
+        "approaching camera",
+        "coming closer",
+        "moving towards camera",
+        "walking at the camera",
+        "getting bigger in frame",
+        "advancing",
+        "walking towards the lens"
+      ],
+      "related": [
+        "motion.moving_away_from_camera",
+        "motion.walking",
+        "camera_motion.dolly_in",
+        "camera_motion.push_in"
+      ],
+      "parent": "motion.locomotion",
+      "children": [],
+      "description": "The subject travels toward the lens and so grows larger in the frame over time. Note that this is the subject moving, not the camera: if the camera does the travelling instead, that belongs in camera motion as a dolly or push in.",
+      "examples": [
+        "walking straight at the lens down a corridor",
+        "stepping forward out of a dark background"
+      ],
+      "conflicts_with": ["motion.moving_away_from_camera"],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "moving toward the camera",
+      "negative_fragment": "not moving toward the camera",
+      "search_boost": 1.2,
+      "sort_order": 100
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.moving_away_from_camera",
+      "category": "motion",
+      "label": "Moving away from camera",
+      "aliases": [
+        "walking away",
+        "moving away from camera",
+        "receding",
+        "walking off",
+        "leaving the frame",
+        "getting smaller in frame",
+        "back to camera walking",
+        "departing"
+      ],
+      "related": [
+        "motion.approaching_camera",
+        "motion.walking",
+        "camera_motion.dolly_out",
+        "camera_motion.pull_out"
+      ],
+      "parent": "motion.locomotion",
+      "children": [],
+      "description": "The subject travels away from the lens and shrinks in the frame, often ending with their back to us. As with moving toward camera, this describes the subject's travel; a camera that pulls back instead is camera motion.",
+      "examples": [
+        "walking away down an empty platform",
+        "receding into fog with their back to us"
+      ],
+      "conflicts_with": ["motion.approaching_camera"],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "moving away from the camera",
+      "negative_fragment": "not moving away from the camera",
+      "search_boost": 1.2,
+      "sort_order": 110
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.gesture",
+      "category": "motion",
+      "label": "Gesture",
+      "aliases": [
+        "gesture",
+        "gesturing",
+        "hand movement",
+        "hand gesture",
+        "arm movement",
+        "moving hands",
+        "gesticulating",
+        "gestrue"
+      ],
+      "related": [
+        "motion.reaching",
+        "motion.waving",
+        "motion.pointing",
+        "motion.locomotion"
+      ],
+      "parent": null,
+      "children": [
+        "motion.reaching",
+        "motion.waving",
+        "motion.pointing"
+      ],
+      "description": "The branch for movements of the hands, arms or head that communicate something, rather than moving the whole body somewhere. Gestures sit happily alongside locomotion — someone can walk and wave at once — so choosing one never rules out a travelling movement.",
+      "examples": [
+        "hands moving while talking",
+        "a small greeting made with one hand"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "gesturing",
+      "negative_fragment": "no gesturing",
+      "search_boost": 1.1,
+      "sort_order": 200
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.reaching",
+      "category": "motion",
+      "label": "Reaching",
+      "aliases": [
+        "reaching",
+        "reaching out",
+        "extending a hand",
+        "stretching an arm out",
+        "arm outstretched",
+        "reaching for something",
+        "grabbing for",
+        "reachin"
+      ],
+      "related": [
+        "motion.gesture",
+        "motion.pointing",
+        "motion.waving",
+        "motion.fluid"
+      ],
+      "parent": "motion.gesture",
+      "children": [],
+      "description": "An arm extends outward toward something or someone, whether or not the subject actually takes hold of it. In video the extension has a beginning and an end; in a photo you only see how far the arm had got.",
+      "examples": [
+        "reaching out toward the lens",
+        "an arm stretching toward a shelf just out of frame"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "reaching out with one arm",
+      "negative_fragment": "not reaching out",
+      "search_boost": 1,
+      "sort_order": 210
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.waving",
+      "category": "motion",
+      "label": "Waving",
+      "aliases": [
+        "waving",
+        "wave",
+        "waving hello",
+        "hand wave",
+        "greeting gesture",
+        "saying goodbye",
+        "waiving",
+        "wavin"
+      ],
+      "related": [
+        "motion.gesture",
+        "motion.reaching",
+        "motion.rhythmic",
+        "motion.pointing"
+      ],
+      "parent": "motion.gesture",
+      "children": [],
+      "description": "A raised hand moves side to side in greeting or farewell, a small repeated movement rather than a whole-body one. The repetition is what makes it a wave, so it is far clearer in a clip than in one frame.",
+      "examples": [
+        "waving from across a street",
+        "a small goodbye wave from a train window"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "waving one hand",
+      "negative_fragment": "not waving",
+      "search_boost": 1,
+      "sort_order": 220
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.pointing",
+      "category": "motion",
+      "label": "Pointing",
+      "aliases": [
+        "pointing",
+        "point",
+        "pointing at something",
+        "indicating with a finger",
+        "finger pointing",
+        "showing direction",
+        "pointing off screen",
+        "pointng"
+      ],
+      "related": [
+        "motion.gesture",
+        "motion.reaching",
+        "motion.waving",
+        "motion.sharp"
+      ],
+      "parent": "motion.gesture",
+      "children": [],
+      "description": "An extended finger or hand directs attention to something, often to a place outside the frame. It reads well in a single frame, but a clip also shows the moment the attention shifts.",
+      "examples": [
+        "pointing at something beyond the edge of frame",
+        "indicating a distant building with one hand"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "pointing at something",
+      "negative_fragment": "not pointing",
+      "search_boost": 1,
+      "sort_order": 230
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.secondary_motion",
+      "category": "motion",
+      "label": "Secondary motion",
+      "aliases": [
+        "secondary motion",
+        "follow through",
+        "things moving on the body",
+        "hair and fabric movement",
+        "trailing movement",
+        "secondry motion",
+        "loose parts moving"
+      ],
+      "related": [
+        "motion.hair_movement",
+        "motion.clothing_movement",
+        "motion.motion_blur",
+        "motion.fluid"
+      ],
+      "parent": null,
+      "children": [
+        "motion.hair_movement",
+        "motion.clothing_movement"
+      ],
+      "description": "The branch for movement that belongs to loose parts of the subject — hair, fabric, straps — dragged along by the body or by the wind rather than driven on purpose. These are the motion values a single photograph evidences best, because the frozen shape of moving hair or cloth is visible in one frame.",
+      "examples": [
+        "hair and coat still moving after the body stops",
+        "loose fabric trailing a step behind the wearer"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "still_inferable": true,
+      "prompt_fragment": "secondary movement in the hair and clothing",
+      "negative_fragment": "no secondary movement in hair or clothing",
+      "search_boost": 1,
+      "sort_order": 300
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.hair_movement",
+      "category": "motion",
+      "label": "Hair movement",
+      "aliases": [
+        "hair movement",
+        "hair moving",
+        "hair blowing",
+        "windswept hair",
+        "hair in the wind",
+        "flowing hair",
+        "hair flip",
+        "hair mid air",
+        "hairmovement"
+      ],
+      "related": [
+        "motion.clothing_movement",
+        "motion.secondary_motion",
+        "motion.turning",
+        "motion.motion_blur"
+      ],
+      "parent": "motion.secondary_motion",
+      "children": [],
+      "description": "The subject's hair lifts, swings or streams because of wind or because the head and body just moved. A photograph can genuinely show this — hair caught mid-air is real evidence of movement — so it is one of the few motion values worth trusting from a still.",
+      "examples": [
+        "hair lifted sideways by a gust",
+        "a hair flip caught at its widest point"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "still_inferable": true,
+      "prompt_fragment": "hair moving through the air",
+      "negative_fragment": "no hair movement",
+      "search_boost": 1.3,
+      "sort_order": 310
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.clothing_movement",
+      "category": "motion",
+      "label": "Clothing movement",
+      "aliases": [
+        "clothing movement",
+        "fabric movement",
+        "clothes moving",
+        "coat flaring",
+        "dress flowing",
+        "fabric flutter",
+        "skirt swirling",
+        "billowing fabric",
+        "cloth movement"
+      ],
+      "related": [
+        "motion.hair_movement",
+        "motion.secondary_motion",
+        "motion.dancing",
+        "motion.fluid"
+      ],
+      "parent": "motion.secondary_motion",
+      "children": [],
+      "description": "Garments flare, billow or trail because the wearer moved or the wind caught them, which is why a coat can look alive while the person barely does. Like hair movement, this is legible in one photograph, so a still can support it with reasonable confidence.",
+      "examples": [
+        "an open coat flaring out mid-turn",
+        "a long skirt swirling around the legs"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "still_inferable": true,
+      "prompt_fragment": "clothing flowing with the movement",
+      "negative_fragment": "no clothing movement",
+      "search_boost": 1.3,
+      "sort_order": 320
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.motion_quality",
+      "category": "motion",
+      "label": "Movement quality",
+      "aliases": [
+        "movement quality",
+        "motion quality",
+        "how the movement feels",
+        "quality of movement",
+        "movement character",
+        "motion style",
+        "movment quality"
+      ],
+      "related": [
+        "motion.fluid",
+        "motion.sharp",
+        "motion.rhythmic",
+        "motion.speed"
+      ],
+      "parent": null,
+      "children": [
+        "motion.rhythmic",
+        "motion.fluid",
+        "motion.sharp",
+        "motion.staggered",
+        "motion.looping",
+        "motion.motion_blur",
+        "motion.frozen_action"
+      ],
+      "description": "The branch for how a movement feels rather than what the movement is — smooth or abrupt, even or jerky, repeating or one-off. Quality values sit alongside a locomotion value instead of replacing it, so you can ask for walking that is also slow and fluid.",
+      "examples": [
+        "the same walk performed smoothly or jerkily",
+        "movement that keeps returning to the same beat"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "movement with a distinct quality",
+      "negative_fragment": "no distinct movement quality",
+      "search_boost": 0.9,
+      "sort_order": 400
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.rhythmic",
+      "category": "motion",
+      "label": "Rhythmic movement",
+      "aliases": [
+        "rhythmic",
+        "rhythmic movement",
+        "in time to music",
+        "on the beat",
+        "repeating movement",
+        "pulsing motion",
+        "steady beat",
+        "rythmic",
+        "rhythmical"
+      ],
+      "related": [
+        "motion.looping",
+        "motion.dancing",
+        "motion.fluid",
+        "motion.motion_quality"
+      ],
+      "parent": "motion.motion_quality",
+      "children": [],
+      "description": "The movement repeats on a steady beat, so it feels measured and musical rather than random. Rhythm only exists across time, which makes this a video-first value that no single frame can show.",
+      "examples": [
+        "steps landing exactly on a beat",
+        "a shoulder bounce repeating at a fixed interval"
+      ],
+      "conflicts_with": ["motion.staggered"],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "rhythmic, repeating movement",
+      "negative_fragment": "not rhythmic movement",
+      "search_boost": 1.1,
+      "sort_order": 410
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.fluid",
+      "category": "motion",
+      "label": "Fluid movement",
+      "aliases": [
+        "fluid",
+        "fluid movement",
+        "smooth movement",
+        "graceful",
+        "flowing motion",
+        "liquid movement",
+        "effortless movement",
+        "gliding",
+        "fluide"
+      ],
+      "related": [
+        "motion.sharp",
+        "motion.rhythmic",
+        "motion.slow",
+        "motion.motion_quality"
+      ],
+      "parent": "motion.motion_quality",
+      "children": [],
+      "description": "The movement flows continuously with no visible stops or jerks, the way a dancer or a swimmer moves. It is judged over time, so it belongs to video; a photo can suggest it through a soft, unbroken line of the body.",
+      "examples": [
+        "an arm sweeping in one unbroken curve",
+        "a turn that never seems to start or stop"
+      ],
+      "conflicts_with": ["motion.sharp", "motion.staggered"],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "smooth, fluid movement",
+      "negative_fragment": "not smooth or fluid movement",
+      "search_boost": 1.2,
+      "sort_order": 420
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.sharp",
+      "category": "motion",
+      "label": "Sharp movement",
+      "aliases": [
+        "sharp",
+        "sharp movement",
+        "snappy",
+        "abrupt movement",
+        "sudden movement",
+        "staccato",
+        "punchy motion",
+        "quick hit",
+        "sharpe"
+      ],
+      "related": [
+        "motion.fluid",
+        "motion.fast",
+        "motion.staggered",
+        "motion.motion_quality"
+      ],
+      "parent": "motion.motion_quality",
+      "children": [],
+      "description": "The movement starts and stops suddenly, hitting clean positions instead of flowing between them — think a snappy dance move rather than a gliding one. The abrupt stop is a change over time, so this reads properly only in video.",
+      "examples": [
+        "an arm snapping into position and holding",
+        "a head turn that stops dead on the beat"
+      ],
+      "conflicts_with": ["motion.fluid"],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "sharp, sudden movement",
+      "negative_fragment": "not sharp or sudden movement",
+      "search_boost": 1.1,
+      "sort_order": 430
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.staggered",
+      "category": "motion",
+      "label": "Staggered movement",
+      "aliases": [
+        "staggered",
+        "staggered movement",
+        "jerky",
+        "uneven movement",
+        "stuttering motion",
+        "stop start movement",
+        "unsteady",
+        "lurching",
+        "staggerd"
+      ],
+      "related": [
+        "motion.sharp",
+        "motion.fluid",
+        "motion.falling",
+        "motion.motion_quality"
+      ],
+      "parent": "motion.motion_quality",
+      "children": [],
+      "description": "The movement keeps breaking into uneven starts and stops, so it feels unsteady, stuttering or off balance. Because the unevenness only appears across several moments, it is a video-first quality.",
+      "examples": [
+        "an unsteady, lurching walk",
+        "a stop-start stutter across the frame"
+      ],
+      "conflicts_with": ["motion.fluid", "motion.rhythmic"],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "uneven, staggered movement",
+      "negative_fragment": "not staggered or uneven movement",
+      "search_boost": 1,
+      "sort_order": 440
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.looping",
+      "category": "motion",
+      "label": "Looping movement",
+      "aliases": [
+        "looping",
+        "looping movement",
+        "loopable",
+        "seamless loop",
+        "cyclical motion",
+        "repeats seamlessly",
+        "gif loop",
+        "cinemagraph",
+        "loopign"
+      ],
+      "related": [
+        "motion.rhythmic",
+        "motion.turning",
+        "motion.motion_quality",
+        "motion.medium_speed"
+      ],
+      "parent": "motion.motion_quality",
+      "children": [],
+      "description": "The movement ends where it began, so the clip can repeat without a visible join — the quality wanted for loops and cinemagraphs. This is purely temporal and has no meaning for a single photograph.",
+      "examples": [
+        "a swaying motion that returns to its start",
+        "a short cycle built to repeat seamlessly"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "looping movement that returns to where it began",
+      "negative_fragment": "not a looping movement",
+      "search_boost": 1.1,
+      "sort_order": 450
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.motion_blur",
+      "category": "motion",
+      "label": "Motion blur",
+      "aliases": [
+        "motion blur",
+        "blurred movement",
+        "movement blur",
+        "smeared motion",
+        "long exposure movement",
+        "speed blur",
+        "motionblur",
+        "moton blur"
+      ],
+      "related": [
+        "motion.frozen_action",
+        "motion.running",
+        "motion.fast",
+        "motion.secondary_motion"
+      ],
+      "parent": "motion.motion_quality",
+      "children": [],
+      "description": "The moving subject smears across the frame because it travelled while the shutter was open, which is what movement looks like when a camera cannot freeze it. This is the clearest evidence of motion a single photograph can carry.",
+      "examples": [
+        "a running figure smeared against sharp surroundings",
+        "hands blurred while the face stays still"
+      ],
+      "conflicts_with": ["motion.frozen_action"],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "still_inferable": true,
+      "prompt_fragment": "movement smeared into motion blur",
+      "negative_fragment": "no motion blur",
+      "search_boost": 1.4,
+      "sort_order": 460
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.frozen_action",
+      "category": "motion",
+      "label": "Frozen action",
+      "aliases": [
+        "frozen action",
+        "frozen motion",
+        "action frozen",
+        "sharp action shot",
+        "high shutter speed",
+        "crisp movement",
+        "stopped motion",
+        "freeze frame",
+        "frozen aciton"
+      ],
+      "related": [
+        "motion.motion_blur",
+        "motion.jumping",
+        "motion.sharp",
+        "motion.standing"
+      ],
+      "parent": "motion.motion_quality",
+      "children": [],
+      "description": "The movement is caught perfectly crisp with no smearing, as if time stopped in the middle of the action — splashing water or an airborne stride rendered sharply. A photograph shows this directly; in video it describes a held or stepped moment.",
+      "examples": [
+        "a jump caught razor sharp at its peak",
+        "water droplets held still in mid-flight"
+      ],
+      "conflicts_with": ["motion.motion_blur"],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "still_inferable": true,
+      "prompt_fragment": "action frozen mid-movement",
+      "negative_fragment": "action not frozen",
+      "search_boost": 1.2,
+      "sort_order": 470
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.speed",
+      "category": "motion",
+      "label": "Movement speed",
+      "aliases": [
+        "speed",
+        "movement speed",
+        "how fast the movement is",
+        "pace",
+        "tempo",
+        "motion speed",
+        "spead",
+        "speed of motion"
+      ],
+      "related": [
+        "motion.slow",
+        "motion.medium_speed",
+        "motion.fast",
+        "motion.motion_quality"
+      ],
+      "parent": null,
+      "children": [
+        "motion.slow",
+        "motion.medium_speed",
+        "motion.fast"
+      ],
+      "description": "The branch for the pace of the movement, kept separate from what the movement is so that any action can be asked for slow, moderate or fast. Only one speed band belongs to one movement, so picking two will be surfaced as a decision to make rather than silently merged.",
+      "examples": [
+        "the same walk taken slowly or briskly",
+        "a turn performed at a lazy pace"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "movement at a distinct pace",
+      "negative_fragment": "no distinct pace to the movement",
+      "search_boost": 0.9,
+      "sort_order": 500
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.slow",
+      "category": "motion",
+      "label": "Slow movement",
+      "aliases": [
+        "slow",
+        "slow movement",
+        "slowly",
+        "slow motion",
+        "slow-mo",
+        "slowmo",
+        "unhurried",
+        "lazy pace",
+        "languid",
+        "slo mo"
+      ],
+      "related": [
+        "motion.medium_speed",
+        "motion.fast",
+        "motion.fluid",
+        "motion.speed"
+      ],
+      "parent": "motion.speed",
+      "children": [],
+      "description": "The movement takes its time, drifting or dragging rather than hurrying, which usually reads as calm, heavy or deliberate. Users often type 'slow motion' here too, meaning footage played back slower than life, and both senses land on this value.",
+      "examples": [
+        "a slow drift across the frame",
+        "an unhurried turn of the head"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "speed",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "moving slowly",
+      "negative_fragment": "not moving slowly",
+      "search_boost": 1.3,
+      "sort_order": 510
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.medium_speed",
+      "category": "motion",
+      "label": "Medium-speed movement",
+      "aliases": [
+        "medium speed",
+        "moderate pace",
+        "normal speed",
+        "walking pace",
+        "steady pace",
+        "average speed",
+        "real time speed",
+        "medium-speed",
+        "mid speed"
+      ],
+      "related": [
+        "motion.slow",
+        "motion.fast",
+        "motion.walking",
+        "motion.speed"
+      ],
+      "parent": "motion.speed",
+      "children": [],
+      "description": "The movement runs at an ordinary, everyday pace — neither dragging nor rushing — which is how most real footage plays. It is the neutral choice when speed is not the interesting part of the shot.",
+      "examples": [
+        "an ordinary walking pace across a room",
+        "a natural, real-time gesture"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "speed",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "moving at a moderate pace",
+      "negative_fragment": "not moving at a moderate pace",
+      "search_boost": 1,
+      "sort_order": 520
+    },
+    {
+      "schema_version": "1.0",
+      "id": "motion.fast",
+      "category": "motion",
+      "label": "Fast movement",
+      "aliases": [
+        "fast",
+        "fast movement",
+        "quick",
+        "rapid movement",
+        "speedy",
+        "high speed",
+        "moving quickly",
+        "hurried",
+        "fast paced",
+        "faast"
+      ],
+      "related": [
+        "motion.medium_speed",
+        "motion.slow",
+        "motion.running",
+        "motion.motion_blur"
+      ],
+      "parent": "motion.speed",
+      "children": [],
+      "description": "The movement is quick and urgent, covering ground or changing position faster than everyday pace. In video the speed is directly visible; in a photo it usually shows up as motion blur rather than as speed itself.",
+      "examples": [
+        "a fast dash through a doorway",
+        "rapid hand movement that blurs slightly"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "speed",
+      "media_scope": ["image", "video"],
+      "prompt_fragment": "moving fast",
+      "negative_fragment": "not moving fast",
+      "search_boost": 1.3,
+      "sort_order": 530
+    }
+  ]
+}

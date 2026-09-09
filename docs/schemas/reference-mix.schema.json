@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.uvrc.dev/v1/reference-mix.schema.json",
+  "title": "ReferenceMix",
+  "description": "Identity pillars 4 and 5: take composition from A, clothing from B, lighting from C, motion from video D, and combine the partial attributes of several references into ONE intent. This is the structure that makes the product not-a-similar-image-search.\n\nINTEROP MINIMUM (from the brief) STAYS VALID AS-IS:\n  { \"references\": [ { \"reference_id\": \"img_A\", \"use\": [\"composition\",\"camera_angle\"] } ] }\nEvery extension below is optional with a defined default, so that document validates unchanged. Only `references` is required at the root. Persisted mixes additionally carry schema_version and id - validate those against $defs/persisted.\n\nCONFLICT DOCTRINE (non-negotiable, from the brief): conflicts are DETECTED and SURFACED, never auto-resolved and never silently dropped. Both conflicting values remain present in the resolved VisualIntent, flagged contested, until a human chooses. resolution_policy.auto_resolve therefore defaults to false and resolution_policy.on_unresolved defaults to 'block'.\n\napplyMix(mix, referencesById, base_intent, taxonomy) -> { intent, conflicts }:\n  1. intent := deep copy of base_intent. Chips with source='user' or locked=true are IMMOVABLE: the mix may add alongside them and may raise a conflict against them, but may never remove or rewrite them.\n  2. Entries are processed in order of (priority DESC, then array position ASC).\n  3. For each entry, expand `use`: the token '*' expands to every category present in that reference's visual_attributes; EXTRACT group names are expanded by the UI before they reach this schema (see extract_group_map in taxonomy-node.schema.json).\n  4. For each expanded category c and each taxonomy id v in reference.visual_attributes[c], minus `exclude`, and intersected with `only` when `only` is non-empty, materialise an IntentChip { value: v, label: taxonomy[v].label, source: 'reference', ref_id: entry.reference_id, confidence: clamp01((attribute_meta[v].confidence ?? 0.7) * entry.weight), origin_category: c }. props.* chips are written into the `scene` array with origin_category='props'.\n  5. Deduplicate by (target_array, value): AGREEMENT, not conflict - keep max confidence and union contributors[].\n  6. Detect conflicts (see $defs/conflict.kind). Append to conflicts[]; set contested=true on every participating chip. Nothing is deleted.\n  7. Recompute intent.confidence via aggConfidence.\n  applyMix is pure and deterministic: same inputs always produce the same intent and the same conflict ids.",
+  "type": "object",
+  "unevaluatedProperties": false,
+  "required": ["references"],
+  "properties": {
+    "schema_version": {
+      "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/schema_version",
+      "description": "OPTIONAL here and only here, because the brief's interop minimum has no version field. Absent means 'assume the reader's current MAJOR.MINOR'. REQUIRED on any mix this product persists - see $defs/persisted."
+    },
+    "id": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/mix_id", "description": "mix_<slug>." },
+    "name": { "type": "string", "maxLength": 200 },
+    "description": { "type": "string", "maxLength": 2000 },
+    "references": {
+      "type": "array",
+      "description": "The mix entries, one per participating reference. A reference may appear at most once: INV-MIX-1, reference_id is unique across entries. Order is meaningful only as the tie-break after priority.",
+      "items": { "$ref": "#/$defs/mix_entry" },
+      "default": []
+    },
+    "conflicts": {
+      "type": "array",
+      "description": "DERIVED CACHE of detected conflicts. Recomputed by applyMix on every load and on every entry/intent change; stored so an unresolved conflict and its human resolution survive a reload. A stored conflict whose candidates no longer exist is discarded on recompute.",
+      "items": { "$ref": "#/$defs/conflict" },
+      "default": []
+    },
+    "dominance": {
+      "type": "object",
+      "description": "Per-category dominance record: category -> reference_id that wins that category. Set by the user (or by an explicit policy) and CONSULTED FIRST by conflict resolution - a category with a dominance entry resolves silently to that reference and produces no open conflict. This is how 'which should be dominant?' is remembered instead of being asked again on every edit.",
+      "propertyNames": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category" },
+      "additionalProperties": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id" },
+      "default": {}
+    },
+    "resolution_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "How unresolved conflicts behave. Defaults implement the brief's doctrine exactly.",
+      "properties": {
+        "auto_resolve": { "type": "boolean", "default": false, "description": "MUST default to false. When false, no conflict is ever resolved without a human choice." },
+        "default_strategy": { "enum": ["ask", "priority", "weight", "first", "last"], "default": "ask", "description": "Only consulted when auto_resolve is true." },
+        "on_unresolved": {
+          "enum": ["block", "highest_priority", "drop"],
+          "default": "block",
+          "description": "What formatPrompt does with a category that still has an open conflict. 'block' (default) refuses to emit that slot and returns it in blocked[], so the UI must resolve first - the honest behaviour. 'highest_priority' and 'drop' are explicit user opt-ins and MUST be surfaced in the UI when active."
+        }
+      },
+      "default": {}
+    },
+    "created_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+    "updated_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+    "x_ext": { "type": "object" }
+  },
+  "$defs": {
+    "use_token": {
+      "description": "A visual category, or the wildcard '*' meaning 'every category this reference actually has' (the USE-everything action on a reference card). EXTRACT group names are expanded to categories by the UI before storage.",
+      "anyOf": [
+        { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category" },
+        { "const": "*" }
+      ]
+    },
+    "mix_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reference_id", "use"],
+      "description": "One reference's contribution. reference_id + use is the brief's interop minimum; everything else is optional with a default.",
+      "properties": {
+        "reference_id": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id" },
+        "use": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/use_token" },
+          "description": "Which categories to inherit from this reference. An empty array means the entry contributes nothing (it is still shown, e.g. a pinned reference kept for context)."
+        },
+        "weight": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/unit_interval",
+          "default": 1,
+          "description": "Multiplies the confidence of every chip this entry contributes. Soft influence: affects ranking of agreeing values and the 'weight' resolution strategy. NEVER silently resolves a conflict."
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000,
+          "default": 0,
+          "description": "Hard ordering. Higher wins under the 'priority' strategy and determines processing order. Two entries with equal priority fall back to array position. Priority alone does NOT auto-resolve anything while auto_resolve is false."
+        },
+        "pinned": {
+          "type": "boolean",
+          "default": false,
+          "description": "The reference stays in the mix and in the explorer's pinned tray across searches, mode switches and result-set changes. A pinned entry is never evicted by a new search."
+        },
+        "exclude": {
+          "type": "array", "uniqueItems": true, "default": [],
+          "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id" },
+          "description": "Attribute-level opt-out: inherit the category but drop these specific taxonomy ids. Enables 'take this outfit but not the hat'."
+        },
+        "only": {
+          "type": "array", "uniqueItems": true, "default": [],
+          "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id" },
+          "description": "Attribute-level allow-list. When non-empty, only these ids are inherited (still restricted to the `use` categories). Applied before `exclude`."
+        },
+        "role": {
+          "type": "string", "maxLength": 60,
+          "description": "Free-form human label for what this reference is for in the mix ('composition anchor', 'outfit', 'camera work'). UI affordance only.",
+          "examples": ["composition anchor", "outfit", "lighting", "camera work", "motion"]
+        },
+        "note": { "type": "string", "maxLength": 500 },
+        "added_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" }
+      }
+    },
+    "conflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["category", "candidates"],
+      "description": "Two or more references contributing incompatible values to the same category.",
+      "properties": {
+        "id": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/conflict_id",
+          "description": "Deterministic so a resolution survives recomputation: cfl_ + sha1(category + '|' + (group ?? '') + '|' + sorted(candidate values).join(',')).slice(0,12)."
+        },
+        "category": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category" },
+        "kind": {
+          "enum": ["arity", "exclusivity_group", "explicit"],
+          "description": "arity = the category is single_dominant and two different non-modifier values arrived from different references. exclusivity_group = two values in a multi category share a non-null taxonomy exclusivity_group (two tops, two locomotion states, high_key vs low_key). explicit = the taxonomy declares conflicts_with between the two ids, possibly across categories."
+        },
+        "group": { "type": ["string", "null"], "default": null, "description": "The exclusivity_group involved, when kind = exclusivity_group." },
+        "candidates": {
+          "type": "array", "minItems": 2,
+          "description": "Every competing value with the reference that supplied it, so the UI can render 'A says low angle / B says high angle' with both thumbnails.",
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["value"],
+            "properties": {
+              "reference_id": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id", "description": "Absent only when the competing value came from the user's own base intent rather than a reference." },
+              "value": { "type": "string", "maxLength": 120 },
+              "label": { "type": "string", "maxLength": 160 },
+              "confidence": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/unit_interval" },
+              "weight": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/unit_interval" },
+              "priority": { "type": "integer" },
+              "from_user": { "type": "boolean", "default": false, "description": "True for a locked or user-authored chip. A user candidate is pre-selected in the UI and can only lose by an explicit click." }
+            }
+          }
+        },
+        "status": { "enum": ["open", "resolved", "ignored"], "default": "open", "description": "'ignored' means the user deliberately accepted both values coexisting; it is a decision, not a silent drop, and is remembered." },
+        "resolution": { "$ref": "#/$defs/resolution" },
+        "detected_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" }
+      },
+      "allOf": [
+        {
+          "$comment": "INV-MIX-3: a resolved conflict must record HOW it was resolved.",
+          "if": { "properties": { "status": { "const": "resolved" } }, "required": ["status"] },
+          "then": { "required": ["resolution"] }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "exclusivity_group" } }, "required": ["kind"] },
+          "then": { "properties": { "group": { "type": "string", "minLength": 1 } } }
+        }
+      ]
+    },
+    "resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strategy"],
+      "description": "The dominance decision for one conflict.",
+      "properties": {
+        "winner_reference_id": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id" },
+        "winner_value": { "type": "string", "maxLength": 120, "description": "The taxonomy id (or custom text) that wins. Required unless strategy = 'keep_both'." },
+        "strategy": {
+          "enum": ["user", "priority", "weight", "first", "last", "keep_both"],
+          "description": "'user' is the only strategy reachable while resolution_policy.auto_resolve is false. 'keep_both' records an explicit human decision to let the values coexist."
+        },
+        "disposition": {
+          "enum": ["winner_only", "keep_all"],
+          "default": "winner_only",
+          "description": "winner_only: losing chips are removed from the resolved intent (they remain reconstructible from the mix - the source reference still lists them). keep_all: every value stays and the category simply stops being flagged."
+        },
+        "resolved_by": { "type": "string", "maxLength": 200, "description": "'user' or an operator identifier." },
+        "resolved_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+        "note": { "type": "string", "maxLength": 500 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "strategy": { "not": { "const": "keep_both" } } }, "required": ["strategy"] },
+          "then": { "required": ["winner_value"] }
+        }
+      ]
+    },
+    "persisted": {
+      "title": "PersistedReferenceMix",
+      "description": "Profile for a mix stored on disk or embedded in a VisualRecipe: schema_version and id become mandatory. The interop minimum validates against the ROOT schema, not against this profile.",
+      "allOf": [
+        { "$ref": "https://schema.uvrc.dev/v1/reference-mix.schema.json" },
+        { "type": "object", "required": ["schema_version", "id"] }
+      ]
+    }
+  }
+}

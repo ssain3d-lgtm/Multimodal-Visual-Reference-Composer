@@ -1,0 +1,719 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json",
+  "title": "TaxonomyNode (and shared vocabulary definitions)",
+  "description": "A single node of the visual taxonomy. This file is ALSO the shared vocabulary module for the whole project: the canonical VISUAL_CATEGORY / INTENT_CATEGORY enums, the taxonomy id grammar, id prefixes, license ids, formatter modes, prompt slots, the category-arity table and the category->prompt-slot table live here in $defs and are $ref'd by every other schema. This file intentionally has NO external $ref so it can always be resolved first. Taxonomy nodes power the AI-free product: aliases[] + related[] form the inverted index behind keyword search, prompt_fragment/model_hints are what the formatter emits, conflicts_with[] + exclusivity_group drive conflict detection.",
+  "type": "object",
+  "unevaluatedProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "category",
+    "label"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "#/$defs/schema_version"
+    },
+    "id": {
+      "$ref": "#/$defs/taxonomy_id",
+      "description": "Stable, globally unique, exactly two dotted segments: '<category>.<slug>'. Hierarchy is NEVER encoded in the id (use parent), so re-parenting a node never breaks stored intents, mixes or recipes."
+    },
+    "category": {
+      "$ref": "#/$defs/visual_category",
+      "description": "MUST equal the namespace segment of id."
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120,
+      "description": "Human-readable display text for chips and browse tiles. For lens nodes the label carries the hedge, e.g. id 'lens.35mm_like' -> label '35mm-like perspective'."
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 120
+      },
+      "default": [],
+      "uniqueItems": true,
+      "description": "Alternate spellings, colloquialisms, jargon and misspellings a user might type. Primary fuel for AI-free keyword search. e.g. camera_angle.low_angle -> ['low angle','worm eye','from below','looking up','hero shot']."
+    },
+    "related": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/taxonomy_id"
+      },
+      "default": [],
+      "uniqueItems": true,
+      "description": "Adjacent-but-different nodes. Used for one-hop query expansion in AI-free search and for 'you might also mean' suggestions. NOT a hierarchy edge and NOT a conflict edge."
+    },
+    "parent": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/taxonomy_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Parent node id, or null for a category root. MUST be in the same category. Cycles are forbidden."
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/taxonomy_id"
+      },
+      "default": [],
+      "uniqueItems": true,
+      "description": "Derived cache of child ids; parent is authoritative. Loaders MUST be able to rebuild children from parent."
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Plain-language explanation shown in the browse modal so a user who does not know the term can still choose it visually."
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 300
+      },
+      "default": [],
+      "description": "Short illustrative phrases, e.g. 'shot from knee height looking up at the subject'."
+    },
+    "visual_hint": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/reference_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Reference id whose thumbnail represents this node in the visual browse grid, or null. Serves the 'I don't know what Low Angle means, let me choose it visually' use case."
+    },
+    "visual_hint_pool": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reference_id"
+      },
+      "default": [],
+      "uniqueItems": true,
+      "description": "Optional extra reference ids for a multi-thumbnail browse tile."
+    },
+    "conflicts_with": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/taxonomy_id"
+      },
+      "default": [],
+      "uniqueItems": true,
+      "description": "Explicit pairwise incompatibility, usable ACROSS categories (e.g. clothing.dress conflicts_with clothing.trousers). Conflict detection is the union of: category arity rule, shared exclusivity_group, and this list. SHOULD be declared symmetrically; loaders MUST treat it as symmetric regardless."
+    },
+    "exclusivity_group": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$",
+          "maxLength": 60
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Conflict bucket. Two chips in the same category sharing a non-null exclusivity_group conflict. In a single_dominant category, a node with exclusivity_group=null is a MODIFIER and never conflicts (e.g. camera_angle.dutch_tilt, pose.arms_crossed, weather.fog). Reserved values: garment_top, garment_bottom, garment_outer, garment_full_body, footwear, headwear, locomotion, speed, key_level, light_direction, frame_geometry, interiority, location, camera_move_primary, pose_base, time_of_day, weather_primary, palette_scheme, era."
+    },
+    "media_scope": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "image",
+          "video"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "default": [
+        "image",
+        "video"
+      ],
+      "description": "Which reference media types may legitimately carry this node. camera_motion nodes are video-only."
+    },
+    "still_inferable": {
+      "type": "boolean",
+      "default": false,
+      "description": "Only meaningful for category 'motion'. True when a single still frame can legitimately evidence this node (motion.hair_movement, motion.clothing_movement, motion.jumping mid-air). Gates INV-VID-3: an analyzer_image chip in 'motion' is only valid for a still_inferable node and is capped at confidence 0.6."
+    },
+    "prompt_fragment": {
+      "type": "string",
+      "maxLength": 300,
+      "description": "The exact text the generic formatter emits for this node. Defaults to label when absent. Lens fragments MUST be hedged (see the lens if/then below)."
+    },
+    "negative_fragment": {
+      "type": "string",
+      "maxLength": 300,
+      "description": "Text emitted into the StructuredPrompt 'constraints' slot when a chip carrying this node has negate=true. Falls back to 'no <prompt_fragment>'."
+    },
+    "model_hints": {
+      "type": "object",
+      "propertyNames": {
+        "$ref": "#/$defs/formatter_mode"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "maxLength": 300
+      },
+      "default": {},
+      "description": "Per-formatter-mode override of prompt_fragment. Unknown or missing modes MUST fall back to prompt_fragment, then to label. Model backends are never hardcoded: a new mode is a new key here, no code change."
+    },
+    "search_boost": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 10,
+      "default": 1,
+      "description": "Multiplier applied to the AI-free keyword scorer for this node."
+    },
+    "sort_order": {
+      "type": "integer",
+      "default": 0,
+      "description": "Display order within the parent group; ties broken by label."
+    },
+    "i18n": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[a-z]{2}(-[A-Z]{2})?$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 120
+            }
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1000
+          }
+        }
+      },
+      "default": {},
+      "description": "Localized label/aliases/description. Localized aliases are indexed by keyword search alongside the base aliases. prompt_fragment is NEVER localized."
+    },
+    "deprecated": {
+      "type": "boolean",
+      "default": false,
+      "description": "True when the node must no longer be offered in browse or search results. Existing stored chips remain valid and are displayed with a deprecation marker."
+    },
+    "replaced_by": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/taxonomy_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Successor node id. REQUIRED (non-null) when deprecated is true and a successor exists; normalizeVisualIntent rewrites deprecated values to replaced_by and records the rewrite."
+    },
+    "x_ext": {
+      "type": "object",
+      "description": "Vendor/experimental extension bucket. Never read by core code."
+    }
+  },
+  "allOf": [
+    {
+      "$comment": "INV-TAX-3 / lens honesty rule. A lens node that names a focal length must use the _like suffix, and every lens fragment must be hedged so the product never asserts EXIF it cannot know.",
+      "if": {
+        "properties": {
+          "category": {
+            "const": "lens"
+          }
+        },
+        "required": [
+          "category"
+        ]
+      },
+      "then": {
+        "properties": {
+          "id": {
+            "pattern": "^lens\\.[a-z0-9_]*$"
+          },
+          "prompt_fragment": {
+            "pattern": "(?i)(-like|like a|likeness|reminiscent|approximat|similar to)"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "id": {
+                  "pattern": "^lens\\.[a-z0-9_]*[0-9]+mm"
+                }
+              },
+              "required": [
+                "id"
+              ]
+            },
+            "then": {
+              "properties": {
+                "id": {
+                  "pattern": "_like$"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "$comment": "INV-VID-2 support: camera_motion is a temporal property; only video can evidence it.",
+      "if": {
+        "properties": {
+          "category": {
+            "const": "camera_motion"
+          }
+        },
+        "required": [
+          "category"
+        ]
+      },
+      "then": {
+        "properties": {
+          "media_scope": {
+            "const": [
+              "video"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "$comment": "still_inferable is only meaningful inside category 'motion'.",
+      "if": {
+        "properties": {
+          "still_inferable": {
+            "const": true
+          }
+        },
+        "required": [
+          "still_inferable"
+        ]
+      },
+      "then": {
+        "properties": {
+          "category": {
+            "const": "motion"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "A deprecated node must say so explicitly; replaced_by may be null only when no successor exists.",
+      "if": {
+        "properties": {
+          "replaced_by": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "replaced_by"
+        ]
+      },
+      "then": {
+        "properties": {
+          "deprecated": {
+            "const": true
+          }
+        },
+        "required": [
+          "deprecated"
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$",
+      "description": "MAJOR.MINOR schema version of the persisted object. MAJOR bump = breaking (field removed/renamed/retyped, enum value removed, semantics changed). MINOR bump = additive only. Readers MUST accept any MINOR within the same MAJOR and MUST ignore unknown properties introduced by a higher MINOR; readers MUST refuse or migrate a different MAJOR.",
+      "examples": [
+        "1.0"
+      ]
+    },
+    "iso_datetime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 / ISO 8601 UTC timestamp, e.g. 2026-09-09T12:00:00Z."
+    },
+    "unit_interval": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Confidence or weight in [0,1]."
+    },
+    "id_slug": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,62}$",
+      "description": "Slug body used after every id prefix. Minted ids are ALWAYS lowercase (slugify + hash); mixed case is accepted only so hand-authored fixtures and the brief's own shorthand (img_A) stay valid. Ids are compared case-SENSITIVELY: never mint two ids differing only in case."
+    },
+    "visual_category": {
+      "$comment": "THE canonical category key set. 20 members, brief order. Referenced by VisualIntent, Reference.visual_attributes, ReferenceMix.use, StructuredPrompt mapping and conflict detection.",
+      "enum": [
+        "subject",
+        "appearance",
+        "framing",
+        "camera_angle",
+        "camera_distance",
+        "lens",
+        "pose",
+        "action",
+        "motion",
+        "camera_motion",
+        "clothing",
+        "scene",
+        "lighting",
+        "composition",
+        "color",
+        "mood",
+        "style",
+        "time",
+        "weather",
+        "props"
+      ]
+    },
+    "intent_category": {
+      "$comment": "VISUAL_CATEGORY minus 'props'. These 19 are exactly the array-valued keys of VisualIntent, which the brief fixes at 20 keys (19 arrays + confidence). 'props' remains a first-class taxonomy/reference/mix category and is carried into VisualIntent as a 'scene' chip with origin_category='props'.",
+      "enum": [
+        "subject",
+        "appearance",
+        "framing",
+        "camera_angle",
+        "camera_distance",
+        "lens",
+        "pose",
+        "action",
+        "motion",
+        "camera_motion",
+        "clothing",
+        "scene",
+        "lighting",
+        "composition",
+        "color",
+        "mood",
+        "style",
+        "time",
+        "weather"
+      ]
+    },
+    "taxonomy_id": {
+      "type": "string",
+      "maxLength": 96,
+      "pattern": "^(subject|appearance|framing|camera_angle|camera_distance|lens|pose|action|motion|camera_motion|clothing|scene|lighting|composition|color|mood|style|time|weather|props)\\.[a-z0-9]+(_[a-z0-9]+)*$",
+      "description": "'<visual_category>.<snake_case_slug>'. Exactly two segments. Examples: framing.medium_shot, lens.35mm_like, camera_motion.dolly_in, clothing.oversized_hoodie."
+    },
+    "reference_id": {
+      "type": "string",
+      "pattern": "^(img|vid|ref)_[A-Za-z0-9][A-Za-z0-9_-]{0,62}$",
+      "description": "img_ for images, vid_ for videos, ref_ for type-agnostic ids minted before the media type is known. Readers MUST accept all three; writers SHOULD emit img_/vid_. Minted form: '<img|vid>_' + slugify(source) + '_' + sha256(source+'|'+source_id).slice(0,8)."
+    },
+    "mix_id": {
+      "type": "string",
+      "pattern": "^mix_[A-Za-z0-9][A-Za-z0-9_-]{0,62}$",
+      "description": "A ReferenceMix."
+    },
+    "recipe_id": {
+      "type": "string",
+      "pattern": "^rcp_[A-Za-z0-9][A-Za-z0-9_-]{0,62}$",
+      "description": "A VisualRecipe. Stable across every content revision."
+    },
+    "explorer_id": {
+      "type": "string",
+      "pattern": "^exp_[A-Za-z0-9][A-Za-z0-9_-]{0,62}$",
+      "description": "A persisted/shared ExplorerState session."
+    },
+    "history_entry_id": {
+      "type": "string",
+      "pattern": "^hst_[A-Za-z0-9][A-Za-z0-9_-]{0,62}$",
+      "description": "One navigation history entry."
+    },
+    "chip_id": {
+      "type": "string",
+      "pattern": "^chip_[A-Za-z0-9][A-Za-z0-9_-]{0,62}$",
+      "description": "One IntentChip instance."
+    },
+    "conflict_id": {
+      "type": "string",
+      "pattern": "^cfl_[A-Za-z0-9][A-Za-z0-9_-]{0,62}$",
+      "description": "One detected conflict. Deterministic: cfl_ + sha1(category|group|sorted values).slice(0,12)."
+    },
+    "preset_id": {
+      "type": "string",
+      "pattern": "^pst_[A-Za-z0-9][A-Za-z0-9_-]{0,62}$",
+      "description": "A saved preset in data/presets.json."
+    },
+    "upload_id": {
+      "type": "string",
+      "pattern": "^upl_[A-Za-z0-9][A-Za-z0-9_-]{0,62}$",
+      "description": "Handle for locally held user media. An upl_ handle NEVER implies the bytes left the device."
+    },
+    "prompt_slot": {
+      "$comment": "The 13 StructuredPrompt slots, brief order.",
+      "enum": [
+        "subject",
+        "appearance",
+        "clothing",
+        "action",
+        "framing",
+        "camera",
+        "lens",
+        "scene",
+        "lighting",
+        "composition",
+        "style",
+        "motion",
+        "constraints"
+      ]
+    },
+    "formatter_mode": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$",
+      "maxLength": 40,
+      "description": "Prompt formatter target. Reserved: generic (MVP, the only one required), flux, qwen_image, sd, gpt_image, minimax_h3, krea. Open by pattern on purpose: no model backend is ever hardcoded; adding a mode is adding a key.",
+      "examples": [
+        "generic",
+        "flux",
+        "qwen_image",
+        "sd",
+        "gpt_image",
+        "minimax_h3",
+        "krea"
+      ]
+    },
+    "license_id": {
+      "enum": [
+        "public_domain",
+        "pdm",
+        "cc0",
+        "cc_by",
+        "cc_by_sa",
+        "cc_by_nc",
+        "cc_by_nc_sa",
+        "cc_by_nd",
+        "cc_by_nc_nd",
+        "user_owned",
+        "proprietary",
+        "unknown"
+      ],
+      "description": "Normalized license identifier. user_owned = the operator's own local media (never redistributed). Policy classes: allowed by default {public_domain, pdm, cc0, cc_by, user_owned}; optional/opt-in {cc_by_sa}; excluded by default {cc_by_nc, cc_by_nc_sa, cc_by_nd, cc_by_nc_nd, proprietary, unknown}."
+    },
+    "license_policy_class": {
+      "enum": [
+        "allowed",
+        "optional",
+        "excluded"
+      ],
+      "description": "Derived from license_id plus operator settings. Advisory cache; recompute on load."
+    },
+    "provider_source": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$",
+      "maxLength": 40,
+      "description": "Provider key. Reserved: wikimedia_commons, openverse, local, user_upload, manual. Open by pattern so providers stay pluggable.",
+      "examples": [
+        "wikimedia_commons",
+        "openverse",
+        "local",
+        "user_upload",
+        "manual"
+      ]
+    },
+    "category_arity": {
+      "enum": [
+        "single_dominant",
+        "multi"
+      ],
+      "description": "single_dominant = at most one non-modifier value is physically coherent in one shot; two different dominant values from two different references is a HARD CONFLICT the UI must resolve. multi = values coexist naturally; only shared exclusivity_group or explicit conflicts_with produce a conflict. ARITY IS A CONFLICT-DETECTION RULE, NOT A CARDINALITY CONSTRAINT: no schema sets maxItems on a single_dominant category, because a conflicting state MUST be representable in order to be surfaced."
+    },
+    "category_arity_map": {
+      "$comment": "INFORMATIVE CANONICAL CONSTANT (not used for validation). The authoritative arity table.",
+      "const": {
+        "subject": "multi",
+        "appearance": "multi",
+        "framing": "single_dominant",
+        "camera_angle": "single_dominant",
+        "camera_distance": "single_dominant",
+        "lens": "single_dominant",
+        "pose": "single_dominant",
+        "action": "multi",
+        "motion": "multi",
+        "camera_motion": "multi",
+        "clothing": "multi",
+        "scene": "multi",
+        "lighting": "multi",
+        "composition": "multi",
+        "color": "multi",
+        "mood": "multi",
+        "style": "multi",
+        "time": "single_dominant",
+        "weather": "single_dominant",
+        "props": "multi"
+      }
+    },
+    "category_to_prompt_slot_map": {
+      "$comment": "INFORMATIVE CANONICAL CONSTANT (not used for validation). Maps all 20 visual categories onto the 13 StructuredPrompt slots. 'constraints' has no source category: it is fed by chips with negate=true (from ANY category) plus composer-level directives.",
+      "const": {
+        "subject": "subject",
+        "appearance": "appearance",
+        "clothing": "clothing",
+        "pose": "action",
+        "action": "action",
+        "framing": "framing",
+        "camera_angle": "camera",
+        "camera_distance": "camera",
+        "camera_motion": "camera",
+        "lens": "lens",
+        "scene": "scene",
+        "props": "scene",
+        "weather": "scene",
+        "lighting": "lighting",
+        "time": "lighting",
+        "composition": "composition",
+        "style": "style",
+        "mood": "style",
+        "color": "style",
+        "motion": "motion"
+      }
+    },
+    "prompt_slot_emit_order_map": {
+      "$comment": "INFORMATIVE CANONICAL CONSTANT. Within a slot fed by several categories, fragments are emitted in this category order.",
+      "const": {
+        "action": [
+          "pose",
+          "action"
+        ],
+        "camera": [
+          "camera_angle",
+          "camera_distance",
+          "camera_motion"
+        ],
+        "scene": [
+          "scene",
+          "weather",
+          "props"
+        ],
+        "lighting": [
+          "time",
+          "lighting"
+        ],
+        "style": [
+          "style",
+          "mood",
+          "color"
+        ]
+      }
+    },
+    "extract_group": {
+      "enum": [
+        "composition",
+        "camera",
+        "pose",
+        "clothing",
+        "lighting",
+        "scene",
+        "style",
+        "motion"
+      ],
+      "description": "The eight EXTRACT buttons on a reference card (brief, Explore actions). Each expands to a set of visual categories via extract_group_map."
+    },
+    "extract_group_map": {
+      "$comment": "INFORMATIVE CANONICAL CONSTANT. UI EXTRACT group -> visual categories.",
+      "const": {
+        "composition": [
+          "composition"
+        ],
+        "camera": [
+          "camera_angle",
+          "camera_distance",
+          "framing",
+          "lens",
+          "camera_motion"
+        ],
+        "pose": [
+          "pose"
+        ],
+        "clothing": [
+          "clothing"
+        ],
+        "lighting": [
+          "lighting",
+          "time"
+        ],
+        "scene": [
+          "scene",
+          "weather",
+          "props"
+        ],
+        "style": [
+          "style",
+          "mood",
+          "color"
+        ],
+        "motion": [
+          "motion"
+        ]
+      }
+    },
+    "taxonomy_file": {
+      "$comment": "Shape of data/taxonomy/<group>.json. A file MAY carry more than one category (the brief ships nine files for twenty categories, e.g. camera.json holds camera_angle + camera_distance + camera_motion).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "categories",
+        "nodes"
+      ],
+      "properties": {
+        "schema_version": {
+          "$ref": "#/$defs/schema_version"
+        },
+        "categories": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/visual_category"
+          }
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Monotonic content revision of this taxonomy file."
+        },
+        "updated_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,3146 @@
+{
+  "schema_version": "1.0",
+  "categories": [
+    "pose",
+    "action"
+  ],
+  "version": 1,
+  "updated_at": "2026-09-09T00:00:00Z",
+  "nodes": [
+    {
+      "schema_version": "1.0",
+      "id": "pose.standing",
+      "category": "pose",
+      "label": "Standing",
+      "aliases": [
+        "standing",
+        "standing pose",
+        "stood up",
+        "upright on both feet",
+        "on their feet",
+        "person standing still",
+        "standin",
+        "stanidng"
+      ],
+      "related": [
+        "pose.contrapposto",
+        "pose.wide_stance",
+        "pose.leaning",
+        "pose.walking_pose"
+      ],
+      "parent": null,
+      "children": [
+        "pose.contrapposto",
+        "pose.wide_stance",
+        "pose.leaning",
+        "pose.walking_pose"
+      ],
+      "description": "The subject is up on both feet and not moving anywhere, which is the plainest and most neutral body position there is.",
+      "examples": [
+        "a person standing still in the middle of a room",
+        "full-length portrait of someone standing on a pavement"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "standing",
+      "negative_fragment": "not standing",
+      "search_boost": 1.3,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.contrapposto",
+      "category": "pose",
+      "label": "Contrapposto stance",
+      "aliases": [
+        "contrapposto",
+        "contraposto",
+        "kontrapposto",
+        "counterpoise",
+        "weight on one leg",
+        "weight shifted to one hip",
+        "hip shift",
+        "classical statue stance",
+        "s-curve pose"
+      ],
+      "related": [
+        "pose.standing",
+        "pose.hand_on_hip",
+        "pose.wide_stance"
+      ],
+      "parent": "pose.standing",
+      "description": "A relaxed standing position where the weight rests on one leg so that one hip lifts and the shoulders tilt the other way, giving the body a gentle S-curve. It is the pose you see in classical statues and in most fashion photography.",
+      "examples": [
+        "model standing with the weight on the back leg and one hip pushed out",
+        "relaxed standing portrait with a soft S-curve through the body"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "standing in contrapposto with the weight on one leg",
+      "negative_fragment": "not standing in contrapposto",
+      "search_boost": 1.1,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.wide_stance",
+      "category": "pose",
+      "label": "Wide stance",
+      "aliases": [
+        "wide stance",
+        "legs apart",
+        "feet shoulder width apart",
+        "power stance",
+        "power pose",
+        "planted feet",
+        "confident stance",
+        "wide legged stance"
+      ],
+      "related": [
+        "pose.standing",
+        "pose.contrapposto",
+        "pose.hand_on_hip"
+      ],
+      "parent": "pose.standing",
+      "description": "Standing with the feet planted well apart, which reads as confident, grounded or defiant rather than relaxed.",
+      "examples": [
+        "figure standing with feet planted wide on a rooftop",
+        "athlete braced with legs apart before a start"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "standing with feet planted wide apart",
+      "negative_fragment": "not standing with a wide stance",
+      "search_boost": 1,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.leaning",
+      "category": "pose",
+      "label": "Leaning",
+      "aliases": [
+        "leaning",
+        "leaning pose",
+        "propped against something",
+        "resting against a surface",
+        "leaned back on a wall",
+        "leening",
+        "casual lean"
+      ],
+      "related": [
+        "pose.leaning_against_wall",
+        "pose.standing",
+        "pose.perched"
+      ],
+      "parent": "pose.standing",
+      "children": [
+        "pose.leaning_against_wall"
+      ],
+      "description": "The subject rests part of their weight on something else, such as a wall, a railing or a car, instead of carrying it on their own legs.",
+      "examples": [
+        "person leaning on a balcony railing",
+        "figure propped against a parked car"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "leaning against a surface",
+      "negative_fragment": "not leaning on anything",
+      "search_boost": 1.2,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.leaning_against_wall",
+      "category": "pose",
+      "label": "Leaning against a wall",
+      "aliases": [
+        "leaning against a wall",
+        "wall lean",
+        "back against the wall",
+        "propped on a wall",
+        "leaning on brick wall",
+        "wall pose",
+        "leaning agains wall"
+      ],
+      "related": [
+        "pose.leaning",
+        "pose.standing",
+        "pose.hands_in_pockets"
+      ],
+      "parent": "pose.leaning",
+      "description": "The subject stands with their back or shoulder pressed against a wall, a very common street-portrait pose that flattens the body against the background.",
+      "examples": [
+        "shoulder against a painted brick wall, one foot up behind",
+        "back flat to a concrete wall in an alley"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "leaning back against a wall",
+      "negative_fragment": "not leaning against a wall",
+      "search_boost": 1.1,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.walking_pose",
+      "category": "pose",
+      "label": "Walking pose",
+      "aliases": [
+        "walking pose",
+        "caught walking",
+        "in motion on foot",
+        "stepping forward",
+        "walking stance",
+        "walk pose",
+        "posed mid walk"
+      ],
+      "related": [
+        "pose.mid_stride",
+        "pose.standing",
+        "action.walking"
+      ],
+      "parent": "pose.standing",
+      "children": [
+        "pose.mid_stride"
+      ],
+      "description": "The body is shaped as if walking, with one leg ahead of the other, whether or not the person is really travelling. Use this when you want the shape of a walk; use the action Walking when you want the activity itself.",
+      "examples": [
+        "one foot forward, arms swinging slightly, frozen in a walk",
+        "runway-style walking posture"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a walking pose",
+      "negative_fragment": "not in a walking pose",
+      "search_boost": 1.1,
+      "sort_order": 60
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.mid_stride",
+      "category": "pose",
+      "label": "Mid-stride",
+      "aliases": [
+        "mid stride",
+        "mid-stride",
+        "mid step",
+        "caught mid step",
+        "one foot off the ground",
+        "stride frozen",
+        "midstride",
+        "legs scissored open"
+      ],
+      "related": [
+        "pose.walking_pose",
+        "action.walking",
+        "action.running"
+      ],
+      "parent": "pose.walking_pose",
+      "description": "The exact moment of a step where the legs are furthest apart and one foot has left the ground, which makes a still photograph feel like it has movement in it.",
+      "examples": [
+        "rear foot lifting off a wet pavement",
+        "street shot frozen at the widest point of a step"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "caught mid-stride",
+      "negative_fragment": "not caught mid-stride",
+      "search_boost": 1.2,
+      "sort_order": 70
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.sitting",
+      "category": "pose",
+      "label": "Sitting",
+      "aliases": [
+        "sitting",
+        "seated",
+        "sat down",
+        "sitting pose",
+        "person sitting on a chair",
+        "siting",
+        "sitted"
+      ],
+      "related": [
+        "pose.sitting_cross_legged",
+        "pose.seated_on_floor",
+        "pose.perched",
+        "pose.standing"
+      ],
+      "parent": null,
+      "children": [
+        "pose.sitting_cross_legged",
+        "pose.seated_on_floor",
+        "pose.perched"
+      ],
+      "description": "The subject rests on their bottom with the upper body upright, on a chair, a step, a bed or the ground.",
+      "examples": [
+        "seated on a wooden chair by a window",
+        "sitting on the edge of a bed"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "action.walking",
+        "action.running",
+        "action.sprinting",
+        "action.dancing",
+        "action.jumping"
+      ],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "sitting",
+      "negative_fragment": "not sitting",
+      "search_boost": 1.3,
+      "sort_order": 80
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.sitting_cross_legged",
+      "category": "pose",
+      "label": "Sitting cross-legged",
+      "aliases": [
+        "sitting cross legged",
+        "cross-legged",
+        "criss cross applesauce",
+        "lotus position",
+        "indian style sitting",
+        "legs folded under",
+        "crosslegged",
+        "sitting with legs folded"
+      ],
+      "related": [
+        "pose.sitting",
+        "pose.seated_on_floor",
+        "pose.legs_crossed"
+      ],
+      "parent": "pose.sitting",
+      "description": "Sitting with the legs folded in front of the body and each ankle tucked under the opposite knee, the way people sit on the floor or on a bed.",
+      "examples": [
+        "sitting cross-legged on a rug",
+        "cross-legged on a bed with a book"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "sitting cross-legged",
+      "negative_fragment": "not sitting cross-legged",
+      "search_boost": 1,
+      "sort_order": 90
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.seated_on_floor",
+      "category": "pose",
+      "label": "Seated on the floor",
+      "aliases": [
+        "sitting on the floor",
+        "seated on the ground",
+        "floor sitting",
+        "sitting on the ground",
+        "sat on the pavement",
+        "ground level sitting",
+        "sitting on steps"
+      ],
+      "related": [
+        "pose.sitting",
+        "pose.sitting_cross_legged",
+        "pose.crouching"
+      ],
+      "parent": "pose.sitting",
+      "description": "Sitting directly on the ground or floor rather than on furniture, which lowers the whole subject inside the frame.",
+      "examples": [
+        "sitting on a kerb with legs stretched out",
+        "seated on a studio floor against a plain wall"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "seated on the floor",
+      "negative_fragment": "not seated on the floor",
+      "search_boost": 1,
+      "sort_order": 100
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.perched",
+      "category": "pose",
+      "label": "Perched on an edge",
+      "aliases": [
+        "perched",
+        "sitting on the edge",
+        "perched on a ledge",
+        "half sitting",
+        "sat on a railing",
+        "balanced on the edge of a table",
+        "perching"
+      ],
+      "related": [
+        "pose.sitting",
+        "pose.leaning",
+        "pose.seated_on_floor"
+      ],
+      "parent": "pose.sitting",
+      "description": "Sitting lightly on the edge of something high, such as a ledge, a desk or a stool, with the feet often still touching the ground.",
+      "examples": [
+        "perched on the edge of a desk",
+        "sitting on a rooftop ledge with legs hanging over"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "perched on the edge of a surface",
+      "negative_fragment": "not perched on an edge",
+      "search_boost": 1,
+      "sort_order": 110
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.crouching",
+      "category": "pose",
+      "label": "Crouching",
+      "aliases": [
+        "crouching",
+        "crouched down",
+        "hunkered down",
+        "low to the ground",
+        "crouch pose",
+        "crowching",
+        "ducking down"
+      ],
+      "related": [
+        "pose.squatting",
+        "pose.kneeling",
+        "pose.seated_on_floor"
+      ],
+      "parent": null,
+      "children": [
+        "pose.squatting"
+      ],
+      "description": "The knees are bent deeply so the body drops close to the ground while the feet stay flat and the weight stays on the legs.",
+      "examples": [
+        "crouched beside a bicycle wheel",
+        "photographer crouching low on a street corner"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "crouching low",
+      "negative_fragment": "not crouching",
+      "search_boost": 1.1,
+      "sort_order": 120
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.squatting",
+      "category": "pose",
+      "label": "Squatting",
+      "aliases": [
+        "squatting",
+        "squat pose",
+        "deep squat",
+        "sitting on the heels",
+        "asian squat",
+        "squating",
+        "resting in a squat"
+      ],
+      "related": [
+        "pose.crouching",
+        "pose.kneeling",
+        "pose.seated_on_floor"
+      ],
+      "parent": "pose.crouching",
+      "description": "A very low crouch where the backs of the thighs rest on the calves and the hips almost touch the heels, a comfortable resting position rather than a momentary duck.",
+      "examples": [
+        "squatting on a kerb waiting for a bus",
+        "resting in a deep squat against a shopfront"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "squatting on the heels",
+      "negative_fragment": "not squatting",
+      "search_boost": 1,
+      "sort_order": 130
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.kneeling",
+      "category": "pose",
+      "label": "Kneeling",
+      "aliases": [
+        "kneeling",
+        "on the knees",
+        "knelt down",
+        "kneeling pose",
+        "down on both knees",
+        "kneeing",
+        "kneel"
+      ],
+      "related": [
+        "pose.kneeling_one_knee",
+        "pose.crouching",
+        "pose.seated_on_floor"
+      ],
+      "parent": null,
+      "children": [
+        "pose.kneeling_one_knee"
+      ],
+      "description": "The subject rests on their knees on the ground with the lower legs folded back underneath them.",
+      "examples": [
+        "kneeling on a studio floor",
+        "kneeling in grass to tie a shoelace"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "action.walking",
+        "action.running"
+      ],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "kneeling on the ground",
+      "negative_fragment": "not kneeling",
+      "search_boost": 1,
+      "sort_order": 140
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.kneeling_one_knee",
+      "category": "pose",
+      "label": "Kneeling on one knee",
+      "aliases": [
+        "one knee down",
+        "kneeling on one knee",
+        "half kneel",
+        "down on one knee",
+        "genuflecting",
+        "single knee kneel",
+        "one kneed"
+      ],
+      "related": [
+        "pose.kneeling",
+        "pose.crouching",
+        "pose.squatting"
+      ],
+      "parent": "pose.kneeling",
+      "description": "Only one knee touches the ground while the other leg stays bent in front, a stable half-kneeling position used in sport, proposals and hero shots.",
+      "examples": [
+        "down on one knee at the edge of a pitch",
+        "half-kneeling beside a dog"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "kneeling on one knee",
+      "negative_fragment": "not kneeling on one knee",
+      "search_boost": 1,
+      "sort_order": 150
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.lying_down",
+      "category": "pose",
+      "label": "Lying down",
+      "aliases": [
+        "lying down",
+        "laying down",
+        "lying flat",
+        "horizontal on the ground",
+        "stretched out on the floor",
+        "lieing down",
+        "prone or supine"
+      ],
+      "related": [
+        "pose.lying_on_back",
+        "pose.lying_on_side",
+        "pose.lying_on_stomach",
+        "pose.reclining"
+      ],
+      "parent": null,
+      "children": [
+        "pose.lying_on_back",
+        "pose.lying_on_side",
+        "pose.lying_on_stomach",
+        "pose.reclining"
+      ],
+      "description": "The whole body is horizontal, resting on a bed, a floor, grass or any flat surface.",
+      "examples": [
+        "lying flat on a bed shot from above",
+        "stretched out on grass in a park"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "action.walking",
+        "action.running",
+        "action.sprinting",
+        "action.dancing",
+        "action.jumping"
+      ],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "lying down",
+      "negative_fragment": "not lying down",
+      "search_boost": 1.2,
+      "sort_order": 160
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.lying_on_back",
+      "category": "pose",
+      "label": "Lying on the back",
+      "aliases": [
+        "lying on back",
+        "supine",
+        "face up",
+        "on their back looking up",
+        "laying on back",
+        "back down on the floor",
+        "flat on the back"
+      ],
+      "related": [
+        "pose.lying_down",
+        "pose.lying_on_side",
+        "pose.looking_up"
+      ],
+      "parent": "pose.lying_down",
+      "description": "Lying face up, so the face and the front of the body are turned towards the sky or the ceiling.",
+      "examples": [
+        "lying face up on a wooden floor",
+        "on their back in long grass looking at the sky"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "lying on their back, face up",
+      "negative_fragment": "not lying on the back",
+      "search_boost": 1,
+      "sort_order": 170
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.lying_on_side",
+      "category": "pose",
+      "label": "Lying on the side",
+      "aliases": [
+        "lying on side",
+        "side lying",
+        "curled on one side",
+        "on their side",
+        "laying sideways",
+        "side lying pose",
+        "resting on one shoulder"
+      ],
+      "related": [
+        "pose.lying_down",
+        "pose.lying_on_back",
+        "pose.reclining"
+      ],
+      "parent": "pose.lying_down",
+      "description": "Lying horizontally but turned onto one shoulder and hip, often with the knees drawn up.",
+      "examples": [
+        "curled on one side on a sofa",
+        "lying sideways across a bed, head propped on a hand"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "lying on their side",
+      "negative_fragment": "not lying on the side",
+      "search_boost": 1,
+      "sort_order": 180
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.lying_on_stomach",
+      "category": "pose",
+      "label": "Lying on the stomach",
+      "aliases": [
+        "lying on stomach",
+        "prone",
+        "face down",
+        "on their front",
+        "laying on the belly",
+        "propped on elbows lying down",
+        "stomach down"
+      ],
+      "related": [
+        "pose.lying_down",
+        "pose.lying_on_back",
+        "pose.bending_forward"
+      ],
+      "parent": "pose.lying_down",
+      "description": "Lying face down with the chest towards the ground, often with the upper body propped on the elbows.",
+      "examples": [
+        "lying face down on a bed, chin on hands",
+        "propped on elbows on a picnic blanket"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "lying on their stomach",
+      "negative_fragment": "not lying on the stomach",
+      "search_boost": 1,
+      "sort_order": 190
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.reclining",
+      "category": "pose",
+      "label": "Reclining",
+      "aliases": [
+        "reclining",
+        "half lying half sitting",
+        "lounging",
+        "propped up on cushions",
+        "leaning back on elbows",
+        "reclined pose",
+        "reclyning"
+      ],
+      "related": [
+        "pose.lying_down",
+        "pose.sitting",
+        "pose.leaning"
+      ],
+      "parent": "pose.lying_down",
+      "description": "A relaxed position halfway between sitting and lying, with the upper body angled back and supported by cushions, elbows or a headboard.",
+      "examples": [
+        "reclining on a sofa with one arm along the back",
+        "propped up on elbows on a beach towel"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "reclining, propped halfway up",
+      "negative_fragment": "not reclining",
+      "search_boost": 1,
+      "sort_order": 200
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.bending_forward",
+      "category": "pose",
+      "label": "Bending forward",
+      "aliases": [
+        "bending forward",
+        "bent over",
+        "leaning forward from the waist",
+        "hunched over",
+        "bowing forward",
+        "bending down",
+        "stooping"
+      ],
+      "related": [
+        "pose.crouching",
+        "pose.slouched",
+        "pose.standing"
+      ],
+      "parent": null,
+      "description": "The upper body folds forward at the waist while the legs stay more or less straight, as when reaching for something on the ground.",
+      "examples": [
+        "bending forward to pick up a bag",
+        "bowed forward over a workbench"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "pose_base",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "bending forward at the waist",
+      "negative_fragment": "not bending forward",
+      "search_boost": 1,
+      "sort_order": 210
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.arms_crossed",
+      "category": "pose",
+      "label": "Arms crossed",
+      "aliases": [
+        "arms crossed",
+        "crossed arms",
+        "folded arms",
+        "arms folded over chest",
+        "crossing arms",
+        "arms crosed",
+        "closed off arms"
+      ],
+      "related": [
+        "pose.hands_in_pockets",
+        "pose.hand_on_hip",
+        "pose.hands_behind_back"
+      ],
+      "parent": null,
+      "description": "Both arms are folded across the chest. This is an arm detail that can sit on top of any main pose, so it never fights with standing, sitting or leaning.",
+      "examples": [
+        "standing with arms folded across the chest",
+        "seated portrait with crossed arms"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.hands_in_pockets",
+        "pose.hands_behind_back",
+        "pose.hands_clasped",
+        "pose.arms_raised",
+        "pose.arms_at_sides",
+        "pose.hand_on_hip"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "arms crossed over the chest",
+      "negative_fragment": "arms not crossed",
+      "search_boost": 1.3,
+      "sort_order": 300
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.hands_in_pockets",
+      "category": "pose",
+      "label": "Hands in pockets",
+      "aliases": [
+        "hands in pockets",
+        "hands in his pockets",
+        "hands in her pockets",
+        "pocketed hands",
+        "thumbs in pockets",
+        "hands in pocket",
+        "hands tucked in jacket pockets"
+      ],
+      "related": [
+        "pose.arms_crossed",
+        "pose.arms_at_sides",
+        "pose.leaning_against_wall"
+      ],
+      "parent": null,
+      "description": "Both hands are pushed into trouser or jacket pockets, a relaxed and casual arm detail that layers on top of any main pose.",
+      "examples": [
+        "walking with both hands buried in coat pockets",
+        "leaning on a wall, hands in jeans pockets"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.arms_crossed",
+        "pose.hands_behind_back",
+        "pose.hands_clasped",
+        "pose.arms_raised",
+        "pose.arms_at_sides"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "hands in pockets",
+      "negative_fragment": "hands not in pockets",
+      "search_boost": 1.3,
+      "sort_order": 310
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.hand_on_hip",
+      "category": "pose",
+      "label": "Hand on hip",
+      "aliases": [
+        "hand on hip",
+        "hands on hips",
+        "akimbo",
+        "arm on waist",
+        "one hand on the waist",
+        "hand on her hip",
+        "hand on hips"
+      ],
+      "related": [
+        "pose.contrapposto",
+        "pose.arms_crossed",
+        "pose.wide_stance"
+      ],
+      "parent": null,
+      "description": "One hand rests on the hip with the elbow pushed out to the side, a classic confident fashion detail that pairs naturally with a weight-on-one-leg stance.",
+      "examples": [
+        "standing with one hand on the hip, elbow out",
+        "editorial pose with hand resting on the waist"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.arms_crossed",
+        "pose.hands_behind_back",
+        "pose.hands_clasped",
+        "pose.arms_at_sides"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "one hand resting on the hip",
+      "negative_fragment": "no hand on the hip",
+      "search_boost": 1.2,
+      "sort_order": 320
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.hands_behind_back",
+      "category": "pose",
+      "label": "Hands behind the back",
+      "aliases": [
+        "hands behind back",
+        "arms behind the back",
+        "hands clasped behind",
+        "hands hidden behind body",
+        "at ease posture",
+        "hands behind hi back"
+      ],
+      "related": [
+        "pose.arms_at_sides",
+        "pose.hands_clasped",
+        "pose.upright_posture"
+      ],
+      "parent": null,
+      "description": "Both hands are held out of sight behind the body, which reads as formal, patient or reserved.",
+      "examples": [
+        "standing straight with hands clasped behind the back",
+        "waiting with arms tucked behind the body"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.arms_crossed",
+        "pose.hands_in_pockets",
+        "pose.hands_clasped",
+        "pose.arms_raised",
+        "pose.arms_at_sides",
+        "pose.hand_on_hip"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "hands held behind the back",
+      "negative_fragment": "hands not behind the back",
+      "search_boost": 1,
+      "sort_order": 330
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.hands_clasped",
+      "category": "pose",
+      "label": "Hands clasped in front",
+      "aliases": [
+        "hands clasped",
+        "hands together in front",
+        "fingers interlocked",
+        "holding own hands",
+        "hands folded in front",
+        "clasped hands",
+        "hands claspt"
+      ],
+      "related": [
+        "pose.hands_behind_back",
+        "pose.arms_at_sides",
+        "pose.arms_crossed"
+      ],
+      "parent": null,
+      "description": "The hands are held together in front of the body, fingers interlocked or one hand cupping the other, a quiet and slightly formal detail.",
+      "examples": [
+        "seated with hands folded in the lap",
+        "standing with fingers interlocked in front"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.arms_crossed",
+        "pose.hands_in_pockets",
+        "pose.hands_behind_back",
+        "pose.arms_raised",
+        "pose.arms_at_sides",
+        "pose.hand_on_hip"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "hands clasped in front of the body",
+      "negative_fragment": "hands not clasped",
+      "search_boost": 1,
+      "sort_order": 340
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.arms_raised",
+      "category": "pose",
+      "label": "Arms raised",
+      "aliases": [
+        "arms raised",
+        "arms up",
+        "hands in the air",
+        "reaching upward with both arms",
+        "arms overhead",
+        "hands above head",
+        "arms rased"
+      ],
+      "related": [
+        "pose.arms_at_sides",
+        "action.stretching",
+        "action.reaching"
+      ],
+      "parent": null,
+      "description": "Both arms are lifted above shoulder height, which opens up the silhouette and usually reads as celebration, stretching or surrender.",
+      "examples": [
+        "both arms thrown up above the head",
+        "hands lifted overhead against a bright sky"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.arms_crossed",
+        "pose.hands_in_pockets",
+        "pose.hands_behind_back",
+        "pose.hands_clasped",
+        "pose.arms_at_sides"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "arms raised above the head",
+      "negative_fragment": "arms not raised",
+      "search_boost": 1,
+      "sort_order": 350
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.arms_at_sides",
+      "category": "pose",
+      "label": "Arms at the sides",
+      "aliases": [
+        "arms at sides",
+        "arms down",
+        "hands by the sides",
+        "relaxed arms hanging",
+        "arms hanging loose",
+        "neutral arms",
+        "arms at side"
+      ],
+      "related": [
+        "pose.hands_in_pockets",
+        "pose.upright_posture",
+        "pose.hands_clasped"
+      ],
+      "parent": null,
+      "description": "The arms simply hang down beside the body with nothing held and nothing crossed, the most neutral possible arm position.",
+      "examples": [
+        "standing straight with arms hanging loosely",
+        "plain full-length portrait, arms relaxed at the sides"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.arms_crossed",
+        "pose.hands_in_pockets",
+        "pose.hands_behind_back",
+        "pose.hands_clasped",
+        "pose.arms_raised",
+        "pose.hand_on_hip"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "arms hanging relaxed at the sides",
+      "negative_fragment": "arms not hanging at the sides",
+      "search_boost": 1,
+      "sort_order": 360
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.legs_crossed",
+      "category": "pose",
+      "label": "Legs crossed",
+      "aliases": [
+        "legs crossed",
+        "crossed legs",
+        "one leg over the other",
+        "ankles crossed",
+        "crossed ankles standing",
+        "legs crosed",
+        "leg over knee"
+      ],
+      "related": [
+        "pose.sitting",
+        "pose.sitting_cross_legged",
+        "pose.leaning"
+      ],
+      "parent": null,
+      "description": "One leg is placed over or in front of the other, either while seated on a chair or while standing with the ankles crossed. It is a leg detail that layers on top of the main pose.",
+      "examples": [
+        "seated with one knee crossed over the other",
+        "standing against a wall with ankles crossed"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "legs crossed",
+      "negative_fragment": "legs not crossed",
+      "search_boost": 1,
+      "sort_order": 370
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.head_tilted",
+      "category": "pose",
+      "label": "Head tilted",
+      "aliases": [
+        "head tilted",
+        "tilted head",
+        "head to one side",
+        "cocked head",
+        "head leaning sideways",
+        "head tilt pose",
+        "head titled"
+      ],
+      "related": [
+        "pose.looking_at_camera",
+        "pose.three_quarter_turn",
+        "pose.looking_away"
+      ],
+      "parent": null,
+      "description": "The head leans towards one shoulder instead of sitting straight, a small detail that softens a portrait and adds curiosity or playfulness.",
+      "examples": [
+        "head tilted slightly towards the left shoulder",
+        "portrait with a soft head tilt and a small smile"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "head tilted to one side",
+      "negative_fragment": "head not tilted",
+      "search_boost": 1.1,
+      "sort_order": 380
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.three_quarter_turn",
+      "category": "pose",
+      "label": "Body turned three-quarters",
+      "aliases": [
+        "three quarter turn",
+        "3/4 turn",
+        "body angled to the side",
+        "turned slightly away",
+        "half turned body",
+        "three-quarter pose",
+        "shoulder turned to camera"
+      ],
+      "related": [
+        "pose.back_to_camera",
+        "pose.over_shoulder_glance",
+        "camera_angle.three_quarter"
+      ],
+      "parent": null,
+      "description": "The body is rotated part way between facing the camera and facing sideways, so one shoulder is nearer than the other. It slims the silhouette and is the default body angle in most portraits.",
+      "examples": [
+        "shoulders angled about forty-five degrees to the lens",
+        "body turned away while the face returns to camera"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.back_to_camera"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "body turned three-quarters to the camera",
+      "negative_fragment": "body not turned three-quarters",
+      "search_boost": 1.1,
+      "sort_order": 390
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.back_to_camera",
+      "category": "pose",
+      "label": "Back to camera",
+      "aliases": [
+        "back to camera",
+        "facing away",
+        "seen from behind",
+        "back turned",
+        "rear view of the person",
+        "shot from behind",
+        "back to the lens"
+      ],
+      "related": [
+        "pose.over_shoulder_glance",
+        "pose.three_quarter_turn",
+        "camera_angle.back"
+      ],
+      "parent": null,
+      "description": "The subject is turned away so the camera sees their back and the face is hidden, which puts all the attention on the outfit, the hair and the scene ahead of them.",
+      "examples": [
+        "figure walking away, seen from behind",
+        "back turned to the lens on a beach at sunset"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.looking_at_camera",
+        "pose.three_quarter_turn"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "seen from behind with the back to the camera",
+      "negative_fragment": "not turned away from the camera",
+      "search_boost": 1.2,
+      "sort_order": 400
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.looking_at_camera",
+      "category": "pose",
+      "label": "Looking at the camera",
+      "aliases": [
+        "looking at camera",
+        "looking at the lens",
+        "eye contact",
+        "direct gaze",
+        "staring into the camera",
+        "facing the camera",
+        "looking at teh camera",
+        "straight to camera"
+      ],
+      "related": [
+        "pose.looking_away",
+        "pose.head_tilted",
+        "pose.back_to_camera"
+      ],
+      "parent": null,
+      "description": "The subject's eyes meet the lens, so the finished picture feels like the person is looking straight at whoever is viewing it.",
+      "examples": [
+        "direct eye contact with the lens",
+        "portrait staring calmly into the camera"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.looking_away",
+        "pose.over_shoulder_glance",
+        "pose.looking_down",
+        "pose.looking_up",
+        "pose.back_to_camera"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "looking straight into the camera",
+      "negative_fragment": "not looking at the camera",
+      "search_boost": 1.4,
+      "sort_order": 410
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.looking_away",
+      "category": "pose",
+      "label": "Looking away",
+      "aliases": [
+        "looking away",
+        "looking off camera",
+        "gaze off to the side",
+        "not looking at the camera",
+        "eyes elsewhere",
+        "looking into the distance",
+        "looking awya",
+        "averted gaze"
+      ],
+      "related": [
+        "pose.over_shoulder_glance",
+        "pose.looking_at_camera",
+        "pose.looking_down"
+      ],
+      "parent": null,
+      "children": [
+        "pose.over_shoulder_glance"
+      ],
+      "description": "The eyes are directed somewhere outside the frame instead of at the lens, which makes the picture feel observed rather than posed.",
+      "examples": [
+        "gaze drifting past the camera to the left",
+        "looking out of a window, away from the lens"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.looking_at_camera"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "looking away from the camera",
+      "negative_fragment": "not looking away from the camera",
+      "search_boost": 1.3,
+      "sort_order": 420
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.over_shoulder_glance",
+      "category": "pose",
+      "label": "Glancing over the shoulder",
+      "aliases": [
+        "over the shoulder glance",
+        "looking back",
+        "glancing back",
+        "looking over her shoulder",
+        "looking over his shoulder",
+        "head turned back",
+        "backward glance",
+        "over shoulder look"
+      ],
+      "related": [
+        "pose.looking_away",
+        "pose.back_to_camera",
+        "framing.over_the_shoulder",
+        "camera_angle.over_the_shoulder"
+      ],
+      "parent": "pose.looking_away",
+      "description": "The body faces away while the head turns back, so the face appears past one shoulder. Do not confuse it with an over-the-shoulder shot, which describes where the camera is rather than what the subject does.",
+      "examples": [
+        "walking away and glancing back at the lens",
+        "head turned back over the left shoulder"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.looking_at_camera"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "glancing back over one shoulder",
+      "negative_fragment": "not glancing over the shoulder",
+      "search_boost": 1.3,
+      "sort_order": 430
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.looking_down",
+      "category": "pose",
+      "label": "Looking down",
+      "aliases": [
+        "looking down",
+        "eyes lowered",
+        "gaze downward",
+        "head lowered",
+        "downcast eyes",
+        "looking at the floor",
+        "lookign down"
+      ],
+      "related": [
+        "pose.looking_up",
+        "pose.looking_away",
+        "pose.slouched"
+      ],
+      "parent": null,
+      "description": "The eyes and usually the chin are lowered towards the ground, which reads as thoughtful, shy or private.",
+      "examples": [
+        "eyes lowered towards the hands",
+        "chin down, gaze on the pavement"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.looking_at_camera",
+        "pose.looking_up"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "looking down",
+      "negative_fragment": "not looking down",
+      "search_boost": 1.1,
+      "sort_order": 440
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.looking_up",
+      "category": "pose",
+      "label": "Looking up",
+      "aliases": [
+        "looking up",
+        "gaze upward",
+        "chin raised",
+        "eyes to the sky",
+        "head tilted back looking up",
+        "looking upwards",
+        "lookin up"
+      ],
+      "related": [
+        "pose.looking_down",
+        "pose.looking_away",
+        "pose.lying_on_back"
+      ],
+      "parent": null,
+      "description": "The chin lifts and the eyes point above the horizon, which reads as hopeful, awed or searching.",
+      "examples": [
+        "chin raised, eyes towards the sky",
+        "looking up at tall buildings"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.looking_at_camera",
+        "pose.looking_down"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "looking upward",
+      "negative_fragment": "not looking up",
+      "search_boost": 1.1,
+      "sort_order": 450
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.slouched",
+      "category": "pose",
+      "label": "Slouched posture",
+      "aliases": [
+        "slouched",
+        "slouching",
+        "hunched shoulders",
+        "bad posture",
+        "curved back",
+        "shoulders rolled forward",
+        "sloutched",
+        "slumped"
+      ],
+      "related": [
+        "pose.upright_posture",
+        "pose.bending_forward",
+        "pose.sitting"
+      ],
+      "parent": null,
+      "description": "The spine curves and the shoulders roll forward instead of being held straight, which reads as tired, casual or unguarded.",
+      "examples": [
+        "slumped in a chair with rounded shoulders",
+        "slouching against a bus stop"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.upright_posture"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a slouched, rounded posture",
+      "negative_fragment": "not slouching",
+      "search_boost": 1,
+      "sort_order": 460
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.upright_posture",
+      "category": "pose",
+      "label": "Upright posture",
+      "aliases": [
+        "upright posture",
+        "straight back",
+        "good posture",
+        "shoulders back",
+        "tall and straight",
+        "erect posture",
+        "posture straight",
+        "chest open"
+      ],
+      "related": [
+        "pose.slouched",
+        "pose.arms_at_sides",
+        "pose.hands_behind_back"
+      ],
+      "parent": null,
+      "description": "The spine is held straight and the shoulders are open and level, which reads as poised, formal or self-assured.",
+      "examples": [
+        "standing tall with shoulders squared",
+        "seated with a straight back and lifted chest"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.slouched"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with an upright, straight-backed posture",
+      "negative_fragment": "not holding an upright posture",
+      "search_boost": 1,
+      "sort_order": 470
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.candid",
+      "category": "pose",
+      "label": "Candid, unposed",
+      "aliases": [
+        "candid",
+        "unposed",
+        "natural pose",
+        "not posing",
+        "caught unaware",
+        "spontaneous pose",
+        "candid moment",
+        "candide"
+      ],
+      "related": [
+        "pose.posed",
+        "pose.looking_away",
+        "pose.mid_stride"
+      ],
+      "parent": null,
+      "description": "The body is doing something ordinary rather than holding a pose for the camera, so the picture feels caught rather than arranged.",
+      "examples": [
+        "caught mid-conversation without noticing the camera",
+        "unposed street moment"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.posed"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a candid, unposed moment",
+      "negative_fragment": "not candid",
+      "search_boost": 1.2,
+      "sort_order": 480
+    },
+    {
+      "schema_version": "1.0",
+      "id": "pose.posed",
+      "category": "pose",
+      "label": "Deliberately posed",
+      "aliases": [
+        "posed",
+        "posing for the camera",
+        "deliberate pose",
+        "editorial posing",
+        "studio pose",
+        "held pose",
+        "posed shot"
+      ],
+      "related": [
+        "pose.candid",
+        "pose.contrapposto",
+        "pose.looking_at_camera"
+      ],
+      "parent": null,
+      "description": "The subject is knowingly holding a position for the photograph, the way a model holds a shape in a studio or an editorial shoot.",
+      "examples": [
+        "holding a deliberate editorial shape in a studio",
+        "posing consciously for a fashion frame"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.candid"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "deliberately posed for the camera",
+      "negative_fragment": "not deliberately posed",
+      "search_boost": 1.1,
+      "sort_order": 490
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.walking",
+      "category": "action",
+      "label": "Walking",
+      "aliases": [
+        "walking",
+        "walk",
+        "strolling",
+        "walking down the street",
+        "on foot",
+        "wandering",
+        "waking",
+        "walkin"
+      ],
+      "related": [
+        "action.running",
+        "pose.walking_pose",
+        "pose.mid_stride",
+        "action.standing_up"
+      ],
+      "parent": null,
+      "description": "The subject is travelling on foot at an ordinary pace. Use this for the activity itself; use the Walking pose when you only want the shape of a step in a still frame.",
+      "examples": [
+        "walking along a wet pavement at night",
+        "crossing a street with shopping bags"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.sitting",
+        "pose.lying_down",
+        "pose.kneeling"
+      ],
+      "exclusivity_group": "locomotion",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "walking",
+      "negative_fragment": "not walking",
+      "search_boost": 1.3,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.running",
+      "category": "action",
+      "label": "Running",
+      "aliases": [
+        "running",
+        "run",
+        "jogging",
+        "sprinting along",
+        "running fast",
+        "runing",
+        "on the run",
+        "dashing"
+      ],
+      "related": [
+        "action.sprinting",
+        "action.walking",
+        "action.jumping",
+        "pose.mid_stride"
+      ],
+      "parent": null,
+      "children": [
+        "action.sprinting"
+      ],
+      "description": "The subject is moving quickly on foot with both feet leaving the ground between steps.",
+      "examples": [
+        "running across a park at dusk",
+        "running down a corridor, hair flying back"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.sitting",
+        "pose.lying_down",
+        "pose.kneeling"
+      ],
+      "exclusivity_group": "locomotion",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "running",
+      "negative_fragment": "not running",
+      "search_boost": 1.3,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.sprinting",
+      "category": "action",
+      "label": "Sprinting",
+      "aliases": [
+        "sprinting",
+        "sprint",
+        "running flat out",
+        "full speed run",
+        "bolting",
+        "racing at top speed",
+        "sprintng"
+      ],
+      "related": [
+        "action.running",
+        "action.jumping",
+        "action.walking"
+      ],
+      "parent": "action.running",
+      "description": "Running at absolute top speed with the body pitched forward and the arms driving hard, as in a race rather than a jog.",
+      "examples": [
+        "sprinting off a starting line",
+        "flat-out run down an empty road"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.sitting",
+        "pose.lying_down"
+      ],
+      "exclusivity_group": "locomotion",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "sprinting at full speed",
+      "negative_fragment": "not sprinting",
+      "search_boost": 1,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.crawling",
+      "category": "action",
+      "label": "Crawling",
+      "aliases": [
+        "crawling",
+        "crawl",
+        "on hands and knees",
+        "creeping along the ground",
+        "moving on all fours",
+        "crowling",
+        "baby crawling"
+      ],
+      "related": [
+        "action.climbing",
+        "pose.kneeling",
+        "pose.lying_on_stomach"
+      ],
+      "parent": null,
+      "description": "Moving forward on the hands and knees, close to the ground.",
+      "examples": [
+        "crawling under a low fence",
+        "child crawling across a carpet"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "locomotion",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "crawling on hands and knees",
+      "negative_fragment": "not crawling",
+      "search_boost": 1,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.climbing",
+      "category": "action",
+      "label": "Climbing",
+      "aliases": [
+        "climbing",
+        "climb",
+        "scaling a wall",
+        "going up a ladder",
+        "clambering up",
+        "climing",
+        "climbing stairs"
+      ],
+      "related": [
+        "action.crawling",
+        "action.reaching",
+        "action.jumping"
+      ],
+      "parent": null,
+      "description": "Moving upward using both hands and feet, on stairs, a ladder, a rock face or a fence.",
+      "examples": [
+        "climbing a fire escape",
+        "scaling a boulder with both hands on the rock"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "locomotion",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "climbing upward",
+      "negative_fragment": "not climbing",
+      "search_boost": 1,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.swimming",
+      "category": "action",
+      "label": "Swimming",
+      "aliases": [
+        "swimming",
+        "swim",
+        "in the water swimming",
+        "doing lengths",
+        "floating and swimming",
+        "swiming",
+        "underwater swimming"
+      ],
+      "related": [
+        "action.running",
+        "action.stretching",
+        "action.reaching"
+      ],
+      "parent": null,
+      "description": "Moving through water using the arms and legs.",
+      "examples": [
+        "swimming lengths in a lit pool",
+        "swimming out through calm sea water"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "locomotion",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "swimming through the water",
+      "negative_fragment": "not swimming",
+      "search_boost": 1,
+      "sort_order": 60
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.dancing",
+      "category": "action",
+      "label": "Dancing",
+      "aliases": [
+        "dancing",
+        "dance",
+        "dancing to music",
+        "moving to the beat",
+        "twirling and dancing",
+        "danceing",
+        "dance move"
+      ],
+      "related": [
+        "action.turning",
+        "action.jumping",
+        "action.stretching"
+      ],
+      "parent": null,
+      "description": "Moving the body rhythmically to music, whether that is a formal step or a loose improvisation.",
+      "examples": [
+        "dancing alone in a kitchen",
+        "dancing in a crowd under coloured lights"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.sitting",
+        "pose.lying_down"
+      ],
+      "exclusivity_group": "locomotion",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "dancing",
+      "negative_fragment": "not dancing",
+      "search_boost": 1.2,
+      "sort_order": 70
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.riding",
+      "category": "action",
+      "label": "Riding",
+      "aliases": [
+        "riding",
+        "riding along",
+        "on a ride",
+        "being carried on a vehicle",
+        "riding an animal",
+        "rideing"
+      ],
+      "related": [
+        "action.riding_bicycle",
+        "action.riding_motorcycle",
+        "action.skateboarding"
+      ],
+      "parent": null,
+      "children": [
+        "action.riding_bicycle",
+        "action.riding_motorcycle"
+      ],
+      "description": "Travelling while sitting on or astride something that carries you, such as a bike, a motorbike, a horse or a scooter.",
+      "examples": [
+        "riding along a coastal road",
+        "riding a horse through a field"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "locomotion",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "riding",
+      "negative_fragment": "not riding",
+      "search_boost": 1,
+      "sort_order": 80
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.riding_bicycle",
+      "category": "action",
+      "label": "Riding a bicycle",
+      "aliases": [
+        "riding a bicycle",
+        "cycling",
+        "riding a bike",
+        "on a bike",
+        "biking",
+        "bicycling",
+        "ridding a bike",
+        "pedalling"
+      ],
+      "related": [
+        "action.riding",
+        "action.riding_motorcycle",
+        "action.skateboarding"
+      ],
+      "parent": "action.riding",
+      "description": "Travelling by bicycle, with the hands on the bars and the feet on the pedals.",
+      "examples": [
+        "cycling through a city bike lane",
+        "riding a bike along a canal path"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "locomotion",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "riding a bicycle",
+      "negative_fragment": "not riding a bicycle",
+      "search_boost": 1.1,
+      "sort_order": 90
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.riding_motorcycle",
+      "category": "action",
+      "label": "Riding a motorcycle",
+      "aliases": [
+        "riding a motorcycle",
+        "riding a motorbike",
+        "on a motorbike",
+        "biker riding",
+        "scooter riding",
+        "motorcycling",
+        "riding a moped"
+      ],
+      "related": [
+        "action.riding",
+        "action.riding_bicycle",
+        "action.holding_object"
+      ],
+      "parent": "action.riding",
+      "description": "Travelling astride a motorcycle, motorbike or scooter.",
+      "examples": [
+        "riding a motorbike down a night highway",
+        "sitting astride a scooter pulling away from a kerb"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "locomotion",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "riding a motorcycle",
+      "negative_fragment": "not riding a motorcycle",
+      "search_boost": 1,
+      "sort_order": 100
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.skateboarding",
+      "category": "action",
+      "label": "Skateboarding",
+      "aliases": [
+        "skateboarding",
+        "skating",
+        "riding a skateboard",
+        "on a skateboard",
+        "doing a trick on a board",
+        "skateboardin",
+        "rollerblading"
+      ],
+      "related": [
+        "action.riding",
+        "action.jumping",
+        "action.riding_bicycle"
+      ],
+      "parent": null,
+      "description": "Riding a skateboard, whether cruising along or in the middle of a trick.",
+      "examples": [
+        "skating along an empty car park",
+        "mid-trick with the board off the ground"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "locomotion",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "skateboarding",
+      "negative_fragment": "not skateboarding",
+      "search_boost": 1,
+      "sort_order": 110
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.sitting_down",
+      "category": "action",
+      "label": "Sitting down",
+      "aliases": [
+        "sitting down",
+        "taking a seat",
+        "lowering into a chair",
+        "about to sit",
+        "dropping into a seat",
+        "siting down"
+      ],
+      "related": [
+        "action.standing_up",
+        "pose.sitting",
+        "pose.crouching"
+      ],
+      "parent": null,
+      "description": "The movement of lowering the body into a seat. This is the act of sitting down, not the settled Sitting pose that follows it.",
+      "examples": [
+        "lowering into a cafe chair",
+        "about to drop onto a sofa"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "locomotion",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "lowering down into a seat",
+      "negative_fragment": "not sitting down",
+      "search_boost": 1,
+      "sort_order": 120
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.standing_up",
+      "category": "action",
+      "label": "Standing up",
+      "aliases": [
+        "standing up",
+        "getting up",
+        "rising from a chair",
+        "pushing up to stand",
+        "getting to their feet",
+        "standing upp",
+        "rising"
+      ],
+      "related": [
+        "action.sitting_down",
+        "pose.standing",
+        "action.stretching"
+      ],
+      "parent": null,
+      "description": "The movement of rising from a seated or crouched position onto the feet.",
+      "examples": [
+        "pushing up out of an armchair",
+        "rising from a park bench"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "locomotion",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "rising up to stand",
+      "negative_fragment": "not standing up",
+      "search_boost": 1,
+      "sort_order": 130
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.jumping",
+      "category": "action",
+      "label": "Jumping",
+      "aliases": [
+        "jumping",
+        "jump",
+        "leaping",
+        "mid air jump",
+        "hopping",
+        "both feet off the ground",
+        "jumpin",
+        "jumping up"
+      ],
+      "related": [
+        "action.running",
+        "action.dancing",
+        "action.skateboarding"
+      ],
+      "parent": null,
+      "description": "Pushing off the ground so the whole body is briefly in the air.",
+      "examples": [
+        "leaping off a low wall",
+        "caught mid-air above a puddle"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "pose.sitting",
+        "pose.lying_down"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "jumping into the air",
+      "negative_fragment": "not jumping",
+      "search_boost": 1.2,
+      "sort_order": 200
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.turning",
+      "category": "action",
+      "label": "Turning",
+      "aliases": [
+        "turning",
+        "turn",
+        "spinning around",
+        "twisting round",
+        "pivoting",
+        "turning to look",
+        "turnign",
+        "swivelling"
+      ],
+      "related": [
+        "action.dancing",
+        "pose.over_shoulder_glance",
+        "pose.three_quarter_turn"
+      ],
+      "parent": null,
+      "description": "Rotating the body or the head to face a new direction, often caught halfway through the turn.",
+      "examples": [
+        "turning sharply towards a sound",
+        "spinning round so the coat flares out"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "turning around",
+      "negative_fragment": "not turning",
+      "search_boost": 1.1,
+      "sort_order": 210
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.reaching",
+      "category": "action",
+      "label": "Reaching",
+      "aliases": [
+        "reaching",
+        "reaching out",
+        "stretching a hand towards something",
+        "extending an arm",
+        "reaching for an object",
+        "reachin",
+        "arm outstretched"
+      ],
+      "related": [
+        "action.holding_object",
+        "pose.arms_raised",
+        "action.pointing"
+      ],
+      "parent": null,
+      "description": "Extending an arm towards something, whether or not the hand has arrived yet.",
+      "examples": [
+        "reaching for a book on a high shelf",
+        "hand extended towards a shop window"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "reaching out with one arm",
+      "negative_fragment": "not reaching out",
+      "search_boost": 1.1,
+      "sort_order": 220
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.stretching",
+      "category": "action",
+      "label": "Stretching",
+      "aliases": [
+        "stretching",
+        "stretch",
+        "reaching up and stretching",
+        "limbering up",
+        "arching and stretching",
+        "streching",
+        "warming up"
+      ],
+      "related": [
+        "pose.arms_raised",
+        "action.standing_up",
+        "action.reaching"
+      ],
+      "parent": null,
+      "description": "Extending the limbs or arching the body to lengthen the muscles, as when waking up or warming up.",
+      "examples": [
+        "stretching both arms overhead by a window",
+        "runner stretching against a railing"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "stretching the body",
+      "negative_fragment": "not stretching",
+      "search_boost": 1,
+      "sort_order": 230
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.waving",
+      "category": "action",
+      "label": "Waving",
+      "aliases": [
+        "waving",
+        "wave",
+        "waving hello",
+        "waving goodbye",
+        "raised hand waving",
+        "waiving",
+        "hand wave"
+      ],
+      "related": [
+        "action.pointing",
+        "pose.arms_raised",
+        "action.talking"
+      ],
+      "parent": null,
+      "description": "Lifting a hand and moving it side to side as a greeting or a farewell.",
+      "examples": [
+        "waving from a train window",
+        "raised hand waving across a street"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "waving a hand",
+      "negative_fragment": "not waving",
+      "search_boost": 1,
+      "sort_order": 240
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.pointing",
+      "category": "action",
+      "label": "Pointing",
+      "aliases": [
+        "pointing",
+        "point",
+        "pointing at something",
+        "indicating with a finger",
+        "finger extended pointing",
+        "pointin",
+        "gesturing towards"
+      ],
+      "related": [
+        "action.waving",
+        "action.reaching",
+        "action.talking"
+      ],
+      "parent": null,
+      "description": "Extending a finger or a whole hand to indicate something, usually while looking the same way.",
+      "examples": [
+        "pointing at something off to the left",
+        "guide pointing up at a building"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "pointing at something",
+      "negative_fragment": "not pointing",
+      "search_boost": 1,
+      "sort_order": 250
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.throwing",
+      "category": "action",
+      "label": "Throwing",
+      "aliases": [
+        "throwing",
+        "throw",
+        "tossing something",
+        "hurling an object",
+        "pitching a ball",
+        "throwin",
+        "launching something"
+      ],
+      "related": [
+        "action.reaching",
+        "action.jumping",
+        "action.holding_object"
+      ],
+      "parent": null,
+      "description": "Launching an object away from the body with the arm.",
+      "examples": [
+        "throwing a ball across a beach",
+        "tossing a jacket over one shoulder"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "throwing an object",
+      "negative_fragment": "not throwing anything",
+      "search_boost": 1,
+      "sort_order": 260
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.holding_object",
+      "category": "action",
+      "label": "Holding an object",
+      "aliases": [
+        "holding an object",
+        "holding something",
+        "carrying something in hand",
+        "gripping an item",
+        "holding a prop",
+        "holding somthing",
+        "object in hand"
+      ],
+      "related": [
+        "action.carrying_bag",
+        "action.drinking",
+        "action.reaching"
+      ],
+      "parent": null,
+      "children": [
+        "action.carrying_bag"
+      ],
+      "description": "The subject has something in their hand, whatever that object happens to be. Name the object itself with a Props value.",
+      "examples": [
+        "holding a paper cup in one hand",
+        "gripping a camera at chest height"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "holding an object in one hand",
+      "negative_fragment": "not holding anything",
+      "search_boost": 1.1,
+      "sort_order": 270
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.carrying_bag",
+      "category": "action",
+      "label": "Carrying a bag",
+      "aliases": [
+        "carrying a bag",
+        "holding a bag",
+        "shopping bags in hand",
+        "tote over the shoulder",
+        "carrying luggage",
+        "carying a bag",
+        "backpack on one shoulder"
+      ],
+      "related": [
+        "action.holding_object",
+        "action.walking",
+        "action.opening_door"
+      ],
+      "parent": "action.holding_object",
+      "description": "The subject is carrying a bag, a case or shopping, in the hand or slung over a shoulder.",
+      "examples": [
+        "walking with two paper shopping bags",
+        "tote bag hanging from one shoulder"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "carrying a bag",
+      "negative_fragment": "not carrying a bag",
+      "search_boost": 1,
+      "sort_order": 280
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.adjusting_hair",
+      "category": "action",
+      "label": "Adjusting hair",
+      "aliases": [
+        "adjusting hair",
+        "touching her hair",
+        "brushing hair back",
+        "tucking hair behind the ear",
+        "running fingers through hair",
+        "fixing hair",
+        "hair touching",
+        "adjusting hare"
+      ],
+      "related": [
+        "action.adjusting_clothing",
+        "action.applying_makeup",
+        "pose.arms_raised"
+      ],
+      "parent": null,
+      "description": "A hand goes up to the hair to push it back, tuck it behind an ear or hold it out of the face, a small everyday gesture that reads as natural and unstaged.",
+      "examples": [
+        "tucking hair behind one ear",
+        "pushing wind-blown hair off the face"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "adjusting their hair with one hand",
+      "negative_fragment": "not touching their hair",
+      "search_boost": 1.2,
+      "sort_order": 290
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.adjusting_clothing",
+      "category": "action",
+      "label": "Adjusting clothing",
+      "aliases": [
+        "adjusting clothing",
+        "fixing a jacket",
+        "straightening a collar",
+        "pulling on a sleeve",
+        "buttoning a coat",
+        "adjusting cuffs",
+        "adjusting cloths",
+        "tugging at a hem"
+      ],
+      "related": [
+        "action.adjusting_hair",
+        "action.holding_object",
+        "action.applying_makeup"
+      ],
+      "parent": null,
+      "description": "The hands are busy with what the subject is wearing, straightening a collar, buttoning a coat or pulling a sleeve into place.",
+      "examples": [
+        "straightening a jacket collar",
+        "buttoning a coat against the wind"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "adjusting their clothing",
+      "negative_fragment": "not adjusting their clothing",
+      "search_boost": 1.1,
+      "sort_order": 300
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.applying_makeup",
+      "category": "action",
+      "label": "Applying makeup",
+      "aliases": [
+        "applying makeup",
+        "putting on makeup",
+        "doing her makeup",
+        "lipstick application",
+        "makeup in a mirror",
+        "applying make up",
+        "makup"
+      ],
+      "related": [
+        "action.adjusting_hair",
+        "action.adjusting_clothing",
+        "action.checking_phone"
+      ],
+      "parent": null,
+      "description": "The subject is putting on makeup, usually in front of a mirror or a phone camera.",
+      "examples": [
+        "applying lipstick in a bathroom mirror",
+        "makeup being finished backstage"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "applying makeup",
+      "negative_fragment": "not applying makeup",
+      "search_boost": 1,
+      "sort_order": 310
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.opening_door",
+      "category": "action",
+      "label": "Opening a door",
+      "aliases": [
+        "opening a door",
+        "pushing a door open",
+        "hand on a door handle",
+        "walking through a doorway",
+        "opening the car door",
+        "openning a door",
+        "door being opened"
+      ],
+      "related": [
+        "action.walking",
+        "action.holding_object",
+        "action.reaching"
+      ],
+      "parent": null,
+      "description": "A hand is on a door, pushing or pulling it open, often at the moment of entering or leaving.",
+      "examples": [
+        "pushing open a glass shop door",
+        "hand on a car door about to step out"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "opening a door",
+      "negative_fragment": "not opening a door",
+      "search_boost": 1,
+      "sort_order": 320
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.checking_phone",
+      "category": "action",
+      "label": "Checking a phone",
+      "aliases": [
+        "checking a phone",
+        "looking at phone",
+        "on their phone",
+        "scrolling on a smartphone",
+        "texting",
+        "holding a mobile",
+        "checking teh phone",
+        "phone in hand"
+      ],
+      "related": [
+        "action.talking_on_phone",
+        "action.holding_object",
+        "pose.looking_down"
+      ],
+      "parent": null,
+      "description": "The subject is looking at a phone held in the hand, reading, scrolling or typing on it.",
+      "examples": [
+        "scrolling a phone while waiting at a bus stop",
+        "face lit by a phone screen at night"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "looking down at a phone",
+      "negative_fragment": "not looking at a phone",
+      "search_boost": 1.2,
+      "sort_order": 330
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.talking",
+      "category": "action",
+      "label": "Talking",
+      "aliases": [
+        "talking",
+        "speaking",
+        "in conversation",
+        "chatting to someone",
+        "mid sentence",
+        "talkign",
+        "mouth open speaking"
+      ],
+      "related": [
+        "action.talking_on_phone",
+        "action.laughing",
+        "action.pointing"
+      ],
+      "parent": null,
+      "children": [
+        "action.talking_on_phone"
+      ],
+      "description": "The subject is speaking, usually caught mid-sentence with the mouth open and the hands gesturing.",
+      "examples": [
+        "mid-sentence across a cafe table",
+        "talking animatedly with both hands moving"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "talking",
+      "negative_fragment": "not talking",
+      "search_boost": 1,
+      "sort_order": 340
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.talking_on_phone",
+      "category": "action",
+      "label": "Talking on the phone",
+      "aliases": [
+        "talking on the phone",
+        "on a phone call",
+        "phone to the ear",
+        "making a call",
+        "chatting on the mobile",
+        "phone call",
+        "talkin on the phone"
+      ],
+      "related": [
+        "action.talking",
+        "action.checking_phone",
+        "action.holding_object"
+      ],
+      "parent": "action.talking",
+      "description": "The subject holds a phone to the ear and speaks into it.",
+      "examples": [
+        "phone pressed to the ear on a busy street",
+        "taking a call while walking"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "talking on a phone held to the ear",
+      "negative_fragment": "not talking on a phone",
+      "search_boost": 1,
+      "sort_order": 350
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.laughing",
+      "category": "action",
+      "label": "Laughing",
+      "aliases": [
+        "laughing",
+        "laugh",
+        "cracking up",
+        "head thrown back laughing",
+        "giggling",
+        "laughin",
+        "laughter"
+      ],
+      "related": [
+        "action.smiling",
+        "action.talking",
+        "pose.head_tilted"
+      ],
+      "parent": null,
+      "description": "The subject is laughing out loud, often with the head tipped back and the eyes creased.",
+      "examples": [
+        "laughing with the head thrown back",
+        "caught mid-laugh across a table"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "laughing",
+      "negative_fragment": "not laughing",
+      "search_boost": 1.2,
+      "sort_order": 360
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.smiling",
+      "category": "action",
+      "label": "Smiling",
+      "aliases": [
+        "smiling",
+        "smile",
+        "soft smile",
+        "grinning",
+        "half smile",
+        "smilling",
+        "warm smile"
+      ],
+      "related": [
+        "action.laughing",
+        "pose.looking_at_camera",
+        "action.talking"
+      ],
+      "parent": null,
+      "description": "The mouth curves into a smile, from a faint half-smile to a broad grin.",
+      "examples": [
+        "a small smile towards the lens",
+        "broad grin in bright daylight"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "smiling",
+      "negative_fragment": "not smiling",
+      "search_boost": 1.2,
+      "sort_order": 370
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.reading",
+      "category": "action",
+      "label": "Reading",
+      "aliases": [
+        "reading",
+        "reading a book",
+        "reading a newspaper",
+        "head down in a book",
+        "reading a magazine",
+        "raeding",
+        "book in hand"
+      ],
+      "related": [
+        "action.writing",
+        "action.holding_object",
+        "pose.looking_down"
+      ],
+      "parent": null,
+      "description": "The subject is reading something in front of them, a book, a paper or a screen.",
+      "examples": [
+        "reading a paperback on a train",
+        "reading a newspaper at a cafe table"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "reading",
+      "negative_fragment": "not reading",
+      "search_boost": 1,
+      "sort_order": 380
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.writing",
+      "category": "action",
+      "label": "Writing",
+      "aliases": [
+        "writing",
+        "writing in a notebook",
+        "taking notes",
+        "pen in hand",
+        "sketching in a book",
+        "wrting",
+        "scribbling"
+      ],
+      "related": [
+        "action.reading",
+        "action.typing",
+        "action.holding_object"
+      ],
+      "parent": null,
+      "description": "The subject is writing or drawing by hand with a pen or pencil.",
+      "examples": [
+        "writing in a notebook by a window",
+        "taking notes at a desk"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "writing by hand",
+      "negative_fragment": "not writing",
+      "search_boost": 1,
+      "sort_order": 390
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.typing",
+      "category": "action",
+      "label": "Typing on a laptop",
+      "aliases": [
+        "typing",
+        "typing on a laptop",
+        "working at a computer",
+        "hands on a keyboard",
+        "on the laptop",
+        "typeing",
+        "working on a laptop"
+      ],
+      "related": [
+        "action.writing",
+        "action.reading",
+        "action.checking_phone"
+      ],
+      "parent": null,
+      "description": "The hands are on a keyboard, typing at a laptop or a computer.",
+      "examples": [
+        "typing at a laptop in a cafe",
+        "hands on a keyboard lit by a screen"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "typing on a laptop",
+      "negative_fragment": "not typing",
+      "search_boost": 1,
+      "sort_order": 400
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.eating",
+      "category": "action",
+      "label": "Eating",
+      "aliases": [
+        "eating",
+        "eating a meal",
+        "having lunch",
+        "biting into food",
+        "eating noodles",
+        "eatting",
+        "having a snack"
+      ],
+      "related": [
+        "action.drinking",
+        "action.cooking",
+        "action.holding_object"
+      ],
+      "parent": null,
+      "description": "The subject is eating food, whether at a table or on the move.",
+      "examples": [
+        "eating noodles at a counter",
+        "biting into a pastry on a bench"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "eating",
+      "negative_fragment": "not eating",
+      "search_boost": 1,
+      "sort_order": 410
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.drinking",
+      "category": "action",
+      "label": "Drinking",
+      "aliases": [
+        "drinking",
+        "drinking coffee",
+        "sipping from a cup",
+        "holding a coffee cup",
+        "taking a sip",
+        "drinkng",
+        "drinking from a bottle"
+      ],
+      "related": [
+        "action.eating",
+        "action.holding_object",
+        "action.cooking"
+      ],
+      "parent": null,
+      "description": "The subject is drinking from a cup, a glass or a bottle, or lifting one towards the mouth.",
+      "examples": [
+        "sipping coffee from a paper cup",
+        "raising a glass at a table"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "drinking from a cup",
+      "negative_fragment": "not drinking",
+      "search_boost": 1.1,
+      "sort_order": 420
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.cooking",
+      "category": "action",
+      "label": "Cooking",
+      "aliases": [
+        "cooking",
+        "preparing food",
+        "chopping vegetables",
+        "cooking at a stove",
+        "making dinner",
+        "cookin",
+        "in the kitchen cooking"
+      ],
+      "related": [
+        "action.eating",
+        "action.drinking",
+        "action.holding_object"
+      ],
+      "parent": null,
+      "description": "The subject is preparing food, chopping, stirring or working at a stove.",
+      "examples": [
+        "chopping vegetables on a wooden board",
+        "stirring a pan at a gas hob"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "cooking",
+      "negative_fragment": "not cooking",
+      "search_boost": 1,
+      "sort_order": 430
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.playing_instrument",
+      "category": "action",
+      "label": "Playing an instrument",
+      "aliases": [
+        "playing an instrument",
+        "playing guitar",
+        "playing the piano",
+        "playing music",
+        "strumming a guitar",
+        "musician playing",
+        "playing instrament"
+      ],
+      "related": [
+        "action.dancing",
+        "action.holding_object",
+        "action.talking"
+      ],
+      "parent": null,
+      "description": "The subject is playing a musical instrument such as a guitar, a piano or a violin.",
+      "examples": [
+        "strumming a guitar on a bed",
+        "hands on piano keys in a dim room"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "playing a musical instrument",
+      "negative_fragment": "not playing an instrument",
+      "search_boost": 1,
+      "sort_order": 440
+    },
+    {
+      "schema_version": "1.0",
+      "id": "action.hugging",
+      "category": "action",
+      "label": "Hugging",
+      "aliases": [
+        "hugging",
+        "embracing",
+        "hug",
+        "arms around someone",
+        "holding each other",
+        "hugging someone",
+        "huging",
+        "embrace"
+      ],
+      "related": [
+        "action.talking",
+        "action.laughing",
+        "action.holding_object"
+      ],
+      "parent": null,
+      "description": "Two people hold each other with their arms, in a greeting, a goodbye or a moment of comfort.",
+      "examples": [
+        "two friends hugging on a station platform",
+        "arms wrapped around each other in a doorway"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "hugging another person",
+      "negative_fragment": "not hugging anyone",
+      "search_boost": 1,
+      "sort_order": 450
+    }
+  ]
+}

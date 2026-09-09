@@ -1,0 +1,258 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.uvrc.dev/v1/explorer-state.schema.json",
+  "title": "ExplorerState",
+  "description": "The complete state of the Unified Modal - identity pillar 1. Text, Image, Video and Browse are FOUR MODES OF ONE MODAL, not four pages. There is no separate image-search page and no separate video-search page; only `mode` changes.\n\nTHE CENTRAL INVARIANT (INV-EXP-1): switching `mode` NEVER resets `intent`, `pinned_reference_ids`, `mix`, `difference` or `filters`. A mode switch changes which input surface is visible and nothing else. This is why `query` holds the payload of ALL FOUR modes simultaneously rather than one polymorphic payload: going text -> image -> text restores the typed text untouched, because it was never discarded. The modal also never closes mid-exploration: `open` is set false only by an explicit user dismissal, never by a search, an upload, an analysis or a navigation.\n\nWhat a mode switch MAY reset: `results` (a new mode implies a new retrieval) and `ui.active_panel`. Nothing else.",
+  "type": "object",
+  "unevaluatedProperties": false,
+  "required": ["schema_version", "mode", "query", "intent"],
+  "properties": {
+    "schema_version": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/schema_version" },
+    "id": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/explorer_id", "description": "exp_<slug>. Present when the session is persisted or shared." },
+    "mode": {
+      "enum": ["text", "image", "video", "browse"],
+      "description": "The ACTIVE input surface. text = type a description. image = drop/pick a still. video = drop/pick a clip. browse = pick visually from the taxonomy grid, the AI-free path that answers 'I don't know what Low Angle means, let me choose it visually'."
+    },
+    "open": { "type": "boolean", "default": true, "description": "Modal visibility. Only an explicit user dismissal may set this to false." },
+    "query": { "$ref": "#/$defs/query", "description": "All four mode payloads plus the shared filters, held together so a mode switch is lossless." },
+    "intent": { "$ref": "https://schema.uvrc.dev/v1/visual-intent.schema.json", "description": "The live, user-editable VisualIntent. Always the full chip form. Survives every mode switch, every search and every back/forward navigation." },
+    "results": { "$ref": "#/$defs/result_set" },
+    "selected_reference_id": {
+      "oneOf": [ { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id" }, { "type": "null" } ],
+      "default": null,
+      "description": "The reference open in the detail panel. Selection is transient and MUST NOT imply membership in the mix - USE / EXTRACT are explicit actions."
+    },
+    "pinned_reference_ids": {
+      "type": "array", "uniqueItems": true, "default": [],
+      "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id" },
+      "description": "The pin tray. Pinned references survive new searches, mode switches and result-set replacement. INV-EXP-4: every reference_id appearing in mix.references MUST also appear here, so a contributing reference can never vanish from the UI."
+    },
+    "mix": { "$ref": "https://schema.uvrc.dev/v1/reference-mix.schema.json", "description": "The live ReferenceMix. Accumulates across modes; never reset by a mode switch or a new search." },
+    "history": { "$ref": "#/$defs/history" },
+    "difference": { "$ref": "#/$defs/difference" },
+    "ai": { "$ref": "#/$defs/ai_settings" },
+    "prompt_mode": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/formatter_mode", "default": "generic", "description": "Formatter target for the live preview." },
+    "prompt_preview": { "$ref": "https://schema.uvrc.dev/v1/structured-prompt.schema.json#/$defs/document", "description": "Last rendered prompt, kept so the composer panel can show blocked slots without re-running the formatter." },
+    "ui": { "$ref": "#/$defs/ui_state" },
+    "created_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+    "updated_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+    "x_ext": { "type": "object" }
+  },
+  "$defs": {
+    "query": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Holds every mode's input at once. `mode` selects which one is active; the others are preserved verbatim.",
+      "properties": {
+        "text": { "type": "string", "maxLength": 2000, "default": "", "description": "TEXT mode input. Never cleared by switching to image/video/browse." },
+        "image": { "$ref": "#/$defs/media_query", "description": "IMAGE mode input." },
+        "video": { "$ref": "#/$defs/video_query", "description": "VIDEO mode input." },
+        "browse": {
+          "type": "object", "additionalProperties": false,
+          "description": "BROWSE mode input: where the user is inside the taxonomy grid.",
+          "properties": {
+            "category": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category" },
+            "parent": { "oneOf": [ { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id" }, { "type": "null" } ], "default": null },
+            "keyword": { "type": "string", "maxLength": 200, "description": "AI-free keyword search over taxonomy labels, aliases and related nodes and over reference titles, tags and aliases." },
+            "page": { "type": "integer", "minimum": 0, "default": 0 }
+          }
+        },
+        "filters": { "$ref": "#/$defs/filters", "description": "SHARED across all four modes and preserved across mode switches." },
+        "expansion": {
+          "type": "object", "additionalProperties": false,
+          "description": "Query expansion state. With AI off this is alias/related-hop expansion over the taxonomy only - no model involved.",
+          "properties": {
+            "enabled": { "type": "boolean", "default": true },
+            "terms": { "type": "array", "items": { "type": "string", "maxLength": 120 }, "default": [] },
+            "expanded_ids": { "type": "array", "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id" }, "default": [], "description": "Taxonomy ids added by expansion. Any chip they produce carries source='query_expansion' and is removable in one click." }
+          }
+        }
+      }
+    },
+    "media_query": {
+      "type": "object", "additionalProperties": false,
+      "description": "A still supplied as the query. Either an already-known reference or a local upload; the bytes never appear here.",
+      "properties": {
+        "reference_id": { "oneOf": [ { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id" }, { "type": "null" } ], "default": null },
+        "upload_id": { "oneOf": [ { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/upload_id" }, { "type": "null" } ], "default": null, "description": "Handle to locally held bytes. Local-first: an upl_ handle never implies the media left the device." },
+        "thumbnail_url": { "type": ["string", "null"], "description": "Local object URL or remote thumbnail for display only." },
+        "analysis_status": { "enum": ["none", "pending", "running", "done", "error", "mocked"], "default": "none", "description": "'mocked' is a first-class v0.1 state: the upload UI ships before real analysis exists." },
+        "analysis_error": { "type": ["string", "null"], "maxLength": 500 },
+        "analyzed_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" }
+      }
+    },
+    "video_query": {
+      "type": "object", "additionalProperties": false,
+      "description": "A clip supplied as the query. Adds the temporal window that a still cannot have.",
+      "properties": {
+        "reference_id": { "oneOf": [ { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id" }, { "type": "null" } ], "default": null },
+        "upload_id": { "oneOf": [ { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/upload_id" }, { "type": "null" } ], "default": null },
+        "thumbnail_url": { "type": ["string", "null"] },
+        "t_start_s": { "type": "number", "minimum": 0, "default": 0, "description": "Start of the analysed window. Lets the user say 'describe THIS camera move', not the whole clip." },
+        "t_end_s": { "type": ["number", "null"], "minimum": 0, "default": null },
+        "analysis_status": { "enum": ["none", "pending", "running", "done", "error", "mocked"], "default": "none" },
+        "analysis_error": { "type": ["string", "null"], "maxLength": 500 },
+        "analyzed_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" }
+      }
+    },
+    "filters": {
+      "type": "object", "additionalProperties": false,
+      "description": "Structured retrieval filters. Persist across mode switches and are recorded in every history entry so a search is exactly replayable.",
+      "properties": {
+        "license": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/license_id" }, "default": ["public_domain", "pdm", "cc0", "cc_by"], "description": "Default = the allowed-by-default set from the brief. cc_by_sa is opt-in; NC/ND/unknown/proprietary are excluded by default." },
+        "type": { "type": "array", "uniqueItems": true, "items": { "enum": ["image", "video"] }, "default": ["image", "video"] },
+        "status": { "type": "array", "uniqueItems": true, "items": { "enum": ["candidate", "approved", "rejected", "license_review"] }, "default": ["approved"], "description": "Default 'approved' only: an unverified reference never reaches a normal search result." },
+        "source": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/provider_source" }, "default": [] },
+        "orientation": { "type": "array", "uniqueItems": true, "items": { "enum": ["landscape", "portrait", "square"] }, "default": [] },
+        "min_width": { "type": "integer", "minimum": 0 },
+        "min_height": { "type": "integer", "minimum": 0 },
+        "duration_s": { "type": "object", "additionalProperties": false, "properties": { "min": { "type": "number", "minimum": 0 }, "max": { "type": "number", "minimum": 0 } }, "description": "Video only." },
+        "has_camera_motion": { "type": ["boolean", "null"], "default": null, "description": "Video only. True restricts to references with a non-empty camera_motion attribute set." },
+        "require_categories": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category" }, "default": [], "description": "Only return references that actually carry values in these categories - e.g. require camera_motion when hunting for a camera move." },
+        "tags": { "type": "array", "uniqueItems": true, "items": { "type": "string", "maxLength": 80 }, "default": [] },
+        "collections": { "type": "array", "uniqueItems": true, "items": { "type": "string", "maxLength": 80 }, "default": [] },
+        "local_only": { "type": ["boolean", "null"], "default": null }
+      }
+    },
+    "result_set": {
+      "type": "object", "additionalProperties": false,
+      "description": "Retrieval output. Retrieval and analysis are separate modules: the analyzer understands, the retriever ranks; nothing here ever writes back into `intent`.",
+      "properties": {
+        "status": { "enum": ["idle", "loading", "ready", "error"], "default": "idle" },
+        "query_id": { "type": "string", "maxLength": 80, "description": "Correlates a result set with the request that produced it, so a slow response for an abandoned query can be discarded." },
+        "items": {
+          "type": "array", "default": [],
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["reference_id"],
+            "properties": {
+              "reference_id": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id" },
+              "rank": { "type": "integer", "minimum": 0 },
+              "score": { "type": "number", "description": "Fused score. Comparable only within one result set." },
+              "score_breakdown": {
+                "type": "object", "additionalProperties": false,
+                "description": "Per-signal contributions, kept so ranking is explainable and so the 60/40 fusion default can be tuned visibly.",
+                "properties": {
+                  "semantic": { "type": "number" },
+                  "metadata": { "type": "number" },
+                  "rerank": { "type": "number" },
+                  "keyword": { "type": "number" },
+                  "recency": { "type": "number" }
+                }
+              },
+              "matched_categories": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category" }, "default": [], "description": "Which categories actually matched. Drives the 'why did this come back' badges and the KEEP/CHANGE readout." },
+              "matched_values": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id" }, "default": [] },
+              "differs_categories": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category" }, "default": [], "description": "Categories deliberately different from the anchor, populated by Search by Difference." }
+            }
+          }
+        },
+        "total": { "type": "integer", "minimum": 0 },
+        "cursor": { "type": ["string", "null"], "default": null, "description": "Opaque provider pagination token." },
+        "ranking": {
+          "type": "object", "additionalProperties": false,
+          "description": "The hybrid ranking configuration actually used. Recorded per result set so a replayed history entry reproduces the same ordering.",
+          "properties": {
+            "mode": { "enum": ["hybrid", "semantic_only", "metadata_only", "keyword_only"], "default": "metadata_only", "description": "With AI off the only reachable modes are metadata_only and keyword_only, and the product is still complete." },
+            "semantic_weight": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/unit_interval", "default": 0.6 },
+            "metadata_weight": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/unit_interval", "default": 0.4 },
+            "fusion": { "enum": ["weighted_sum", "rrf"], "default": "weighted_sum" },
+            "reranker_enabled": { "type": "boolean", "default": false },
+            "embedding_key": { "type": ["string", "null"], "default": null, "description": "Which Reference.embeddings key was queried. Null with AI off." }
+          }
+        },
+        "ran_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+        "error": { "type": ["string", "null"], "maxLength": 500 }
+      }
+    },
+    "history": {
+      "type": "object", "additionalProperties": false,
+      "description": "Navigation history of the exploration. Semantics are browser-like: pushing a new entry while cursor < entries.length-1 TRUNCATES the forward tail and then appends. back() decrements the cursor, forward() increments it; neither pushes.\n\nINV-EXP-3 - history is NAVIGATION history, not document history. back()/forward() restore mode, query, filters and the result set. They do NOT touch pinned_reference_ids or mix, and by default they do NOT overwrite the live intent: going back to an earlier search must never delete the outfit you already collected. Restoring an entry's intent is an explicit action (restoreEntry(entry, { apply_intent: true })) or an opt-in via restore_intent_on_navigate.",
+      "properties": {
+        "entries": { "type": "array", "items": { "$ref": "#/$defs/history_entry" }, "default": [] },
+        "cursor": { "type": "integer", "minimum": -1, "default": -1, "description": "Index of the current entry; -1 when the history is empty." },
+        "max_entries": { "type": "integer", "minimum": 1, "default": 200, "description": "FIFO eviction from the front when exceeded; cursor is decremented accordingly." },
+        "restore_intent_on_navigate": { "type": "boolean", "default": false, "description": "Opt-in: make back/forward also replace the live intent with the entry's snapshot. Off by default so exploration accumulates." }
+      }
+    },
+    "history_entry": {
+      "type": "object", "additionalProperties": false,
+      "required": ["mode", "query", "intent_snapshot", "filters", "origin"],
+      "description": "A fully REPLAYABLE navigation step: replay(entry) = set mode, query and filters, then re-run retrieval with intent_snapshot. Nothing outside the entry is needed.",
+      "properties": {
+        "id": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/history_entry_id" },
+        "at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+        "mode": { "enum": ["text", "image", "video", "browse"] },
+        "query": { "$ref": "#/$defs/query", "description": "The full multi-mode query object as it stood, so replay is exact." },
+        "intent_snapshot": { "$ref": "https://schema.uvrc.dev/v1/visual-intent.schema.json", "description": "Deep copy of the intent used for THIS retrieval. Full chip form, so provenance is preserved in the snapshot too." },
+        "filters": { "$ref": "#/$defs/filters" },
+        "origin": {
+          "enum": ["initial", "user_query", "mode_switch", "chip_edit", "taxonomy_browse", "reference_explore", "reference_use", "reference_extract", "search_by_difference", "preset_load", "recipe_load", "deep_link"],
+          "description": "Why this step happened. Drives the history breadcrumb text ('similar lighting to img_x') and analytics. back/forward NEVER create an entry, so they are not values here."
+        },
+        "origin_reference_id": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id", "description": "The card the step came from, for reference_* and search_by_difference origins." },
+        "origin_categories": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category" }, "default": [], "description": "Which categories the EXPLORE/EXTRACT action targeted ('same lighting', 'same pose')." },
+        "label": { "type": "string", "maxLength": 200, "description": "Human breadcrumb text." },
+        "result_ref_ids": { "type": "array", "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id" }, "default": [], "description": "Optional cache of the result ids so back() can render instantly before re-running retrieval." },
+        "ranking_snapshot": { "type": "object", "description": "Optional copy of results.ranking so a replay reproduces the exact ordering." }
+      }
+    },
+    "difference": {
+      "type": "object", "additionalProperties": false,
+      "description": "Search by Difference (v0.5, the key differentiator). The user marks which categories must stay the same and which must change: 'keep composition + lighting + camera, change clothing' finds the same framing/lighting/camera with a different outfit.\n\nINV-EXP-5 (code-enforced, not expressible in JSON Schema): keep and change MUST be disjoint. A category in neither set is simply unconstrained.\nQuery construction: KEEP categories become hard structured filters pinned to the anchor's values; CHANGE categories become negative filters against the anchor's values plus a diversity boost; unlisted categories are free.",
+      "properties": {
+        "enabled": { "type": "boolean", "default": false },
+        "anchor_reference_id": { "oneOf": [ { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id" }, { "type": "null" } ], "default": null, "description": "The reference the difference is measured against. Null means the live intent is the anchor." },
+        "keep": { "type": "array", "uniqueItems": true, "default": [], "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category" } },
+        "change": { "type": "array", "uniqueItems": true, "default": [], "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category" } },
+        "change_targets": {
+          "type": "object",
+          "description": "Optional directed change: 'change clothing TO streetwear' rather than merely 'not this outfit'. category -> desired taxonomy ids.",
+          "propertyNames": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category" },
+          "additionalProperties": { "type": "array", "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id" } },
+          "default": {}
+        },
+        "strictness": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/unit_interval", "default": 0.8, "description": "How hard the KEEP constraint is applied: 1.0 = exact taxonomy match required, lower values allow sibling nodes." }
+      }
+    },
+    "ai_settings": {
+      "type": "object", "additionalProperties": false,
+      "description": "AI is OPTIONAL. INV-AI-1: with enabled=false the product is still complete - browse cards, manual selection, keyword search over tags/aliases/related, metadata search and the prompt composer all work, and results.ranking.mode falls back to metadata_only/keyword_only. INV-AI-2: no model name is ever hardcoded; every capability is reached through an adapter id resolved at runtime.",
+      "properties": {
+        "enabled": { "type": "boolean", "default": false, "description": "Master switch. False is a fully supported product state, not a degraded one." },
+        "analyzer_enabled": { "type": "boolean", "default": false },
+        "semantic_enabled": { "type": "boolean", "default": false },
+        "rerank_enabled": { "type": "boolean", "default": false },
+        "expansion_enabled": { "type": "boolean", "default": true, "description": "Alias/related-hop expansion needs no model and stays available with AI off." },
+        "adapters": {
+          "type": "object", "additionalProperties": false,
+          "description": "Opaque adapter instance ids. Core code never branches on their values.",
+          "properties": {
+            "analyzer": { "type": ["string", "null"], "maxLength": 120, "default": null },
+            "embedding": { "type": ["string", "null"], "maxLength": 120, "default": null },
+            "reranker": { "type": ["string", "null"], "maxLength": 120, "default": null }
+          }
+        },
+        "external_transmission": {
+          "type": "object", "additionalProperties": false,
+          "description": "Privacy. Local-first by default; any transmission of user media to an external service must be disclosed in the UI before it happens.",
+          "properties": {
+            "allowed": { "type": "boolean", "default": false },
+            "disclosed_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+            "endpoints": { "type": "array", "items": { "type": "string", "maxLength": 300 }, "default": [] }
+          }
+        }
+      }
+    },
+    "ui_state": {
+      "type": "object", "additionalProperties": false,
+      "description": "Purely presentational. Never affects retrieval, intent or the prompt - the brief forbids coupling the UI to the prompt engine or the search.",
+      "properties": {
+        "active_panel": { "enum": ["results", "detail", "mixer", "composer", "browse"], "default": "results" },
+        "detail_tab": { "enum": ["attributes", "metadata", "license", "explore"], "default": "attributes" },
+        "chip_filter_category": { "oneOf": [ { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category" }, { "type": "null" } ], "default": null },
+        "show_conflicts_only": { "type": "boolean", "default": false },
+        "composer_open": { "type": "boolean", "default": false },
+        "grid_density": { "enum": ["compact", "comfortable"], "default": "comfortable" }
+      }
+    }
+  }
+}

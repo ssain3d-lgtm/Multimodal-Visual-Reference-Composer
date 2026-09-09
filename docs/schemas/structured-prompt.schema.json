@@ -1,0 +1,416 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.uvrc.dev/v1/structured-prompt.schema.json",
+  "title": "StructuredPrompt",
+  "description": "The intermediate representation between VisualIntent and final prompt text. Exactly the 13 slots the brief fixes, all REQUIRED, arrays may be empty. Like VisualIntent this is a VALUE OBJECT with no schema_version of its own; persist or export it inside $defs/document.\n\nWHY IT EXISTS: it decouples the UI from the prompt engine and the prompt engine from any model. buildStructuredPrompt is model-agnostic; only formatPrompt knows about a mode.\n\nPIPELINE: VisualIntent --buildStructuredPrompt(taxonomy)--> StructuredPrompt --formatPrompt(mode)--> text.\n\nbuildStructuredPrompt(intent, taxonomy, mix?) -> { prompt, blocked }:\n  1. Every chip is routed by CATEGORY_TO_PROMPT_SLOT (see taxonomy-node.schema.json#/$defs/category_to_prompt_slot_map). Twenty categories collapse into thirteen slots; `camera` absorbs three (camera_angle, camera_distance, camera_motion), `scene` absorbs three (scene, weather, props), `style` absorbs three (style, mood, color), `lighting` absorbs two (lighting, time), `action` absorbs two (pose, action).\n  2. OVERRIDE: any chip with negate=true routes to `constraints` regardless of category, emitting taxonomy[value].negative_fragment ?? ('no ' + fragment), with kind='negative'.\n  3. A chip's text is taxonomy[value].model_hints[mode] ?? taxonomy[value].prompt_fragment ?? taxonomy[value].label ?? humanize(value). A custom chip emits its label verbatim.\n  4. Within a slot fed by several categories, fragments are emitted in PROMPT_SLOT_EMIT_ORDER; within one category, by chip order asc, then confidence desc, then value asc. Ordering is fully deterministic.\n  5. A category with an OPEN conflict in the active mix is NOT emitted while resolution_policy.on_unresolved = 'block'; it is reported in blocked[] instead. Nothing is auto-picked and nothing is silently dropped.\n  6. Media downgrade (INV-FMT-2): when the target mode is a still-image mode, `camera_motion` chips are dropped from `camera` and a warning is emitted; `motion` chips survive but are rendered in implied-motion phrasing.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "subject",
+    "appearance",
+    "clothing",
+    "action",
+    "framing",
+    "camera",
+    "lens",
+    "scene",
+    "lighting",
+    "composition",
+    "style",
+    "motion",
+    "constraints"
+  ],
+  "properties": {
+    "subject": {
+      "$ref": "#/$defs/slot",
+      "description": "Fed by: subject."
+    },
+    "appearance": {
+      "$ref": "#/$defs/slot",
+      "description": "Fed by: appearance."
+    },
+    "clothing": {
+      "$ref": "#/$defs/slot",
+      "description": "Fed by: clothing."
+    },
+    "action": {
+      "$ref": "#/$defs/slot",
+      "description": "Fed by: pose, action (in that order). There is no dedicated pose slot in the brief; pose and action both describe subject behaviour and read naturally in sequence."
+    },
+    "framing": {
+      "$ref": "#/$defs/slot",
+      "description": "Fed by: framing. Kept separate from `camera` because framing is the single most transferable attribute in the product's core use case ('same composition/framing as this photo')."
+    },
+    "camera": {
+      "$ref": "#/$defs/slot",
+      "description": "Fed by: camera_angle, camera_distance, camera_motion (in that order). Three categories collapse here: it is the 'everything about the camera body and its behaviour' slot."
+    },
+    "lens": {
+      "$ref": "#/$defs/slot",
+      "description": "Fed by: lens. INV-LENS-2: every fragment emitted here MUST be hedged; the formatter refuses a lens fragment that reads as a factual EXIF claim."
+    },
+    "scene": {
+      "$ref": "#/$defs/slot",
+      "description": "Fed by: scene, weather, props (in that order). Weather is an environmental condition of the place; props are its contents."
+    },
+    "lighting": {
+      "$ref": "#/$defs/slot",
+      "description": "Fed by: time, lighting (in that order). Time of day functions as a lighting descriptor in a generation prompt ('golden hour', 'blue hour'), so it is emitted as the leading qualifier of the light rather than orphaned in `scene`."
+    },
+    "composition": {
+      "$ref": "#/$defs/slot",
+      "description": "Fed by: composition."
+    },
+    "style": {
+      "$ref": "#/$defs/slot",
+      "description": "Fed by: style, mood, color (in that order). The brief defines no color or mood slot; palette and emotional register are conventionally emitted together with the aesthetic, e.g. 'cinematic editorial photograph, quiet and intimate, muted teal palette'."
+    },
+    "motion": {
+      "$ref": "#/$defs/slot",
+      "description": "Fed by: motion (SUBJECT motion only). Camera movement lives in `camera`."
+    },
+    "constraints": {
+      "type": "array",
+      "default": [],
+      "description": "Fed by NO category directly. Populated from (a) any chip with negate=true, from any category, and (b) composer-level directives that are not visual attributes at all: aspect ratio, quality tokens, technical requirements, safety notes. Formatters that support a separate negative prompt emit kind='negative' entries there instead of inline.",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300
+          },
+          {
+            "$ref": "#/$defs/constraint_fragment"
+          }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "slot": {
+      "type": "array",
+      "default": [],
+      "description": "A prompt slot. FULL form items are PromptFragment objects carrying traceability back to the chip and the reference that produced them; COMPACT form items are bare strings for interop. Mixed arrays are legal on ingest; buildStructuredPrompt always emits the full form.",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300
+          },
+          {
+            "$ref": "#/$defs/prompt_fragment"
+          }
+        ]
+      }
+    },
+    "prompt_fragment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text"
+      ],
+      "description": "One emitted phrase plus the provenance chain that produced it. Traceability is what lets the UI answer 'why is this in my prompt?' and lets the user delete exactly one contribution of one reference.",
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300,
+          "description": "The literal text emitted."
+        },
+        "source_category": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category",
+          "description": "The VisualIntent/Reference category this fragment came from - needed because several categories share one slot."
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "The taxonomy id (or custom text) of the originating chip."
+        },
+        "ref_id": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id",
+          "description": "The reference that contributed it, when it came from a mix."
+        },
+        "chip_id": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/chip_id"
+        },
+        "confidence": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/unit_interval"
+        },
+        "weight": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/unit_interval",
+          "default": 1,
+          "description": "Emphasis hint. Modes that support weighting syntax may render it; `generic` ignores it."
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hedged": {
+          "type": "boolean",
+          "description": "True when the fragment deliberately softens an unknowable claim. MUST be true for every fragment in the `lens` slot."
+        }
+      }
+    },
+    "constraint_fragment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "kind"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "kind": {
+          "enum": [
+            "negative",
+            "technical",
+            "aspect",
+            "quality",
+            "safety"
+          ],
+          "description": "negative = an exclusion derived from a negate=true chip or typed by the user. technical = renderer directives (steps, seed hints). aspect = aspect ratio / resolution. quality = quality tokens. safety = operator policy text."
+        },
+        "source_category": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category",
+          "description": "Present when the constraint came from a negated chip."
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "ref_id": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id"
+        }
+      }
+    },
+    "compact": {
+      "title": "StructuredPromptCompact",
+      "description": "Interop profile: every slot item is a bare string. Lossless for the emitted text, lossy for provenance.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "subject",
+        "appearance",
+        "clothing",
+        "action",
+        "framing",
+        "camera",
+        "lens",
+        "scene",
+        "lighting",
+        "composition",
+        "style",
+        "motion",
+        "constraints"
+      ],
+      "properties": {
+        "subject": {
+          "$ref": "#/$defs/compact_slot"
+        },
+        "appearance": {
+          "$ref": "#/$defs/compact_slot"
+        },
+        "clothing": {
+          "$ref": "#/$defs/compact_slot"
+        },
+        "action": {
+          "$ref": "#/$defs/compact_slot"
+        },
+        "framing": {
+          "$ref": "#/$defs/compact_slot"
+        },
+        "camera": {
+          "$ref": "#/$defs/compact_slot"
+        },
+        "lens": {
+          "$ref": "#/$defs/compact_slot"
+        },
+        "scene": {
+          "$ref": "#/$defs/compact_slot"
+        },
+        "lighting": {
+          "$ref": "#/$defs/compact_slot"
+        },
+        "composition": {
+          "$ref": "#/$defs/compact_slot"
+        },
+        "style": {
+          "$ref": "#/$defs/compact_slot"
+        },
+        "motion": {
+          "$ref": "#/$defs/compact_slot"
+        },
+        "constraints": {
+          "$ref": "#/$defs/compact_slot"
+        }
+      }
+    },
+    "compact_slot": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 300
+      },
+      "default": []
+    },
+    "blocked_slot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "slot",
+        "category",
+        "reason"
+      ],
+      "description": "A slot the formatter refused to emit. The UI must show this as an unresolved decision, never as an error and never as a silent omission.",
+      "properties": {
+        "slot": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/prompt_slot"
+        },
+        "category": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category"
+        },
+        "reason": {
+          "enum": [
+            "unresolved_conflict",
+            "missing_taxonomy",
+            "policy"
+          ],
+          "description": "unresolved_conflict is the normal case and points at conflict_id."
+        },
+        "conflict_id": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/conflict_id"
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 500
+        }
+      }
+    },
+    "document": {
+      "title": "StructuredPromptDocument",
+      "description": "Envelope for persisting/exporting a StructuredPrompt together with its rendered text, its mode and what the formatter refused to emit. This is also the shape a ComfyUI node returns alongside `prompt`, `visual_intent` and `reference_mix`.\n\nformatPrompt(structured_prompt, mode, options) -> { text, negative_text?, blocked[], warnings[], slot_order[] }\n  - mode: a formatter_mode string. `generic` is the only mode the MVP must implement; flux / qwen_image / sd / gpt_image / minimax_h3 / krea are registered later WITHOUT touching core code - a mode is a formatter module plus optional model_hints keys in the taxonomy.\n  - Default `generic` slot order: subject, appearance, clothing, action, motion, scene, lighting, composition, framing, camera, lens, style, constraints.\n  - INV-FMT-1: formatPrompt is PURE. Same StructuredPrompt + same mode + same taxonomy version => byte-identical text.\n  - INV-FMT-2: when the mode's target media is a still image, camera_motion-derived fragments are dropped with a warning.\n  - INV-FMT-3: the formatter never invents a value that is not present in the StructuredPrompt.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "kind",
+        "prompt_mode",
+        "structured"
+      ],
+      "properties": {
+        "schema_version": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/schema_version"
+        },
+        "kind": {
+          "const": "structured_prompt"
+        },
+        "form": {
+          "enum": [
+            "full",
+            "compact"
+          ],
+          "default": "full"
+        },
+        "prompt_mode": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/formatter_mode"
+        },
+        "structured": {
+          "anyOf": [
+            {
+              "$ref": "https://schema.uvrc.dev/v1/structured-prompt.schema.json"
+            },
+            {
+              "$ref": "#/$defs/compact"
+            }
+          ],
+          "description": "Either profile; `form` is the discriminator and the allOf below pins it. anyOf (not oneOf) because an empty or string-only prompt satisfies both profiles."
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 20000,
+          "description": "The rendered positive prompt."
+        },
+        "negative_text": {
+          "type": "string",
+          "maxLength": 8000,
+          "description": "Rendered negative prompt for modes that support one; otherwise the negative constraints are inlined into text."
+        },
+        "blocked": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/blocked_slot"
+          },
+          "default": []
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "default": []
+        },
+        "slot_order": {
+          "type": "array",
+          "items": {
+            "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/prompt_slot"
+          },
+          "description": "The order actually used, recorded so a rendered prompt is reproducible."
+        },
+        "formatter_version": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "taxonomy_version": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "source_intent": {
+          "$ref": "https://schema.uvrc.dev/v1/visual-intent.schema.json"
+        },
+        "source_mix_id": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/mix_id"
+        },
+        "generated_at": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime"
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "`form` selects which profile `structured` must satisfy.",
+          "if": {
+            "properties": {
+              "form": {
+                "const": "compact"
+              }
+            },
+            "required": [
+              "form"
+            ]
+          },
+          "then": {
+            "properties": {
+              "structured": {
+                "$ref": "#/$defs/compact"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "structured": {
+                "$ref": "https://schema.uvrc.dev/v1/structured-prompt.schema.json"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

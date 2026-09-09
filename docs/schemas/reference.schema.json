@@ -1,0 +1,282 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.uvrc.dev/v1/reference.schema.json",
+  "title": "Reference",
+  "description": "A reference is NOT a picture - identity pillar 3. It is a bag of typed visual attributes plus the licensing and retrieval metadata that makes it lawfully usable and re-findable. This object is what Reference Decomposition produces and what Selective Inheritance reads from.\n\nHARD STORAGE RULE (brief, License policy): NO BINARY MEDIA IS EVER STORED IN THIS OBJECT OR IN THE REPOSITORY. Only URLs, thumbnails URLs, metadata, embeddings and visual attributes. The properties media_blob, media_base64, media_bytes, data_uri and binary are schema-FALSE: a document carrying any of them is invalid. Embedding vectors follow the same spirit - prefer embeddings[*].vector_ref pointing at a sidecar index outside the repo over inlining floats.",
+  "type": "object",
+  "unevaluatedProperties": false,
+  "required": ["schema_version", "id", "type", "status", "visual_attributes", "metadata"],
+  "properties": {
+    "schema_version": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/schema_version" },
+    "id": {
+      "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id",
+      "description": "img_<slug> for images, vid_<slug> for videos, ref_<slug> only while type is still unknown during ingest. Canonical minting (deterministic, so the same provider hit dedupes across sessions): mintReferenceId(type, source, source_id) = ('img'|'vid'|'ref') + '_' + slugify(source) + '_' + sha256(source + '|' + source_id).slice(0,8), e.g. img_wikimedia_commons_9f2ab41c. User uploads use img_local_<uuid8>."
+    },
+    "type": { "enum": ["image", "video"], "description": "Media kind. Drives which attribute categories and media fields are legal." },
+    "status": {
+      "enum": ["candidate", "approved", "rejected", "license_review"],
+      "description": "License Guard lifecycle state. candidate = ingested, unverified. license_review = a human must decide (unknown/ambiguous/share-alike). approved = license verified AND attribution captured - the ONLY state that may appear in search results or be exported in a VisualRecipe by default. rejected = excluded license or failed source validation; kept as a tombstone so the same source_id is not re-ingested. INV-LIC-1: status may only become 'approved' when license_guard.license_check.status = 'pass', license_guard.source_validation.status = 'pass', metadata.license is in the operator's allowed set, and metadata.attribution is a non-empty string. Unverified license can NEVER reach approved."
+    },
+    "visual_attributes": {
+      "type": "object",
+      "description": "The decomposition. Map of visual category -> array of taxonomy ids (bare strings, matching the brief's Reference shape exactly). All 20 categories are legal keys; absent key and empty array are equivalent. Per-attribute analyzer detail lives in the optional attribute_meta sidecar so this map stays interop-minimal.",
+      "propertyNames": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category" },
+      "additionalProperties": {
+        "type": "array",
+        "uniqueItems": true,
+        "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id" }
+      },
+      "default": {}
+    },
+    "attribute_meta": {
+      "type": "object",
+      "description": "Optional sidecar keyed by taxonomy id, carrying how each attribute was determined. Consumed by applyMix: an inherited chip takes its confidence from attribute_meta[id].confidence, defaulting to 0.7 when absent.",
+      "propertyNames": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id" },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "confidence": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/unit_interval" },
+          "source": { "$ref": "https://schema.uvrc.dev/v1/visual-intent.schema.json#/$defs/chip_source" },
+          "evidence": { "$ref": "https://schema.uvrc.dev/v1/visual-intent.schema.json#/$defs/evidence" },
+          "verified_by_user": { "type": "boolean", "default": false },
+          "created_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" }
+        }
+      },
+      "default": {}
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Provenance, licensing and attribution. Everything needed to credit the work and to re-find it after a media URL rots.",
+      "required": ["source", "source_id", "license", "source_url"],
+      "properties": {
+        "source": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/provider_source", "description": "Provider key: wikimedia_commons | openverse | local | user_upload | manual | <plugin>." },
+        "source_id": { "type": "string", "minLength": 1, "maxLength": 300, "description": "Provider-native identifier. Together with `source` this is the DURABLE identity of the work; media_url is only a cache hint." },
+        "creator": { "type": ["string", "null"], "maxLength": 300, "description": "Attributed author. May be null ONLY for public_domain / pdm / cc0 / user_owned; any BY-family license requires a non-null creator before approval." },
+        "license": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/license_id" },
+        "license_url": { "type": ["string", "null"], "format": "uri", "description": "Canonical deed URL. Required for approval on every license except public_domain, pdm, cc0 and user_owned." },
+        "license_version": { "type": "string", "maxLength": 20, "examples": ["4.0", "3.0", "2.0"] },
+        "source_url": { "type": "string", "format": "uri", "description": "Human-facing page for the work on the provider. THE durable link; it is what a rotted media_url is re-resolved from." },
+        "media_url": { "type": ["string", "null"], "format": "uri", "description": "Direct media URL. Treated as a CACHE HINT that is allowed to rot. Never a data: URI." },
+        "thumbnail_url": { "type": ["string", "null"], "format": "uri", "description": "Small preview URL used by cards and taxonomy visual_hints." },
+        "attribution": { "type": "string", "maxLength": 600, "description": "The literal credit string to display and to carry into exports, e.g. 'Photo by Jane Doe, CC BY 4.0, via Wikimedia Commons'. Stored as TEXT, not computed from live links, so credit survives URL rot." },
+        "retrieved_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime", "description": "When the metadata was fetched from the provider." },
+        "title": { "type": "string", "maxLength": 400, "description": "Provider-supplied title. Indexed by keyword search." },
+        "credit_line": { "type": "string", "maxLength": 600 },
+        "license_policy_class": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/license_policy_class", "description": "DERIVED CACHE from license + operator settings. Recompute on load." },
+        "requires_attribution": { "type": "boolean", "description": "Derived: true for the BY family." },
+        "share_alike": { "type": "boolean", "description": "Derived: true for cc_by_sa." }
+      }
+    },
+    "license_guard": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Audit trail of the four-stage License Guard pipeline from the brief: LICENSE CHECK -> SOURCE VALIDATION -> ATTRIBUTION METADATA -> REFERENCE APPROVAL. Stages run in order; a later stage may not pass while an earlier one has not.",
+      "properties": {
+        "license_check": { "$ref": "#/$defs/guard_stage" },
+        "source_validation": { "$ref": "#/$defs/guard_stage" },
+        "attribution_metadata": { "$ref": "#/$defs/guard_stage" },
+        "approval": { "$ref": "#/$defs/guard_stage" }
+      }
+    },
+    "media": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Technical facts about the media. Video-only fields are FORBIDDEN on type=image (see the if/then rules below) so an image can never fake temporal evidence.",
+      "properties": {
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "aspect_ratio": { "type": "number", "exclusiveMinimum": 0, "description": "DERIVED CACHE = width / height." },
+        "orientation": { "enum": ["landscape", "portrait", "square"], "description": "DERIVED CACHE." },
+        "mime_type": { "type": "string", "maxLength": 100, "examples": ["image/jpeg", "image/webp", "video/mp4"] },
+        "bytes": { "type": "integer", "minimum": 0, "description": "Size of the REMOTE asset, informational only. The bytes themselves are never stored here." },
+        "duration_s": { "type": "number", "exclusiveMinimum": 0, "description": "VIDEO ONLY." },
+        "fps": { "type": "number", "exclusiveMinimum": 0, "description": "VIDEO ONLY." },
+        "frame_count": { "type": "integer", "minimum": 1, "description": "VIDEO ONLY." },
+        "has_audio": { "type": "boolean", "description": "VIDEO ONLY. Audio is never analysed; the flag exists for licensing/attribution completeness." },
+        "keyframes": {
+          "type": "array",
+          "description": "VIDEO ONLY. Sampled frames used as chip evidence and as the video card's filmstrip.",
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["t_s"],
+            "properties": {
+              "t_s": { "type": "number", "minimum": 0 },
+              "index": { "type": "integer", "minimum": 0 },
+              "thumbnail_url": { "type": "string", "format": "uri" }
+            }
+          }
+        },
+        "shot_boundaries": {
+          "type": "array",
+          "description": "VIDEO ONLY. Detected cut points in seconds. A camera_motion chip's evidence.shot_index indexes the interval list built from these.",
+          "items": { "type": "number", "minimum": 0 }
+        }
+      }
+    },
+    "embeddings": {
+      "type": "object",
+      "description": "Model-keyed so several embedding models coexist and can be swapped without migration - the brief forbids AI-model-dependent architecture. Key format '<family>_<size>@<revision>', e.g. 'qwen3vl_emb_2b@v1'. Adding a model adds a key; nothing else changes. Retrieval picks the key named by the active embedding-adapter and silently skips references that lack it.",
+      "propertyNames": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*@[a-z0-9][a-z0-9._-]{0,30}$" },
+      "additionalProperties": { "$ref": "#/$defs/embedding_record" },
+      "default": {}
+    },
+    "title": { "type": "string", "maxLength": 400, "description": "Display title (falls back to metadata.title). Indexed by keyword search." },
+    "description": { "type": "string", "maxLength": 4000, "description": "Free text. Indexed by keyword search. Never used as a licence or factual claim." },
+    "tags": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 80 }, "default": [], "description": "Free-form keywords (provider tags plus operator tags). First-class AI-OFF search surface." },
+    "aliases": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 120 }, "default": [], "description": "Alternate names for THIS reference (not for taxonomy nodes). Lets a user find 'the neon alley one' without any model." },
+    "search_text": { "type": "string", "maxLength": 8000, "description": "DERIVED CACHE: lowercased concatenation of title + description + tags + aliases + every taxonomy label and alias reachable from visual_attributes. Rebuildable; never authoritative." },
+    "collections": { "type": "array", "uniqueItems": true, "items": { "type": "string", "maxLength": 80 }, "default": [], "description": "Operator-defined groupings (boards, projects)." },
+    "privacy": {
+      "type": "object", "additionalProperties": false,
+      "description": "Local-first guarantees from the brief. A user upload defaults to local_only=true and may_transmit_external=false; flipping either requires explicit UI disclosure.",
+      "properties": {
+        "local_only": { "type": "boolean", "default": false, "description": "True when the media must never leave the device. Providers and remote adapters MUST refuse such a reference." },
+        "may_transmit_external": { "type": "boolean", "default": false },
+        "disclosed_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime", "description": "When the user was shown the external-transmission disclosure." }
+      }
+    },
+    "created_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+    "updated_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+    "analyzed_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+    "analyzer_version": { "type": "string", "maxLength": 120, "description": "Adapter instance id that produced visual_attributes, so a re-analysis can be scheduled when the adapter changes. Not a hardcoded model name." },
+    "x_ext": { "type": "object" },
+
+    "media_blob": false,
+    "media_base64": false,
+    "media_bytes": false,
+    "data_uri": false,
+    "binary": false
+  },
+  "allOf": [
+    {
+      "$comment": "INV-REF-1: the id prefix and the type must agree.",
+      "if": { "properties": { "id": { "type": "string", "pattern": "^img_" } }, "required": ["id"] },
+      "then": { "properties": { "type": { "const": "image" } } }
+    },
+    {
+      "if": { "properties": { "id": { "type": "string", "pattern": "^vid_" } }, "required": ["id"] },
+      "then": { "properties": { "type": { "const": "video" } } }
+    },
+    {
+      "$comment": "INV-VID-2: an image reference can never carry camera_motion, and never carries temporal media fields. This is the schema-level expression of 'a still cannot evidence movement'.",
+      "if": { "properties": { "type": { "const": "image" } }, "required": ["type"] },
+      "then": {
+        "properties": {
+          "visual_attributes": { "properties": { "camera_motion": { "maxItems": 0 } } },
+          "media": {
+            "properties": {
+              "duration_s": false, "fps": false, "frame_count": false,
+              "has_audio": false, "keyframes": false, "shot_boundaries": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "INV-VID-4: a video reference must state its duration once its media block exists, so timespan evidence can be validated.",
+      "if": { "allOf": [ { "properties": { "type": { "const": "video" } }, "required": ["type"] }, { "required": ["media"] } ] },
+      "then": { "properties": { "media": { "required": ["duration_s"] } } }
+    },
+    {
+      "$comment": "INV-LIC-1: approval preconditions. Attribution and a verified license must exist before a reference can be used.",
+      "if": { "properties": { "status": { "const": "approved" } }, "required": ["status"] },
+      "then": {
+        "properties": {
+          "metadata": {
+            "required": ["attribution"],
+            "properties": {
+              "attribution": { "type": "string", "minLength": 1 },
+              "license": { "not": { "enum": ["unknown", "proprietary"] } }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "INV-LIC-2: BY-family licenses require a named creator and a deed URL before the reference may be approved.",
+      "if": {
+        "allOf": [
+          { "properties": { "status": { "const": "approved" } }, "required": ["status"] },
+          { "properties": { "metadata": { "properties": { "license": { "enum": ["cc_by", "cc_by_sa"] } }, "required": ["license"] } }, "required": ["metadata"] }
+        ]
+      },
+      "then": {
+        "properties": {
+          "metadata": {
+            "required": ["creator", "license_url"],
+            "properties": { "creator": { "type": "string", "minLength": 1 }, "license_url": { "type": "string", "minLength": 1 } }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "guard_stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": { "enum": ["pending", "pass", "fail", "manual_review"] },
+        "at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+        "actor": { "type": "string", "maxLength": 200, "description": "'system:license-guard' or a human identifier." },
+        "note": { "type": "string", "maxLength": 1000 }
+      }
+    },
+    "embedding_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["model_id", "dim", "modality"],
+      "description": "One vector for one model. Exactly one of `vector` or `vector_ref` MUST be present: inline floats are permitted only for tiny fixtures and tests; production stores vector_ref and keeps the floats in a sidecar index outside the repository, for the same reason binaries are never committed.",
+      "properties": {
+        "model_id": { "type": "string", "maxLength": 200, "description": "Opaque adapter-reported identifier. Core code never branches on its value." },
+        "adapter": { "type": "string", "maxLength": 120, "description": "embedding-adapter instance that produced it." },
+        "dim": { "type": "integer", "minimum": 1 },
+        "modality": { "enum": ["image", "video", "text", "multimodal"] },
+        "vector": { "type": "array", "items": { "type": "number" }, "description": "Inline floats. Discouraged outside fixtures." },
+        "vector_ref": { "type": "string", "maxLength": 500, "description": "Pointer into an external index, e.g. 'embeddings/qwen3vl_emb_2b@v1.f32#12873'." },
+        "normalized": { "type": "boolean", "default": true, "description": "True when L2-normalised, so cosine similarity is a dot product." },
+        "quantization": { "enum": ["f32", "f16", "int8", "binary"], "default": "f32" },
+        "pooling": { "type": "string", "maxLength": 60, "description": "For video: how per-frame vectors were pooled (e.g. 'mean', 'max', 'first_shot')." },
+        "created_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" }
+      },
+      "oneOf": [ { "required": ["vector"] }, { "required": ["vector_ref"] } ]
+    },
+    "snapshot": {
+      "title": "ReferenceSnapshot",
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Frozen, self-contained copy of a Reference embedded in a VisualRecipe so a shared recipe stays attributable even if the live library, the provider, or the media URL disappears. Carries identity + license + attribution + the decomposition; carries NO embeddings and NO binaries.",
+      "required": ["id", "type", "metadata", "snapshot_at"],
+      "properties": {
+        "id": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id" },
+        "type": { "enum": ["image", "video"] },
+        "status": { "enum": ["candidate", "approved", "rejected", "license_review"] },
+        "title": { "type": "string", "maxLength": 400 },
+        "visual_attributes": {
+          "type": "object",
+          "propertyNames": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category" },
+          "additionalProperties": { "type": "array", "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/taxonomy_id" } }
+        },
+        "metadata": { "$ref": "https://schema.uvrc.dev/v1/reference.schema.json#/properties/metadata" },
+        "media": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "width": { "type": "integer", "minimum": 1 },
+            "height": { "type": "integer", "minimum": 1 },
+            "duration_s": { "type": "number", "exclusiveMinimum": 0 },
+            "fps": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        },
+        "snapshot_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+        "media_state": {
+          "enum": ["unchecked", "ok", "moved", "gone"],
+          "default": "unchecked",
+          "description": "Result of the last resolveMedia() probe. 'gone' NEVER deletes the snapshot: the attribution text, source_url and taxonomy ids remain fully usable and the card degrades to a metadata-only placeholder."
+        },
+        "media_checked_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+        "resolved_media_url": { "type": ["string", "null"], "format": "uri", "description": "Fresh URL obtained by re-resolving source/source_id through the provider after the cached media_url rotted." }
+      }
+    }
+  }
+}

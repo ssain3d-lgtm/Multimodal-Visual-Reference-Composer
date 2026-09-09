@@ -1,0 +1,1555 @@
+{
+  "schema_version": "1.0",
+  "categories": [
+    "camera_angle",
+    "camera_motion"
+  ],
+  "version": 1,
+  "updated_at": "2026-09-09T00:00:00Z",
+  "nodes": [
+    {
+      "schema_version": "1.0",
+      "id": "camera_angle.eye_level",
+      "category": "camera_angle",
+      "label": "Eye level",
+      "aliases": [
+        "eye level",
+        "eye-level shot",
+        "eyelevel",
+        "at eye height",
+        "neutral angle",
+        "normal angle",
+        "straight on height",
+        "camera at eye height"
+      ],
+      "related": [
+        "camera_angle.low_angle",
+        "camera_angle.high_angle",
+        "camera_angle.front"
+      ],
+      "parent": null,
+      "description": "The camera sits at roughly the subject's own eye height and looks straight across at them, giving a neutral, everyday view that neither looks up nor down.",
+      "examples": [
+        "camera at the standing subject's eye height",
+        "neutral portrait with no upward or downward slant"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_angle.birds_eye",
+        "camera_angle.high_angle",
+        "camera_angle.low_angle",
+        "camera_angle.top_down",
+        "camera_angle.worms_eye"
+      ],
+      "exclusivity_group": "camera_angle_primary",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "shot at eye level",
+      "search_boost": 1.2,
+      "sort_order": 10,
+      "negative_fragment": "not shot at eye level"
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_angle.low_angle",
+      "category": "camera_angle",
+      "label": "Low angle",
+      "aliases": [
+        "low angle",
+        "low-angle shot",
+        "low angel",
+        "from below",
+        "shot from below",
+        "looking up at the subject",
+        "camera below the subject",
+        "hero angle",
+        "hero shot",
+        "upshot"
+      ],
+      "related": [
+        "camera_angle.high_angle",
+        "camera_angle.eye_level",
+        "camera_angle.dutch_tilt"
+      ],
+      "parent": null,
+      "description": "The camera is placed below the subject and looks upward at them, which usually makes the subject feel taller, stronger or more imposing.",
+      "examples": [
+        "camera at knee height looking up at a standing figure",
+        "skateboarder shot from the ground against the sky"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_angle.birds_eye",
+        "camera_angle.eye_level",
+        "camera_angle.high_angle",
+        "camera_angle.top_down"
+      ],
+      "exclusivity_group": "camera_angle_primary",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "shot from a low angle, looking up at the subject",
+      "search_boost": 1.4,
+      "sort_order": 20,
+      "negative_fragment": "not shot from a low angle",
+      "children": [
+        "camera_angle.worms_eye"
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_angle.worms_eye",
+      "category": "camera_angle",
+      "label": "Worm's-eye view",
+      "aliases": [
+        "worms eye view",
+        "worm's eye view",
+        "worm eye view",
+        "worms-eye",
+        "bug's eye view",
+        "extreme low angle",
+        "from the ground looking up",
+        "ground level looking up"
+      ],
+      "related": [
+        "camera_angle.birds_eye",
+        "camera_angle.top_down",
+        "camera_angle.eye_level"
+      ],
+      "parent": "camera_angle.low_angle",
+      "description": "An extreme low angle taken from ground level and pointed almost straight up, so the subject or building towers over the frame.",
+      "examples": [
+        "camera lying on the pavement looking up a skyscraper",
+        "looking up a tree trunk into the canopy"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_angle.birds_eye",
+        "camera_angle.eye_level",
+        "camera_angle.high_angle",
+        "camera_angle.top_down"
+      ],
+      "exclusivity_group": "camera_angle_primary",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "extreme worm's-eye view from ground level, looking steeply up",
+      "search_boost": 1,
+      "sort_order": 21
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_angle.high_angle",
+      "category": "camera_angle",
+      "label": "High angle",
+      "aliases": [
+        "high angle",
+        "high-angle shot",
+        "high angel",
+        "from above",
+        "shot from above",
+        "looking down at the subject",
+        "camera above the subject",
+        "downshot",
+        "down shot"
+      ],
+      "related": [
+        "camera_angle.low_angle",
+        "camera_angle.eye_level",
+        "camera_angle.top_down"
+      ],
+      "parent": null,
+      "description": "The camera is placed above the subject and looks downward at them, which usually makes the subject feel smaller, younger or more vulnerable.",
+      "examples": [
+        "camera on a step ladder looking down at a seated child",
+        "figure seen from a balcony above"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_angle.eye_level",
+        "camera_angle.low_angle",
+        "camera_angle.worms_eye"
+      ],
+      "exclusivity_group": "camera_angle_primary",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "shot from a high angle, looking down at the subject",
+      "search_boost": 1.4,
+      "sort_order": 30,
+      "negative_fragment": "not shot from a high angle",
+      "children": [
+        "camera_angle.birds_eye"
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_angle.birds_eye",
+      "category": "camera_angle",
+      "label": "Bird's-eye view",
+      "aliases": [
+        "birds eye view",
+        "bird's eye view",
+        "bird eye view",
+        "birdseye",
+        "aerial view",
+        "aerial shot",
+        "drone shot",
+        "from way above",
+        "high overhead view"
+      ],
+      "related": [
+        "camera_angle.worms_eye",
+        "camera_angle.eye_level",
+        "camera_angle.low_angle"
+      ],
+      "parent": "camera_angle.high_angle",
+      "description": "A very high viewpoint that looks down on the whole scene from far above, the way a bird or a drone would see it.",
+      "examples": [
+        "drone hovering above a crossroads",
+        "rooftops seen from far above"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_angle.eye_level",
+        "camera_angle.low_angle",
+        "camera_angle.worms_eye"
+      ],
+      "exclusivity_group": "camera_angle_primary",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "high aerial bird's-eye view looking down over the scene",
+      "search_boost": 1.1,
+      "sort_order": 31,
+      "children": [
+        "camera_angle.top_down"
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_angle.top_down",
+      "category": "camera_angle",
+      "label": "Top-down (overhead)",
+      "aliases": [
+        "top down",
+        "top-down",
+        "overhead shot",
+        "overhead view",
+        "directly above",
+        "straight down",
+        "90 degree angle",
+        "flat lay",
+        "flatlay",
+        "god's eye view",
+        "plan view",
+        "knolling"
+      ],
+      "related": [
+        "camera_angle.high_angle",
+        "camera_angle.eye_level",
+        "camera_angle.worms_eye"
+      ],
+      "parent": "camera_angle.birds_eye",
+      "description": "The camera points straight down at ninety degrees, so the scene is seen flat from directly above, as in a table-top flat lay or a shot looking down on a bed.",
+      "examples": [
+        "desk photographed straight down from the ceiling",
+        "swimmer seen from directly above the pool"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_angle.eye_level",
+        "camera_angle.low_angle",
+        "camera_angle.worms_eye"
+      ],
+      "exclusivity_group": "camera_angle_primary",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "shot from directly overhead, looking straight down",
+      "search_boost": 1.1,
+      "sort_order": 32
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_angle.dutch_tilt",
+      "category": "camera_angle",
+      "label": "Dutch angle (tilted horizon)",
+      "aliases": [
+        "dutch angle",
+        "dutch tilt",
+        "dutch angel",
+        "canted angle",
+        "tilted horizon",
+        "slanted frame",
+        "crooked camera",
+        "oblique angle",
+        "tilted camera"
+      ],
+      "related": [
+        "camera_angle.eye_level",
+        "camera_angle.low_angle",
+        "camera_angle.point_of_view"
+      ],
+      "parent": null,
+      "description": "The camera is rolled sideways so the horizon runs diagonally across the frame, a tilt that makes a shot feel uneasy, tense or off balance.",
+      "examples": [
+        "horizon slanting about twenty degrees during a chase",
+        "tilted frame in a nightmare sequence"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "camera rolled into a dutch angle with a tilted horizon",
+      "search_boost": 1.1,
+      "sort_order": 40,
+      "negative_fragment": "level horizon, no dutch tilt"
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_angle.dutch_angle",
+      "category": "camera_angle",
+      "label": "Dutch angle (deprecated spelling)",
+      "aliases": [
+        "dutch angle",
+        "canted angle"
+      ],
+      "related": [
+        "camera_angle.dutch_tilt",
+        "camera_angle.eye_level"
+      ],
+      "parent": null,
+      "description": "Deprecated duplicate of camera_angle.dutch_tilt kept so older intents, mixes and recipes that stored this id still resolve; it is rewritten to camera_angle.dutch_tilt on load.",
+      "examples": [],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "camera rolled into a dutch angle with a tilted horizon",
+      "search_boost": 1,
+      "sort_order": 41,
+      "deprecated": true,
+      "replaced_by": "camera_angle.dutch_tilt"
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_angle.front",
+      "category": "camera_angle",
+      "label": "Front view (head-on)",
+      "aliases": [
+        "front view",
+        "front-on",
+        "frontal",
+        "head on",
+        "head-on",
+        "straight on",
+        "facing the camera",
+        "facing camera",
+        "direct address"
+      ],
+      "related": [
+        "camera_angle.three_quarter",
+        "camera_angle.profile",
+        "camera_angle.back"
+      ],
+      "parent": null,
+      "description": "The camera faces the subject squarely from the front, so we see the full face or the flat front of the object.",
+      "examples": [
+        "passport-style straight-on portrait",
+        "product photographed square to the lens"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_angle.back",
+        "camera_angle.point_of_view",
+        "camera_angle.profile",
+        "camera_angle.three_quarter"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "shot head-on from the front",
+      "search_boost": 1.1,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_angle.three_quarter",
+      "category": "camera_angle",
+      "label": "Three-quarter view",
+      "aliases": [
+        "three quarter view",
+        "three-quarter view",
+        "3/4 view",
+        "45 degree angle",
+        "45 degrees",
+        "angled view",
+        "turned slightly away",
+        "quarter turn",
+        "three quarter profile"
+      ],
+      "related": [
+        "camera_angle.front",
+        "camera_angle.profile",
+        "camera_angle.back"
+      ],
+      "parent": null,
+      "description": "The subject is turned roughly halfway between facing the camera and showing a full side profile, the angle most portraits use because it shows shape without flattening the face.",
+      "examples": [
+        "classic portrait with the face turned slightly off-camera",
+        "car photographed from the front corner"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_angle.back",
+        "camera_angle.front",
+        "camera_angle.point_of_view",
+        "camera_angle.profile"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "three-quarter view, subject turned about forty-five degrees from the camera",
+      "search_boost": 1.2,
+      "sort_order": 51
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_angle.profile",
+      "category": "camera_angle",
+      "label": "Profile view (side-on)",
+      "aliases": [
+        "profile view",
+        "side view",
+        "sideview",
+        "side-on",
+        "from the side",
+        "side profile",
+        "90 degree side",
+        "full profile"
+      ],
+      "related": [
+        "camera_angle.front",
+        "camera_angle.three_quarter",
+        "camera_angle.back"
+      ],
+      "parent": null,
+      "description": "The camera looks at the subject from exactly the side, showing the outline of the face or body as a clean silhouette-like shape.",
+      "examples": [
+        "side profile against a bright wall",
+        "runner shot from directly beside the track"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_angle.back",
+        "camera_angle.front",
+        "camera_angle.point_of_view",
+        "camera_angle.three_quarter"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "strict side-on profile view",
+      "search_boost": 1,
+      "sort_order": 52
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_angle.back",
+      "category": "camera_angle",
+      "label": "Back view (from behind)",
+      "aliases": [
+        "back view",
+        "from behind",
+        "rear view",
+        "behind the subject",
+        "seen from the back",
+        "backshot",
+        "back-on",
+        "back of the head"
+      ],
+      "related": [
+        "camera_angle.over_the_shoulder",
+        "camera_angle.front",
+        "camera_angle.profile"
+      ],
+      "parent": null,
+      "description": "The camera is behind the subject and sees their back, so we follow what they are looking at instead of their face.",
+      "examples": [
+        "figure walking away down a corridor",
+        "back of a person watching a sunset"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_angle.front",
+        "camera_angle.point_of_view",
+        "camera_angle.profile",
+        "camera_angle.three_quarter"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "shot from behind the subject",
+      "search_boost": 1,
+      "sort_order": 53
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_angle.over_the_shoulder",
+      "category": "camera_angle",
+      "label": "Over-the-shoulder",
+      "aliases": [
+        "over the shoulder",
+        "over-the-shoulder shot",
+        "ots",
+        "ots shot",
+        "behind shoulder view",
+        "looking past someone's shoulder",
+        "shoulder framing"
+      ],
+      "related": [
+        "camera_angle.back",
+        "camera_angle.three_quarter",
+        "camera_angle.point_of_view"
+      ],
+      "parent": null,
+      "description": "The camera sits just behind one person's shoulder, so that shoulder and the back of their head frame whoever or whatever they are facing.",
+      "examples": [
+        "conversation shot past the listener's shoulder",
+        "player's shoulder framing the opponent across the table"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_angle.point_of_view"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "over-the-shoulder view past a foreground figure",
+      "search_boost": 1.1,
+      "sort_order": 54
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_angle.point_of_view",
+      "category": "camera_angle",
+      "label": "Point of view (first person)",
+      "aliases": [
+        "point of view",
+        "pov",
+        "pov shot",
+        "first person view",
+        "first-person",
+        "through their eyes",
+        "subjective camera",
+        "seeing what they see"
+      ],
+      "related": [
+        "camera_angle.over_the_shoulder",
+        "camera_angle.eye_level",
+        "camera_angle.dutch_tilt"
+      ],
+      "parent": null,
+      "description": "The camera stands in for the subject's own eyes, so we see exactly what they see instead of seeing them.",
+      "examples": [
+        "hands entering frame from the bottom as they open a door",
+        "helmet-cam view down a ski slope"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_angle.back",
+        "camera_angle.front",
+        "camera_angle.over_the_shoulder",
+        "camera_angle.profile",
+        "camera_angle.three_quarter"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "first-person point-of-view shot, camera acting as the subject's eyes",
+      "search_boost": 1.2,
+      "sort_order": 55
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.static",
+      "category": "camera_motion",
+      "label": "Static (locked-off camera)",
+      "aliases": [
+        "static shot",
+        "static camera",
+        "locked off",
+        "locked-off camera",
+        "lock off",
+        "no camera movement",
+        "tripod shot",
+        "still camera",
+        "fixed camera",
+        "stationary camera"
+      ],
+      "related": [
+        "camera_motion.handheld",
+        "camera_motion.pan",
+        "camera_motion.tilt"
+      ],
+      "parent": null,
+      "description": "The camera does not move at all for the whole shot, as if bolted to a tripod, so every bit of movement in the frame comes from the subject.",
+      "examples": [
+        "tripod-locked frame while the subject walks through it",
+        "fixed wide shot of an empty room"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.crane",
+        "camera_motion.dolly",
+        "camera_motion.dolly_in",
+        "camera_motion.dolly_out",
+        "camera_motion.handheld",
+        "camera_motion.orbit",
+        "camera_motion.pan",
+        "camera_motion.pan_left",
+        "camera_motion.pan_right",
+        "camera_motion.pedestal",
+        "camera_motion.pedestal_down",
+        "camera_motion.pedestal_up",
+        "camera_motion.pull_out",
+        "camera_motion.push_in",
+        "camera_motion.tilt",
+        "camera_motion.tilt_down",
+        "camera_motion.tilt_up",
+        "camera_motion.tracking",
+        "camera_motion.truck",
+        "camera_motion.truck_left",
+        "camera_motion.truck_right",
+        "camera_motion.zoom",
+        "camera_motion.zoom_in",
+        "camera_motion.zoom_out"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "static locked-off camera with no camera movement",
+      "search_boost": 1.2,
+      "sort_order": 10,
+      "negative_fragment": "the camera should not stay locked off"
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.pan",
+      "category": "camera_motion",
+      "label": "Pan",
+      "aliases": [
+        "pan",
+        "panning",
+        "panning shot",
+        "camera pans",
+        "horizontal pan",
+        "swivel the camera"
+      ],
+      "related": [
+        "camera_motion.tilt",
+        "camera_motion.truck"
+      ],
+      "parent": null,
+      "description": "The camera stays in one place and swivels horizontally, like turning your head left or right without stepping anywhere.",
+      "examples": [
+        "camera turns on the tripod head to follow a walker"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "camera pans horizontally across the scene",
+      "search_boost": 1.1,
+      "sort_order": 20,
+      "children": [
+        "camera_motion.pan_left",
+        "camera_motion.pan_right"
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.pan_left",
+      "category": "camera_motion",
+      "label": "Pan left",
+      "aliases": [
+        "pan left",
+        "panning left",
+        "camera pans left",
+        "pan to the left",
+        "sweep left",
+        "swing left",
+        "turn camera left"
+      ],
+      "related": [
+        "camera_motion.pan_right",
+        "camera_motion.truck_left"
+      ],
+      "parent": "camera_motion.pan",
+      "description": "From a fixed spot the camera swivels to the left, sweeping the view across the scene in that direction.",
+      "examples": [
+        "camera swivels left to follow a passing car"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": "camera_move_pan_axis",
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "camera pans left across the scene",
+      "search_boost": 1.2,
+      "sort_order": 21
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.pan_right",
+      "category": "camera_motion",
+      "label": "Pan right",
+      "aliases": [
+        "pan right",
+        "panning right",
+        "camera pans right",
+        "pan to the right",
+        "sweep right",
+        "swing right",
+        "turn camera right"
+      ],
+      "related": [
+        "camera_motion.pan_left",
+        "camera_motion.truck_right"
+      ],
+      "parent": "camera_motion.pan",
+      "description": "From a fixed spot the camera swivels to the right, sweeping the view across the scene in that direction.",
+      "examples": [
+        "camera swivels right to reveal who just entered"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": "camera_move_pan_axis",
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "camera pans right across the scene",
+      "search_boost": 1.2,
+      "sort_order": 22
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.tilt",
+      "category": "camera_motion",
+      "label": "Tilt",
+      "aliases": [
+        "tilt",
+        "tilting",
+        "tilting camera",
+        "camera tilts",
+        "vertical tilt",
+        "nod the camera"
+      ],
+      "related": [
+        "camera_motion.pan",
+        "camera_motion.pedestal"
+      ],
+      "parent": null,
+      "description": "The camera stays in one place and pivots up or down, like nodding your head, without the camera body itself moving anywhere.",
+      "examples": [
+        "camera pivots on the tripod head from feet to face"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "camera tilts vertically",
+      "search_boost": 1,
+      "sort_order": 30,
+      "children": [
+        "camera_motion.tilt_up",
+        "camera_motion.tilt_down"
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.tilt_up",
+      "category": "camera_motion",
+      "label": "Tilt up",
+      "aliases": [
+        "tilt up",
+        "tilting up",
+        "camera tilts up",
+        "tilt upward",
+        "pan up",
+        "look up",
+        "reveal upward"
+      ],
+      "related": [
+        "camera_motion.tilt_down",
+        "camera_motion.pedestal_up"
+      ],
+      "parent": "camera_motion.tilt",
+      "description": "From a fixed spot the camera pivots upward, like lifting your chin, gradually revealing what is above.",
+      "examples": [
+        "camera tilts up from the shoes to the face",
+        "tilt up the front of a tall building"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": "camera_move_tilt_axis",
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "camera tilts up",
+      "search_boost": 1.1,
+      "sort_order": 31
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.tilt_down",
+      "category": "camera_motion",
+      "label": "Tilt down",
+      "aliases": [
+        "tilt down",
+        "tilting down",
+        "camera tilts down",
+        "tilt downward",
+        "pan down",
+        "look down",
+        "reveal downward"
+      ],
+      "related": [
+        "camera_motion.tilt_up",
+        "camera_motion.pedestal_down"
+      ],
+      "parent": "camera_motion.tilt",
+      "description": "From a fixed spot the camera pivots downward, like lowering your chin, gradually revealing what is below.",
+      "examples": [
+        "camera tilts down from the sky to the street"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": "camera_move_tilt_axis",
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "camera tilts down",
+      "search_boost": 1.1,
+      "sort_order": 32
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.dolly",
+      "category": "camera_motion",
+      "label": "Dolly",
+      "aliases": [
+        "dolly",
+        "dolly shot",
+        "camera dolly",
+        "camera on a dolly",
+        "slider move",
+        "travelling shot"
+      ],
+      "related": [
+        "camera_motion.zoom",
+        "camera_motion.tracking"
+      ],
+      "parent": null,
+      "description": "The whole camera physically travels through space on wheels, a slider or a gimbal, so the view really changes position rather than just being magnified.",
+      "examples": [
+        "camera rolls along a track beside the actor"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "camera moves on a dolly",
+      "search_boost": 1.1,
+      "sort_order": 40,
+      "children": [
+        "camera_motion.dolly_in",
+        "camera_motion.dolly_out"
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.dolly_in",
+      "category": "camera_motion",
+      "label": "Dolly in",
+      "aliases": [
+        "dolly in",
+        "dolly-in",
+        "doly in",
+        "camera moves closer",
+        "move toward the subject",
+        "travel in",
+        "creep in",
+        "move in on the subject"
+      ],
+      "related": [
+        "camera_motion.dolly_out",
+        "camera_motion.zoom_in",
+        "camera_motion.tracking"
+      ],
+      "parent": "camera_motion.dolly",
+      "description": "The whole camera physically moves closer to the subject, so the background shifts and changes scale as you approach it — this is what makes it different from a zoom, which only magnifies the picture from where the camera already stands.",
+      "examples": [
+        "camera glides forward until the face fills the frame",
+        "dolly in while the lens zooms out for the vertigo effect"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.pull_out",
+        "camera_motion.static"
+      ],
+      "exclusivity_group": "camera_move_dolly_axis",
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "camera dollies in toward the subject",
+      "search_boost": 1.4,
+      "sort_order": 41,
+      "negative_fragment": "the camera should not move toward the subject",
+      "children": [
+        "camera_motion.push_in"
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.dolly_out",
+      "category": "camera_motion",
+      "label": "Dolly out",
+      "aliases": [
+        "dolly out",
+        "dolly-out",
+        "doly out",
+        "camera moves away",
+        "move backward",
+        "travel out",
+        "back away from the subject",
+        "retreat"
+      ],
+      "related": [
+        "camera_motion.dolly_in",
+        "camera_motion.zoom_out"
+      ],
+      "parent": "camera_motion.dolly",
+      "description": "The whole camera physically moves away from the subject, so the surroundings genuinely open up around them instead of simply being framed wider by the lens.",
+      "examples": [
+        "camera rolls backwards as the subject is left alone in the room"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.push_in",
+        "camera_motion.static"
+      ],
+      "exclusivity_group": "camera_move_dolly_axis",
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "camera dollies out away from the subject",
+      "search_boost": 1.3,
+      "sort_order": 42,
+      "children": [
+        "camera_motion.pull_out"
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.push_in",
+      "category": "camera_motion",
+      "label": "Push in",
+      "aliases": [
+        "push in",
+        "push-in",
+        "slow push in",
+        "punch in",
+        "creeping in",
+        "slow dolly in",
+        "gradual move in"
+      ],
+      "related": [
+        "camera_motion.pull_out",
+        "camera_motion.dolly_out"
+      ],
+      "parent": "camera_motion.dolly_in",
+      "description": "A slow, almost unnoticeable dolly forward that gradually tightens on the subject to build tension or intimacy.",
+      "examples": [
+        "barely perceptible creep towards a face during a confession"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.dolly_out",
+        "camera_motion.pull_out",
+        "camera_motion.static"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "slow push in toward the subject",
+      "search_boost": 1.1,
+      "sort_order": 43
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.pull_out",
+      "category": "camera_motion",
+      "label": "Pull out (pull back)",
+      "aliases": [
+        "pull out",
+        "pull back",
+        "pullback",
+        "pull-back",
+        "slow dolly out",
+        "reveal by pulling back",
+        "back out",
+        "widening reveal"
+      ],
+      "related": [
+        "camera_motion.push_in",
+        "camera_motion.dolly_in"
+      ],
+      "parent": "camera_motion.dolly_out",
+      "description": "A slow dolly backwards that gradually widens the shot, usually to reveal where the subject actually is or how alone they are.",
+      "examples": [
+        "camera drifts back to reveal the crowd around the speaker"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.dolly_in",
+        "camera_motion.push_in",
+        "camera_motion.static"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "slow pull back away from the subject, widening the view",
+      "search_boost": 1.1,
+      "sort_order": 44
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.zoom",
+      "category": "camera_motion",
+      "label": "Zoom",
+      "aliases": [
+        "zoom",
+        "zooming",
+        "optical zoom",
+        "focal length change",
+        "lens zoom"
+      ],
+      "related": [
+        "camera_motion.dolly",
+        "camera_motion.tracking"
+      ],
+      "parent": null,
+      "description": "Only the lens changes: the picture is magnified or widened while the camera body itself stays exactly where it is.",
+      "examples": [
+        "long lens racking from wide to tight without the camera moving"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "lens zooms",
+      "search_boost": 1,
+      "sort_order": 50,
+      "children": [
+        "camera_motion.zoom_in",
+        "camera_motion.zoom_out"
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.zoom_in",
+      "category": "camera_motion",
+      "label": "Zoom in",
+      "aliases": [
+        "zoom in",
+        "zoom-in",
+        "zooming in",
+        "lens zooms in",
+        "tighter zoom",
+        "magnify the subject",
+        "zoom closer"
+      ],
+      "related": [
+        "camera_motion.zoom_out",
+        "camera_motion.dolly_in"
+      ],
+      "parent": "camera_motion.zoom",
+      "description": "The lens magnifies the subject without the camera moving, so the background stays exactly where it was and depth looks flatter — unlike a dolly in, where the camera really travels forward and the background shifts.",
+      "examples": [
+        "sudden zoom in on a face across the room",
+        "slow optical zoom from a fixed tripod"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": "camera_move_zoom_axis",
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "lens zooms in on the subject",
+      "search_boost": 1.3,
+      "sort_order": 51
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.zoom_out",
+      "category": "camera_motion",
+      "label": "Zoom out",
+      "aliases": [
+        "zoom out",
+        "zoom-out",
+        "zooming out",
+        "lens zooms out",
+        "wider zoom",
+        "zoom back",
+        "widen the shot"
+      ],
+      "related": [
+        "camera_motion.zoom_in",
+        "camera_motion.dolly_out"
+      ],
+      "parent": "camera_motion.zoom",
+      "description": "The lens widens so more of the scene fits into frame while the camera itself stands still, the flat, background-preserving counterpart of a dolly out.",
+      "examples": [
+        "zoom out from a window to show the whole facade"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": "camera_move_zoom_axis",
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "lens zooms out to a wider view",
+      "search_boost": 1.2,
+      "sort_order": 52
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.truck",
+      "category": "camera_motion",
+      "label": "Truck (lateral move)",
+      "aliases": [
+        "truck",
+        "trucking",
+        "trucking shot",
+        "crab move",
+        "lateral camera move",
+        "sideways camera move",
+        "strafe"
+      ],
+      "related": [
+        "camera_motion.pan",
+        "camera_motion.dolly"
+      ],
+      "parent": null,
+      "description": "The whole camera slides sideways while still facing the same direction, which is different from a pan, where the camera stays put and only rotates.",
+      "examples": [
+        "camera slides along a shelf keeping the same head-on view"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "camera trucks sideways",
+      "search_boost": 1,
+      "sort_order": 60,
+      "children": [
+        "camera_motion.truck_left",
+        "camera_motion.truck_right"
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.truck_left",
+      "category": "camera_motion",
+      "label": "Truck left",
+      "aliases": [
+        "truck left",
+        "trucking left",
+        "crab left",
+        "strafe left",
+        "camera slides left",
+        "move camera left",
+        "lateral move left"
+      ],
+      "related": [
+        "camera_motion.truck_right",
+        "camera_motion.pan_left"
+      ],
+      "parent": "camera_motion.truck",
+      "description": "The camera body slides to the left while still pointing the same way, travelling alongside the scene instead of turning to look at it.",
+      "examples": [
+        "camera glides left along a row of parked cars"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": "camera_move_truck_axis",
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "camera trucks left, sliding sideways with the scene",
+      "search_boost": 1,
+      "sort_order": 61
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.truck_right",
+      "category": "camera_motion",
+      "label": "Truck right",
+      "aliases": [
+        "truck right",
+        "trucking right",
+        "crab right",
+        "strafe right",
+        "camera slides right",
+        "move camera right",
+        "lateral move right"
+      ],
+      "related": [
+        "camera_motion.truck_left",
+        "camera_motion.pan_right"
+      ],
+      "parent": "camera_motion.truck",
+      "description": "The camera body slides to the right while still pointing the same way, travelling alongside the scene instead of turning to look at it.",
+      "examples": [
+        "camera glides right past a shop window"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": "camera_move_truck_axis",
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "camera trucks right, sliding sideways with the scene",
+      "search_boost": 1,
+      "sort_order": 62
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.pedestal",
+      "category": "camera_motion",
+      "label": "Pedestal (vertical move)",
+      "aliases": [
+        "pedestal",
+        "pedestal move",
+        "boom up and down",
+        "vertical camera move",
+        "raise the camera",
+        "elevate the camera"
+      ],
+      "related": [
+        "camera_motion.tilt",
+        "camera_motion.crane"
+      ],
+      "parent": null,
+      "description": "The whole camera rises or drops straight up or down while staying level, which is different from a tilt, where the camera stays put and only pivots.",
+      "examples": [
+        "camera column raised from waist height to head height"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "camera pedestals vertically",
+      "search_boost": 1,
+      "sort_order": 70,
+      "children": [
+        "camera_motion.pedestal_up",
+        "camera_motion.pedestal_down"
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.pedestal_up",
+      "category": "camera_motion",
+      "label": "Pedestal up",
+      "aliases": [
+        "pedestal up",
+        "boom up",
+        "camera rises",
+        "rise up",
+        "lift the camera",
+        "raise camera up",
+        "elevate up"
+      ],
+      "related": [
+        "camera_motion.pedestal_down",
+        "camera_motion.tilt_up",
+        "camera_motion.crane"
+      ],
+      "parent": "camera_motion.pedestal",
+      "description": "The camera is raised straight upward without tipping, so the framing lifts while the lens keeps pointing the same way.",
+      "examples": [
+        "camera rises from the tabletop to look over the crowd"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": "camera_move_pedestal_axis",
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "camera pedestals up, rising while staying level",
+      "search_boost": 1,
+      "sort_order": 71
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.pedestal_down",
+      "category": "camera_motion",
+      "label": "Pedestal down",
+      "aliases": [
+        "pedestal down",
+        "boom down",
+        "camera lowers",
+        "lower the camera",
+        "drop down",
+        "descend",
+        "sink down"
+      ],
+      "related": [
+        "camera_motion.pedestal_up",
+        "camera_motion.tilt_down",
+        "camera_motion.crane"
+      ],
+      "parent": "camera_motion.pedestal",
+      "description": "The camera is lowered straight down without tipping, so the framing sinks while the lens keeps pointing the same way.",
+      "examples": [
+        "camera sinks from standing height down to a child's eyeline"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": "camera_move_pedestal_axis",
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "camera pedestals down, lowering while staying level",
+      "search_boost": 1,
+      "sort_order": 72
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.tracking",
+      "category": "camera_motion",
+      "label": "Tracking shot (follow)",
+      "aliases": [
+        "tracking shot",
+        "tracking",
+        "follow shot",
+        "camera follows",
+        "following the subject",
+        "travelling shot",
+        "follow the action",
+        "steadicam follow"
+      ],
+      "related": [
+        "camera_motion.dolly_in",
+        "camera_motion.truck",
+        "camera_motion.orbit"
+      ],
+      "parent": null,
+      "description": "The camera travels along with a moving subject, keeping pace so the subject stays roughly the same size in the frame while the world slides past behind them.",
+      "examples": [
+        "camera walking backwards in front of a running character",
+        "camera keeping pace beside a cyclist"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "tracking shot following the subject",
+      "search_boost": 1.3,
+      "sort_order": 80
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.orbit",
+      "category": "camera_motion",
+      "label": "Orbit (arc)",
+      "aliases": [
+        "orbit",
+        "orbital move",
+        "arc shot",
+        "arc around",
+        "camera circles",
+        "circling the subject",
+        "360 shot",
+        "revolve around the subject"
+      ],
+      "related": [
+        "camera_motion.tracking",
+        "camera_motion.crane"
+      ],
+      "parent": null,
+      "description": "The camera circles around the subject, keeping it centred while the background sweeps past behind it.",
+      "examples": [
+        "camera arcs a half circle around two people talking",
+        "full 360 turn around a car"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "camera orbits around the subject in a smooth arc",
+      "search_boost": 1.2,
+      "sort_order": 90
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.handheld",
+      "category": "camera_motion",
+      "label": "Handheld",
+      "aliases": [
+        "handheld",
+        "hand held",
+        "hand-held camera",
+        "handycam",
+        "shaky cam",
+        "shaky camera",
+        "camera shake",
+        "unsteady camera",
+        "documentary camera"
+      ],
+      "related": [
+        "camera_motion.tracking",
+        "camera_motion.orbit"
+      ],
+      "parent": null,
+      "description": "The camera is carried by a person rather than mounted, so the frame breathes and wobbles slightly and the shot feels raw and documentary-like.",
+      "examples": [
+        "breathing frame following someone through a crowd"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "handheld camera with natural shake",
+      "search_boost": 1.2,
+      "sort_order": 100,
+      "negative_fragment": "steady stabilised camera, no handheld shake"
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.crane",
+      "category": "camera_motion",
+      "label": "Crane / jib move",
+      "aliases": [
+        "crane shot",
+        "crane",
+        "crane up",
+        "crane down",
+        "jib",
+        "jib shot",
+        "boom shot",
+        "technocrane",
+        "sweeping aerial move"
+      ],
+      "related": [
+        "camera_motion.pedestal_up",
+        "camera_motion.orbit"
+      ],
+      "parent": null,
+      "description": "The camera is lifted or lowered through the air on a crane or jib arm, sweeping over the scene from high to low or the other way round.",
+      "examples": [
+        "camera lifts off the street to look over the rooftops",
+        "jib descends from the ceiling to the dinner table"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "sweeping crane move rising through the air over the scene",
+      "search_boost": 1.1,
+      "sort_order": 110
+    }
+  ]
+}

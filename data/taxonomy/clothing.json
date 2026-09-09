@@ -1,0 +1,5972 @@
+{
+  "schema_version": "1.0",
+  "categories": [
+    "clothing"
+  ],
+  "version": 1,
+  "updated_at": "2026-09-09T00:00:00Z",
+  "nodes": [
+    {
+      "schema_version": "1.0",
+      "id": "clothing.tops",
+      "category": "clothing",
+      "label": "Tops",
+      "aliases": [
+        "top",
+        "tops",
+        "upper garment",
+        "shirt category",
+        "upper body clothing",
+        "top half"
+      ],
+      "related": [
+        "clothing.bottoms",
+        "clothing.outerwear",
+        "clothing.dresses"
+      ],
+      "parent": null,
+      "children": [
+        "clothing.t_shirt",
+        "clothing.long_sleeve_top",
+        "clothing.shirt",
+        "clothing.blouse",
+        "clothing.knit_sweater",
+        "clothing.hoodie",
+        "clothing.sweatshirt",
+        "clothing.crop_top",
+        "clothing.tank_top",
+        "clothing.camisole",
+        "clothing.turtleneck",
+        "clothing.polo_shirt",
+        "clothing.bodysuit",
+        "clothing.corset_top",
+        "clothing.halter_top",
+        "clothing.off_shoulder_top",
+        "clothing.sports_jersey",
+        "clothing.cardigan",
+        "clothing.sweater_vest"
+      ],
+      "description": "Anything worn on the upper half of the body, from a plain t-shirt to a knitted sweater.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a top",
+      "negative_fragment": "no top",
+      "search_boost": 1.2,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.bottoms",
+      "category": "clothing",
+      "label": "Bottoms",
+      "aliases": [
+        "bottoms",
+        "pants",
+        "trousers category",
+        "lower garment",
+        "lower body clothing",
+        "legwear"
+      ],
+      "related": [
+        "clothing.tops",
+        "clothing.shoes",
+        "clothing.dresses"
+      ],
+      "parent": null,
+      "children": [
+        "clothing.trousers",
+        "clothing.jeans",
+        "clothing.cargo_pants",
+        "clothing.chinos",
+        "clothing.track_pants",
+        "clothing.sweatpants",
+        "clothing.leggings",
+        "clothing.shorts",
+        "clothing.skirt",
+        "clothing.culottes",
+        "clothing.leather_pants"
+      ],
+      "description": "Anything worn on the lower half of the body, such as trousers, jeans, shorts or a skirt.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "bottoms",
+      "negative_fragment": "no bottoms",
+      "search_boost": 1.2,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.outerwear",
+      "category": "clothing",
+      "label": "Outerwear",
+      "aliases": [
+        "outerwear",
+        "outer layer",
+        "jacket category",
+        "coat category",
+        "over layer",
+        "outdoor clothing"
+      ],
+      "related": [
+        "clothing.tops",
+        "clothing.dresses",
+        "clothing.accessories"
+      ],
+      "parent": null,
+      "children": [
+        "clothing.trench_coat",
+        "clothing.leather_jacket",
+        "clothing.denim_jacket",
+        "clothing.puffer_jacket",
+        "clothing.blazer",
+        "clothing.parka",
+        "clothing.bomber_jacket",
+        "clothing.wool_coat",
+        "clothing.peacoat",
+        "clothing.windbreaker",
+        "clothing.raincoat",
+        "clothing.varsity_jacket",
+        "clothing.shearling_jacket",
+        "clothing.gilet",
+        "clothing.anorak",
+        "clothing.cape",
+        "clothing.robe",
+        "clothing.overcoat_layering"
+      ],
+      "description": "The layer worn over everything else to keep warm or dry, such as a coat, jacket or blazer.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "an outer layer",
+      "negative_fragment": "no outer layer",
+      "search_boost": 1.2,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.dresses",
+      "category": "clothing",
+      "label": "Dresses and one-piece garments",
+      "aliases": [
+        "dress category",
+        "one piece",
+        "one-piece outfit",
+        "full body garment",
+        "gown category",
+        "dresses"
+      ],
+      "related": [
+        "clothing.tops",
+        "clothing.bottoms",
+        "clothing.outerwear"
+      ],
+      "parent": null,
+      "children": [
+        "clothing.dress",
+        "clothing.evening_gown",
+        "clothing.jumpsuit",
+        "clothing.romper",
+        "clothing.overalls",
+        "clothing.suit",
+        "clothing.tracksuit"
+      ],
+      "description": "Garments that cover the top and bottom of the body in a single piece, such as a dress, a jumpsuit or a suit.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a one-piece garment",
+      "negative_fragment": "no one-piece garment",
+      "search_boost": 1.2,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.shoes",
+      "category": "clothing",
+      "label": "Shoes and footwear",
+      "aliases": [
+        "shoes",
+        "footwear",
+        "shoe category",
+        "what is on their feet",
+        "foot wear",
+        "kicks"
+      ],
+      "related": [
+        "clothing.bottoms",
+        "clothing.socks",
+        "clothing.accessories"
+      ],
+      "parent": null,
+      "children": [
+        "clothing.sneakers",
+        "clothing.boots",
+        "clothing.loafers",
+        "clothing.oxford_shoes",
+        "clothing.heels",
+        "clothing.sandals",
+        "clothing.ballet_flats",
+        "clothing.mary_janes",
+        "clothing.mules",
+        "clothing.platform_shoes",
+        "clothing.barefoot"
+      ],
+      "description": "Whatever is worn on the feet, from trainers to heels to boots.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "footwear",
+      "negative_fragment": "no footwear",
+      "search_boost": 1.2,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.accessories",
+      "category": "clothing",
+      "label": "Accessories",
+      "aliases": [
+        "accessories",
+        "accessory",
+        "extras",
+        "worn accessories",
+        "jewellery and bags",
+        "add ons"
+      ],
+      "related": [
+        "clothing.headwear",
+        "clothing.outerwear",
+        "clothing.shoes"
+      ],
+      "parent": null,
+      "children": [
+        "clothing.headwear",
+        "clothing.hood_up",
+        "clothing.sunglasses",
+        "clothing.eyeglasses",
+        "clothing.scarf",
+        "clothing.gloves",
+        "clothing.belt",
+        "clothing.necktie",
+        "clothing.bow_tie",
+        "clothing.backpack",
+        "clothing.shoulder_bag",
+        "clothing.tote_bag",
+        "clothing.crossbody_bag",
+        "clothing.necklace",
+        "clothing.earrings",
+        "clothing.rings",
+        "clothing.bracelet",
+        "clothing.wristwatch",
+        "clothing.socks",
+        "clothing.tights",
+        "clothing.face_mask",
+        "clothing.headphones",
+        "clothing.hair_ribbon"
+      ],
+      "description": "Smaller worn items that finish an outfit, such as hats, bags, glasses, belts and jewellery.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "accessories",
+      "negative_fragment": "no accessories",
+      "search_boost": 1.2,
+      "sort_order": 60
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.materials",
+      "category": "clothing",
+      "label": "Materials and fabrics",
+      "aliases": [
+        "material",
+        "fabric",
+        "textile",
+        "what it is made of",
+        "cloth type",
+        "materials"
+      ],
+      "related": [
+        "clothing.fit",
+        "clothing.styles",
+        "clothing.tops"
+      ],
+      "parent": null,
+      "children": [
+        "clothing.denim",
+        "clothing.leather",
+        "clothing.wool",
+        "clothing.silk",
+        "clothing.cotton",
+        "clothing.linen",
+        "clothing.satin",
+        "clothing.nylon",
+        "clothing.tweed",
+        "clothing.corduroy",
+        "clothing.mesh",
+        "clothing.sequin",
+        "clothing.cashmere",
+        "clothing.velvet",
+        "clothing.lace",
+        "clothing.faux_fur",
+        "clothing.suede",
+        "clothing.latex",
+        "clothing.fleece",
+        "clothing.tulle"
+      ],
+      "description": "What the clothing is actually made of, because the same shape in denim and in silk reads completely differently.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a notable fabric",
+      "negative_fragment": "no notable fabric",
+      "search_boost": 1.2,
+      "sort_order": 70
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.fit",
+      "category": "clothing",
+      "label": "Fit and silhouette",
+      "aliases": [
+        "fit",
+        "silhouette",
+        "cut",
+        "how it fits",
+        "shape of the clothes",
+        "sizing look"
+      ],
+      "related": [
+        "clothing.materials",
+        "clothing.styles",
+        "clothing.tops"
+      ],
+      "parent": null,
+      "children": [
+        "clothing.oversized",
+        "clothing.slim_fit",
+        "clothing.boxy",
+        "clothing.cropped_fit",
+        "clothing.tailored",
+        "clothing.relaxed",
+        "clothing.layered",
+        "clothing.body_hugging",
+        "clothing.baggy",
+        "clothing.high_waisted",
+        "clothing.low_rise",
+        "clothing.draped",
+        "clothing.structured",
+        "clothing.asymmetric_cut",
+        "clothing.sheer"
+      ],
+      "description": "How the clothing sits on the body — loose, tight, boxy, cropped — which changes the whole shape of a shot.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a distinct fit",
+      "negative_fragment": "not a distinct fit",
+      "search_boost": 1.2,
+      "sort_order": 80
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.styles",
+      "category": "clothing",
+      "label": "Clothing styles",
+      "aliases": [
+        "clothing style",
+        "fashion style",
+        "outfit style",
+        "dress style",
+        "aesthetic of the outfit",
+        "styles"
+      ],
+      "related": [
+        "clothing.fit",
+        "clothing.materials",
+        "clothing.outerwear"
+      ],
+      "parent": null,
+      "children": [
+        "clothing.casual",
+        "clothing.streetwear",
+        "clothing.office",
+        "clothing.formal",
+        "clothing.sport",
+        "clothing.techwear",
+        "clothing.minimal",
+        "clothing.vintage",
+        "clothing.y2k",
+        "clothing.preppy",
+        "clothing.korean_fashion",
+        "clothing.editorial",
+        "clothing.resort",
+        "clothing.winter",
+        "clothing.summer",
+        "clothing.grunge",
+        "clothing.bohemian",
+        "clothing.gothic",
+        "clothing.workwear",
+        "clothing.athleisure",
+        "clothing.normcore",
+        "clothing.cottagecore",
+        "clothing.avant_garde",
+        "clothing.military"
+      ],
+      "description": "The overall fashion language of an outfit, such as streetwear, office wear or vintage.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a defined clothing style",
+      "negative_fragment": "not a defined clothing style",
+      "search_boost": 1.3,
+      "sort_order": 90
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.t_shirt",
+      "category": "clothing",
+      "label": "T-shirt",
+      "aliases": [
+        "t-shirt",
+        "tshirt",
+        "tee",
+        "t shirt",
+        "teeshirt",
+        "plain tee",
+        "short sleeve top",
+        "tee shirt"
+      ],
+      "related": [
+        "clothing.graphic_tee",
+        "clothing.long_sleeve_top",
+        "clothing.tank_top",
+        "clothing.polo_shirt"
+      ],
+      "parent": "clothing.tops",
+      "children": [
+        "clothing.graphic_tee"
+      ],
+      "description": "A simple short-sleeved top with no buttons and no collar, the most ordinary upper garment there is.",
+      "examples": [
+        "a plain white t-shirt",
+        "a washed-out cotton tee"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a t-shirt",
+      "negative_fragment": "no t-shirt",
+      "search_boost": 1.5,
+      "sort_order": 100
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.graphic_tee",
+      "category": "clothing",
+      "label": "Graphic t-shirt",
+      "aliases": [
+        "graphic tee",
+        "printed t-shirt",
+        "print tee",
+        "band tee",
+        "logo t-shirt",
+        "slogan shirt",
+        "graphic tshirt"
+      ],
+      "related": [
+        "clothing.t_shirt",
+        "clothing.sweatshirt",
+        "clothing.streetwear"
+      ],
+      "parent": "clothing.t_shirt",
+      "description": "A t-shirt with a printed image, logo or slogan across the front.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a graphic-print t-shirt",
+      "negative_fragment": "no graphic-print t-shirt",
+      "search_boost": 1.1,
+      "sort_order": 110
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.long_sleeve_top",
+      "category": "clothing",
+      "label": "Long-sleeve top",
+      "aliases": [
+        "long sleeve",
+        "long-sleeve tee",
+        "long sleeved top",
+        "longsleeve",
+        "long sleeve shirt",
+        "full sleeve top"
+      ],
+      "related": [
+        "clothing.t_shirt",
+        "clothing.turtleneck",
+        "clothing.knit_sweater"
+      ],
+      "parent": "clothing.tops",
+      "description": "A close-fitting knit top with sleeves that reach the wrists.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a long-sleeve top",
+      "negative_fragment": "no long-sleeve top",
+      "search_boost": 1.1,
+      "sort_order": 120
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.shirt",
+      "category": "clothing",
+      "label": "Button-up shirt",
+      "aliases": [
+        "shirt",
+        "button up",
+        "button-down shirt",
+        "buttoned shirt",
+        "collared shirt",
+        "dress shirt",
+        "button down"
+      ],
+      "related": [
+        "clothing.oxford_shirt",
+        "clothing.flannel_shirt",
+        "clothing.denim_shirt",
+        "clothing.blouse"
+      ],
+      "parent": "clothing.tops",
+      "children": [
+        "clothing.oxford_shirt",
+        "clothing.flannel_shirt",
+        "clothing.denim_shirt"
+      ],
+      "description": "A collared top that fastens down the front with buttons, from a crisp office shirt to a loose casual one.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a button-up shirt",
+      "negative_fragment": "no button-up shirt",
+      "search_boost": 1.4,
+      "sort_order": 130
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.oxford_shirt",
+      "category": "clothing",
+      "label": "Oxford shirt",
+      "aliases": [
+        "oxford shirt",
+        "oxford",
+        "poplin shirt",
+        "crisp white shirt",
+        "office shirt",
+        "smart shirt"
+      ],
+      "related": [
+        "clothing.shirt",
+        "clothing.blazer",
+        "clothing.office"
+      ],
+      "parent": "clothing.shirt",
+      "description": "A neat cotton button-up shirt with a soft collar, the standard smart-but-simple shirt.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a crisp oxford shirt",
+      "negative_fragment": "no crisp oxford shirt",
+      "search_boost": 1.0,
+      "sort_order": 140
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.flannel_shirt",
+      "category": "clothing",
+      "label": "Flannel shirt",
+      "aliases": [
+        "flannel",
+        "flannel shirt",
+        "plaid shirt",
+        "checked shirt",
+        "lumberjack shirt",
+        "tartan shirt",
+        "flanel"
+      ],
+      "related": [
+        "clothing.shirt",
+        "clothing.denim_shirt",
+        "clothing.grunge"
+      ],
+      "parent": "clothing.shirt",
+      "description": "A soft brushed-cotton button-up shirt, usually in a checked or plaid pattern, often worn open over a tee.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a checked flannel shirt",
+      "negative_fragment": "no checked flannel shirt",
+      "search_boost": 1.0,
+      "sort_order": 150
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.denim_shirt",
+      "category": "clothing",
+      "label": "Denim shirt",
+      "aliases": [
+        "denim shirt",
+        "jean shirt",
+        "chambray shirt",
+        "western shirt",
+        "jeans shirt"
+      ],
+      "related": [
+        "clothing.shirt",
+        "clothing.denim",
+        "clothing.denim_jacket"
+      ],
+      "parent": "clothing.shirt",
+      "description": "A button-up shirt cut from denim, heavier and more rugged than a normal shirt.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a denim shirt",
+      "negative_fragment": "no denim shirt",
+      "search_boost": 1.0,
+      "sort_order": 160
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.blouse",
+      "category": "clothing",
+      "label": "Blouse",
+      "aliases": [
+        "blouse",
+        "bloues",
+        "silk blouse",
+        "womens shirt",
+        "dressy top",
+        "flowy top",
+        "smart top"
+      ],
+      "related": [
+        "clothing.shirt",
+        "clothing.camisole",
+        "clothing.silk"
+      ],
+      "parent": "clothing.tops",
+      "description": "A softer, more flowing shirt-like top, usually in a fine fabric and often without a stiff collar.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a soft blouse",
+      "negative_fragment": "no soft blouse",
+      "search_boost": 1.1,
+      "sort_order": 170
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.knit_sweater",
+      "category": "clothing",
+      "label": "Knit sweater",
+      "aliases": [
+        "sweater",
+        "jumper",
+        "knit",
+        "knitwear",
+        "pullover",
+        "woolly jumper",
+        "sweter",
+        "knitted top"
+      ],
+      "related": [
+        "clothing.cable_knit_sweater",
+        "clothing.cardigan",
+        "clothing.turtleneck",
+        "clothing.wool"
+      ],
+      "parent": "clothing.tops",
+      "children": [
+        "clothing.cable_knit_sweater"
+      ],
+      "description": "A warm knitted top pulled on over the head, what British English calls a jumper.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a knit sweater",
+      "negative_fragment": "no knit sweater",
+      "search_boost": 1.4,
+      "sort_order": 180
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.cable_knit_sweater",
+      "category": "clothing",
+      "label": "Cable-knit sweater",
+      "aliases": [
+        "cable knit",
+        "cable-knit jumper",
+        "fisherman sweater",
+        "aran sweater",
+        "chunky knit",
+        "textured knit"
+      ],
+      "related": [
+        "clothing.knit_sweater",
+        "clothing.wool",
+        "clothing.winter"
+      ],
+      "parent": "clothing.knit_sweater",
+      "description": "A thick sweater with raised rope-like braids twisting down the front.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a chunky cable-knit sweater",
+      "negative_fragment": "no chunky cable-knit sweater",
+      "search_boost": 1.0,
+      "sort_order": 190
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.hoodie",
+      "category": "clothing",
+      "label": "Hoodie",
+      "aliases": [
+        "hoodie",
+        "hoody",
+        "hooded sweatshirt",
+        "hood",
+        "pullover hoodie",
+        "sweatshirt with hood",
+        "hoodi"
+      ],
+      "related": [
+        "clothing.zip_hoodie",
+        "clothing.sweatshirt",
+        "clothing.hood_up",
+        "clothing.streetwear"
+      ],
+      "parent": "clothing.tops",
+      "children": [
+        "clothing.zip_hoodie"
+      ],
+      "description": "A thick cotton sweatshirt with a hood attached, usually with a front pocket.",
+      "examples": [
+        "an oversized grey hoodie with the hood down"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a hoodie",
+      "negative_fragment": "no hoodie",
+      "search_boost": 1.5,
+      "sort_order": 200
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.zip_hoodie",
+      "category": "clothing",
+      "label": "Zip-up hoodie",
+      "aliases": [
+        "zip hoodie",
+        "zip-up hoodie",
+        "zip up hoody",
+        "full zip hoodie",
+        "hooded zip jacket"
+      ],
+      "related": [
+        "clothing.hoodie",
+        "clothing.sweatshirt",
+        "clothing.windbreaker"
+      ],
+      "parent": "clothing.hoodie",
+      "description": "A hoodie that opens all the way down the front with a zip instead of pulling over the head.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a zip-up hoodie",
+      "negative_fragment": "no zip-up hoodie",
+      "search_boost": 1.0,
+      "sort_order": 210
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.sweatshirt",
+      "category": "clothing",
+      "label": "Sweatshirt",
+      "aliases": [
+        "sweatshirt",
+        "crewneck",
+        "crew neck sweatshirt",
+        "jumper sweatshirt",
+        "sweat shirt",
+        "fleece top"
+      ],
+      "related": [
+        "clothing.hoodie",
+        "clothing.knit_sweater",
+        "clothing.athleisure"
+      ],
+      "parent": "clothing.tops",
+      "description": "A thick soft cotton top with long sleeves and a round neck, like a hoodie without the hood.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a crewneck sweatshirt",
+      "negative_fragment": "no crewneck sweatshirt",
+      "search_boost": 1.2,
+      "sort_order": 220
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.crop_top",
+      "category": "clothing",
+      "label": "Crop top",
+      "aliases": [
+        "crop top",
+        "cropped top",
+        "croptop",
+        "midriff top",
+        "short top",
+        "belly top"
+      ],
+      "related": [
+        "clothing.tank_top",
+        "clothing.cropped_fit",
+        "clothing.y2k"
+      ],
+      "parent": "clothing.tops",
+      "description": "A top cut short so it ends above the waist and leaves the midriff visible.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a cropped top",
+      "negative_fragment": "no cropped top",
+      "search_boost": 1.2,
+      "sort_order": 230
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.tank_top",
+      "category": "clothing",
+      "label": "Tank top",
+      "aliases": [
+        "tank top",
+        "vest top",
+        "sleeveless top",
+        "singlet",
+        "camisole top",
+        "tanktop",
+        "a-shirt"
+      ],
+      "related": [
+        "clothing.camisole",
+        "clothing.crop_top",
+        "clothing.t_shirt"
+      ],
+      "parent": "clothing.tops",
+      "description": "A sleeveless top with shoulder straps and no collar.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a tank top",
+      "negative_fragment": "no tank top",
+      "search_boost": 1.2,
+      "sort_order": 240
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.camisole",
+      "category": "clothing",
+      "label": "Camisole",
+      "aliases": [
+        "camisole",
+        "cami",
+        "strappy top",
+        "spaghetti strap top",
+        "slip top",
+        "thin strap top"
+      ],
+      "related": [
+        "clothing.tank_top",
+        "clothing.slip_dress",
+        "clothing.satin"
+      ],
+      "parent": "clothing.tops",
+      "description": "A light sleeveless top on thin straps, usually in a smooth fabric like satin.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a strappy camisole",
+      "negative_fragment": "no strappy camisole",
+      "search_boost": 1.0,
+      "sort_order": 250
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.turtleneck",
+      "category": "clothing",
+      "label": "Turtleneck",
+      "aliases": [
+        "turtleneck",
+        "roll neck",
+        "polo neck",
+        "high neck top",
+        "turtle neck",
+        "rollneck",
+        "skivvy"
+      ],
+      "related": [
+        "clothing.mock_neck",
+        "clothing.knit_sweater",
+        "clothing.minimal"
+      ],
+      "parent": "clothing.tops",
+      "children": [
+        "clothing.mock_neck"
+      ],
+      "description": "A knitted top whose collar rolls right up around the neck.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a turtleneck",
+      "negative_fragment": "no turtleneck",
+      "search_boost": 1.2,
+      "sort_order": 260
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.mock_neck",
+      "category": "clothing",
+      "label": "Mock-neck top",
+      "aliases": [
+        "mock neck",
+        "mock turtleneck",
+        "half turtleneck",
+        "funnel neck",
+        "short roll neck"
+      ],
+      "related": [
+        "clothing.turtleneck",
+        "clothing.long_sleeve_top",
+        "clothing.minimal"
+      ],
+      "parent": "clothing.turtleneck",
+      "description": "A top with a short standing collar that covers the base of the neck but does not fold over.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a mock-neck top",
+      "negative_fragment": "no mock-neck top",
+      "search_boost": 1.0,
+      "sort_order": 270
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.polo_shirt",
+      "category": "clothing",
+      "label": "Polo shirt",
+      "aliases": [
+        "polo shirt",
+        "polo",
+        "tennis shirt",
+        "golf shirt",
+        "pique polo",
+        "collared t-shirt"
+      ],
+      "related": [
+        "clothing.t_shirt",
+        "clothing.shirt",
+        "clothing.preppy"
+      ],
+      "parent": "clothing.tops",
+      "description": "A knit top with a small collar and two or three buttons at the throat.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a polo shirt",
+      "negative_fragment": "no polo shirt",
+      "search_boost": 1.0,
+      "sort_order": 280
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.bodysuit",
+      "category": "clothing",
+      "label": "Bodysuit",
+      "aliases": [
+        "bodysuit",
+        "body suit",
+        "leotard top",
+        "one piece top",
+        "snap bodysuit",
+        "body"
+      ],
+      "related": [
+        "clothing.tank_top",
+        "clothing.body_hugging",
+        "clothing.leggings"
+      ],
+      "parent": "clothing.tops",
+      "description": "A close-fitting top that continues between the legs so it never untucks.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a fitted bodysuit",
+      "negative_fragment": "no fitted bodysuit",
+      "search_boost": 1.0,
+      "sort_order": 290
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.corset_top",
+      "category": "clothing",
+      "label": "Corset top",
+      "aliases": [
+        "corset",
+        "corset top",
+        "bustier",
+        "boned top",
+        "laced top",
+        "corsette"
+      ],
+      "related": [
+        "clothing.crop_top",
+        "clothing.body_hugging",
+        "clothing.editorial"
+      ],
+      "parent": "clothing.tops",
+      "description": "A stiffened, tightly shaped top with visible boning or lacing that cinches the waist.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a structured corset top",
+      "negative_fragment": "no structured corset top",
+      "search_boost": 1.0,
+      "sort_order": 300
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.halter_top",
+      "category": "clothing",
+      "label": "Halter top",
+      "aliases": [
+        "halter top",
+        "halterneck",
+        "halter neck",
+        "tie neck top",
+        "backless top",
+        "halter"
+      ],
+      "related": [
+        "clothing.tank_top",
+        "clothing.camisole",
+        "clothing.resort"
+      ],
+      "parent": "clothing.tops",
+      "description": "A sleeveless top held up by a strap that goes around the back of the neck, leaving the shoulders and back bare.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a halter-neck top",
+      "negative_fragment": "no halter-neck top",
+      "search_boost": 1.0,
+      "sort_order": 310
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.off_shoulder_top",
+      "category": "clothing",
+      "label": "Off-shoulder top",
+      "aliases": [
+        "off shoulder top",
+        "off-the-shoulder",
+        "bardot top",
+        "shoulder baring top",
+        "drop shoulder neckline"
+      ],
+      "related": [
+        "clothing.blouse",
+        "clothing.halter_top",
+        "clothing.editorial"
+      ],
+      "parent": "clothing.tops",
+      "description": "A top whose neckline sits below the shoulders so both shoulders are bare.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "an off-the-shoulder top",
+      "negative_fragment": "no off-the-shoulder top",
+      "search_boost": 1.0,
+      "sort_order": 320
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.sports_jersey",
+      "category": "clothing",
+      "label": "Sports jersey",
+      "aliases": [
+        "jersey",
+        "sports jersey",
+        "football shirt",
+        "basketball jersey",
+        "team shirt",
+        "soccer jersey",
+        "sport top"
+      ],
+      "related": [
+        "clothing.t_shirt",
+        "clothing.sport",
+        "clothing.mesh"
+      ],
+      "parent": "clothing.tops",
+      "description": "A team sports shirt, usually in breathable mesh with a number or team name on it.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_top",
+      "prompt_fragment": "a sports jersey",
+      "negative_fragment": "no sports jersey",
+      "search_boost": 1.0,
+      "sort_order": 330
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.cardigan",
+      "category": "clothing",
+      "label": "Cardigan",
+      "aliases": [
+        "cardigan",
+        "cardi",
+        "knitted jacket",
+        "button up sweater",
+        "open knit",
+        "cardigann"
+      ],
+      "related": [
+        "clothing.knit_sweater",
+        "clothing.sweater_vest",
+        "clothing.wool"
+      ],
+      "parent": "clothing.tops",
+      "description": "A knitted top that opens all the way down the front with buttons, worn as a light extra layer.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a cardigan",
+      "negative_fragment": "no cardigan",
+      "search_boost": 1.2,
+      "sort_order": 340
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.sweater_vest",
+      "category": "clothing",
+      "label": "Sweater vest",
+      "aliases": [
+        "sweater vest",
+        "knit vest",
+        "tank jumper",
+        "sleeveless jumper",
+        "vest jumper",
+        "pullover vest"
+      ],
+      "related": [
+        "clothing.cardigan",
+        "clothing.knit_sweater",
+        "clothing.preppy"
+      ],
+      "parent": "clothing.tops",
+      "description": "A sleeveless knitted layer worn over a shirt.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a sweater vest",
+      "negative_fragment": "no sweater vest",
+      "search_boost": 1.0,
+      "sort_order": 350
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.trousers",
+      "category": "clothing",
+      "label": "Trousers",
+      "aliases": [
+        "trousers",
+        "pants",
+        "slacks",
+        "long pants",
+        "trowsers",
+        "pair of trousers",
+        "suit pants"
+      ],
+      "related": [
+        "clothing.tailored_trousers",
+        "clothing.chinos",
+        "clothing.jeans",
+        "clothing.cargo_pants"
+      ],
+      "parent": "clothing.bottoms",
+      "children": [
+        "clothing.tailored_trousers"
+      ],
+      "description": "Full-length legwear with a separate leg for each leg, called pants in American English.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.dress",
+        "clothing.evening_gown",
+        "clothing.jumpsuit",
+        "clothing.knit_dress",
+        "clothing.overalls",
+        "clothing.romper",
+        "clothing.shirt_dress",
+        "clothing.slip_dress",
+        "clothing.sundress",
+        "clothing.wrap_dress"
+      ],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "trousers",
+      "negative_fragment": "no trousers",
+      "search_boost": 1.4,
+      "sort_order": 360
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.tailored_trousers",
+      "category": "clothing",
+      "label": "Tailored trousers",
+      "aliases": [
+        "tailored trousers",
+        "dress pants",
+        "suit trousers",
+        "pressed trousers",
+        "smart trousers",
+        "creased pants"
+      ],
+      "related": [
+        "clothing.trousers",
+        "clothing.blazer",
+        "clothing.office"
+      ],
+      "parent": "clothing.trousers",
+      "description": "Sharply cut trousers with a pressed crease down the front, the kind worn with a suit.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.dress",
+        "clothing.evening_gown",
+        "clothing.jumpsuit",
+        "clothing.knit_dress",
+        "clothing.overalls",
+        "clothing.romper",
+        "clothing.shirt_dress",
+        "clothing.slip_dress",
+        "clothing.sundress",
+        "clothing.wrap_dress"
+      ],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "sharply tailored trousers",
+      "negative_fragment": "no sharply tailored trousers",
+      "search_boost": 1.0,
+      "sort_order": 370
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.jeans",
+      "category": "clothing",
+      "label": "Jeans",
+      "aliases": [
+        "jeans",
+        "denim jeans",
+        "denim pants",
+        "blue jeans",
+        "jean",
+        "jeens",
+        "pair of jeans"
+      ],
+      "related": [
+        "clothing.wide_leg_jeans",
+        "clothing.skinny_jeans",
+        "clothing.denim",
+        "clothing.denim_shorts"
+      ],
+      "parent": "clothing.bottoms",
+      "children": [
+        "clothing.wide_leg_jeans",
+        "clothing.skinny_jeans"
+      ],
+      "description": "Trousers made from denim, the everyday hard-wearing blue cotton fabric.",
+      "examples": [
+        "faded blue jeans with a worn hem"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.dress",
+        "clothing.evening_gown",
+        "clothing.jumpsuit",
+        "clothing.knit_dress",
+        "clothing.overalls",
+        "clothing.romper",
+        "clothing.shirt_dress",
+        "clothing.slip_dress",
+        "clothing.sundress",
+        "clothing.wrap_dress"
+      ],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "jeans",
+      "negative_fragment": "no jeans",
+      "search_boost": 1.5,
+      "sort_order": 380
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.wide_leg_jeans",
+      "category": "clothing",
+      "label": "Wide-leg jeans",
+      "aliases": [
+        "wide leg jeans",
+        "baggy jeans",
+        "loose jeans",
+        "boyfriend jeans",
+        "flared jeans",
+        "wide denim"
+      ],
+      "related": [
+        "clothing.jeans",
+        "clothing.baggy",
+        "clothing.streetwear"
+      ],
+      "parent": "clothing.jeans",
+      "description": "Jeans cut loose and straight or flaring from the hip down, so the leg hangs wide over the shoe.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "wide-leg jeans",
+      "negative_fragment": "no wide-leg jeans",
+      "search_boost": 1.1,
+      "sort_order": 390
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.skinny_jeans",
+      "category": "clothing",
+      "label": "Skinny jeans",
+      "aliases": [
+        "skinny jeans",
+        "tight jeans",
+        "slim jeans",
+        "stretch jeans",
+        "drainpipe jeans",
+        "skiny jeans"
+      ],
+      "related": [
+        "clothing.jeans",
+        "clothing.slim_fit",
+        "clothing.leggings"
+      ],
+      "parent": "clothing.jeans",
+      "description": "Jeans cut close to the leg all the way down to a narrow ankle.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "skinny jeans",
+      "negative_fragment": "no skinny jeans",
+      "search_boost": 1.0,
+      "sort_order": 400
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.cargo_pants",
+      "category": "clothing",
+      "label": "Cargo trousers",
+      "aliases": [
+        "cargo pants",
+        "cargo trousers",
+        "cargos",
+        "utility pants",
+        "combat trousers",
+        "pocket pants",
+        "cargoes"
+      ],
+      "related": [
+        "clothing.trousers",
+        "clothing.techwear",
+        "clothing.workwear"
+      ],
+      "parent": "clothing.bottoms",
+      "description": "Loose trousers with big patch pockets on the thighs.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.dress",
+        "clothing.evening_gown",
+        "clothing.jumpsuit",
+        "clothing.knit_dress",
+        "clothing.overalls",
+        "clothing.romper",
+        "clothing.shirt_dress",
+        "clothing.slip_dress",
+        "clothing.sundress",
+        "clothing.wrap_dress"
+      ],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "cargo trousers",
+      "negative_fragment": "no cargo trousers",
+      "search_boost": 1.2,
+      "sort_order": 410
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.chinos",
+      "category": "clothing",
+      "label": "Chinos",
+      "aliases": [
+        "chinos",
+        "chino pants",
+        "khakis",
+        "cotton trousers",
+        "chino trousers",
+        "khaki pants"
+      ],
+      "related": [
+        "clothing.trousers",
+        "clothing.cotton",
+        "clothing.preppy"
+      ],
+      "parent": "clothing.bottoms",
+      "description": "Plain cotton trousers, smarter than jeans but softer than suit trousers.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "chinos",
+      "negative_fragment": "no chinos",
+      "search_boost": 1.0,
+      "sort_order": 420
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.track_pants",
+      "category": "clothing",
+      "label": "Track pants",
+      "aliases": [
+        "track pants",
+        "trackies",
+        "tracksuit bottoms",
+        "joggers",
+        "athletic pants",
+        "training pants",
+        "track bottoms"
+      ],
+      "related": [
+        "clothing.sweatpants",
+        "clothing.tracksuit",
+        "clothing.sport"
+      ],
+      "parent": "clothing.bottoms",
+      "description": "Light sporty trousers with an elastic waist, usually with a stripe down the side.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "track pants",
+      "negative_fragment": "no track pants",
+      "search_boost": 1.0,
+      "sort_order": 430
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.sweatpants",
+      "category": "clothing",
+      "label": "Sweatpants",
+      "aliases": [
+        "sweatpants",
+        "sweat pants",
+        "joggers",
+        "jogging bottoms",
+        "lounge pants",
+        "fleece pants",
+        "sweatpant"
+      ],
+      "related": [
+        "clothing.track_pants",
+        "clothing.hoodie",
+        "clothing.athleisure"
+      ],
+      "parent": "clothing.bottoms",
+      "description": "Thick soft cotton trousers with an elastic waist and cuffs, made for comfort.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "sweatpants",
+      "negative_fragment": "no sweatpants",
+      "search_boost": 1.1,
+      "sort_order": 440
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.leggings",
+      "category": "clothing",
+      "label": "Leggings",
+      "aliases": [
+        "leggings",
+        "tights pants",
+        "yoga pants",
+        "stretch leggings",
+        "legings",
+        "gym leggings"
+      ],
+      "related": [
+        "clothing.skinny_jeans",
+        "clothing.body_hugging",
+        "clothing.sport"
+      ],
+      "parent": "clothing.bottoms",
+      "description": "Very stretchy trousers that cling to the leg, usually worn for exercise or as a base layer.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.dress",
+        "clothing.evening_gown",
+        "clothing.jumpsuit",
+        "clothing.knit_dress",
+        "clothing.overalls",
+        "clothing.romper",
+        "clothing.shirt_dress",
+        "clothing.slip_dress",
+        "clothing.sundress",
+        "clothing.wrap_dress"
+      ],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "leggings",
+      "negative_fragment": "no leggings",
+      "search_boost": 1.0,
+      "sort_order": 450
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.shorts",
+      "category": "clothing",
+      "label": "Shorts",
+      "aliases": [
+        "shorts",
+        "short pants",
+        "cut offs",
+        "summer shorts",
+        "shors",
+        "pair of shorts"
+      ],
+      "related": [
+        "clothing.denim_shorts",
+        "clothing.summer",
+        "clothing.trousers"
+      ],
+      "parent": "clothing.bottoms",
+      "children": [
+        "clothing.denim_shorts"
+      ],
+      "description": "Legwear that stops somewhere between the upper thigh and the knee.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.dress",
+        "clothing.evening_gown",
+        "clothing.jumpsuit",
+        "clothing.knit_dress",
+        "clothing.overalls",
+        "clothing.romper",
+        "clothing.shirt_dress",
+        "clothing.slip_dress",
+        "clothing.sundress",
+        "clothing.wrap_dress"
+      ],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "shorts",
+      "negative_fragment": "no shorts",
+      "search_boost": 1.3,
+      "sort_order": 460
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.denim_shorts",
+      "category": "clothing",
+      "label": "Denim shorts",
+      "aliases": [
+        "denim shorts",
+        "jean shorts",
+        "cut off shorts",
+        "cutoffs",
+        "jorts",
+        "short jeans"
+      ],
+      "related": [
+        "clothing.shorts",
+        "clothing.denim",
+        "clothing.summer"
+      ],
+      "parent": "clothing.shorts",
+      "description": "Shorts cut from denim, often with a raw frayed hem.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "denim shorts",
+      "negative_fragment": "no denim shorts",
+      "search_boost": 1.0,
+      "sort_order": 470
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.skirt",
+      "category": "clothing",
+      "label": "Skirt",
+      "aliases": [
+        "skirt",
+        "skirts",
+        "sirt",
+        "skrit",
+        "a-line skirt",
+        "womens skirt"
+      ],
+      "related": [
+        "clothing.mini_skirt",
+        "clothing.midi_skirt",
+        "clothing.maxi_skirt",
+        "clothing.pleated_skirt"
+      ],
+      "parent": "clothing.bottoms",
+      "children": [
+        "clothing.mini_skirt",
+        "clothing.midi_skirt",
+        "clothing.maxi_skirt",
+        "clothing.pleated_skirt"
+      ],
+      "description": "A garment that hangs from the waist as one open piece instead of having separate legs.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.dress",
+        "clothing.evening_gown",
+        "clothing.jumpsuit",
+        "clothing.knit_dress",
+        "clothing.overalls",
+        "clothing.romper",
+        "clothing.shirt_dress",
+        "clothing.slip_dress",
+        "clothing.sundress",
+        "clothing.wrap_dress"
+      ],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "a skirt",
+      "negative_fragment": "no skirt",
+      "search_boost": 1.4,
+      "sort_order": 480
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.mini_skirt",
+      "category": "clothing",
+      "label": "Mini skirt",
+      "aliases": [
+        "mini skirt",
+        "miniskirt",
+        "short skirt",
+        "micro skirt",
+        "mini",
+        "above the knee skirt"
+      ],
+      "related": [
+        "clothing.skirt",
+        "clothing.y2k",
+        "clothing.pleated_skirt"
+      ],
+      "parent": "clothing.skirt",
+      "description": "A short skirt that ends well above the knee.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "a mini skirt",
+      "negative_fragment": "no mini skirt",
+      "search_boost": 1.0,
+      "sort_order": 490
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.midi_skirt",
+      "category": "clothing",
+      "label": "Midi skirt",
+      "aliases": [
+        "midi skirt",
+        "mid length skirt",
+        "calf length skirt",
+        "midi",
+        "below the knee skirt"
+      ],
+      "related": [
+        "clothing.skirt",
+        "clothing.maxi_skirt",
+        "clothing.office"
+      ],
+      "parent": "clothing.skirt",
+      "description": "A skirt that ends around mid-calf, between a mini and a full-length one.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "a midi skirt",
+      "negative_fragment": "no midi skirt",
+      "search_boost": 1.0,
+      "sort_order": 500
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.maxi_skirt",
+      "category": "clothing",
+      "label": "Maxi skirt",
+      "aliases": [
+        "maxi skirt",
+        "long skirt",
+        "floor length skirt",
+        "ankle length skirt",
+        "full length skirt"
+      ],
+      "related": [
+        "clothing.skirt",
+        "clothing.midi_skirt",
+        "clothing.bohemian"
+      ],
+      "parent": "clothing.skirt",
+      "description": "A long skirt that falls to the ankle or the floor.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "a floor-length maxi skirt",
+      "negative_fragment": "no floor-length maxi skirt",
+      "search_boost": 1.0,
+      "sort_order": 510
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.pleated_skirt",
+      "category": "clothing",
+      "label": "Pleated skirt",
+      "aliases": [
+        "pleated skirt",
+        "pleats",
+        "accordion skirt",
+        "school skirt",
+        "tennis skirt",
+        "plisse skirt",
+        "pleted skirt"
+      ],
+      "related": [
+        "clothing.skirt",
+        "clothing.mini_skirt",
+        "clothing.preppy"
+      ],
+      "parent": "clothing.skirt",
+      "description": "A skirt folded into sharp regular pleats that fan out as the wearer moves.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "a pleated skirt",
+      "negative_fragment": "no pleated skirt",
+      "search_boost": 1.0,
+      "sort_order": 520
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.culottes",
+      "category": "clothing",
+      "label": "Culottes",
+      "aliases": [
+        "culottes",
+        "wide cropped trousers",
+        "skirt pants",
+        "split skirt",
+        "gaucho pants",
+        "culotte"
+      ],
+      "related": [
+        "clothing.trousers",
+        "clothing.wide_leg_jeans",
+        "clothing.minimal"
+      ],
+      "parent": "clothing.bottoms",
+      "description": "Very wide cropped trousers cut so loosely that they look like a skirt.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "culottes",
+      "negative_fragment": "no culottes",
+      "search_boost": 1.0,
+      "sort_order": 530
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.leather_pants",
+      "category": "clothing",
+      "label": "Leather trousers",
+      "aliases": [
+        "leather pants",
+        "leather trousers",
+        "faux leather pants",
+        "pleather trousers",
+        "vinyl pants",
+        "leather jeans"
+      ],
+      "related": [
+        "clothing.trousers",
+        "clothing.leather",
+        "clothing.gothic"
+      ],
+      "parent": "clothing.bottoms",
+      "description": "Trousers cut from leather or a leather-look material, with a glossy surface that catches light.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_bottom",
+      "prompt_fragment": "leather trousers",
+      "negative_fragment": "no leather trousers",
+      "search_boost": 1.0,
+      "sort_order": 540
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.trench_coat",
+      "category": "clothing",
+      "label": "Trench coat",
+      "aliases": [
+        "trench coat",
+        "trenchcoat",
+        "mac",
+        "belted coat",
+        "raincoat trench",
+        "long beige coat",
+        "trench"
+      ],
+      "related": [
+        "clothing.wool_coat",
+        "clothing.raincoat",
+        "clothing.overcoat_layering"
+      ],
+      "parent": "clothing.outerwear",
+      "description": "A long belted coat with a double-breasted front, originally made for rain.",
+      "examples": [
+        "a beige trench coat left open over a dark outfit"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a belted trench coat",
+      "negative_fragment": "no belted trench coat",
+      "search_boost": 1.3,
+      "sort_order": 550
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.leather_jacket",
+      "category": "clothing",
+      "label": "Leather jacket",
+      "aliases": [
+        "leather jacket",
+        "biker jacket",
+        "moto jacket",
+        "black leather jacket",
+        "lether jacket",
+        "leather coat"
+      ],
+      "related": [
+        "clothing.biker_jacket",
+        "clothing.leather",
+        "clothing.bomber_jacket"
+      ],
+      "parent": "clothing.outerwear",
+      "children": [
+        "clothing.biker_jacket"
+      ],
+      "description": "A short jacket made of leather, usually cut close to the body.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a leather jacket",
+      "negative_fragment": "no leather jacket",
+      "search_boost": 1.4,
+      "sort_order": 560
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.biker_jacket",
+      "category": "clothing",
+      "label": "Biker jacket",
+      "aliases": [
+        "biker jacket",
+        "motorcycle jacket",
+        "perfecto",
+        "asymmetric zip jacket",
+        "moto leather",
+        "rider jacket"
+      ],
+      "related": [
+        "clothing.leather_jacket",
+        "clothing.gothic",
+        "clothing.grunge"
+      ],
+      "parent": "clothing.leather_jacket",
+      "description": "A leather jacket with a slanted zip, wide lapels and studs or buckles, the classic motorcycle shape.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a studded biker jacket",
+      "negative_fragment": "no studded biker jacket",
+      "search_boost": 1.0,
+      "sort_order": 570
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.denim_jacket",
+      "category": "clothing",
+      "label": "Denim jacket",
+      "aliases": [
+        "denim jacket",
+        "jean jacket",
+        "trucker jacket",
+        "jeans jacket",
+        "denim jaket"
+      ],
+      "related": [
+        "clothing.denim",
+        "clothing.denim_shirt",
+        "clothing.leather_jacket"
+      ],
+      "parent": "clothing.outerwear",
+      "description": "A short button-up jacket made of denim.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a denim jacket",
+      "negative_fragment": "no denim jacket",
+      "search_boost": 1.3,
+      "sort_order": 580
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.puffer_jacket",
+      "category": "clothing",
+      "label": "Puffer jacket",
+      "aliases": [
+        "puffer jacket",
+        "puffa",
+        "down jacket",
+        "quilted jacket",
+        "padded jacket",
+        "puffer coat",
+        "bubble jacket"
+      ],
+      "related": [
+        "clothing.parka",
+        "clothing.gilet",
+        "clothing.winter"
+      ],
+      "parent": "clothing.outerwear",
+      "description": "A thick padded jacket quilted into horizontal tubes, made for cold weather.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a padded puffer jacket",
+      "negative_fragment": "no padded puffer jacket",
+      "search_boost": 1.2,
+      "sort_order": 590
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.blazer",
+      "category": "clothing",
+      "label": "Blazer",
+      "aliases": [
+        "blazer",
+        "suit jacket",
+        "sport coat",
+        "tailored jacket",
+        "smart jacket",
+        "blazor",
+        "jacket suit"
+      ],
+      "related": [
+        "clothing.suit",
+        "clothing.tailored_trousers",
+        "clothing.office"
+      ],
+      "parent": "clothing.outerwear",
+      "description": "A structured tailored jacket with lapels, worn over a shirt for a smart look.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a tailored blazer",
+      "negative_fragment": "no tailored blazer",
+      "search_boost": 1.4,
+      "sort_order": 600
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.parka",
+      "category": "clothing",
+      "label": "Parka",
+      "aliases": [
+        "parka",
+        "winter coat",
+        "hooded coat",
+        "fur trim hood coat",
+        "snorkel parka",
+        "cold weather coat"
+      ],
+      "related": [
+        "clothing.puffer_jacket",
+        "clothing.anorak",
+        "clothing.winter"
+      ],
+      "parent": "clothing.outerwear",
+      "description": "A long warm hooded coat built for real cold, often with fur trim around the hood.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a hooded parka",
+      "negative_fragment": "no hooded parka",
+      "search_boost": 1.0,
+      "sort_order": 610
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.bomber_jacket",
+      "category": "clothing",
+      "label": "Bomber jacket",
+      "aliases": [
+        "bomber jacket",
+        "bomber",
+        "ma-1",
+        "flight jacket",
+        "varsity bomber",
+        "baseball jacket"
+      ],
+      "related": [
+        "clothing.varsity_jacket",
+        "clothing.leather_jacket",
+        "clothing.nylon"
+      ],
+      "parent": "clothing.outerwear",
+      "description": "A short jacket with a zip front and elastic cuffs and hem, based on a pilot's jacket.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a bomber jacket",
+      "negative_fragment": "no bomber jacket",
+      "search_boost": 1.2,
+      "sort_order": 620
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.wool_coat",
+      "category": "clothing",
+      "label": "Wool overcoat",
+      "aliases": [
+        "wool coat",
+        "overcoat",
+        "long coat",
+        "camel coat",
+        "tailored coat",
+        "winter overcoat",
+        "woolen coat"
+      ],
+      "related": [
+        "clothing.trench_coat",
+        "clothing.peacoat",
+        "clothing.wool"
+      ],
+      "parent": "clothing.outerwear",
+      "description": "A long formal coat cut from thick wool, worn over a suit or a knit.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a long wool overcoat",
+      "negative_fragment": "no long wool overcoat",
+      "search_boost": 1.1,
+      "sort_order": 630
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.peacoat",
+      "category": "clothing",
+      "label": "Peacoat",
+      "aliases": [
+        "peacoat",
+        "pea coat",
+        "navy coat",
+        "double breasted short coat",
+        "reefer jacket",
+        "pcoat"
+      ],
+      "related": [
+        "clothing.wool_coat",
+        "clothing.wool",
+        "clothing.winter"
+      ],
+      "parent": "clothing.outerwear",
+      "description": "A short double-breasted wool coat with broad lapels, originally worn by sailors.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a double-breasted peacoat",
+      "negative_fragment": "no double-breasted peacoat",
+      "search_boost": 1.0,
+      "sort_order": 640
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.windbreaker",
+      "category": "clothing",
+      "label": "Windbreaker",
+      "aliases": [
+        "windbreaker",
+        "windcheater",
+        "shell jacket",
+        "light nylon jacket",
+        "track jacket",
+        "wind breaker"
+      ],
+      "related": [
+        "clothing.anorak",
+        "clothing.nylon",
+        "clothing.sport"
+      ],
+      "parent": "clothing.outerwear",
+      "description": "A thin unlined jacket in slippery synthetic fabric that blocks wind.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a lightweight windbreaker",
+      "negative_fragment": "no lightweight windbreaker",
+      "search_boost": 1.0,
+      "sort_order": 650
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.raincoat",
+      "category": "clothing",
+      "label": "Raincoat",
+      "aliases": [
+        "raincoat",
+        "rain jacket",
+        "waterproof jacket",
+        "mac",
+        "rain coat",
+        "shell coat",
+        "wet weather jacket"
+      ],
+      "related": [
+        "clothing.trench_coat",
+        "clothing.windbreaker",
+        "clothing.anorak"
+      ],
+      "parent": "clothing.outerwear",
+      "description": "A waterproof coat that keeps rain out, often with a shiny surface.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a waterproof raincoat",
+      "negative_fragment": "no waterproof raincoat",
+      "search_boost": 1.0,
+      "sort_order": 660
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.varsity_jacket",
+      "category": "clothing",
+      "label": "Varsity jacket",
+      "aliases": [
+        "varsity jacket",
+        "letterman jacket",
+        "baseball jacket",
+        "college jacket",
+        "letter jacket",
+        "varsity"
+      ],
+      "related": [
+        "clothing.bomber_jacket",
+        "clothing.preppy",
+        "clothing.streetwear"
+      ],
+      "parent": "clothing.outerwear",
+      "description": "A wool jacket with leather sleeves and a big letter or logo on the chest, the American school-team jacket.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a varsity jacket",
+      "negative_fragment": "no varsity jacket",
+      "search_boost": 1.0,
+      "sort_order": 670
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.shearling_jacket",
+      "category": "clothing",
+      "label": "Shearling jacket",
+      "aliases": [
+        "shearling jacket",
+        "sheepskin coat",
+        "aviator jacket",
+        "fur lined jacket",
+        "b3 jacket",
+        "shearling coat"
+      ],
+      "related": [
+        "clothing.leather_jacket",
+        "clothing.faux_fur",
+        "clothing.winter"
+      ],
+      "parent": "clothing.outerwear",
+      "description": "A heavy leather jacket lined with woolly fleece that shows at the collar and cuffs.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a fleece-lined shearling jacket",
+      "negative_fragment": "no fleece-lined shearling jacket",
+      "search_boost": 1.0,
+      "sort_order": 680
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.gilet",
+      "category": "clothing",
+      "label": "Gilet",
+      "aliases": [
+        "gilet",
+        "body warmer",
+        "puffer vest",
+        "sleeveless jacket",
+        "vest jacket",
+        "quilted vest",
+        "jilet"
+      ],
+      "related": [
+        "clothing.puffer_jacket",
+        "clothing.sweater_vest",
+        "clothing.techwear"
+      ],
+      "parent": "clothing.outerwear",
+      "description": "A sleeveless padded jacket that warms the body but leaves the arms free.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a sleeveless padded gilet",
+      "negative_fragment": "no sleeveless padded gilet",
+      "search_boost": 1.0,
+      "sort_order": 690
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.anorak",
+      "category": "clothing",
+      "label": "Anorak",
+      "aliases": [
+        "anorak",
+        "pullover jacket",
+        "half zip jacket",
+        "cagoule",
+        "smock jacket",
+        "hooded shell"
+      ],
+      "related": [
+        "clothing.windbreaker",
+        "clothing.parka",
+        "clothing.techwear"
+      ],
+      "parent": "clothing.outerwear",
+      "description": "A hooded shell jacket that pulls over the head instead of opening fully at the front.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a hooded anorak",
+      "negative_fragment": "no hooded anorak",
+      "search_boost": 1.0,
+      "sort_order": 700
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.cape",
+      "category": "clothing",
+      "label": "Cape",
+      "aliases": [
+        "cape",
+        "cloak",
+        "poncho",
+        "shoulder cape",
+        "capelet",
+        "cape coat"
+      ],
+      "related": [
+        "clothing.wool_coat",
+        "clothing.editorial",
+        "clothing.avant_garde"
+      ],
+      "parent": "clothing.outerwear",
+      "description": "A sleeveless layer that drapes from the shoulders over the arms.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a draped cape",
+      "negative_fragment": "no draped cape",
+      "search_boost": 1.0,
+      "sort_order": 710
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.robe",
+      "category": "clothing",
+      "label": "Robe",
+      "aliases": [
+        "robe",
+        "dressing gown",
+        "kimono robe",
+        "housecoat",
+        "bathrobe",
+        "wrap robe",
+        "long robe"
+      ],
+      "related": [
+        "clothing.cape",
+        "clothing.silk",
+        "clothing.resort"
+      ],
+      "parent": "clothing.outerwear",
+      "description": "A long loose layer that wraps across the front and ties at the waist.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_outer",
+      "prompt_fragment": "a loosely tied robe",
+      "negative_fragment": "no loosely tied robe",
+      "search_boost": 1.0,
+      "sort_order": 720
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.overcoat_layering",
+      "category": "clothing",
+      "label": "Layered coat over a jacket",
+      "aliases": [
+        "coat over jacket",
+        "double layered outerwear",
+        "layered coats",
+        "jacket under coat",
+        "double outerwear"
+      ],
+      "related": [
+        "clothing.wool_coat",
+        "clothing.layered",
+        "clothing.trench_coat"
+      ],
+      "parent": "clothing.outerwear",
+      "description": "Two outer layers worn at once, such as a coat over a blazer, which reads as a deliberate styling choice rather than one garment.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a coat layered over a jacket",
+      "negative_fragment": "no second outer layer",
+      "search_boost": 1.0,
+      "sort_order": 730
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.dress",
+      "category": "clothing",
+      "label": "Dress",
+      "aliases": [
+        "dress",
+        "dres",
+        "frock",
+        "one piece dress",
+        "day dress",
+        "womens dress"
+      ],
+      "related": [
+        "clothing.slip_dress",
+        "clothing.shirt_dress",
+        "clothing.wrap_dress",
+        "clothing.sundress"
+      ],
+      "parent": "clothing.dresses",
+      "children": [
+        "clothing.slip_dress",
+        "clothing.shirt_dress",
+        "clothing.wrap_dress",
+        "clothing.knit_dress",
+        "clothing.sundress"
+      ],
+      "description": "A single garment covering the body from the shoulders down past the hips, worn instead of a separate top and bottom.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.cargo_pants",
+        "clothing.jeans",
+        "clothing.leggings",
+        "clothing.shorts",
+        "clothing.skirt",
+        "clothing.tailored_trousers",
+        "clothing.trousers"
+      ],
+      "exclusivity_group": "garment_full_body",
+      "prompt_fragment": "a dress",
+      "negative_fragment": "no dress",
+      "search_boost": 1.5,
+      "sort_order": 740
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.slip_dress",
+      "category": "clothing",
+      "label": "Slip dress",
+      "aliases": [
+        "slip dress",
+        "satin slip dress",
+        "spaghetti strap dress",
+        "silk dress",
+        "bias cut dress",
+        "slipdress"
+      ],
+      "related": [
+        "clothing.dress",
+        "clothing.camisole",
+        "clothing.satin"
+      ],
+      "parent": "clothing.dress",
+      "description": "A thin strappy dress cut like an undergarment, usually in a smooth fluid fabric.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.cargo_pants",
+        "clothing.jeans",
+        "clothing.leggings",
+        "clothing.shorts",
+        "clothing.skirt",
+        "clothing.tailored_trousers",
+        "clothing.trousers"
+      ],
+      "exclusivity_group": "garment_full_body",
+      "prompt_fragment": "a satin slip dress",
+      "negative_fragment": "no satin slip dress",
+      "search_boost": 1.0,
+      "sort_order": 750
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.shirt_dress",
+      "category": "clothing",
+      "label": "Shirt dress",
+      "aliases": [
+        "shirt dress",
+        "shirtdress",
+        "button front dress",
+        "collared dress",
+        "shirtwaist dress"
+      ],
+      "related": [
+        "clothing.dress",
+        "clothing.shirt",
+        "clothing.minimal"
+      ],
+      "parent": "clothing.dress",
+      "description": "A dress cut like a long button-up shirt, with a collar and buttons down the front.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.cargo_pants",
+        "clothing.jeans",
+        "clothing.leggings",
+        "clothing.shorts",
+        "clothing.skirt",
+        "clothing.tailored_trousers",
+        "clothing.trousers"
+      ],
+      "exclusivity_group": "garment_full_body",
+      "prompt_fragment": "a collared shirt dress",
+      "negative_fragment": "no collared shirt dress",
+      "search_boost": 1.0,
+      "sort_order": 760
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.wrap_dress",
+      "category": "clothing",
+      "label": "Wrap dress",
+      "aliases": [
+        "wrap dress",
+        "crossover dress",
+        "tie waist dress",
+        "v neck wrap dress",
+        "surplice dress"
+      ],
+      "related": [
+        "clothing.dress",
+        "clothing.robe",
+        "clothing.office"
+      ],
+      "parent": "clothing.dress",
+      "description": "A dress that crosses over at the front and ties at the waist rather than fastening with buttons.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.cargo_pants",
+        "clothing.jeans",
+        "clothing.leggings",
+        "clothing.shorts",
+        "clothing.skirt",
+        "clothing.tailored_trousers",
+        "clothing.trousers"
+      ],
+      "exclusivity_group": "garment_full_body",
+      "prompt_fragment": "a tied wrap dress",
+      "negative_fragment": "no tied wrap dress",
+      "search_boost": 1.0,
+      "sort_order": 770
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.knit_dress",
+      "category": "clothing",
+      "label": "Knit dress",
+      "aliases": [
+        "knit dress",
+        "sweater dress",
+        "jumper dress",
+        "ribbed dress",
+        "knitted dress"
+      ],
+      "related": [
+        "clothing.dress",
+        "clothing.knit_sweater",
+        "clothing.wool"
+      ],
+      "parent": "clothing.dress",
+      "description": "A dress made from soft knitted fabric that follows the body.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.cargo_pants",
+        "clothing.jeans",
+        "clothing.leggings",
+        "clothing.shorts",
+        "clothing.skirt",
+        "clothing.tailored_trousers",
+        "clothing.trousers"
+      ],
+      "exclusivity_group": "garment_full_body",
+      "prompt_fragment": "a soft knit dress",
+      "negative_fragment": "no soft knit dress",
+      "search_boost": 1.0,
+      "sort_order": 780
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.sundress",
+      "category": "clothing",
+      "label": "Sundress",
+      "aliases": [
+        "sundress",
+        "sun dress",
+        "summer dress",
+        "floral dress",
+        "light dress",
+        "strappy summer dress"
+      ],
+      "related": [
+        "clothing.dress",
+        "clothing.summer",
+        "clothing.cotton"
+      ],
+      "parent": "clothing.dress",
+      "description": "A light sleeveless dress in thin fabric, made for hot weather.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.cargo_pants",
+        "clothing.jeans",
+        "clothing.leggings",
+        "clothing.shorts",
+        "clothing.skirt",
+        "clothing.tailored_trousers",
+        "clothing.trousers"
+      ],
+      "exclusivity_group": "garment_full_body",
+      "prompt_fragment": "a light summer sundress",
+      "negative_fragment": "no light summer sundress",
+      "search_boost": 1.0,
+      "sort_order": 790
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.evening_gown",
+      "category": "clothing",
+      "label": "Evening gown",
+      "aliases": [
+        "gown",
+        "evening gown",
+        "ball gown",
+        "long formal dress",
+        "red carpet dress",
+        "evening dress",
+        "gowen"
+      ],
+      "related": [
+        "clothing.dress",
+        "clothing.formal",
+        "clothing.satin"
+      ],
+      "parent": "clothing.dresses",
+      "description": "A long formal dress that reaches the floor, worn to grand occasions.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.cargo_pants",
+        "clothing.jeans",
+        "clothing.leggings",
+        "clothing.shorts",
+        "clothing.skirt",
+        "clothing.tailored_trousers",
+        "clothing.trousers"
+      ],
+      "exclusivity_group": "garment_full_body",
+      "prompt_fragment": "a floor-length evening gown",
+      "negative_fragment": "no floor-length evening gown",
+      "search_boost": 1.1,
+      "sort_order": 800
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.jumpsuit",
+      "category": "clothing",
+      "label": "Jumpsuit",
+      "aliases": [
+        "jumpsuit",
+        "boiler suit",
+        "one piece trousers",
+        "all in one",
+        "overall suit",
+        "jump suit",
+        "coverall"
+      ],
+      "related": [
+        "clothing.romper",
+        "clothing.overalls",
+        "clothing.workwear"
+      ],
+      "parent": "clothing.dresses",
+      "description": "A one-piece garment that joins a top and full-length trousers.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.cargo_pants",
+        "clothing.jeans",
+        "clothing.leggings",
+        "clothing.shorts",
+        "clothing.skirt",
+        "clothing.tailored_trousers",
+        "clothing.trousers"
+      ],
+      "exclusivity_group": "garment_full_body",
+      "prompt_fragment": "a one-piece jumpsuit",
+      "negative_fragment": "no one-piece jumpsuit",
+      "search_boost": 1.0,
+      "sort_order": 810
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.romper",
+      "category": "clothing",
+      "label": "Romper",
+      "aliases": [
+        "romper",
+        "playsuit",
+        "short jumpsuit",
+        "one piece shorts",
+        "romper suit"
+      ],
+      "related": [
+        "clothing.jumpsuit",
+        "clothing.shorts",
+        "clothing.summer"
+      ],
+      "parent": "clothing.dresses",
+      "description": "A one-piece garment that joins a top and shorts, like a short jumpsuit.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.cargo_pants",
+        "clothing.jeans",
+        "clothing.leggings",
+        "clothing.shorts",
+        "clothing.skirt",
+        "clothing.tailored_trousers",
+        "clothing.trousers"
+      ],
+      "exclusivity_group": "garment_full_body",
+      "prompt_fragment": "a short romper",
+      "negative_fragment": "no short romper",
+      "search_boost": 1.0,
+      "sort_order": 820
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.overalls",
+      "category": "clothing",
+      "label": "Dungarees",
+      "aliases": [
+        "overalls",
+        "dungarees",
+        "bib overalls",
+        "denim overalls",
+        "strap trousers",
+        "overall"
+      ],
+      "related": [
+        "clothing.jumpsuit",
+        "clothing.denim",
+        "clothing.workwear"
+      ],
+      "parent": "clothing.dresses",
+      "description": "Trousers with a bib front held up by two shoulder straps.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.cargo_pants",
+        "clothing.jeans",
+        "clothing.leggings",
+        "clothing.shorts",
+        "clothing.skirt",
+        "clothing.tailored_trousers",
+        "clothing.trousers"
+      ],
+      "exclusivity_group": "garment_full_body",
+      "prompt_fragment": "denim dungarees",
+      "negative_fragment": "no denim dungarees",
+      "search_boost": 1.0,
+      "sort_order": 830
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.suit",
+      "category": "clothing",
+      "label": "Suit",
+      "aliases": [
+        "suit",
+        "two piece suit",
+        "matching suit",
+        "business suit",
+        "three piece suit",
+        "tailored suit",
+        "suite"
+      ],
+      "related": [
+        "clothing.blazer",
+        "clothing.tailored_trousers",
+        "clothing.formal"
+      ],
+      "parent": "clothing.dresses",
+      "description": "A matching jacket and trousers or skirt cut from the same fabric, worn as one outfit.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_full_body",
+      "prompt_fragment": "a matching tailored suit",
+      "negative_fragment": "no matching tailored suit",
+      "search_boost": 1.3,
+      "sort_order": 840
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.tracksuit",
+      "category": "clothing",
+      "label": "Tracksuit",
+      "aliases": [
+        "tracksuit",
+        "track suit",
+        "matching sweatsuit",
+        "shell suit",
+        "sweatsuit",
+        "trackie set"
+      ],
+      "related": [
+        "clothing.track_pants",
+        "clothing.sport",
+        "clothing.athleisure"
+      ],
+      "parent": "clothing.dresses",
+      "description": "A matching sporty jacket and trousers worn as a set.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "garment_full_body",
+      "prompt_fragment": "a matching tracksuit",
+      "negative_fragment": "no matching tracksuit",
+      "search_boost": 1.0,
+      "sort_order": 850
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.sneakers",
+      "category": "clothing",
+      "label": "Sneakers",
+      "aliases": [
+        "sneakers",
+        "trainers",
+        "kicks",
+        "tennis shoes",
+        "sneaker",
+        "snickers shoes",
+        "gym shoes",
+        "runners"
+      ],
+      "related": [
+        "clothing.chunky_sneakers",
+        "clothing.running_shoes",
+        "clothing.streetwear"
+      ],
+      "parent": "clothing.shoes",
+      "children": [
+        "clothing.chunky_sneakers",
+        "clothing.running_shoes"
+      ],
+      "description": "Soft lace-up shoes with a rubber sole, called trainers in British English.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "sneakers",
+      "negative_fragment": "no sneakers",
+      "search_boost": 1.5,
+      "sort_order": 860
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.chunky_sneakers",
+      "category": "clothing",
+      "label": "Chunky sneakers",
+      "aliases": [
+        "chunky sneakers",
+        "dad shoes",
+        "dad sneakers",
+        "platform trainers",
+        "ugly sneakers",
+        "thick sole trainers"
+      ],
+      "related": [
+        "clothing.sneakers",
+        "clothing.platform_shoes",
+        "clothing.y2k"
+      ],
+      "parent": "clothing.sneakers",
+      "description": "Trainers with an exaggerated thick sole that adds visible height and bulk.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "chunky-soled sneakers",
+      "negative_fragment": "no chunky-soled sneakers",
+      "search_boost": 1.0,
+      "sort_order": 870
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.running_shoes",
+      "category": "clothing",
+      "label": "Running shoes",
+      "aliases": [
+        "running shoes",
+        "runners",
+        "athletic shoes",
+        "trainers for running",
+        "sport shoes",
+        "jogging shoes"
+      ],
+      "related": [
+        "clothing.sneakers",
+        "clothing.sport",
+        "clothing.athleisure"
+      ],
+      "parent": "clothing.sneakers",
+      "description": "Light technical trainers built for running, with a cushioned sole and mesh upper.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "technical running shoes",
+      "negative_fragment": "no technical running shoes",
+      "search_boost": 1.0,
+      "sort_order": 880
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.boots",
+      "category": "clothing",
+      "label": "Boots",
+      "aliases": [
+        "boots",
+        "boot",
+        "ankle boots",
+        "botts",
+        "leather boots",
+        "pair of boots"
+      ],
+      "related": [
+        "clothing.combat_boots",
+        "clothing.chelsea_boots",
+        "clothing.knee_high_boots",
+        "clothing.cowboy_boots"
+      ],
+      "parent": "clothing.shoes",
+      "children": [
+        "clothing.combat_boots",
+        "clothing.chelsea_boots",
+        "clothing.knee_high_boots",
+        "clothing.cowboy_boots"
+      ],
+      "description": "Footwear that rises above the ankle.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "boots",
+      "negative_fragment": "no boots",
+      "search_boost": 1.4,
+      "sort_order": 890
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.combat_boots",
+      "category": "clothing",
+      "label": "Combat boots",
+      "aliases": [
+        "combat boots",
+        "military boots",
+        "lace up boots",
+        "docs",
+        "dr martens style boots",
+        "army boots"
+      ],
+      "related": [
+        "clothing.boots",
+        "clothing.grunge",
+        "clothing.military"
+      ],
+      "parent": "clothing.boots",
+      "description": "Heavy lace-up boots with a thick tread, based on military footwear.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "heavy lace-up combat boots",
+      "negative_fragment": "no heavy lace-up combat boots",
+      "search_boost": 1.0,
+      "sort_order": 900
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.chelsea_boots",
+      "category": "clothing",
+      "label": "Chelsea boots",
+      "aliases": [
+        "chelsea boots",
+        "elastic side boots",
+        "ankle boots slip on",
+        "beatle boots",
+        "chelsea"
+      ],
+      "related": [
+        "clothing.boots",
+        "clothing.loafers",
+        "clothing.minimal"
+      ],
+      "parent": "clothing.boots",
+      "description": "Neat ankle boots with a stretchy elastic panel at the side and no laces.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "sleek chelsea boots",
+      "negative_fragment": "no sleek chelsea boots",
+      "search_boost": 1.0,
+      "sort_order": 910
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.knee_high_boots",
+      "category": "clothing",
+      "label": "Knee-high boots",
+      "aliases": [
+        "knee high boots",
+        "tall boots",
+        "long boots",
+        "thigh high boots",
+        "riding boots",
+        "over the knee boots"
+      ],
+      "related": [
+        "clothing.boots",
+        "clothing.heels",
+        "clothing.editorial"
+      ],
+      "parent": "clothing.boots",
+      "description": "Boots whose shafts rise all the way up to or past the knee.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "tall knee-high boots",
+      "negative_fragment": "no tall knee-high boots",
+      "search_boost": 1.0,
+      "sort_order": 920
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.cowboy_boots",
+      "category": "clothing",
+      "label": "Cowboy boots",
+      "aliases": [
+        "cowboy boots",
+        "western boots",
+        "cuban heel boots",
+        "ranch boots",
+        "cowbot boots"
+      ],
+      "related": [
+        "clothing.boots",
+        "clothing.vintage",
+        "clothing.suede"
+      ],
+      "parent": "clothing.boots",
+      "description": "Pointed boots with a slanted heel and decorative stitching, from western dress.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "western cowboy boots",
+      "negative_fragment": "no western cowboy boots",
+      "search_boost": 1.0,
+      "sort_order": 930
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.loafers",
+      "category": "clothing",
+      "label": "Loafers",
+      "aliases": [
+        "loafers",
+        "slip on shoes",
+        "penny loafers",
+        "moccasins",
+        "loafer",
+        "lofers"
+      ],
+      "related": [
+        "clothing.oxford_shoes",
+        "clothing.preppy",
+        "clothing.office"
+      ],
+      "parent": "clothing.shoes",
+      "description": "Flat slip-on leather shoes with no laces.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "leather loafers",
+      "negative_fragment": "no leather loafers",
+      "search_boost": 1.1,
+      "sort_order": 940
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.oxford_shoes",
+      "category": "clothing",
+      "label": "Oxford shoes",
+      "aliases": [
+        "oxford shoes",
+        "dress shoes",
+        "brogues",
+        "derby shoes",
+        "formal shoes",
+        "smart shoes",
+        "oxfords"
+      ],
+      "related": [
+        "clothing.loafers",
+        "clothing.formal",
+        "clothing.suit"
+      ],
+      "parent": "clothing.shoes",
+      "description": "Smart laced leather shoes worn with a suit.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "polished oxford shoes",
+      "negative_fragment": "no polished oxford shoes",
+      "search_boost": 1.0,
+      "sort_order": 950
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.heels",
+      "category": "clothing",
+      "label": "High heels",
+      "aliases": [
+        "heels",
+        "high heels",
+        "high heeled shoes",
+        "pumps",
+        "court shoes",
+        "heals",
+        "heeled shoes"
+      ],
+      "related": [
+        "clothing.stiletto_heels",
+        "clothing.block_heels",
+        "clothing.formal"
+      ],
+      "parent": "clothing.shoes",
+      "children": [
+        "clothing.stiletto_heels",
+        "clothing.block_heels"
+      ],
+      "description": "Shoes with a raised heel that tips the foot forward and lengthens the leg.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "high heels",
+      "negative_fragment": "no high heels",
+      "search_boost": 1.3,
+      "sort_order": 960
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.stiletto_heels",
+      "category": "clothing",
+      "label": "Stiletto heels",
+      "aliases": [
+        "stilettos",
+        "stiletto heels",
+        "thin heels",
+        "spike heels",
+        "pointy heels",
+        "stilleto"
+      ],
+      "related": [
+        "clothing.heels",
+        "clothing.evening_gown",
+        "clothing.formal"
+      ],
+      "parent": "clothing.heels",
+      "description": "Heels with a very thin, very tall spike.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "thin stiletto heels",
+      "negative_fragment": "no thin stiletto heels",
+      "search_boost": 1.0,
+      "sort_order": 970
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.block_heels",
+      "category": "clothing",
+      "label": "Block heels",
+      "aliases": [
+        "block heels",
+        "chunky heels",
+        "square heel",
+        "thick heel shoes",
+        "low block heel"
+      ],
+      "related": [
+        "clothing.heels",
+        "clothing.mules",
+        "clothing.office"
+      ],
+      "parent": "clothing.heels",
+      "description": "Heels with a wide square column instead of a thin spike, so they look sturdier.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "chunky block heels",
+      "negative_fragment": "no chunky block heels",
+      "search_boost": 1.0,
+      "sort_order": 980
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.sandals",
+      "category": "clothing",
+      "label": "Sandals",
+      "aliases": [
+        "sandals",
+        "open toe shoes",
+        "strappy sandals",
+        "sandles",
+        "summer shoes",
+        "slides"
+      ],
+      "related": [
+        "clothing.flip_flops",
+        "clothing.summer",
+        "clothing.resort"
+      ],
+      "parent": "clothing.shoes",
+      "children": [
+        "clothing.flip_flops"
+      ],
+      "description": "Open shoes held on by straps, leaving most of the foot bare.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "open sandals",
+      "negative_fragment": "no open sandals",
+      "search_boost": 1.1,
+      "sort_order": 990
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.flip_flops",
+      "category": "clothing",
+      "label": "Flip-flops",
+      "aliases": [
+        "flip flops",
+        "thongs",
+        "beach sandals",
+        "flipflops",
+        "toe post sandals",
+        "jandals"
+      ],
+      "related": [
+        "clothing.sandals",
+        "clothing.resort",
+        "clothing.summer"
+      ],
+      "parent": "clothing.sandals",
+      "description": "The simplest sandal, a flat sole held on by a V-shaped strap between the toes.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "flip-flops",
+      "negative_fragment": "no flip-flops",
+      "search_boost": 1.0,
+      "sort_order": 1000
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.ballet_flats",
+      "category": "clothing",
+      "label": "Ballet flats",
+      "aliases": [
+        "ballet flats",
+        "flats",
+        "pumps flat",
+        "ballerina shoes",
+        "flat shoes",
+        "ballet pumps"
+      ],
+      "related": [
+        "clothing.mary_janes",
+        "clothing.loafers",
+        "clothing.minimal"
+      ],
+      "parent": "clothing.shoes",
+      "description": "Very flat soft shoes with a low-cut front, shaped like a ballet slipper.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "flat ballet pumps",
+      "negative_fragment": "no flat ballet pumps",
+      "search_boost": 1.0,
+      "sort_order": 1010
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.mary_janes",
+      "category": "clothing",
+      "label": "Mary Janes",
+      "aliases": [
+        "mary janes",
+        "mary jane shoes",
+        "strap shoes",
+        "buckle shoes",
+        "school shoes",
+        "maryjanes"
+      ],
+      "related": [
+        "clothing.ballet_flats",
+        "clothing.korean_fashion",
+        "clothing.preppy"
+      ],
+      "parent": "clothing.shoes",
+      "description": "Rounded flat or low-heeled shoes with a strap across the top of the foot.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "buckled mary jane shoes",
+      "negative_fragment": "no buckled mary jane shoes",
+      "search_boost": 1.0,
+      "sort_order": 1020
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.mules",
+      "category": "clothing",
+      "label": "Mules",
+      "aliases": [
+        "mules",
+        "backless shoes",
+        "slip on heels",
+        "open back shoes",
+        "mule shoes"
+      ],
+      "related": [
+        "clothing.block_heels",
+        "clothing.loafers",
+        "clothing.minimal"
+      ],
+      "parent": "clothing.shoes",
+      "description": "Shoes with no back, so the heel of the foot is uncovered.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "backless mules",
+      "negative_fragment": "no backless mules",
+      "search_boost": 1.0,
+      "sort_order": 1030
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.platform_shoes",
+      "category": "clothing",
+      "label": "Platform shoes",
+      "aliases": [
+        "platform shoes",
+        "platforms",
+        "thick sole shoes",
+        "flatforms",
+        "elevated sole shoes",
+        "platform heels"
+      ],
+      "related": [
+        "clothing.chunky_sneakers",
+        "clothing.y2k",
+        "clothing.heels"
+      ],
+      "parent": "clothing.shoes",
+      "description": "Shoes with a thick slab of sole under the whole foot, adding height everywhere rather than just at the heel.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "platform shoes",
+      "negative_fragment": "no platform shoes",
+      "search_boost": 1.0,
+      "sort_order": 1040
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.barefoot",
+      "category": "clothing",
+      "label": "Barefoot",
+      "aliases": [
+        "barefoot",
+        "bare feet",
+        "no shoes",
+        "shoeless",
+        "feet bare",
+        "without shoes"
+      ],
+      "related": [
+        "clothing.sandals",
+        "clothing.resort",
+        "clothing.sundress"
+      ],
+      "parent": "clothing.shoes",
+      "description": "No footwear at all, which is a deliberate styling choice rather than a missing detail.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "footwear",
+      "prompt_fragment": "barefoot",
+      "negative_fragment": "wearing shoes",
+      "search_boost": 1.0,
+      "sort_order": 1050
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.headwear",
+      "category": "clothing",
+      "label": "Headwear",
+      "aliases": [
+        "hat",
+        "headwear",
+        "head covering",
+        "cap category",
+        "hats",
+        "something on their head"
+      ],
+      "related": [
+        "clothing.baseball_cap",
+        "clothing.beanie",
+        "clothing.wide_brim_hat"
+      ],
+      "parent": "clothing.accessories",
+      "children": [
+        "clothing.baseball_cap",
+        "clothing.beanie",
+        "clothing.bucket_hat",
+        "clothing.wide_brim_hat",
+        "clothing.beret",
+        "clothing.fedora",
+        "clothing.headscarf"
+      ],
+      "description": "Anything worn on the head, from a baseball cap to a wide-brimmed hat.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "headwear",
+      "negative_fragment": "no headwear",
+      "search_boost": 1.2,
+      "sort_order": 1060
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.baseball_cap",
+      "category": "clothing",
+      "label": "Baseball cap",
+      "aliases": [
+        "baseball cap",
+        "cap",
+        "snapback",
+        "ball cap",
+        "trucker hat",
+        "peaked cap",
+        "baseball hat"
+      ],
+      "related": [
+        "clothing.bucket_hat",
+        "clothing.beanie",
+        "clothing.streetwear"
+      ],
+      "parent": "clothing.headwear",
+      "description": "A soft cap with a curved peak at the front.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "headwear",
+      "prompt_fragment": "a baseball cap",
+      "negative_fragment": "no baseball cap",
+      "search_boost": 1.3,
+      "sort_order": 1070
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.beanie",
+      "category": "clothing",
+      "label": "Beanie",
+      "aliases": [
+        "beanie",
+        "knit hat",
+        "woolly hat",
+        "toque",
+        "winter hat",
+        "beany",
+        "skull cap"
+      ],
+      "related": [
+        "clothing.baseball_cap",
+        "clothing.winter",
+        "clothing.wool"
+      ],
+      "parent": "clothing.headwear",
+      "description": "A soft knitted hat that hugs the head, worn for warmth.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "headwear",
+      "prompt_fragment": "a knitted beanie",
+      "negative_fragment": "no knitted beanie",
+      "search_boost": 1.2,
+      "sort_order": 1080
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.bucket_hat",
+      "category": "clothing",
+      "label": "Bucket hat",
+      "aliases": [
+        "bucket hat",
+        "fisherman hat",
+        "boonie hat",
+        "bucket cap",
+        "sun bucket hat"
+      ],
+      "related": [
+        "clothing.baseball_cap",
+        "clothing.wide_brim_hat",
+        "clothing.streetwear"
+      ],
+      "parent": "clothing.headwear",
+      "description": "A soft round hat with a short brim that slopes down all the way around.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "headwear",
+      "prompt_fragment": "a bucket hat",
+      "negative_fragment": "no bucket hat",
+      "search_boost": 1.0,
+      "sort_order": 1090
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.wide_brim_hat",
+      "category": "clothing",
+      "label": "Wide-brim hat",
+      "aliases": [
+        "wide brim hat",
+        "sun hat",
+        "floppy hat",
+        "straw hat",
+        "big hat",
+        "brimmed hat",
+        "wide brimmed"
+      ],
+      "related": [
+        "clothing.fedora",
+        "clothing.beret",
+        "clothing.resort"
+      ],
+      "parent": "clothing.headwear",
+      "description": "A hat with a broad brim circling the head, which shades the face and casts a strong shadow.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "headwear",
+      "prompt_fragment": "a wide-brimmed hat",
+      "negative_fragment": "no wide-brimmed hat",
+      "search_boost": 1.0,
+      "sort_order": 1100
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.beret",
+      "category": "clothing",
+      "label": "Beret",
+      "aliases": [
+        "beret",
+        "french hat",
+        "flat round hat",
+        "wool beret",
+        "barret",
+        "beret hat"
+      ],
+      "related": [
+        "clothing.wide_brim_hat",
+        "clothing.fedora",
+        "clothing.vintage"
+      ],
+      "parent": "clothing.headwear",
+      "description": "A soft flat round hat with no brim, tilted on the head.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "headwear",
+      "prompt_fragment": "a tilted beret",
+      "negative_fragment": "no tilted beret",
+      "search_boost": 1.0,
+      "sort_order": 1110
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.fedora",
+      "category": "clothing",
+      "label": "Fedora",
+      "aliases": [
+        "fedora",
+        "felt hat",
+        "trilby",
+        "brimmed felt hat",
+        "gangster hat",
+        "fedorah"
+      ],
+      "related": [
+        "clothing.wide_brim_hat",
+        "clothing.beret",
+        "clothing.vintage"
+      ],
+      "parent": "clothing.headwear",
+      "description": "A structured felt hat with a pinched crown and a medium brim.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "headwear",
+      "prompt_fragment": "a felt fedora",
+      "negative_fragment": "no felt fedora",
+      "search_boost": 1.0,
+      "sort_order": 1120
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.headscarf",
+      "category": "clothing",
+      "label": "Headscarf",
+      "aliases": [
+        "headscarf",
+        "head scarf",
+        "bandana",
+        "hair scarf",
+        "tied scarf",
+        "kerchief",
+        "head wrap"
+      ],
+      "related": [
+        "clothing.scarf",
+        "clothing.vintage",
+        "clothing.resort"
+      ],
+      "parent": "clothing.headwear",
+      "description": "A square of cloth tied over or around the hair.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "headwear",
+      "prompt_fragment": "a tied headscarf",
+      "negative_fragment": "no tied headscarf",
+      "search_boost": 1.0,
+      "sort_order": 1130
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.hood_up",
+      "category": "clothing",
+      "label": "Hood up",
+      "aliases": [
+        "hood up",
+        "hood pulled up",
+        "wearing the hood",
+        "hooded",
+        "hood over head",
+        "hood on"
+      ],
+      "related": [
+        "clothing.hoodie",
+        "clothing.parka",
+        "clothing.streetwear"
+      ],
+      "parent": "clothing.accessories",
+      "description": "The hood of a hoodie or coat pulled up over the head, which frames and shadows the face.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "with the hood pulled up",
+      "negative_fragment": "with the hood down",
+      "search_boost": 1.0,
+      "sort_order": 1140
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.sunglasses",
+      "category": "clothing",
+      "label": "Sunglasses",
+      "aliases": [
+        "sunglasses",
+        "shades",
+        "sun glasses",
+        "dark glasses",
+        "sunnies",
+        "sunglases",
+        "tinted glasses"
+      ],
+      "related": [
+        "clothing.eyeglasses",
+        "clothing.resort",
+        "clothing.summer"
+      ],
+      "parent": "clothing.accessories",
+      "description": "Tinted glasses that hide the eyes and read as instant attitude in a portrait.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "sunglasses",
+      "negative_fragment": "no sunglasses",
+      "search_boost": 1.3,
+      "sort_order": 1150
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.eyeglasses",
+      "category": "clothing",
+      "label": "Eyeglasses",
+      "aliases": [
+        "glasses",
+        "eyeglasses",
+        "spectacles",
+        "specs",
+        "reading glasses",
+        "clear glasses",
+        "eye glasses"
+      ],
+      "related": [
+        "clothing.sunglasses",
+        "clothing.office",
+        "clothing.minimal"
+      ],
+      "parent": "clothing.accessories",
+      "description": "Clear prescription glasses worn on the face.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "clear eyeglasses",
+      "negative_fragment": "no clear eyeglasses",
+      "search_boost": 1.1,
+      "sort_order": 1160
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.scarf",
+      "category": "clothing",
+      "label": "Scarf",
+      "aliases": [
+        "scarf",
+        "neck scarf",
+        "wool scarf",
+        "muffler",
+        "scarve",
+        "wrapped scarf",
+        "shawl"
+      ],
+      "related": [
+        "clothing.headscarf",
+        "clothing.winter",
+        "clothing.wool"
+      ],
+      "parent": "clothing.accessories",
+      "description": "A long piece of fabric wrapped around the neck for warmth or decoration.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a wrapped scarf",
+      "negative_fragment": "no wrapped scarf",
+      "search_boost": 1.0,
+      "sort_order": 1170
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.gloves",
+      "category": "clothing",
+      "label": "Gloves",
+      "aliases": [
+        "gloves",
+        "leather gloves",
+        "mittens",
+        "hand gloves",
+        "glove",
+        "winter gloves"
+      ],
+      "related": [
+        "clothing.scarf",
+        "clothing.winter",
+        "clothing.leather"
+      ],
+      "parent": "clothing.accessories",
+      "description": "Coverings for the hands, with separate fingers.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "gloves",
+      "negative_fragment": "no gloves",
+      "search_boost": 1.0,
+      "sort_order": 1180
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.belt",
+      "category": "clothing",
+      "label": "Belt",
+      "aliases": [
+        "belt",
+        "waist belt",
+        "leather belt",
+        "buckle belt",
+        "bely",
+        "cinched belt"
+      ],
+      "related": [
+        "clothing.trousers",
+        "clothing.leather",
+        "clothing.tailored"
+      ],
+      "parent": "clothing.accessories",
+      "description": "A strap around the waist, which both holds up trousers and marks the waistline in a silhouette.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a belt",
+      "negative_fragment": "no belt",
+      "search_boost": 1.0,
+      "sort_order": 1190
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.necktie",
+      "category": "clothing",
+      "label": "Necktie",
+      "aliases": [
+        "tie",
+        "necktie",
+        "neck tie",
+        "silk tie",
+        "business tie",
+        "loose tie",
+        "knotted tie"
+      ],
+      "related": [
+        "clothing.bow_tie",
+        "clothing.shirt",
+        "clothing.office"
+      ],
+      "parent": "clothing.accessories",
+      "description": "A long strip of fabric knotted at the collar and hanging down the shirt front.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a necktie",
+      "negative_fragment": "no necktie",
+      "search_boost": 1.0,
+      "sort_order": 1200
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.bow_tie",
+      "category": "clothing",
+      "label": "Bow tie",
+      "aliases": [
+        "bow tie",
+        "bowtie",
+        "black tie bow",
+        "dickie bow",
+        "bow"
+      ],
+      "related": [
+        "clothing.necktie",
+        "clothing.formal",
+        "clothing.suit"
+      ],
+      "parent": "clothing.accessories",
+      "description": "A small ribbon tied into a bow at the collar, worn for formal occasions.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a bow tie",
+      "negative_fragment": "no bow tie",
+      "search_boost": 1.0,
+      "sort_order": 1210
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.backpack",
+      "category": "clothing",
+      "label": "Backpack",
+      "aliases": [
+        "backpack",
+        "rucksack",
+        "back pack",
+        "school bag",
+        "day pack",
+        "bag on back"
+      ],
+      "related": [
+        "clothing.tote_bag",
+        "clothing.crossbody_bag",
+        "clothing.techwear"
+      ],
+      "parent": "clothing.accessories",
+      "description": "A bag carried on the back by two shoulder straps.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a backpack",
+      "negative_fragment": "no backpack",
+      "search_boost": 1.0,
+      "sort_order": 1220
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.shoulder_bag",
+      "category": "clothing",
+      "label": "Shoulder bag",
+      "aliases": [
+        "shoulder bag",
+        "handbag",
+        "purse",
+        "hobo bag",
+        "bag on shoulder",
+        "shoulderbag"
+      ],
+      "related": [
+        "clothing.crossbody_bag",
+        "clothing.tote_bag",
+        "clothing.office"
+      ],
+      "parent": "clothing.accessories",
+      "description": "A bag hung from one shoulder by a single strap.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a shoulder bag",
+      "negative_fragment": "no shoulder bag",
+      "search_boost": 1.0,
+      "sort_order": 1230
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.tote_bag",
+      "category": "clothing",
+      "label": "Tote bag",
+      "aliases": [
+        "tote bag",
+        "tote",
+        "canvas bag",
+        "shopper bag",
+        "carry bag",
+        "totebag"
+      ],
+      "related": [
+        "clothing.shoulder_bag",
+        "clothing.backpack",
+        "clothing.minimal"
+      ],
+      "parent": "clothing.accessories",
+      "description": "A large open-topped bag carried by two short handles.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a canvas tote bag",
+      "negative_fragment": "no canvas tote bag",
+      "search_boost": 1.0,
+      "sort_order": 1240
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.crossbody_bag",
+      "category": "clothing",
+      "label": "Crossbody bag",
+      "aliases": [
+        "crossbody bag",
+        "cross body bag",
+        "sling bag",
+        "messenger bag",
+        "body bag strap",
+        "shoulder sling"
+      ],
+      "related": [
+        "clothing.shoulder_bag",
+        "clothing.backpack",
+        "clothing.streetwear"
+      ],
+      "parent": "clothing.accessories",
+      "description": "A small bag worn on a long strap that crosses the chest.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a crossbody bag",
+      "negative_fragment": "no crossbody bag",
+      "search_boost": 1.0,
+      "sort_order": 1250
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.necklace",
+      "category": "clothing",
+      "label": "Necklace",
+      "aliases": [
+        "necklace",
+        "chain",
+        "pendant",
+        "neclace",
+        "layered necklace",
+        "gold chain",
+        "jewellery neck"
+      ],
+      "related": [
+        "clothing.earrings",
+        "clothing.bracelet",
+        "clothing.rings"
+      ],
+      "parent": "clothing.accessories",
+      "description": "A chain or cord worn around the neck, sometimes with a pendant.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a necklace",
+      "negative_fragment": "no necklace",
+      "search_boost": 1.0,
+      "sort_order": 1260
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.earrings",
+      "category": "clothing",
+      "label": "Earrings",
+      "aliases": [
+        "earrings",
+        "ear rings",
+        "hoops",
+        "studs",
+        "hoop earrings",
+        "earing",
+        "drop earrings"
+      ],
+      "related": [
+        "clothing.necklace",
+        "clothing.rings",
+        "clothing.editorial"
+      ],
+      "parent": "clothing.accessories",
+      "description": "Jewellery worn on the ears, from small studs to large hoops.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "earrings",
+      "negative_fragment": "no earrings",
+      "search_boost": 1.0,
+      "sort_order": 1270
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.rings",
+      "category": "clothing",
+      "label": "Rings",
+      "aliases": [
+        "rings",
+        "ring",
+        "stacked rings",
+        "finger rings",
+        "signet ring",
+        "jewellery hands"
+      ],
+      "related": [
+        "clothing.bracelet",
+        "clothing.necklace",
+        "clothing.wristwatch"
+      ],
+      "parent": "clothing.accessories",
+      "description": "Jewellery worn on the fingers, often several at once.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "rings",
+      "negative_fragment": "no rings",
+      "search_boost": 1.0,
+      "sort_order": 1280
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.bracelet",
+      "category": "clothing",
+      "label": "Bracelet",
+      "aliases": [
+        "bracelet",
+        "bangle",
+        "wrist band",
+        "cuff bracelet",
+        "braclet",
+        "wrist jewellery"
+      ],
+      "related": [
+        "clothing.rings",
+        "clothing.wristwatch",
+        "clothing.necklace"
+      ],
+      "parent": "clothing.accessories",
+      "description": "Jewellery worn around the wrist.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a bracelet",
+      "negative_fragment": "no bracelet",
+      "search_boost": 1.0,
+      "sort_order": 1290
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.wristwatch",
+      "category": "clothing",
+      "label": "Wristwatch",
+      "aliases": [
+        "watch",
+        "wristwatch",
+        "wrist watch",
+        "timepiece",
+        "dive watch",
+        "leather strap watch"
+      ],
+      "related": [
+        "clothing.bracelet",
+        "clothing.rings",
+        "clothing.office"
+      ],
+      "parent": "clothing.accessories",
+      "description": "A watch worn on the wrist.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a wristwatch",
+      "negative_fragment": "no wristwatch",
+      "search_boost": 1.0,
+      "sort_order": 1300
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.socks",
+      "category": "clothing",
+      "label": "Socks",
+      "aliases": [
+        "socks",
+        "sock",
+        "crew socks",
+        "white socks",
+        "sport socks",
+        "socks visible",
+        "sox"
+      ],
+      "related": [
+        "clothing.tights",
+        "clothing.sneakers",
+        "clothing.shoes"
+      ],
+      "parent": "clothing.accessories",
+      "description": "Soft coverings for the feet worn inside shoes, sometimes deliberately pulled up so they show.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "visible socks",
+      "negative_fragment": "no visible socks",
+      "search_boost": 1.0,
+      "sort_order": 1310
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.tights",
+      "category": "clothing",
+      "label": "Tights",
+      "aliases": [
+        "tights",
+        "pantyhose",
+        "stockings",
+        "sheer tights",
+        "opaque tights",
+        "nylons",
+        "hosiery"
+      ],
+      "related": [
+        "clothing.socks",
+        "clothing.skirt",
+        "clothing.sheer"
+      ],
+      "parent": "clothing.accessories",
+      "description": "Close-fitting legwear covering the legs and hips, worn under skirts and dresses.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "tights",
+      "negative_fragment": "no tights",
+      "search_boost": 1.0,
+      "sort_order": 1320
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.face_mask",
+      "category": "clothing",
+      "label": "Face mask",
+      "aliases": [
+        "face mask",
+        "mask",
+        "surgical mask",
+        "face covering",
+        "facemask",
+        "covered face"
+      ],
+      "related": [
+        "clothing.sunglasses",
+        "clothing.techwear",
+        "clothing.hood_up"
+      ],
+      "parent": "clothing.accessories",
+      "description": "A covering worn over the nose and mouth, which hides most of the face in a portrait.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a face mask",
+      "negative_fragment": "no face mask",
+      "search_boost": 1.0,
+      "sort_order": 1330
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.headphones",
+      "category": "clothing",
+      "label": "Headphones",
+      "aliases": [
+        "headphones",
+        "head phones",
+        "over ear headphones",
+        "cans",
+        "earphones",
+        "wearing headphones"
+      ],
+      "related": [
+        "clothing.baseball_cap",
+        "clothing.streetwear",
+        "clothing.backpack"
+      ],
+      "parent": "clothing.accessories",
+      "description": "Over-ear headphones worn on the head, which read as an outfit element in street photography.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "over-ear headphones",
+      "negative_fragment": "no over-ear headphones",
+      "search_boost": 1.0,
+      "sort_order": 1340
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.hair_ribbon",
+      "category": "clothing",
+      "label": "Hair ribbon",
+      "aliases": [
+        "hair ribbon",
+        "hair bow",
+        "ribbon in hair",
+        "bow in hair",
+        "hair tie ribbon",
+        "coquette bow"
+      ],
+      "related": [
+        "clothing.headscarf",
+        "clothing.korean_fashion",
+        "clothing.preppy"
+      ],
+      "parent": "clothing.accessories",
+      "description": "A ribbon or fabric bow tied into the hair.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a ribbon tied in the hair",
+      "negative_fragment": "no ribbon in the hair",
+      "search_boost": 1.0,
+      "sort_order": 1350
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.denim",
+      "category": "clothing",
+      "label": "Denim",
+      "aliases": [
+        "denim",
+        "jean fabric",
+        "denim fabric",
+        "raw denim",
+        "washed denim",
+        "dennim",
+        "blue jean material"
+      ],
+      "related": [
+        "clothing.jeans",
+        "clothing.denim_jacket",
+        "clothing.cotton"
+      ],
+      "parent": "clothing.materials",
+      "description": "The tough cotton twill that jeans are made from, recognisable by its diagonal weave and faded blue colour.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in denim",
+      "negative_fragment": "not in denim",
+      "search_boost": 1.3,
+      "sort_order": 1360
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.leather",
+      "category": "clothing",
+      "label": "Leather",
+      "aliases": [
+        "leather",
+        "real leather",
+        "faux leather",
+        "pleather",
+        "lether",
+        "leather look",
+        "hide"
+      ],
+      "related": [
+        "clothing.leather_jacket",
+        "clothing.suede",
+        "clothing.latex"
+      ],
+      "parent": "clothing.materials",
+      "description": "Animal hide or its synthetic imitation, with a smooth surface that catches highlights sharply.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in leather",
+      "negative_fragment": "not in leather",
+      "search_boost": 1.3,
+      "sort_order": 1370
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.wool",
+      "category": "clothing",
+      "label": "Wool",
+      "aliases": [
+        "wool",
+        "woolen",
+        "woollen",
+        "merino",
+        "wool fabric",
+        "woolly",
+        "sheep wool"
+      ],
+      "related": [
+        "clothing.cashmere",
+        "clothing.tweed",
+        "clothing.knit_sweater"
+      ],
+      "parent": "clothing.materials",
+      "description": "Warm fibre spun from sheep fleece, used for knits and heavy coats.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in wool",
+      "negative_fragment": "not in wool",
+      "search_boost": 1.2,
+      "sort_order": 1380
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.silk",
+      "category": "clothing",
+      "label": "Silk",
+      "aliases": [
+        "silk",
+        "silky",
+        "pure silk",
+        "silk fabric",
+        "sik",
+        "shiny soft fabric"
+      ],
+      "related": [
+        "clothing.satin",
+        "clothing.blouse",
+        "clothing.robe"
+      ],
+      "parent": "clothing.materials",
+      "description": "A fine natural fibre with a soft sheen that drapes and ripples as the wearer moves.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in silk",
+      "negative_fragment": "not in silk",
+      "search_boost": 1.2,
+      "sort_order": 1390
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.cotton",
+      "category": "clothing",
+      "label": "Cotton",
+      "aliases": [
+        "cotton",
+        "cotten",
+        "cotton fabric",
+        "jersey cotton",
+        "plain cotton",
+        "natural cotton"
+      ],
+      "related": [
+        "clothing.linen",
+        "clothing.denim",
+        "clothing.t_shirt"
+      ],
+      "parent": "clothing.materials",
+      "description": "The everyday plant fibre most casual clothing is made from, matte and soft.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in cotton",
+      "negative_fragment": "not in cotton",
+      "search_boost": 1.2,
+      "sort_order": 1400
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.linen",
+      "category": "clothing",
+      "label": "Linen",
+      "aliases": [
+        "linen",
+        "linnen",
+        "flax fabric",
+        "crumpled linen",
+        "summer linen",
+        "linen fabric"
+      ],
+      "related": [
+        "clothing.cotton",
+        "clothing.resort",
+        "clothing.summer"
+      ],
+      "parent": "clothing.materials",
+      "description": "A light natural fabric that creases visibly, which is exactly why it reads as summery and relaxed.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in crumpled linen",
+      "negative_fragment": "not in crumpled linen",
+      "search_boost": 1.0,
+      "sort_order": 1410
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.satin",
+      "category": "clothing",
+      "label": "Satin",
+      "aliases": [
+        "satin",
+        "sateen",
+        "shiny fabric",
+        "glossy fabric",
+        "satin finish",
+        "satiin"
+      ],
+      "related": [
+        "clothing.silk",
+        "clothing.slip_dress",
+        "clothing.evening_gown"
+      ],
+      "parent": "clothing.materials",
+      "description": "A fabric with a very glossy face that throws bright rolling highlights.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in glossy satin",
+      "negative_fragment": "not in glossy satin",
+      "search_boost": 1.0,
+      "sort_order": 1420
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.nylon",
+      "category": "clothing",
+      "label": "Nylon",
+      "aliases": [
+        "nylon",
+        "synthetic fabric",
+        "technical nylon",
+        "ripstop",
+        "shell fabric",
+        "nilon",
+        "polyester shell"
+      ],
+      "related": [
+        "clothing.windbreaker",
+        "clothing.techwear",
+        "clothing.mesh"
+      ],
+      "parent": "clothing.materials",
+      "description": "A slippery synthetic fabric used for shells and sportswear, often slightly crinkly and reflective.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in technical nylon",
+      "negative_fragment": "not in technical nylon",
+      "search_boost": 1.0,
+      "sort_order": 1430
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.tweed",
+      "category": "clothing",
+      "label": "Tweed",
+      "aliases": [
+        "tweed",
+        "herringbone",
+        "wool tweed",
+        "tweede",
+        "textured wool",
+        "houndstooth tweed"
+      ],
+      "related": [
+        "clothing.wool",
+        "clothing.blazer",
+        "clothing.preppy"
+      ],
+      "parent": "clothing.materials",
+      "description": "A rough flecked woollen cloth with a visible woven texture, traditional in jackets.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in textured tweed",
+      "negative_fragment": "not in textured tweed",
+      "search_boost": 1.0,
+      "sort_order": 1440
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.corduroy",
+      "category": "clothing",
+      "label": "Corduroy",
+      "aliases": [
+        "corduroy",
+        "cord",
+        "cordoroy",
+        "ribbed fabric",
+        "wale fabric",
+        "corduroy trousers fabric"
+      ],
+      "related": [
+        "clothing.cotton",
+        "clothing.vintage",
+        "clothing.trousers"
+      ],
+      "parent": "clothing.materials",
+      "description": "A cotton fabric with soft raised ridges running down it, called wales.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in ribbed corduroy",
+      "negative_fragment": "not in ribbed corduroy",
+      "search_boost": 1.0,
+      "sort_order": 1450
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.mesh",
+      "category": "clothing",
+      "label": "Mesh",
+      "aliases": [
+        "mesh",
+        "net fabric",
+        "see through mesh",
+        "sports mesh",
+        "netting",
+        "perforated fabric"
+      ],
+      "related": [
+        "clothing.sheer",
+        "clothing.sports_jersey",
+        "clothing.nylon"
+      ],
+      "parent": "clothing.materials",
+      "description": "An open net-like fabric you can partly see through.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in open mesh",
+      "negative_fragment": "not in open mesh",
+      "search_boost": 1.0,
+      "sort_order": 1460
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.sequin",
+      "category": "clothing",
+      "label": "Sequins",
+      "aliases": [
+        "sequin",
+        "sequins",
+        "sequined",
+        "sparkly fabric",
+        "glitter fabric",
+        "sequinned",
+        "paillettes"
+      ],
+      "related": [
+        "clothing.satin",
+        "clothing.evening_gown",
+        "clothing.editorial"
+      ],
+      "parent": "clothing.materials",
+      "description": "Small shiny discs sewn all over a garment so it glitters under any light.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "covered in sequins",
+      "negative_fragment": "not covered in sequins",
+      "search_boost": 1.0,
+      "sort_order": 1470
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.cashmere",
+      "category": "clothing",
+      "label": "Cashmere",
+      "aliases": [
+        "cashmere",
+        "kashmir wool",
+        "cashmire",
+        "soft wool",
+        "fine knit wool",
+        "luxury knit"
+      ],
+      "related": [
+        "clothing.wool",
+        "clothing.knit_sweater",
+        "clothing.minimal"
+      ],
+      "parent": "clothing.materials",
+      "description": "A very fine soft wool that makes light knitwear with a faint halo of fuzz.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in soft cashmere",
+      "negative_fragment": "not in soft cashmere",
+      "search_boost": 1.0,
+      "sort_order": 1480
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.velvet",
+      "category": "clothing",
+      "label": "Velvet",
+      "aliases": [
+        "velvet",
+        "velvour",
+        "velour",
+        "plush fabric",
+        "velvet fabric",
+        "crushed velvet"
+      ],
+      "related": [
+        "clothing.satin",
+        "clothing.gothic",
+        "clothing.vintage"
+      ],
+      "parent": "clothing.materials",
+      "description": "A dense pile fabric that looks deep and slightly glowing, with colour shifting as it bends.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in deep velvet",
+      "negative_fragment": "not in deep velvet",
+      "search_boost": 1.0,
+      "sort_order": 1490
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.lace",
+      "category": "clothing",
+      "label": "Lace",
+      "aliases": [
+        "lace",
+        "lacy",
+        "lace fabric",
+        "openwork lace",
+        "laced fabric",
+        "delicate lace"
+      ],
+      "related": [
+        "clothing.sheer",
+        "clothing.tulle",
+        "clothing.vintage"
+      ],
+      "parent": "clothing.materials",
+      "description": "A delicate openwork fabric with patterned holes, partly transparent.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in delicate lace",
+      "negative_fragment": "not in delicate lace",
+      "search_boost": 1.0,
+      "sort_order": 1500
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.faux_fur",
+      "category": "clothing",
+      "label": "Faux fur",
+      "aliases": [
+        "faux fur",
+        "fake fur",
+        "fur",
+        "furry",
+        "shearling fur",
+        "fur trim",
+        "fux fur"
+      ],
+      "related": [
+        "clothing.shearling_jacket",
+        "clothing.winter",
+        "clothing.velvet"
+      ],
+      "parent": "clothing.materials",
+      "description": "A fluffy pile fabric imitating animal fur, which reads as volume and softness.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in faux fur",
+      "negative_fragment": "not in faux fur",
+      "search_boost": 1.0,
+      "sort_order": 1510
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.suede",
+      "category": "clothing",
+      "label": "Suede",
+      "aliases": [
+        "suede",
+        "swede leather",
+        "nubuck",
+        "brushed leather",
+        "soft leather",
+        "suade"
+      ],
+      "related": [
+        "clothing.leather",
+        "clothing.cowboy_boots",
+        "clothing.corduroy"
+      ],
+      "parent": "clothing.materials",
+      "description": "Leather brushed to a soft velvety surface that absorbs light instead of shining.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in matte suede",
+      "negative_fragment": "not in matte suede",
+      "search_boost": 1.0,
+      "sort_order": 1520
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.latex",
+      "category": "clothing",
+      "label": "Latex",
+      "aliases": [
+        "latex",
+        "vinyl",
+        "pvc",
+        "rubber fabric",
+        "wet look fabric",
+        "shiny latex",
+        "patent"
+      ],
+      "related": [
+        "clothing.leather",
+        "clothing.gothic",
+        "clothing.avant_garde"
+      ],
+      "parent": "clothing.materials",
+      "description": "A rubbery high-shine material that clings to the body and reflects light like glass.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in high-shine latex",
+      "negative_fragment": "not in high-shine latex",
+      "search_boost": 1.0,
+      "sort_order": 1530
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.fleece",
+      "category": "clothing",
+      "label": "Fleece",
+      "aliases": [
+        "fleece",
+        "polar fleece",
+        "fluffy fleece",
+        "sherpa",
+        "fleece fabric",
+        "teddy fabric"
+      ],
+      "related": [
+        "clothing.faux_fur",
+        "clothing.sweatshirt",
+        "clothing.winter"
+      ],
+      "parent": "clothing.materials",
+      "description": "A soft fuzzy synthetic fabric used for warm casual layers.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in soft fleece",
+      "negative_fragment": "not in soft fleece",
+      "search_boost": 1.0,
+      "sort_order": 1540
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.tulle",
+      "category": "clothing",
+      "label": "Tulle",
+      "aliases": [
+        "tulle",
+        "tule",
+        "netting skirt fabric",
+        "ballet fabric",
+        "sheer net",
+        "organza"
+      ],
+      "related": [
+        "clothing.lace",
+        "clothing.sheer",
+        "clothing.evening_gown"
+      ],
+      "parent": "clothing.materials",
+      "description": "A stiff fine net that holds its shape and puffs out, used in skirts and gowns.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in layered tulle",
+      "negative_fragment": "not in layered tulle",
+      "search_boost": 1.0,
+      "sort_order": 1550
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.oversized",
+      "category": "clothing",
+      "label": "Oversized",
+      "aliases": [
+        "oversized",
+        "over sized",
+        "too big",
+        "baggy oversized",
+        "loose fit",
+        "oversize",
+        "roomy"
+      ],
+      "related": [
+        "clothing.baggy",
+        "clothing.relaxed",
+        "clothing.boxy"
+      ],
+      "parent": "clothing.fit",
+      "description": "Clothing cut deliberately several sizes too large, so shoulders drop and sleeves swallow the hands.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.body_hugging",
+        "clothing.slim_fit",
+        "clothing.tailored"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "in an oversized silhouette",
+      "negative_fragment": "not in an oversized silhouette",
+      "search_boost": 1.4,
+      "sort_order": 1560
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.slim_fit",
+      "category": "clothing",
+      "label": "Slim fit",
+      "aliases": [
+        "slim fit",
+        "slim",
+        "narrow cut",
+        "fitted cut",
+        "tapered fit",
+        "slimfit",
+        "close cut"
+      ],
+      "related": [
+        "clothing.tailored",
+        "clothing.body_hugging",
+        "clothing.skinny_jeans"
+      ],
+      "parent": "clothing.fit",
+      "description": "Clothing cut close to the body without actually stretching against it.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.baggy",
+        "clothing.oversized"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "in a slim cut",
+      "negative_fragment": "not in a slim cut",
+      "search_boost": 1.2,
+      "sort_order": 1570
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.boxy",
+      "category": "clothing",
+      "label": "Boxy",
+      "aliases": [
+        "boxy",
+        "box cut",
+        "square cut",
+        "straight boxy fit",
+        "boxy shape",
+        "cropped square fit"
+      ],
+      "related": [
+        "clothing.oversized",
+        "clothing.structured",
+        "clothing.minimal"
+      ],
+      "parent": "clothing.fit",
+      "description": "A straight square shape that hangs away from the waist instead of following it.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "with a boxy square cut",
+      "negative_fragment": "no boxy square cut",
+      "search_boost": 1.0,
+      "sort_order": 1580
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.cropped_fit",
+      "category": "clothing",
+      "label": "Cropped",
+      "aliases": [
+        "cropped",
+        "crop",
+        "short cut hem",
+        "cropped length",
+        "shortened hem",
+        "croped"
+      ],
+      "related": [
+        "clothing.crop_top",
+        "clothing.boxy",
+        "clothing.y2k"
+      ],
+      "parent": "clothing.fit",
+      "description": "A garment cut short so it ends higher than usual, at the waist or above the ankle.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "cut short at the hem",
+      "negative_fragment": "not cut short at the hem",
+      "search_boost": 1.0,
+      "sort_order": 1590
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.tailored",
+      "category": "clothing",
+      "label": "Tailored",
+      "aliases": [
+        "tailored",
+        "made to measure",
+        "sharp cut",
+        "structured tailoring",
+        "taylored",
+        "sharply cut"
+      ],
+      "related": [
+        "clothing.slim_fit",
+        "clothing.structured",
+        "clothing.suit"
+      ],
+      "parent": "clothing.fit",
+      "description": "Precisely shaped clothing with sharp lines that follow the body's proportions.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.baggy",
+        "clothing.oversized",
+        "clothing.relaxed"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "sharply tailored",
+      "negative_fragment": "not sharply tailored",
+      "search_boost": 1.2,
+      "sort_order": 1600
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.relaxed",
+      "category": "clothing",
+      "label": "Relaxed fit",
+      "aliases": [
+        "relaxed fit",
+        "loose",
+        "easy fit",
+        "comfortable cut",
+        "loose fitting",
+        "relaxed cut"
+      ],
+      "related": [
+        "clothing.oversized",
+        "clothing.baggy",
+        "clothing.casual"
+      ],
+      "parent": "clothing.fit",
+      "description": "Clothing with a little extra room, looser than slim but not exaggerated.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.body_hugging",
+        "clothing.tailored"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "in a relaxed fit",
+      "negative_fragment": "not in a relaxed fit",
+      "search_boost": 1.0,
+      "sort_order": 1610
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.layered",
+      "category": "clothing",
+      "label": "Layered",
+      "aliases": [
+        "layered",
+        "layering",
+        "layers",
+        "multiple layers",
+        "layerd",
+        "stacked layers",
+        "layered outfit"
+      ],
+      "related": [
+        "clothing.overcoat_layering",
+        "clothing.cardigan",
+        "clothing.techwear"
+      ],
+      "parent": "clothing.fit",
+      "description": "Several garments worn one over another so the edges of each layer show.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "layered in several pieces",
+      "negative_fragment": "not layered in several pieces",
+      "search_boost": 1.2,
+      "sort_order": 1620
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.body_hugging",
+      "category": "clothing",
+      "label": "Body-hugging",
+      "aliases": [
+        "body hugging",
+        "tight",
+        "skin tight",
+        "bodycon",
+        "clingy fit",
+        "figure hugging",
+        "second skin"
+      ],
+      "related": [
+        "clothing.bodysuit",
+        "clothing.leggings",
+        "clothing.slim_fit"
+      ],
+      "parent": "clothing.fit",
+      "description": "Stretchy clothing that presses right against the body and shows its shape.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.baggy",
+        "clothing.oversized",
+        "clothing.relaxed"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "clinging to the body",
+      "negative_fragment": "not clinging to the body",
+      "search_boost": 1.0,
+      "sort_order": 1630
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.baggy",
+      "category": "clothing",
+      "label": "Baggy",
+      "aliases": [
+        "baggy",
+        "bagy",
+        "very loose",
+        "sagging fit",
+        "slouchy",
+        "wide cut",
+        "droopy fit"
+      ],
+      "related": [
+        "clothing.oversized",
+        "clothing.wide_leg_jeans",
+        "clothing.streetwear"
+      ],
+      "parent": "clothing.fit",
+      "description": "Clothing so loose that it sags and folds under its own weight.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.body_hugging",
+        "clothing.slim_fit",
+        "clothing.tailored"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "hanging baggy and loose",
+      "negative_fragment": "not hanging baggy and loose",
+      "search_boost": 1.0,
+      "sort_order": 1640
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.high_waisted",
+      "category": "clothing",
+      "label": "High-waisted",
+      "aliases": [
+        "high waisted",
+        "high rise",
+        "high waist",
+        "waist above the navel",
+        "highwaisted",
+        "high rise jeans"
+      ],
+      "related": [
+        "clothing.trousers",
+        "clothing.skirt",
+        "clothing.vintage"
+      ],
+      "parent": "clothing.fit",
+      "description": "Bottoms whose waistband sits at or above the natural waist, which lengthens the legs in a photograph.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.low_rise"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "high-waisted",
+      "negative_fragment": "not high-waisted",
+      "search_boost": 1.0,
+      "sort_order": 1650
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.low_rise",
+      "category": "clothing",
+      "label": "Low-rise",
+      "aliases": [
+        "low rise",
+        "low waisted",
+        "hip hugger",
+        "low slung",
+        "lowrise",
+        "below the navel waistband"
+      ],
+      "related": [
+        "clothing.y2k",
+        "clothing.jeans",
+        "clothing.baggy"
+      ],
+      "parent": "clothing.fit",
+      "description": "Bottoms whose waistband sits low on the hips, well below the navel.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.high_waisted"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "low-rise on the hips",
+      "negative_fragment": "not low-rise on the hips",
+      "search_boost": 1.0,
+      "sort_order": 1660
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.draped",
+      "category": "clothing",
+      "label": "Draped",
+      "aliases": [
+        "draped",
+        "draping",
+        "flowing fabric",
+        "soft folds",
+        "drapey",
+        "cascading fabric"
+      ],
+      "related": [
+        "clothing.silk",
+        "clothing.cape",
+        "clothing.avant_garde"
+      ],
+      "parent": "clothing.fit",
+      "description": "Fabric arranged in soft falling folds rather than cut to a fixed shape.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "softly draped",
+      "negative_fragment": "not softly draped",
+      "search_boost": 1.0,
+      "sort_order": 1670
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.structured",
+      "category": "clothing",
+      "label": "Structured",
+      "aliases": [
+        "structured",
+        "stiff shape",
+        "sculptural",
+        "architectural cut",
+        "rigid shape",
+        "sharp shoulders"
+      ],
+      "related": [
+        "clothing.tailored",
+        "clothing.boxy",
+        "clothing.corset_top"
+      ],
+      "parent": "clothing.fit",
+      "description": "Clothing built with enough stiffness to hold its own shape away from the body.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "sharply structured",
+      "negative_fragment": "not sharply structured",
+      "search_boost": 1.0,
+      "sort_order": 1680
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.asymmetric_cut",
+      "category": "clothing",
+      "label": "Asymmetric cut",
+      "aliases": [
+        "asymmetric",
+        "asymmetrical",
+        "uneven hem",
+        "one shoulder",
+        "off balance cut",
+        "asymetric"
+      ],
+      "related": [
+        "clothing.draped",
+        "clothing.avant_garde",
+        "clothing.editorial"
+      ],
+      "parent": "clothing.fit",
+      "description": "A garment cut deliberately differently on the left and the right, such as one bare shoulder or a slanted hem.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "with an asymmetric cut",
+      "negative_fragment": "no asymmetric cut",
+      "search_boost": 1.0,
+      "sort_order": 1690
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.sheer",
+      "category": "clothing",
+      "label": "Sheer",
+      "aliases": [
+        "sheer",
+        "see through",
+        "transparent fabric",
+        "translucent",
+        "seethrough",
+        "semi transparent"
+      ],
+      "related": [
+        "clothing.mesh",
+        "clothing.lace",
+        "clothing.tulle"
+      ],
+      "parent": "clothing.fit",
+      "description": "Fabric thin enough to see through, so what is underneath partly shows.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "in sheer see-through fabric",
+      "negative_fragment": "nothing see-through",
+      "search_boost": 1.0,
+      "sort_order": 1700
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.casual",
+      "category": "clothing",
+      "label": "Casual",
+      "aliases": [
+        "casual",
+        "everyday clothes",
+        "casual wear",
+        "relaxed clothing",
+        "normal clothes",
+        "casul",
+        "day to day outfit"
+      ],
+      "related": [
+        "clothing.streetwear",
+        "clothing.normcore",
+        "clothing.relaxed"
+      ],
+      "parent": "clothing.styles",
+      "description": "Ordinary comfortable everyday clothing with no dress code behind it.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.formal"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "a casual everyday outfit",
+      "negative_fragment": "not a casual everyday outfit",
+      "search_boost": 1.4,
+      "sort_order": 1710
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.streetwear",
+      "category": "clothing",
+      "label": "Streetwear",
+      "aliases": [
+        "streetwear",
+        "street wear",
+        "street style",
+        "urban style",
+        "hypebeast",
+        "skate style",
+        "streetstyle"
+      ],
+      "related": [
+        "clothing.casual",
+        "clothing.athleisure",
+        "clothing.hoodie"
+      ],
+      "parent": "clothing.styles",
+      "description": "City street fashion built on hoodies, trainers, caps and oversized shapes.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.formal",
+        "clothing.office"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "a streetwear look",
+      "negative_fragment": "not a streetwear look",
+      "search_boost": 1.4,
+      "sort_order": 1720
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.office",
+      "category": "clothing",
+      "label": "Office wear",
+      "aliases": [
+        "office wear",
+        "workwear office",
+        "business casual",
+        "smart clothes",
+        "corporate outfit",
+        "work clothes",
+        "office style"
+      ],
+      "related": [
+        "clothing.formal",
+        "clothing.minimal",
+        "clothing.blazer"
+      ],
+      "parent": "clothing.styles",
+      "description": "Smart but not ceremonial clothing suitable for a workplace, such as a blazer with trousers.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.sport",
+        "clothing.streetwear"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "office-smart clothing",
+      "negative_fragment": "not office-smart clothing",
+      "search_boost": 1.2,
+      "sort_order": 1730
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.formal",
+      "category": "clothing",
+      "label": "Formal",
+      "aliases": [
+        "formal",
+        "formal wear",
+        "black tie",
+        "evening wear",
+        "dressed up",
+        "smart formal",
+        "formalwear"
+      ],
+      "related": [
+        "clothing.evening_gown",
+        "clothing.suit",
+        "clothing.office"
+      ],
+      "parent": "clothing.styles",
+      "description": "Ceremonial dress for weddings, galas and black-tie events.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.athleisure",
+        "clothing.casual",
+        "clothing.grunge",
+        "clothing.sport",
+        "clothing.streetwear"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "formal eveningwear",
+      "negative_fragment": "not formal eveningwear",
+      "search_boost": 1.3,
+      "sort_order": 1740
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.sport",
+      "category": "clothing",
+      "label": "Sportswear",
+      "aliases": [
+        "sportswear",
+        "sporty",
+        "athletic wear",
+        "gym clothes",
+        "activewear",
+        "sport style",
+        "training kit"
+      ],
+      "related": [
+        "clothing.athleisure",
+        "clothing.tracksuit",
+        "clothing.running_shoes"
+      ],
+      "parent": "clothing.styles",
+      "description": "Clothing made to be exercised in, in technical stretchy fabrics.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.formal",
+        "clothing.office"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "sportswear",
+      "negative_fragment": "not sportswear",
+      "search_boost": 1.2,
+      "sort_order": 1750
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.techwear",
+      "category": "clothing",
+      "label": "Techwear",
+      "aliases": [
+        "techwear",
+        "tech wear",
+        "urban tactical",
+        "technical clothing",
+        "acronym style",
+        "gorpcore",
+        "tech ninja style"
+      ],
+      "related": [
+        "clothing.nylon",
+        "clothing.cargo_pants",
+        "clothing.layered"
+      ],
+      "parent": "clothing.styles",
+      "description": "A dark, technical, utility-driven look built from shell fabrics, straps and many pockets.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a technical techwear outfit",
+      "negative_fragment": "not a technical techwear outfit",
+      "search_boost": 1.0,
+      "sort_order": 1760
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.minimal",
+      "category": "clothing",
+      "label": "Minimal",
+      "aliases": [
+        "minimal",
+        "minimalist",
+        "clean style",
+        "simple outfit",
+        "quiet luxury",
+        "understated",
+        "minimalistic"
+      ],
+      "related": [
+        "clothing.office",
+        "clothing.cashmere",
+        "clothing.boxy"
+      ],
+      "parent": "clothing.styles",
+      "description": "Plain clothing in few colours with no logos or decoration, where the cut does all the work.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.avant_garde"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "a minimal, understated outfit",
+      "negative_fragment": "not a minimal, understated outfit",
+      "search_boost": 1.2,
+      "sort_order": 1770
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.vintage",
+      "category": "clothing",
+      "label": "Vintage",
+      "aliases": [
+        "vintage",
+        "retro",
+        "old fashioned clothes",
+        "second hand style",
+        "throwback outfit",
+        "vintge",
+        "period clothing"
+      ],
+      "related": [
+        "clothing.y2k",
+        "clothing.grunge",
+        "clothing.corduroy"
+      ],
+      "parent": "clothing.styles",
+      "description": "Clothing from an earlier decade, or cut to look like it.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "vintage clothing",
+      "negative_fragment": "not vintage clothing",
+      "search_boost": 1.3,
+      "sort_order": 1780
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.y2k",
+      "category": "clothing",
+      "label": "Y2K",
+      "aliases": [
+        "y2k",
+        "2000s fashion",
+        "early 2000s style",
+        "noughties fashion",
+        "y2k aesthetic",
+        "2000s style",
+        "y two k"
+      ],
+      "related": [
+        "clothing.low_rise",
+        "clothing.crop_top",
+        "clothing.vintage"
+      ],
+      "parent": "clothing.styles",
+      "description": "The early-2000s look: low-rise bottoms, tiny crop tops, shiny fabrics and chunky shoes.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a Y2K early-2000s look",
+      "negative_fragment": "not a Y2K early-2000s look",
+      "search_boost": 1.2,
+      "sort_order": 1790
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.preppy",
+      "category": "clothing",
+      "label": "Preppy",
+      "aliases": [
+        "preppy",
+        "prep style",
+        "ivy league style",
+        "collegiate",
+        "old money style",
+        "preppie",
+        "school uniform style"
+      ],
+      "related": [
+        "clothing.polo_shirt",
+        "clothing.sweater_vest",
+        "clothing.tweed"
+      ],
+      "parent": "clothing.styles",
+      "description": "A neat collegiate look built on knits, collared shirts, pleated skirts and loafers.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a preppy collegiate outfit",
+      "negative_fragment": "not a preppy collegiate outfit",
+      "search_boost": 1.0,
+      "sort_order": 1800
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.korean_fashion",
+      "category": "clothing",
+      "label": "Korean fashion",
+      "aliases": [
+        "korean fashion",
+        "k-fashion",
+        "korean street style",
+        "kfashion",
+        "seoul style",
+        "korean style",
+        "k fashion",
+        "korean outfit",
+        "kpop fashion"
+      ],
+      "related": [
+        "clothing.minimal",
+        "clothing.oversized",
+        "clothing.layered"
+      ],
+      "parent": "clothing.styles",
+      "description": "The contemporary Seoul look: soft neutral colours, oversized layers and a clean, gentle silhouette.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a Korean street-fashion look",
+      "negative_fragment": "not a Korean street-fashion look",
+      "search_boost": 1.3,
+      "sort_order": 1810
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.editorial",
+      "category": "clothing",
+      "label": "Editorial fashion",
+      "aliases": [
+        "editorial",
+        "editorial fashion",
+        "high fashion",
+        "magazine fashion",
+        "vogue style",
+        "runway style",
+        "fashion editorial"
+      ],
+      "related": [
+        "clothing.avant_garde",
+        "clothing.structured",
+        "clothing.evening_gown"
+      ],
+      "parent": "clothing.styles",
+      "description": "Styling made for a fashion magazine shoot, exaggerated and deliberate rather than wearable.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "styled as a fashion editorial",
+      "negative_fragment": "not styled as a fashion editorial",
+      "search_boost": 1.2,
+      "sort_order": 1820
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.resort",
+      "category": "clothing",
+      "label": "Resort wear",
+      "aliases": [
+        "resort wear",
+        "vacation clothes",
+        "holiday outfit",
+        "beachwear",
+        "cruise wear",
+        "summer holiday style",
+        "resortwear"
+      ],
+      "related": [
+        "clothing.summer",
+        "clothing.linen",
+        "clothing.sandals"
+      ],
+      "parent": "clothing.styles",
+      "description": "Light holiday clothing for hot places: linen, open shirts, sandals and sun hats.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.winter"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "relaxed resort wear",
+      "negative_fragment": "not relaxed resort wear",
+      "search_boost": 1.0,
+      "sort_order": 1830
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.winter",
+      "category": "clothing",
+      "label": "Winter clothing",
+      "aliases": [
+        "winter clothes",
+        "winter outfit",
+        "cold weather clothing",
+        "bundled up",
+        "warm clothing",
+        "wintery outfit"
+      ],
+      "related": [
+        "clothing.parka",
+        "clothing.beanie",
+        "clothing.wool"
+      ],
+      "parent": "clothing.styles",
+      "description": "Heavy warm layers for cold weather: coats, knits, scarves and boots.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.resort",
+        "clothing.summer"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "warm winter clothing",
+      "negative_fragment": "not warm winter clothing",
+      "search_boost": 1.2,
+      "sort_order": 1840
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.summer",
+      "category": "clothing",
+      "label": "Summer clothing",
+      "aliases": [
+        "summer clothes",
+        "summer outfit",
+        "hot weather clothing",
+        "light clothing",
+        "summery outfit",
+        "warm weather clothes"
+      ],
+      "related": [
+        "clothing.sundress",
+        "clothing.shorts",
+        "clothing.linen"
+      ],
+      "parent": "clothing.styles",
+      "description": "Light thin clothing for hot weather: shorts, thin dresses and bare arms.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.winter"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "light summer clothing",
+      "negative_fragment": "not light summer clothing",
+      "search_boost": 1.2,
+      "sort_order": 1850
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.grunge",
+      "category": "clothing",
+      "label": "Grunge",
+      "aliases": [
+        "grunge",
+        "90s grunge",
+        "grunge style",
+        "thrifted look",
+        "flannel grunge",
+        "gruge",
+        "slacker style"
+      ],
+      "related": [
+        "clothing.flannel_shirt",
+        "clothing.combat_boots",
+        "clothing.vintage"
+      ],
+      "parent": "clothing.styles",
+      "description": "The scruffy nineties look: oversized flannel, worn denim, band tees and heavy boots.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.formal"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "a grunge look",
+      "negative_fragment": "not a grunge look",
+      "search_boost": 1.0,
+      "sort_order": 1860
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.bohemian",
+      "category": "clothing",
+      "label": "Bohemian",
+      "aliases": [
+        "bohemian",
+        "boho",
+        "boho chic",
+        "hippie style",
+        "festival style",
+        "bohemien",
+        "free spirited style"
+      ],
+      "related": [
+        "clothing.maxi_skirt",
+        "clothing.lace",
+        "clothing.resort"
+      ],
+      "parent": "clothing.styles",
+      "description": "A loose flowing look with long skirts, prints, layered jewellery and natural fabrics.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a bohemian look",
+      "negative_fragment": "not a bohemian look",
+      "search_boost": 1.0,
+      "sort_order": 1870
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.gothic",
+      "category": "clothing",
+      "label": "Gothic",
+      "aliases": [
+        "gothic",
+        "goth",
+        "all black outfit",
+        "dark style",
+        "gothic fashion",
+        "gothik",
+        "dark romantic style"
+      ],
+      "related": [
+        "clothing.leather_pants",
+        "clothing.velvet",
+        "clothing.combat_boots"
+      ],
+      "parent": "clothing.styles",
+      "description": "An all-black look with leather, lace, velvet and heavy boots.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a gothic all-black look",
+      "negative_fragment": "not a gothic all-black look",
+      "search_boost": 1.0,
+      "sort_order": 1880
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.workwear",
+      "category": "clothing",
+      "label": "Workwear",
+      "aliases": [
+        "workwear",
+        "work wear",
+        "utility style",
+        "carpenter style",
+        "blue collar clothing",
+        "chore coat style",
+        "heritage workwear"
+      ],
+      "related": [
+        "clothing.overalls",
+        "clothing.cargo_pants",
+        "clothing.denim"
+      ],
+      "parent": "clothing.styles",
+      "description": "Rugged practical clothing built for manual work: canvas, denim, reinforced seams and deep pockets.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "rugged workwear",
+      "negative_fragment": "not rugged workwear",
+      "search_boost": 1.0,
+      "sort_order": 1890
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.athleisure",
+      "category": "clothing",
+      "label": "Athleisure",
+      "aliases": [
+        "athleisure",
+        "athletic leisure",
+        "gym to street",
+        "sporty casual",
+        "activewear casual",
+        "atleisure"
+      ],
+      "related": [
+        "clothing.sport",
+        "clothing.sweatpants",
+        "clothing.streetwear"
+      ],
+      "parent": "clothing.styles",
+      "description": "Sportswear worn as everyday clothing rather than for actual exercise.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.formal"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "athleisure clothing",
+      "negative_fragment": "not athleisure clothing",
+      "search_boost": 1.0,
+      "sort_order": 1900
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.normcore",
+      "category": "clothing",
+      "label": "Normcore",
+      "aliases": [
+        "normcore",
+        "plain clothes",
+        "deliberately ordinary",
+        "basic outfit",
+        "anti fashion",
+        "normkore"
+      ],
+      "related": [
+        "clothing.casual",
+        "clothing.minimal",
+        "clothing.t_shirt"
+      ],
+      "parent": "clothing.styles",
+      "description": "Deliberately plain, unremarkable clothing chosen precisely because it draws no attention.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "deliberately plain normcore clothing",
+      "negative_fragment": "not deliberately plain normcore clothing",
+      "search_boost": 1.0,
+      "sort_order": 1910
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.cottagecore",
+      "category": "clothing",
+      "label": "Cottagecore",
+      "aliases": [
+        "cottagecore",
+        "cottage core",
+        "prairie style",
+        "rural romantic style",
+        "milkmaid dress style",
+        "pastoral fashion"
+      ],
+      "related": [
+        "clothing.sundress",
+        "clothing.linen",
+        "clothing.bohemian"
+      ],
+      "parent": "clothing.styles",
+      "description": "A soft rural romantic look with floral prints, aprons, puff sleeves and natural fabrics.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a cottagecore look",
+      "negative_fragment": "not a cottagecore look",
+      "search_boost": 1.0,
+      "sort_order": 1920
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.avant_garde",
+      "category": "clothing",
+      "label": "Avant-garde",
+      "aliases": [
+        "avant garde",
+        "avantgarde",
+        "experimental fashion",
+        "conceptual fashion",
+        "deconstructed fashion",
+        "avant-garde"
+      ],
+      "related": [
+        "clothing.editorial",
+        "clothing.asymmetric_cut",
+        "clothing.structured"
+      ],
+      "parent": "clothing.styles",
+      "description": "Experimental clothing built around unusual shapes and construction rather than around wearability.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "clothing.minimal"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "avant-garde experimental clothing",
+      "negative_fragment": "not avant-garde experimental clothing",
+      "search_boost": 1.0,
+      "sort_order": 1930
+    },
+    {
+      "schema_version": "1.0",
+      "id": "clothing.military",
+      "category": "clothing",
+      "label": "Military style",
+      "aliases": [
+        "military style",
+        "army style",
+        "camouflage outfit",
+        "utility military",
+        "combat style",
+        "millitary style",
+        "camo"
+      ],
+      "related": [
+        "clothing.combat_boots",
+        "clothing.cargo_pants",
+        "clothing.workwear"
+      ],
+      "parent": "clothing.styles",
+      "description": "Clothing borrowed from army uniform: field jackets, camouflage, webbing and olive drab.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "military-inspired clothing",
+      "negative_fragment": "not military-inspired clothing",
+      "search_boost": 1.0,
+      "sort_order": 1940
+    }
+  ]
+}

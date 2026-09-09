@@ -1,0 +1,1933 @@
+{
+  "schema_version": "1.0",
+  "categories": [
+    "lighting"
+  ],
+  "version": 1,
+  "updated_at": "2026-09-09T00:00:00Z",
+  "nodes": [
+    {
+      "schema_version": "1.0",
+      "id": "lighting.light_direction",
+      "category": "lighting",
+      "label": "Light direction",
+      "aliases": [
+        "light direction",
+        "direction of light",
+        "where the light comes from",
+        "lighting direction",
+        "which side the light is on",
+        "light angle",
+        "lighting direktion"
+      ],
+      "related": [
+        "lighting.front_lighting",
+        "lighting.side_lighting",
+        "lighting.backlighting",
+        "lighting.light_quality"
+      ],
+      "parent": null,
+      "children": [
+        "lighting.backlighting",
+        "lighting.front_lighting",
+        "lighting.rim_lighting",
+        "lighting.side_lighting",
+        "lighting.three_quarter_lighting",
+        "lighting.top_lighting",
+        "lighting.under_lighting"
+      ],
+      "description": "The branch for where the main light sits in relation to the subject - in front, to one side, behind, above or below - because that is what decides where the shadows fall.",
+      "examples": [
+        "light coming from the left of the subject",
+        "the sun behind the person's head"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "with a clear main light direction",
+      "negative_fragment": "with no clear light direction",
+      "search_boost": 0.8,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.light_quality",
+      "category": "lighting",
+      "label": "Light quality",
+      "aliases": [
+        "light quality",
+        "quality of light",
+        "hard or soft light",
+        "shadow hardness",
+        "how sharp the shadows are",
+        "light softness",
+        "lite quality"
+      ],
+      "related": [
+        "lighting.hard_light",
+        "lighting.soft_light",
+        "lighting.diffused_light",
+        "lighting.light_direction"
+      ],
+      "parent": null,
+      "children": [
+        "lighting.flat_light",
+        "lighting.hard_light",
+        "lighting.soft_light"
+      ],
+      "description": "The branch for how sharp or gentle the light is: hard light draws shadows with crisp dark edges, soft light lets them fade away gradually.",
+      "examples": [
+        "knife-edged shadow on a wall",
+        "shadows that melt away softly"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "with a distinct quality of light",
+      "negative_fragment": "with no particular quality of light",
+      "search_boost": 0.8,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.light_source",
+      "category": "lighting",
+      "label": "Light source",
+      "aliases": [
+        "light source",
+        "source of light",
+        "what is lighting the scene",
+        "lighting source",
+        "kind of light",
+        "light souce",
+        "lightsource"
+      ],
+      "related": [
+        "lighting.natural_light",
+        "lighting.artificial_light",
+        "lighting.practical_lights",
+        "lighting.light_quality"
+      ],
+      "parent": null,
+      "children": [
+        "lighting.artificial_light",
+        "lighting.natural_light"
+      ],
+      "description": "The branch for what is actually producing the light - daylight, a window, a flash, a street lamp, a candle or a studio head.",
+      "examples": [
+        "a single window lighting a room",
+        "a neon sign lighting a face"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "lit by an identifiable light source",
+      "negative_fragment": "with no identifiable light source",
+      "search_boost": 0.8,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.light_pattern",
+      "category": "lighting",
+      "label": "Lighting pattern",
+      "aliases": [
+        "lighting pattern",
+        "lighting style",
+        "lighting setup",
+        "lighting scheme",
+        "classic lighting patterns",
+        "light pattern",
+        "lighting patern"
+      ],
+      "related": [
+        "lighting.high_key",
+        "lighting.low_key",
+        "lighting.rembrandt",
+        "lighting.chiaroscuro"
+      ],
+      "parent": null,
+      "children": [
+        "lighting.backlit_haze",
+        "lighting.butterfly",
+        "lighting.chiaroscuro",
+        "lighting.dappled_light",
+        "lighting.gel_lighting",
+        "lighting.high_key",
+        "lighting.loop_lighting",
+        "lighting.low_key",
+        "lighting.rembrandt",
+        "lighting.silhouette",
+        "lighting.split_lighting"
+      ],
+      "description": "The branch for named lighting looks - recognisable recipes such as high key, low key, silhouette or Rembrandt that photographers reuse by name.",
+      "examples": [
+        "a bright white high-key portrait",
+        "a face half swallowed by shadow"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "using a recognisable lighting pattern",
+      "negative_fragment": "with no deliberate lighting pattern",
+      "search_boost": 0.8,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.color_temperature",
+      "category": "lighting",
+      "label": "Colour temperature",
+      "aliases": [
+        "color temperature",
+        "colour temperature",
+        "warm or cool light",
+        "white balance",
+        "kelvin",
+        "temperature of the light",
+        "color temp",
+        "colour temp"
+      ],
+      "related": [
+        "lighting.warm_light",
+        "lighting.cool_light",
+        "lighting.mixed_temperature",
+        "lighting.light_source"
+      ],
+      "parent": null,
+      "children": [
+        "lighting.cool_light",
+        "lighting.mixed_temperature",
+        "lighting.neutral_temperature",
+        "lighting.warm_light"
+      ],
+      "description": "The branch for whether the light looks orange-warm, blue-cool or plain white, which is often the first thing a viewer feels about a picture without noticing why.",
+      "examples": [
+        "orange lamplight in a dark room",
+        "cold blue light before sunrise"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "with a defined colour temperature",
+      "negative_fragment": "with no particular colour cast",
+      "search_boost": 0.8,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.front_lighting",
+      "category": "lighting",
+      "label": "Front lighting",
+      "aliases": [
+        "front lighting",
+        "frontal light",
+        "lit from the front",
+        "light behind the camera",
+        "straight-on lighting",
+        "flat front light",
+        "front lit",
+        "frontlighting"
+      ],
+      "related": [
+        "lighting.flat_light",
+        "lighting.side_lighting",
+        "lighting.three_quarter_lighting",
+        "lighting.on_camera_flash"
+      ],
+      "parent": "lighting.light_direction",
+      "children": [],
+      "description": "The main light comes from roughly where the camera is, so the subject is evenly lit and the shadows fall behind them where you cannot see them.",
+      "examples": [
+        "a face lit evenly with no visible shadow side",
+        "a passport-style even light"
+      ],
+      "conflicts_with": [
+        "lighting.silhouette"
+      ],
+      "exclusivity_group": "light_direction",
+      "prompt_fragment": "lit from the front",
+      "negative_fragment": "not lit from the front",
+      "search_boost": 1.1,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.side_lighting",
+      "category": "lighting",
+      "label": "Side lighting",
+      "aliases": [
+        "side lighting",
+        "side light",
+        "lit from the side",
+        "sidelight",
+        "cross lighting",
+        "90 degree light",
+        "light from one side",
+        "sidelighting"
+      ],
+      "related": [
+        "lighting.split_lighting",
+        "lighting.rembrandt",
+        "lighting.three_quarter_lighting",
+        "lighting.front_lighting"
+      ],
+      "parent": "lighting.light_direction",
+      "children": [],
+      "description": "The light arrives from the left or the right, so one side of the subject is bright and the other slides into shadow, which brings out texture and shape.",
+      "examples": [
+        "a face bright on one cheek and dark on the other",
+        "raking light across a rough wall"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "light_direction",
+      "prompt_fragment": "lit from the side",
+      "negative_fragment": "not lit from the side",
+      "search_boost": 1.2,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.three_quarter_lighting",
+      "category": "lighting",
+      "label": "Three-quarter lighting",
+      "aliases": [
+        "three quarter lighting",
+        "45 degree lighting",
+        "3/4 light",
+        "between front and side light",
+        "classic portrait light",
+        "threequarter lighting",
+        "45 degree light"
+      ],
+      "related": [
+        "lighting.rembrandt",
+        "lighting.loop_lighting",
+        "lighting.side_lighting",
+        "lighting.front_lighting"
+      ],
+      "parent": "lighting.light_direction",
+      "children": [],
+      "description": "The light sits about halfway between the camera and the side of the subject, the standard portrait position that shapes a face without hiding half of it.",
+      "examples": [
+        "a portrait lit from front-left at about 45 degrees",
+        "gentle shaping on one cheek"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "light_direction",
+      "prompt_fragment": "lit from a three-quarter angle",
+      "negative_fragment": "not lit from a three-quarter angle",
+      "search_boost": 1.1,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.backlighting",
+      "category": "lighting",
+      "label": "Backlighting",
+      "aliases": [
+        "backlighting",
+        "backlit",
+        "back light",
+        "light behind the subject",
+        "contre-jour",
+        "shooting into the light",
+        "against the light",
+        "backlit portrait",
+        "back lighting",
+        "backlite"
+      ],
+      "related": [
+        "lighting.rim_lighting",
+        "lighting.silhouette",
+        "lighting.backlit_haze",
+        "lighting.golden_hour_sun"
+      ],
+      "parent": "lighting.light_direction",
+      "children": [],
+      "description": "The main light is behind the subject and shines back towards the camera, tracing a bright edge around them and often making the background glow.",
+      "examples": [
+        "hair glowing against a low sun",
+        "a figure edged in light in a doorway"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "light_direction",
+      "prompt_fragment": "backlit against the light",
+      "negative_fragment": "not backlit",
+      "search_boost": 1.4,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.rim_lighting",
+      "category": "lighting",
+      "label": "Rim lighting",
+      "aliases": [
+        "rim lighting",
+        "rim light",
+        "edge light",
+        "kicker light",
+        "hair light",
+        "glowing outline",
+        "halo of light around the subject",
+        "rimlight",
+        "rim-lighting"
+      ],
+      "related": [
+        "lighting.backlighting",
+        "lighting.backlit_haze",
+        "lighting.low_key",
+        "lighting.side_lighting"
+      ],
+      "parent": "lighting.light_direction",
+      "children": [],
+      "description": "A narrow bright line traces the edge of the subject and lifts them off a darker background; it usually comes from a light placed behind and slightly to one side, and it sits happily on top of any other lighting.",
+      "examples": [
+        "a bright outline along a shoulder and jaw",
+        "glowing edge on hair against a dark street"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "with a bright rim light along the edges",
+      "negative_fragment": "with no rim light on the edges",
+      "search_boost": 1.3,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.top_lighting",
+      "category": "lighting",
+      "label": "Top lighting",
+      "aliases": [
+        "top lighting",
+        "overhead light",
+        "lit from above",
+        "light from overhead",
+        "top light",
+        "ceiling light",
+        "downlight",
+        "toplighting"
+      ],
+      "related": [
+        "lighting.butterfly",
+        "lighting.under_lighting",
+        "lighting.harsh_sunlight",
+        "lighting.side_lighting"
+      ],
+      "parent": "lighting.light_direction",
+      "children": [],
+      "description": "The light comes from directly above, dropping shadows into the eye sockets and under the nose and chin - the look of midday sun or a bare ceiling lamp.",
+      "examples": [
+        "dark eye sockets under a noon sun",
+        "a pool of light straight down onto a table"
+      ],
+      "conflicts_with": [
+        "lighting.under_lighting"
+      ],
+      "exclusivity_group": "light_direction",
+      "prompt_fragment": "lit from directly above",
+      "negative_fragment": "not lit from above",
+      "search_boost": 1.0,
+      "sort_order": 60
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.under_lighting",
+      "category": "lighting",
+      "label": "Under lighting",
+      "aliases": [
+        "underlighting",
+        "uplighting",
+        "lit from below",
+        "light from underneath",
+        "horror lighting",
+        "bottom light",
+        "campfire light on the face",
+        "under lighting",
+        "uplit"
+      ],
+      "related": [
+        "lighting.top_lighting",
+        "lighting.firelight",
+        "lighting.candlelight",
+        "lighting.chiaroscuro"
+      ],
+      "parent": "lighting.light_direction",
+      "children": [],
+      "description": "The light comes from below the face, which reverses the shadows we expect to see and makes almost any subject look uncanny or theatrical.",
+      "examples": [
+        "a face lit by a campfire from below",
+        "a torch held under the chin"
+      ],
+      "conflicts_with": [
+        "lighting.top_lighting"
+      ],
+      "exclusivity_group": "light_direction",
+      "prompt_fragment": "lit from below",
+      "negative_fragment": "not lit from below",
+      "search_boost": 1.0,
+      "sort_order": 70
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.hard_light",
+      "category": "lighting",
+      "label": "Hard light",
+      "aliases": [
+        "hard light",
+        "harsh light",
+        "sharp shadows",
+        "hard shadows",
+        "crisp shadow edges",
+        "contrasty light",
+        "direct undiffused light",
+        "hardlight"
+      ],
+      "related": [
+        "lighting.soft_light",
+        "lighting.harsh_sunlight",
+        "lighting.direct_flash",
+        "lighting.chiaroscuro"
+      ],
+      "parent": "lighting.light_quality",
+      "children": [],
+      "description": "The light comes from a small or very distant source, so shadows have crisp edges and the jump between lit and unlit areas is abrupt.",
+      "examples": [
+        "a sharp-edged shadow of a railing on a wall",
+        "bright highlights next to black shadow"
+      ],
+      "conflicts_with": [
+        "lighting.bounce_flash",
+        "lighting.diffused_light",
+        "lighting.flat_light",
+        "lighting.overcast_soft",
+        "lighting.soft_light"
+      ],
+      "exclusivity_group": "light_quality",
+      "prompt_fragment": "hard directional light with crisp shadows",
+      "negative_fragment": "no hard-edged shadows",
+      "search_boost": 1.2,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.soft_light",
+      "category": "lighting",
+      "label": "Soft light",
+      "aliases": [
+        "soft light",
+        "soft lighting",
+        "gentle light",
+        "soft shadows",
+        "wrapping light",
+        "flattering light",
+        "softlight",
+        "soft-lighting"
+      ],
+      "related": [
+        "lighting.diffused_light",
+        "lighting.overcast_soft",
+        "lighting.natural_window",
+        "lighting.studio_softbox"
+      ],
+      "parent": "lighting.light_quality",
+      "children": [
+        "lighting.diffused_light"
+      ],
+      "description": "The light comes from a large or scattered source, so shadows fade out gradually and skin, fabric and faces look gentle rather than carved.",
+      "examples": [
+        "a portrait with shadows that fade away slowly",
+        "light wrapping around a cheek"
+      ],
+      "conflicts_with": [
+        "lighting.direct_flash",
+        "lighting.hard_light",
+        "lighting.harsh_sunlight"
+      ],
+      "exclusivity_group": "light_quality",
+      "prompt_fragment": "soft light with gentle shadow edges",
+      "negative_fragment": "no soft gentle light",
+      "search_boost": 1.3,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.flat_light",
+      "category": "lighting",
+      "label": "Flat lighting",
+      "aliases": [
+        "flat lighting",
+        "flat light",
+        "shadowless",
+        "even lighting",
+        "no shadows",
+        "low contrast lighting",
+        "flat lite",
+        "shadow free light"
+      ],
+      "related": [
+        "lighting.front_lighting",
+        "lighting.overcast_soft",
+        "lighting.high_key",
+        "lighting.soft_light"
+      ],
+      "parent": "lighting.light_quality",
+      "children": [],
+      "description": "There is almost no visible shadow anywhere, so the subject looks evenly lit and slightly two-dimensional - what you get from a grey sky or a flash fired straight at someone.",
+      "examples": [
+        "an evenly lit face with no shadow side",
+        "a grey overcast street with no shadows"
+      ],
+      "conflicts_with": [
+        "lighting.chiaroscuro",
+        "lighting.hard_light",
+        "lighting.low_key",
+        "lighting.silhouette"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "flat, almost shadowless lighting",
+      "negative_fragment": "not flat or shadowless lighting",
+      "search_boost": 1.0,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.diffused_light",
+      "category": "lighting",
+      "label": "Diffused light",
+      "aliases": [
+        "diffused light",
+        "diffused lighting",
+        "scattered light",
+        "light through a diffuser",
+        "softened light",
+        "milky light",
+        "difused light",
+        "diffuse light"
+      ],
+      "related": [
+        "lighting.soft_light",
+        "lighting.overcast_soft",
+        "lighting.studio_softbox",
+        "lighting.natural_window"
+      ],
+      "parent": "lighting.soft_light",
+      "children": [],
+      "description": "The light has been scattered on its way to the subject - by cloud, a curtain, a softbox or a sheet of fabric - so it arrives from many directions at once and barely casts a shadow.",
+      "examples": [
+        "daylight through a thin white curtain",
+        "light through a scrim on set"
+      ],
+      "conflicts_with": [
+        "lighting.hard_light"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "soft diffused light",
+      "negative_fragment": "no diffusion on the light",
+      "search_boost": 1.1,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.natural_light",
+      "category": "lighting",
+      "label": "Natural light",
+      "aliases": [
+        "natural light",
+        "daylight",
+        "available light",
+        "sunlight",
+        "ambient daylight",
+        "no artificial lights",
+        "natrual light",
+        "natural lighting"
+      ],
+      "related": [
+        "lighting.natural_window",
+        "lighting.golden_hour_sun",
+        "lighting.overcast_soft",
+        "lighting.artificial_light",
+        "time.day"
+      ],
+      "parent": "lighting.light_source",
+      "children": [
+        "lighting.golden_hour_sun",
+        "lighting.harsh_sunlight",
+        "lighting.moonlight",
+        "lighting.natural_window",
+        "lighting.open_shade",
+        "lighting.overcast_soft"
+      ],
+      "description": "The scene is lit by the sun or the sky rather than by lamps, whether that means bright sun, open shade or daylight coming through a window.",
+      "examples": [
+        "a room lit only by the windows",
+        "a street lit by afternoon sun"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "lit by natural light",
+      "negative_fragment": "not lit by natural light",
+      "search_boost": 1.1,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.artificial_light",
+      "category": "lighting",
+      "label": "Artificial light",
+      "aliases": [
+        "artificial light",
+        "man made light",
+        "electric light",
+        "lamps",
+        "studio lights",
+        "artificial lighting",
+        "artifical light"
+      ],
+      "related": [
+        "lighting.practical_lights",
+        "lighting.studio_softbox",
+        "lighting.neon",
+        "lighting.natural_light"
+      ],
+      "parent": "lighting.light_source",
+      "children": [
+        "lighting.beauty_dish",
+        "lighting.bounce_flash",
+        "lighting.candlelight",
+        "lighting.direct_flash",
+        "lighting.firelight",
+        "lighting.neon",
+        "lighting.on_camera_flash",
+        "lighting.practical_lights",
+        "lighting.ring_light",
+        "lighting.spotlight",
+        "lighting.streetlight",
+        "lighting.studio_softbox"
+      ],
+      "description": "The scene is lit by man-made lights - studio heads, flash, street lamps, neon signs or whatever lamps happen to be in the room.",
+      "examples": [
+        "an office lit by ceiling tubes",
+        "a portrait lit by studio strobes"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "lit by artificial light",
+      "negative_fragment": "not lit by artificial light",
+      "search_boost": 1.0,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.natural_window",
+      "category": "lighting",
+      "label": "Window light",
+      "aliases": [
+        "window light",
+        "natural window light",
+        "light from a window",
+        "by the window",
+        "daylight indoors",
+        "window lit",
+        "windowlight",
+        "window-light"
+      ],
+      "related": [
+        "lighting.soft_light",
+        "lighting.diffused_light",
+        "lighting.side_lighting",
+        "lighting.natural_light",
+        "scene.window_view"
+      ],
+      "parent": "lighting.natural_light",
+      "children": [],
+      "description": "Daylight comes in through a window and reaches the subject mostly from one side, giving a soft light that falls off quickly across the room - a favourite for indoor portraits.",
+      "examples": [
+        "a person sitting beside a bright window",
+        "soft daylight across a kitchen table"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "soft daylight coming through a window",
+      "negative_fragment": "not lit by window daylight",
+      "search_boost": 1.3,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.golden_hour_sun",
+      "category": "lighting",
+      "label": "Golden hour sunlight",
+      "aliases": [
+        "golden hour",
+        "golden hour light",
+        "magic hour",
+        "low sun",
+        "warm sunset light",
+        "sunset light",
+        "sunrise light",
+        "golden light",
+        "goldenhour",
+        "golde hour"
+      ],
+      "related": [
+        "lighting.warm_light",
+        "lighting.backlighting",
+        "lighting.backlit_haze",
+        "lighting.rim_lighting",
+        "time.golden_hour",
+        "time.sunset"
+      ],
+      "parent": "lighting.natural_light",
+      "children": [],
+      "description": "The sun sits low just after sunrise or before sunset, so the light is warm and orange, arrives almost horizontally and throws long soft shadows.",
+      "examples": [
+        "long shadows across a field at sunset",
+        "warm light raking down a street"
+      ],
+      "conflicts_with": [
+        "lighting.harsh_sunlight",
+        "lighting.moonlight",
+        "lighting.overcast_soft"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "warm low golden-hour sunlight",
+      "negative_fragment": "not golden-hour sunlight",
+      "search_boost": 1.5,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.harsh_sunlight",
+      "category": "lighting",
+      "label": "Harsh midday sun",
+      "aliases": [
+        "harsh sunlight",
+        "midday sun",
+        "noon sun",
+        "bright sun",
+        "direct sunlight",
+        "strong sunlight",
+        "hard sun",
+        "blazing sun",
+        "harsh sun light"
+      ],
+      "related": [
+        "lighting.hard_light",
+        "lighting.top_lighting",
+        "lighting.open_shade",
+        "lighting.dappled_light",
+        "time.midday",
+        "weather.clear"
+      ],
+      "parent": "lighting.natural_light",
+      "children": [],
+      "description": "The sun is high and unobstructed, giving very bright highlights, deep hard-edged shadows and subjects who squint.",
+      "examples": [
+        "black shadows under a midday sun",
+        "a bleached white wall at noon"
+      ],
+      "conflicts_with": [
+        "lighting.golden_hour_sun",
+        "lighting.moonlight",
+        "lighting.overcast_soft",
+        "lighting.soft_light"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "harsh direct midday sunlight",
+      "negative_fragment": "no harsh direct sunlight",
+      "search_boost": 1.2,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.overcast_soft",
+      "category": "lighting",
+      "label": "Overcast daylight",
+      "aliases": [
+        "overcast",
+        "overcast light",
+        "cloudy light",
+        "grey sky light",
+        "cloudy day",
+        "diffused daylight",
+        "soft cloudy light",
+        "overcasted",
+        "overcast soft"
+      ],
+      "related": [
+        "lighting.soft_light",
+        "lighting.diffused_light",
+        "lighting.cool_light",
+        "lighting.flat_light",
+        "weather.overcast",
+        "weather.cloudy"
+      ],
+      "parent": "lighting.natural_light",
+      "children": [],
+      "description": "A blanket of cloud turns the whole sky into one enormous soft light, so shadows are faint, contrast is low and colours look slightly cool.",
+      "examples": [
+        "a grey-sky portrait with almost no shadows",
+        "a beach on a cloudy afternoon"
+      ],
+      "conflicts_with": [
+        "lighting.golden_hour_sun",
+        "lighting.hard_light",
+        "lighting.harsh_sunlight"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "soft overcast daylight",
+      "negative_fragment": "not overcast daylight",
+      "search_boost": 1.2,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.open_shade",
+      "category": "lighting",
+      "label": "Open shade",
+      "aliases": [
+        "open shade",
+        "in the shade",
+        "shaded daylight",
+        "shadow side of the street",
+        "under an awning",
+        "shade light",
+        "open-shade",
+        "shady daylight"
+      ],
+      "related": [
+        "lighting.soft_light",
+        "lighting.cool_light",
+        "lighting.harsh_sunlight",
+        "lighting.overcast_soft"
+      ],
+      "parent": "lighting.natural_light",
+      "children": [],
+      "description": "The subject stands out of the direct sun but still under open sky, so the light is soft, even and usually a little blue.",
+      "examples": [
+        "a portrait in the shadow of a building",
+        "someone under a tree on a sunny day"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "soft light in open shade",
+      "negative_fragment": "not in open shade",
+      "search_boost": 1.0,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.moonlight",
+      "category": "lighting",
+      "label": "Moonlight",
+      "aliases": [
+        "moonlight",
+        "moonlit",
+        "moon light",
+        "by the moon",
+        "night natural light",
+        "lunar light",
+        "moonlite",
+        "moonlight scene"
+      ],
+      "related": [
+        "lighting.cool_light",
+        "lighting.low_key",
+        "lighting.streetlight",
+        "lighting.natural_light",
+        "time.night"
+      ],
+      "parent": "lighting.natural_light",
+      "children": [],
+      "description": "A dim, cool, bluish night light with the sky as its only source, so only the brightest parts of the scene keep any detail.",
+      "examples": [
+        "a pale blue field under a full moon",
+        "moonlight through a bedroom window"
+      ],
+      "conflicts_with": [
+        "lighting.golden_hour_sun",
+        "lighting.harsh_sunlight"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "pale blue moonlight",
+      "negative_fragment": "not lit by moonlight",
+      "search_boost": 1.0,
+      "sort_order": 60
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.direct_flash",
+      "category": "lighting",
+      "label": "Direct flash",
+      "aliases": [
+        "direct flash",
+        "bare flash",
+        "undiffused flash",
+        "flash straight at the subject",
+        "hard flash",
+        "flash photography look",
+        "direkt flash",
+        "direct-flash"
+      ],
+      "related": [
+        "lighting.on_camera_flash",
+        "lighting.bounce_flash",
+        "lighting.hard_light",
+        "lighting.harsh_sunlight"
+      ],
+      "parent": "lighting.artificial_light",
+      "children": [],
+      "description": "A bare flash fires straight at the subject, giving bright punchy light, hard shadows and the deliberately raw snapshot look used in party and fashion photography.",
+      "examples": [
+        "a night street portrait with a bright flash",
+        "harsh flash on a face at a party"
+      ],
+      "conflicts_with": [
+        "lighting.bounce_flash",
+        "lighting.soft_light"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "bright direct flash",
+      "negative_fragment": "no direct flash",
+      "search_boost": 1.3,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.on_camera_flash",
+      "category": "lighting",
+      "label": "On-camera flash",
+      "aliases": [
+        "on camera flash",
+        "on-camera flash",
+        "pop up flash",
+        "built in flash",
+        "paparazzi flash",
+        "flash on the camera",
+        "hard shadow behind the subject",
+        "oncamera flash"
+      ],
+      "related": [
+        "lighting.direct_flash",
+        "lighting.front_lighting",
+        "lighting.flat_light",
+        "lighting.bounce_flash"
+      ],
+      "parent": "lighting.artificial_light",
+      "children": [],
+      "description": "The flash sits right at the lens, so the light is dead frontal, the subject looks flat and bright, and a hard shadow is stamped on the wall right behind them.",
+      "examples": [
+        "a flat bright face with a shadow outline on the wall",
+        "a snapshot lit by a camera's own flash"
+      ],
+      "conflicts_with": [
+        "lighting.bounce_flash"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "flat on-camera flash",
+      "negative_fragment": "no on-camera flash",
+      "search_boost": 1.1,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.bounce_flash",
+      "category": "lighting",
+      "label": "Bounce flash",
+      "aliases": [
+        "bounce flash",
+        "bounced flash",
+        "flash off the ceiling",
+        "indirect flash",
+        "flash bounced off a wall",
+        "bounce lighting",
+        "bounceflash"
+      ],
+      "related": [
+        "lighting.soft_light",
+        "lighting.diffused_light",
+        "lighting.direct_flash",
+        "lighting.top_lighting"
+      ],
+      "parent": "lighting.artificial_light",
+      "children": [],
+      "description": "The flash is aimed at a ceiling or wall instead of the subject, so a big patch of that surface becomes the real light source and the result looks soft and natural.",
+      "examples": [
+        "an indoor event photo with soft even light",
+        "flash bounced off a white ceiling"
+      ],
+      "conflicts_with": [
+        "lighting.direct_flash",
+        "lighting.hard_light",
+        "lighting.on_camera_flash"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "soft bounced flash",
+      "negative_fragment": "no bounced flash",
+      "search_boost": 1.0,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.streetlight",
+      "category": "lighting",
+      "label": "Streetlight",
+      "aliases": [
+        "streetlight",
+        "street lamp",
+        "street light",
+        "sodium vapour light",
+        "orange street light",
+        "lamp post light",
+        "city lights at night",
+        "streetlamp"
+      ],
+      "related": [
+        "lighting.neon",
+        "lighting.warm_light",
+        "lighting.practical_lights",
+        "lighting.moonlight",
+        "scene.night_city"
+      ],
+      "parent": "lighting.artificial_light",
+      "children": [],
+      "description": "The subject is lit by public lighting at night, usually a warm orange or greenish pool of light with darkness between the lamps.",
+      "examples": [
+        "a figure under an orange street lamp",
+        "wet asphalt lit by city lamps"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "lit by orange streetlight at night",
+      "negative_fragment": "not lit by streetlight",
+      "search_boost": 1.2,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.neon",
+      "category": "lighting",
+      "label": "Neon light",
+      "aliases": [
+        "neon",
+        "neon light",
+        "neon lighting",
+        "neon signs",
+        "neon glow",
+        "cyberpunk lighting",
+        "pink and blue neon",
+        "neon lit",
+        "neon-light"
+      ],
+      "related": [
+        "lighting.gel_lighting",
+        "lighting.mixed_temperature",
+        "lighting.streetlight",
+        "lighting.practical_lights",
+        "scene.neon_signage",
+        "scene.night_city"
+      ],
+      "parent": "lighting.artificial_light",
+      "children": [],
+      "description": "Coloured signs and tubes throw saturated pink, blue or green light onto the subject - the signature look of night streets and cyberpunk imagery.",
+      "examples": [
+        "a face washed in pink and cyan neon",
+        "a bar sign reflected on wet pavement"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "saturated neon light",
+      "negative_fragment": "no neon light",
+      "search_boost": 1.4,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.practical_lights",
+      "category": "lighting",
+      "label": "Practical lights",
+      "aliases": [
+        "practical lights",
+        "practicals",
+        "lamps in the shot",
+        "visible light sources",
+        "table lamp",
+        "light fixtures in frame",
+        "practical lighting",
+        "practicle lights"
+      ],
+      "related": [
+        "lighting.candlelight",
+        "lighting.streetlight",
+        "lighting.warm_light",
+        "lighting.artificial_light"
+      ],
+      "parent": "lighting.artificial_light",
+      "children": [],
+      "description": "The lights doing the work are visible inside the frame - table lamps, bare bulbs, screens or signs - which makes the lighting feel like it belongs to the place.",
+      "examples": [
+        "a room lit by two visible table lamps",
+        "a face lit by a laptop screen"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "lit by practical lamps visible in the frame",
+      "negative_fragment": "no visible practical lamps",
+      "search_boost": 1.1,
+      "sort_order": 60
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.candlelight",
+      "category": "lighting",
+      "label": "Candlelight",
+      "aliases": [
+        "candlelight",
+        "candle light",
+        "candles",
+        "by candlelight",
+        "flickering candle",
+        "warm candle glow",
+        "candel light",
+        "candlelit"
+      ],
+      "related": [
+        "lighting.firelight",
+        "lighting.warm_light",
+        "lighting.low_key",
+        "lighting.practical_lights"
+      ],
+      "parent": "lighting.artificial_light",
+      "children": [],
+      "description": "A small flame lights the subject from close range, so the light is very warm, falls away quickly and leaves most of the scene in darkness.",
+      "examples": [
+        "a face over a birthday cake",
+        "a dinner table lit by two candles"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "warm flickering candlelight",
+      "negative_fragment": "not lit by candlelight",
+      "search_boost": 1.1,
+      "sort_order": 70
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.firelight",
+      "category": "lighting",
+      "label": "Firelight",
+      "aliases": [
+        "firelight",
+        "fire light",
+        "campfire light",
+        "bonfire glow",
+        "lit by fire",
+        "flame light",
+        "firelit",
+        "fire lighting"
+      ],
+      "related": [
+        "lighting.candlelight",
+        "lighting.under_lighting",
+        "lighting.warm_light",
+        "lighting.low_key"
+      ],
+      "parent": "lighting.artificial_light",
+      "children": [],
+      "description": "A fire lights the scene from below or to one side with an unsteady orange glow that moves and flickers.",
+      "examples": [
+        "faces around a campfire",
+        "a fireplace lighting a dark room"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "warm flickering firelight",
+      "negative_fragment": "not lit by firelight",
+      "search_boost": 1.0,
+      "sort_order": 80
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.studio_softbox",
+      "category": "lighting",
+      "label": "Studio softbox",
+      "aliases": [
+        "softbox",
+        "soft box",
+        "studio softbox",
+        "studio lighting",
+        "studio strobe",
+        "strobe with a softbox",
+        "big soft studio light",
+        "softbox lighting"
+      ],
+      "related": [
+        "lighting.soft_light",
+        "lighting.diffused_light",
+        "lighting.beauty_dish",
+        "lighting.artificial_light"
+      ],
+      "parent": "lighting.artificial_light",
+      "children": [],
+      "description": "A large fabric box in front of a studio light turns it into a broad soft source - the everyday workhorse of controlled portrait and product lighting.",
+      "examples": [
+        "a clean studio portrait on grey",
+        "a product lit by one large soft box"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "soft studio softbox lighting",
+      "negative_fragment": "not studio softbox lighting",
+      "search_boost": 1.2,
+      "sort_order": 90
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.beauty_dish",
+      "category": "lighting",
+      "label": "Beauty dish",
+      "aliases": [
+        "beauty dish",
+        "beauty lighting",
+        "dish light",
+        "beauty dish portrait",
+        "crisp studio portrait light",
+        "beautydish",
+        "beuty dish"
+      ],
+      "related": [
+        "lighting.studio_softbox",
+        "lighting.butterfly",
+        "lighting.ring_light",
+        "lighting.hard_light"
+      ],
+      "parent": "lighting.artificial_light",
+      "children": [],
+      "description": "A shallow metal dish placed above and in front of the face gives light that is crisp but still flattering, with a fast shadow fall-off - the classic beauty and cosmetics look.",
+      "examples": [
+        "a cosmetics portrait with sculpted cheekbones",
+        "a crisp studio headshot"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "crisp beauty-dish lighting",
+      "negative_fragment": "not beauty-dish lighting",
+      "search_boost": 1.0,
+      "sort_order": 100
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.ring_light",
+      "category": "lighting",
+      "label": "Ring light",
+      "aliases": [
+        "ring light",
+        "ringlight",
+        "ring flash",
+        "circular catchlight",
+        "beauty ring",
+        "selfie light",
+        "ring lite",
+        "ring-light"
+      ],
+      "related": [
+        "lighting.front_lighting",
+        "lighting.flat_light",
+        "lighting.beauty_dish",
+        "lighting.on_camera_flash"
+      ],
+      "parent": "lighting.artificial_light",
+      "children": [],
+      "description": "A circle of light around the lens lights the face perfectly frontally, leaving an even wash, a thin shadow outline behind the subject and a doughnut-shaped reflection in the eyes.",
+      "examples": [
+        "a streamer's evenly lit face",
+        "a beauty shot with ring catchlights in the eyes"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "even frontal ring-light",
+      "negative_fragment": "no ring-light",
+      "search_boost": 1.1,
+      "sort_order": 110
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.spotlight",
+      "category": "lighting",
+      "label": "Spotlight",
+      "aliases": [
+        "spotlight",
+        "spot light",
+        "pool of light",
+        "stage spotlight",
+        "theatre spot",
+        "hard focused light",
+        "spotlit",
+        "spot-light"
+      ],
+      "related": [
+        "lighting.hard_light",
+        "lighting.low_key",
+        "lighting.chiaroscuro",
+        "lighting.top_lighting"
+      ],
+      "parent": "lighting.artificial_light",
+      "children": [],
+      "description": "A narrow focused beam lights only part of the scene, leaving a bright pool with everything around it dropping into darkness.",
+      "examples": [
+        "a singer in a pool of light on a dark stage",
+        "one lit chair in an empty room"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "a hard spotlight picking the subject out of darkness",
+      "negative_fragment": "no spotlight",
+      "search_boost": 1.1,
+      "sort_order": 120
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.high_key",
+      "category": "lighting",
+      "label": "High key",
+      "aliases": [
+        "high key",
+        "high-key",
+        "bright and airy",
+        "white background lighting",
+        "light and bright",
+        "low contrast bright lighting",
+        "highkey",
+        "hi key"
+      ],
+      "related": [
+        "lighting.low_key",
+        "lighting.flat_light",
+        "lighting.soft_light",
+        "lighting.studio_softbox"
+      ],
+      "parent": "lighting.light_pattern",
+      "children": [],
+      "description": "Nearly everything in the picture is bright with very few dark tones, giving a clean, light, often cheerful look.",
+      "examples": [
+        "a portrait on a white background with almost no shadows",
+        "a bright airy interior shot"
+      ],
+      "conflicts_with": [
+        "lighting.chiaroscuro",
+        "lighting.low_key",
+        "lighting.silhouette"
+      ],
+      "exclusivity_group": "key_level",
+      "prompt_fragment": "high-key lighting with bright, airy tones",
+      "negative_fragment": "not high-key lighting",
+      "search_boost": 1.4,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.low_key",
+      "category": "lighting",
+      "label": "Low key",
+      "aliases": [
+        "low key",
+        "low-key",
+        "dark moody lighting",
+        "mostly shadow",
+        "dark background lighting",
+        "moody dark light",
+        "lowkey",
+        "low ke"
+      ],
+      "related": [
+        "lighting.high_key",
+        "lighting.chiaroscuro",
+        "lighting.rim_lighting",
+        "lighting.spotlight",
+        "time.night"
+      ],
+      "parent": "lighting.light_pattern",
+      "children": [],
+      "description": "Most of the frame sits in shadow and only small parts are lit, producing a dark, dramatic and often mysterious mood.",
+      "examples": [
+        "a face emerging from a black background",
+        "a dark bar interior with one lit table"
+      ],
+      "conflicts_with": [
+        "lighting.flat_light",
+        "lighting.high_key"
+      ],
+      "exclusivity_group": "key_level",
+      "prompt_fragment": "low-key lighting with deep shadows",
+      "negative_fragment": "not low-key lighting",
+      "search_boost": 1.4,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.chiaroscuro",
+      "category": "lighting",
+      "label": "Chiaroscuro",
+      "aliases": [
+        "chiaroscuro",
+        "strong light and shadow",
+        "painterly contrast",
+        "caravaggio lighting",
+        "dramatic light and dark",
+        "deep shadow with bright highlight",
+        "chiaroscuru",
+        "kiaroscuro"
+      ],
+      "related": [
+        "lighting.low_key",
+        "lighting.spotlight",
+        "lighting.side_lighting",
+        "lighting.hard_light"
+      ],
+      "parent": "lighting.light_pattern",
+      "children": [],
+      "description": "A painterly extreme of light against dark, borrowed from old-master painting: one strong light carves the subject out of near-black surroundings.",
+      "examples": [
+        "a lit hand and face against total darkness",
+        "an old-master style portrait"
+      ],
+      "conflicts_with": [
+        "lighting.flat_light",
+        "lighting.high_key"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "chiaroscuro lighting, the subject carved out of deep darkness",
+      "negative_fragment": "no chiaroscuro contrast",
+      "search_boost": 1.2,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.silhouette",
+      "category": "lighting",
+      "label": "Silhouette",
+      "aliases": [
+        "silhouette",
+        "silhouetted",
+        "black shape against a bright background",
+        "outline only",
+        "subject dark against the light",
+        "shadow figure",
+        "silhoette",
+        "silouette"
+      ],
+      "related": [
+        "lighting.backlighting",
+        "lighting.backlit_haze",
+        "lighting.low_key",
+        "lighting.golden_hour_sun"
+      ],
+      "parent": "lighting.light_pattern",
+      "children": [],
+      "description": "The subject is left completely dark against a much brighter background, so only their outline reads and no detail of face or clothing survives.",
+      "examples": [
+        "a black figure in a bright doorway",
+        "two people cut out against a sunset"
+      ],
+      "conflicts_with": [
+        "lighting.flat_light",
+        "lighting.front_lighting",
+        "lighting.high_key"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "silhouetted against a bright background",
+      "negative_fragment": "not silhouetted",
+      "search_boost": 1.3,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.backlit_haze",
+      "category": "lighting",
+      "label": "Backlit haze",
+      "aliases": [
+        "backlit haze",
+        "hazy backlight",
+        "glowing haze",
+        "sun haze",
+        "atmospheric backlight",
+        "misty backlight",
+        "light beams in the air",
+        "hazy sunlight",
+        "backlit hase"
+      ],
+      "related": [
+        "lighting.backlighting",
+        "lighting.golden_hour_sun",
+        "lighting.rim_lighting",
+        "lighting.silhouette",
+        "weather.haze",
+        "weather.fog"
+      ],
+      "parent": "lighting.light_pattern",
+      "children": [],
+      "description": "Light shining towards the camera catches dust, mist or smoke in the air, so the picture glows, contrast drops and visible beams may appear.",
+      "examples": [
+        "sunbeams through trees in morning mist",
+        "a hazy glow around a backlit figure"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "hazy backlight glowing through the air",
+      "negative_fragment": "no hazy backlight",
+      "search_boost": 1.2,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.split_lighting",
+      "category": "lighting",
+      "label": "Split lighting",
+      "aliases": [
+        "split lighting",
+        "half lit face",
+        "light on one side of the face",
+        "split light portrait",
+        "half light half shadow",
+        "splitlighting",
+        "split-light"
+      ],
+      "related": [
+        "lighting.side_lighting",
+        "lighting.rembrandt",
+        "lighting.low_key",
+        "lighting.loop_lighting"
+      ],
+      "parent": "lighting.light_pattern",
+      "children": [],
+      "description": "The light comes from exactly the side, so one half of the face is lit and the other half falls into shadow, split down the line of the nose.",
+      "examples": [
+        "a face lit on the left, dark on the right",
+        "a dramatic half-shadow headshot"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "portrait_pattern",
+      "prompt_fragment": "split lighting dividing the face into light and shadow",
+      "negative_fragment": "not split lighting",
+      "search_boost": 1.1,
+      "sort_order": 60
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.rembrandt",
+      "category": "lighting",
+      "label": "Rembrandt lighting",
+      "aliases": [
+        "rembrandt lighting",
+        "rembrandt",
+        "triangle of light on the cheek",
+        "classic portrait lighting",
+        "rembrant lighting",
+        "rembrandt light",
+        "rembrandt-lighting"
+      ],
+      "related": [
+        "lighting.loop_lighting",
+        "lighting.split_lighting",
+        "lighting.three_quarter_lighting",
+        "lighting.butterfly"
+      ],
+      "parent": "lighting.light_pattern",
+      "children": [],
+      "description": "A portrait pattern where a light at roughly 45 degrees leaves a small triangle of light on the shadowed cheek, named after the painter who used it.",
+      "examples": [
+        "a small lit triangle under the eye on the shadow side",
+        "a moody painterly headshot"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "portrait_pattern",
+      "prompt_fragment": "Rembrandt lighting with a small triangle of light on the cheek",
+      "negative_fragment": "not Rembrandt lighting",
+      "search_boost": 1.2,
+      "sort_order": 70
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.butterfly",
+      "category": "lighting",
+      "label": "Butterfly lighting",
+      "aliases": [
+        "butterfly lighting",
+        "paramount lighting",
+        "glamour lighting",
+        "shadow under the nose",
+        "hollywood portrait lighting",
+        "butterfly light",
+        "butterfy lighting"
+      ],
+      "related": [
+        "lighting.beauty_dish",
+        "lighting.top_lighting",
+        "lighting.rembrandt",
+        "lighting.loop_lighting"
+      ],
+      "parent": "lighting.light_pattern",
+      "children": [],
+      "description": "The light sits directly above and in front of the face, dropping a small butterfly-shaped shadow beneath the nose - the classic glamour portrait pattern.",
+      "examples": [
+        "a symmetric beauty portrait with a small nose shadow",
+        "an old Hollywood star portrait"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "portrait_pattern",
+      "prompt_fragment": "butterfly lighting from directly above the face",
+      "negative_fragment": "not butterfly lighting",
+      "search_boost": 1.0,
+      "sort_order": 80
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.loop_lighting",
+      "category": "lighting",
+      "label": "Loop lighting",
+      "aliases": [
+        "loop lighting",
+        "loop light",
+        "small nose shadow loop",
+        "standard portrait lighting",
+        "loop portrait light",
+        "loop-lighting"
+      ],
+      "related": [
+        "lighting.rembrandt",
+        "lighting.butterfly",
+        "lighting.three_quarter_lighting",
+        "lighting.split_lighting"
+      ],
+      "parent": "lighting.light_pattern",
+      "children": [],
+      "description": "A gentle portrait pattern where the light is a little to one side and slightly above, leaving a small loop of shadow from the nose onto the cheek.",
+      "examples": [
+        "a natural-looking headshot with a soft nose shadow",
+        "an everyday flattering portrait light"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "portrait_pattern",
+      "prompt_fragment": "loop lighting with a small nose shadow",
+      "negative_fragment": "not loop lighting",
+      "search_boost": 1.0,
+      "sort_order": 90
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.gel_lighting",
+      "category": "lighting",
+      "label": "Coloured gel lighting",
+      "aliases": [
+        "gel lighting",
+        "colored gels",
+        "coloured gel light",
+        "color gel",
+        "colour gel",
+        "pink and blue gels",
+        "gelled lights",
+        "gel lightning"
+      ],
+      "related": [
+        "lighting.neon",
+        "lighting.mixed_temperature",
+        "lighting.studio_softbox",
+        "lighting.cool_light"
+      ],
+      "parent": "lighting.light_pattern",
+      "children": [],
+      "description": "Coloured sheets are placed over the lights so the subject is lit in deliberate colours - magenta on one side and cyan on the other, for example.",
+      "examples": [
+        "a portrait lit red on one side and blue on the other",
+        "a music-video style coloured wash"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "coloured gel lighting",
+      "negative_fragment": "no coloured gels on the lights",
+      "search_boost": 1.3,
+      "sort_order": 100
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.dappled_light",
+      "category": "lighting",
+      "label": "Dappled light",
+      "aliases": [
+        "dappled light",
+        "dappled sunlight",
+        "light through leaves",
+        "leaf shadows",
+        "blind shadows",
+        "patchy light",
+        "window blind stripes",
+        "dapple light",
+        "dappled lighting"
+      ],
+      "related": [
+        "lighting.harsh_sunlight",
+        "lighting.hard_light",
+        "lighting.spotlight",
+        "lighting.golden_hour_sun"
+      ],
+      "parent": "lighting.light_pattern",
+      "children": [],
+      "description": "The light passes through leaves, blinds or a lattice before it reaches the subject, scattering bright patches and shadow shapes across them.",
+      "examples": [
+        "leaf shadows moving across a face",
+        "stripes of blind shadow on a wall"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "prompt_fragment": "dappled light falling in patches across the subject",
+      "negative_fragment": "no dappled patches of light",
+      "search_boost": 1.2,
+      "sort_order": 110
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.warm_light",
+      "category": "lighting",
+      "label": "Warm light",
+      "aliases": [
+        "warm light",
+        "warm lighting",
+        "orange light",
+        "golden light",
+        "cozy warm glow",
+        "tungsten light",
+        "warm tone light",
+        "warm lite"
+      ],
+      "related": [
+        "lighting.golden_hour_sun",
+        "lighting.candlelight",
+        "lighting.cool_light",
+        "lighting.streetlight",
+        "time.golden_hour"
+      ],
+      "parent": "lighting.color_temperature",
+      "children": [],
+      "description": "The light leans orange or golden, which usually reads as warm, cosy or nostalgic.",
+      "examples": [
+        "a living room glowing with lamplight",
+        "skin warmed by late sun"
+      ],
+      "conflicts_with": [
+        "lighting.cool_light"
+      ],
+      "exclusivity_group": "color_temperature",
+      "prompt_fragment": "warm golden light",
+      "negative_fragment": "no warm colour cast",
+      "search_boost": 1.2,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.cool_light",
+      "category": "lighting",
+      "label": "Cool light",
+      "aliases": [
+        "cool light",
+        "cool lighting",
+        "blue light",
+        "cold light",
+        "blue toned light",
+        "cool tone lighting",
+        "daylight blue cast",
+        "cool lite"
+      ],
+      "related": [
+        "lighting.moonlight",
+        "lighting.overcast_soft",
+        "lighting.warm_light",
+        "lighting.open_shade",
+        "time.blue_hour"
+      ],
+      "parent": "lighting.color_temperature",
+      "children": [],
+      "description": "The light leans blue, which usually reads as cold, clinical, nocturnal or calm.",
+      "examples": [
+        "a blue-grey morning street",
+        "a clinical office under white-blue tubes"
+      ],
+      "conflicts_with": [
+        "lighting.warm_light"
+      ],
+      "exclusivity_group": "color_temperature",
+      "prompt_fragment": "cool blue-toned light",
+      "negative_fragment": "no cool colour cast",
+      "search_boost": 1.2,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.neutral_temperature",
+      "category": "lighting",
+      "label": "Neutral colour temperature",
+      "aliases": [
+        "neutral light",
+        "neutral white light",
+        "neutral color temperature",
+        "white balanced light",
+        "no color cast",
+        "neutral lighting",
+        "netural light"
+      ],
+      "related": [
+        "lighting.warm_light",
+        "lighting.cool_light",
+        "lighting.studio_softbox",
+        "lighting.flat_light"
+      ],
+      "parent": "lighting.color_temperature",
+      "children": [],
+      "description": "The light is close to plain white with no obvious orange or blue cast, so colours look much as they would to the eye.",
+      "examples": [
+        "a clean product shot with true colours",
+        "a neutral studio portrait"
+      ],
+      "conflicts_with": [
+        "lighting.mixed_temperature"
+      ],
+      "exclusivity_group": "color_temperature",
+      "prompt_fragment": "neutral white light",
+      "negative_fragment": "not neutral white light",
+      "search_boost": 1.0,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "lighting.mixed_temperature",
+      "category": "lighting",
+      "label": "Mixed colour temperature",
+      "aliases": [
+        "mixed lighting",
+        "mixed color temperature",
+        "warm and cool light together",
+        "clashing light colours",
+        "mixed white balance",
+        "two colour lighting",
+        "mixed temperature",
+        "mixed colour light"
+      ],
+      "related": [
+        "lighting.neon",
+        "lighting.gel_lighting",
+        "lighting.warm_light",
+        "lighting.cool_light"
+      ],
+      "parent": "lighting.color_temperature",
+      "children": [],
+      "description": "Two or more differently coloured lights share the scene - warm lamplight indoors against cool blue daylight through the window, for instance.",
+      "examples": [
+        "orange room light against blue dusk outside",
+        "a face half warm, half neon blue"
+      ],
+      "conflicts_with": [
+        "lighting.neutral_temperature"
+      ],
+      "exclusivity_group": null,
+      "prompt_fragment": "mixed warm and cool light sources",
+      "negative_fragment": "no mixing of light colours",
+      "search_boost": 1.1,
+      "sort_order": 40
+    }
+  ]
+}

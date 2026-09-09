@@ -1,0 +1,4437 @@
+{
+  "schema_version": "1.0",
+  "categories": [
+    "scene",
+    "time",
+    "weather",
+    "props"
+  ],
+  "version": 1,
+  "updated_at": "2026-09-09T00:00:00Z",
+  "nodes": [
+    {
+      "schema_version": "1.0",
+      "id": "scene.indoor",
+      "category": "scene",
+      "label": "Indoor",
+      "aliases": [
+        "indoor",
+        "inside",
+        "indoors",
+        "interior",
+        "in a building",
+        "inside a room",
+        "under a roof",
+        "indor",
+        "interor"
+      ],
+      "related": [
+        "scene.outdoor",
+        "scene.home_interior",
+        "scene.interior_public"
+      ],
+      "parent": null,
+      "children": [
+        "scene.home_interior",
+        "scene.interior_public",
+        "scene.transit",
+        "scene.studio"
+      ],
+      "description": "The shot happens inside a building, so walls, ceilings and lamps decide the light and the space instead of the sky.",
+      "examples": [
+        "a portrait taken inside a room",
+        "a figure standing in a lit hallway"
+      ],
+      "conflicts_with": [
+        "scene.outdoor"
+      ],
+      "exclusivity_group": "interiority",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "indoors",
+      "negative_fragment": "not indoors",
+      "search_boost": 1.1,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.outdoor",
+      "category": "scene",
+      "label": "Outdoor",
+      "aliases": [
+        "outdoor",
+        "outside",
+        "outdoors",
+        "open air",
+        "exterior",
+        "out in the open",
+        "al fresco",
+        "outdor",
+        "outsdie"
+      ],
+      "related": [
+        "scene.indoor",
+        "scene.urban",
+        "scene.nature"
+      ],
+      "parent": null,
+      "children": [
+        "scene.urban",
+        "scene.nature"
+      ],
+      "description": "The shot happens outside under open sky, so daylight, weather and time of day shape how it looks.",
+      "examples": [
+        "a figure walking under an open sky",
+        "a subject photographed in daylight outside"
+      ],
+      "conflicts_with": [
+        "scene.indoor"
+      ],
+      "exclusivity_group": "interiority",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "outdoors",
+      "negative_fragment": "not outdoors",
+      "search_boost": 1.1,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.setting_detail",
+      "category": "scene",
+      "label": "Setting detail",
+      "aliases": [
+        "setting detail",
+        "background detail",
+        "environment detail",
+        "surroundings",
+        "set dressing",
+        "backdrop detail",
+        "enviroment detail"
+      ],
+      "related": [
+        "scene.crowd",
+        "scene.graffiti_wall",
+        "scene.greenery"
+      ],
+      "parent": null,
+      "children": [
+        "scene.crowd",
+        "scene.empty_space",
+        "scene.graffiti_wall",
+        "scene.brick_wall",
+        "scene.greenery",
+        "scene.staircase",
+        "scene.window_view"
+      ],
+      "description": "A branch for the smaller features of a place — walls, surfaces, plants, people in the background — that describe a setting without replacing it, so they combine freely with any location.",
+      "examples": [
+        "a plain wall right behind the subject",
+        "people moving in the background of a street"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with distinctive background detail",
+      "negative_fragment": "no distinctive background detail",
+      "search_boost": 0.9,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.urban",
+      "category": "scene",
+      "label": "Urban",
+      "aliases": [
+        "urban",
+        "city",
+        "cityscape",
+        "in the city",
+        "built up area",
+        "town",
+        "metropolitan",
+        "citiy",
+        "urbn"
+      ],
+      "related": [
+        "scene.urban_street",
+        "scene.night_city",
+        "scene.nature"
+      ],
+      "parent": "scene.outdoor",
+      "children": [
+        "scene.urban_street",
+        "scene.alley",
+        "scene.rooftop",
+        "scene.bridge",
+        "scene.tunnel",
+        "scene.plaza",
+        "scene.parking_lot",
+        "scene.night_city",
+        "scene.city_skyline",
+        "scene.neon_signage"
+      ],
+      "description": "Outdoor places built by people: streets, alleys, rooftops and the structures between them. Pick one of the children when you know which kind of city space you mean.",
+      "examples": [
+        "a subject framed against city buildings"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in an urban setting",
+      "negative_fragment": "not in an urban setting",
+      "search_boost": 0.95,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.nature",
+      "category": "scene",
+      "label": "Nature",
+      "aliases": [
+        "nature",
+        "natural landscape",
+        "wilderness",
+        "countryside",
+        "landscape",
+        "out in nature",
+        "scenery",
+        "natur",
+        "naturescape"
+      ],
+      "related": [
+        "scene.forest",
+        "scene.beach",
+        "scene.urban"
+      ],
+      "parent": "scene.outdoor",
+      "children": [
+        "scene.beach",
+        "scene.forest",
+        "scene.mountain",
+        "scene.desert",
+        "scene.field",
+        "scene.riverside",
+        "scene.park"
+      ],
+      "description": "Outdoor places shaped by landscape rather than buildings — beaches, forests, mountains and open ground.",
+      "examples": [
+        "a figure small against an open landscape"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a natural landscape",
+      "negative_fragment": "not in a natural landscape",
+      "search_boost": 0.95,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.home_interior",
+      "category": "scene",
+      "label": "Home interior",
+      "aliases": [
+        "home",
+        "home interior",
+        "house",
+        "apartment",
+        "domestic interior",
+        "at home",
+        "indoors at home",
+        "flat",
+        "appartment",
+        "hous"
+      ],
+      "related": [
+        "scene.bedroom",
+        "scene.living_room",
+        "scene.interior_public"
+      ],
+      "parent": "scene.indoor",
+      "children": [
+        "scene.bedroom",
+        "scene.living_room",
+        "scene.kitchen",
+        "scene.bathroom"
+      ],
+      "description": "Inside somebody’s home. Choose a room below when the exact space matters; on its own it simply says the setting is domestic and lived-in.",
+      "examples": [
+        "a relaxed portrait taken in someone’s flat"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "inside a home",
+      "negative_fragment": "not inside a home",
+      "search_boost": 1.1,
+      "sort_order": 60
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.interior_public",
+      "category": "scene",
+      "label": "Public interior",
+      "aliases": [
+        "public interior",
+        "indoor public space",
+        "venue",
+        "shop interior",
+        "business interior",
+        "inside a building",
+        "public indoor space",
+        "publick interior"
+      ],
+      "related": [
+        "scene.cafe",
+        "scene.gallery",
+        "scene.home_interior"
+      ],
+      "parent": "scene.indoor",
+      "children": [
+        "scene.cafe",
+        "scene.restaurant",
+        "scene.bar",
+        "scene.gallery",
+        "scene.library",
+        "scene.hotel_lobby",
+        "scene.convenience_store",
+        "scene.office",
+        "scene.parking_garage"
+      ],
+      "description": "Indoor spaces open to the public — cafes, bars, shops, galleries, offices and lobbies.",
+      "examples": [
+        "a subject seated in a busy indoor venue"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "inside a public building",
+      "negative_fragment": "not inside a public building",
+      "search_boost": 0.95,
+      "sort_order": 70
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.transit",
+      "category": "scene",
+      "label": "Transit space",
+      "aliases": [
+        "transit",
+        "transport",
+        "station",
+        "travel space",
+        "commute",
+        "public transport",
+        "transportation hub",
+        "tranist",
+        "transit space"
+      ],
+      "related": [
+        "scene.subway_station",
+        "scene.airport_terminal",
+        "scene.car_interior"
+      ],
+      "parent": "scene.indoor",
+      "children": [
+        "scene.subway_station",
+        "scene.subway_train_interior",
+        "scene.airport_terminal",
+        "scene.car_interior"
+      ],
+      "description": "Places built for travelling through: stations, terminals, platforms and the inside of vehicles.",
+      "examples": [
+        "a commuter waiting where people pass through"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a transit space",
+      "negative_fragment": "not in a transit space",
+      "search_boost": 0.95,
+      "sort_order": 80
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.studio",
+      "category": "scene",
+      "label": "Studio",
+      "aliases": [
+        "studio",
+        "photo studio",
+        "shooting studio",
+        "studio set",
+        "backdrop",
+        "photostudio",
+        "stuido",
+        "studio shoot"
+      ],
+      "related": [
+        "scene.studio_seamless",
+        "scene.green_screen",
+        "scene.interior_public"
+      ],
+      "parent": "scene.indoor",
+      "children": [
+        "scene.studio_seamless",
+        "scene.studio_cyclorama",
+        "scene.green_screen"
+      ],
+      "description": "A controlled shooting space with a built backdrop instead of a real location, so nothing in the background is accidental.",
+      "examples": [
+        "a clean shoot on a built backdrop"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a photo studio",
+      "negative_fragment": "not in a photo studio",
+      "search_boost": 1.05,
+      "sort_order": 90
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.urban_street",
+      "category": "scene",
+      "label": "Urban street",
+      "aliases": [
+        "street",
+        "city street",
+        "on the street",
+        "sidewalk",
+        "pavement",
+        "road",
+        "street scene",
+        "downtown street",
+        "steet",
+        "urban steet"
+      ],
+      "related": [
+        "scene.alley",
+        "scene.crosswalk",
+        "scene.storefront",
+        "scene.plaza"
+      ],
+      "parent": "scene.urban",
+      "children": [
+        "scene.crosswalk",
+        "scene.storefront"
+      ],
+      "description": "An ordinary city street with traffic, pavements and shopfronts — the everyday urban backdrop most street photography uses.",
+      "examples": [
+        "a person walking along a city pavement",
+        "a figure standing at the kerb of a busy road"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "on a city street",
+      "negative_fragment": "not on a city street",
+      "search_boost": 1.35,
+      "sort_order": 100
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.alley",
+      "category": "scene",
+      "label": "Alley",
+      "aliases": [
+        "alley",
+        "alleyway",
+        "back street",
+        "narrow lane",
+        "side street",
+        "backstreet",
+        "laneway",
+        "aley",
+        "ally"
+      ],
+      "related": [
+        "scene.urban_street",
+        "scene.graffiti_wall",
+        "scene.night_city"
+      ],
+      "parent": "scene.urban",
+      "children": [],
+      "description": "A narrow passage between buildings — tight, shadowed and cluttered, far more enclosed than an ordinary street.",
+      "examples": [
+        "a figure lit by one lamp in a narrow back lane"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a narrow alley",
+      "negative_fragment": "not in a narrow alley",
+      "search_boost": 1.25,
+      "sort_order": 110
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.rooftop",
+      "category": "scene",
+      "label": "Rooftop",
+      "aliases": [
+        "rooftop",
+        "roof",
+        "on the roof",
+        "roof terrace",
+        "top of a building",
+        "rooftop terrace",
+        "roof top",
+        "rootop"
+      ],
+      "related": [
+        "scene.city_skyline",
+        "scene.urban_street",
+        "scene.night_city"
+      ],
+      "parent": "scene.urban",
+      "children": [],
+      "description": "On top of a building, out in the open with the city spread out below and nothing but sky overhead.",
+      "examples": [
+        "a subject on a roof with the city far beneath them"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "on a rooftop",
+      "negative_fragment": "not on a rooftop",
+      "search_boost": 1.2,
+      "sort_order": 120
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.bridge",
+      "category": "scene",
+      "label": "Bridge",
+      "aliases": [
+        "bridge",
+        "on a bridge",
+        "overpass",
+        "viaduct",
+        "footbridge",
+        "river crossing",
+        "brige",
+        "brdige"
+      ],
+      "related": [
+        "scene.urban_street",
+        "scene.riverside",
+        "scene.tunnel"
+      ],
+      "parent": "scene.urban",
+      "children": [],
+      "description": "On a structure carrying a road or path over water or rail, where the railings and span make long lines running away from the camera.",
+      "examples": [
+        "a figure halfway across a river bridge"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "on a bridge",
+      "negative_fragment": "not on a bridge",
+      "search_boost": 1,
+      "sort_order": 130
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.tunnel",
+      "category": "scene",
+      "label": "Tunnel",
+      "aliases": [
+        "tunnel",
+        "underpass",
+        "road tunnel",
+        "underground passage",
+        "subway tunnel",
+        "tunnle",
+        "tunel"
+      ],
+      "related": [
+        "scene.bridge",
+        "scene.parking_garage",
+        "scene.subway_station"
+      ],
+      "parent": "scene.urban",
+      "children": [],
+      "description": "Inside an enclosed passage cut through ground or building, lit only by artificial lights repeating along its length.",
+      "examples": [
+        "a subject walking through a lit underpass"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "inside a tunnel",
+      "negative_fragment": "not inside a tunnel",
+      "search_boost": 1,
+      "sort_order": 140
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.plaza",
+      "category": "scene",
+      "label": "Plaza or square",
+      "aliases": [
+        "plaza",
+        "square",
+        "town square",
+        "public square",
+        "piazza",
+        "open square",
+        "courtyard",
+        "plasa",
+        "city square"
+      ],
+      "related": [
+        "scene.urban_street",
+        "scene.crowd",
+        "scene.storefront"
+      ],
+      "parent": "scene.urban",
+      "children": [],
+      "description": "A wide paved open space in a city where several streets meet, big enough that people and buildings sit far apart.",
+      "examples": [
+        "a lone figure crossing a wide paved square"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in an open city square",
+      "negative_fragment": "not in an open city square",
+      "search_boost": 1,
+      "sort_order": 150
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.parking_lot",
+      "category": "scene",
+      "label": "Parking lot",
+      "aliases": [
+        "parking lot",
+        "car park",
+        "parking area",
+        "empty parking lot",
+        "open air parking",
+        "carpark",
+        "parkinglot",
+        "parking"
+      ],
+      "related": [
+        "scene.parking_garage",
+        "scene.urban_street",
+        "scene.empty_space"
+      ],
+      "parent": "scene.urban",
+      "children": [],
+      "description": "A flat open area outdoors for parked cars — wide, mostly empty, marked with painted lines and lit by tall lamps after dark.",
+      "examples": [
+        "a subject alone in a wide empty car park at night"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in an open-air parking lot",
+      "negative_fragment": "not in an open-air parking lot",
+      "search_boost": 1,
+      "sort_order": 160
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.crosswalk",
+      "category": "scene",
+      "label": "Crosswalk",
+      "aliases": [
+        "crosswalk",
+        "zebra crossing",
+        "pedestrian crossing",
+        "crossing the road",
+        "street crossing",
+        "cross walk",
+        "zebra stripes",
+        "crossng"
+      ],
+      "related": [
+        "scene.urban_street",
+        "scene.plaza",
+        "scene.crowd"
+      ],
+      "parent": "scene.urban_street",
+      "children": [],
+      "description": "The striped pedestrian crossing painted across a road. It refines a street rather than replacing it, so it combines with any city street.",
+      "examples": [
+        "a subject stepping onto painted crossing stripes"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "at a pedestrian crossing",
+      "negative_fragment": "not at a pedestrian crossing",
+      "search_boost": 1.15,
+      "sort_order": 170
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.night_city",
+      "category": "scene",
+      "label": "Night city",
+      "aliases": [
+        "night city",
+        "city at night",
+        "nighttime city",
+        "city lights",
+        "urban night",
+        "night streets",
+        "nite city",
+        "city at nite",
+        "neon city"
+      ],
+      "related": [
+        "scene.neon_signage",
+        "scene.urban_street",
+        "time.night"
+      ],
+      "parent": "scene.urban",
+      "children": [],
+      "description": "A city after dark, where lit windows, street lamps and signs supply nearly all the light. It describes how the place looks, so it sits on top of a specific street, alley or rooftop.",
+      "examples": [
+        "a wet street glowing with shop lights after dark"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a city lit up at night",
+      "negative_fragment": "not in a city lit up at night",
+      "search_boost": 1.3,
+      "sort_order": 180
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.city_skyline",
+      "category": "scene",
+      "label": "City skyline",
+      "aliases": [
+        "skyline",
+        "city skyline",
+        "cityscape",
+        "skyscrapers",
+        "distant city",
+        "city view",
+        "sky line",
+        "citiscape"
+      ],
+      "related": [
+        "scene.rooftop",
+        "scene.night_city",
+        "scene.urban"
+      ],
+      "parent": "scene.urban",
+      "children": [],
+      "description": "The distant outline of tall buildings seen across the city, usually the backdrop behind the subject rather than the place they stand in.",
+      "examples": [
+        "a rooftop portrait with towers stacked behind"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with the city skyline behind",
+      "negative_fragment": "no the city skyline behind",
+      "search_boost": 1.15,
+      "sort_order": 190
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.neon_signage",
+      "category": "scene",
+      "label": "Neon signage",
+      "aliases": [
+        "neon",
+        "neon signs",
+        "neon lights",
+        "signage",
+        "shop signs",
+        "led signs",
+        "neon sign",
+        "non signs",
+        "lit signs"
+      ],
+      "related": [
+        "scene.night_city",
+        "scene.storefront",
+        "scene.alley"
+      ],
+      "parent": "scene.urban",
+      "children": [],
+      "description": "Bright coloured shop and bar signs patterning the walls of a street and throwing coloured light onto everything near them.",
+      "examples": [
+        "a face washed in pink and blue sign light"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "surrounded by neon signage",
+      "negative_fragment": "not surrounded by neon signage",
+      "search_boost": 1.2,
+      "sort_order": 200
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.storefront",
+      "category": "scene",
+      "label": "Storefront",
+      "aliases": [
+        "storefront",
+        "shopfront",
+        "shop window",
+        "store window",
+        "shop front",
+        "boutique window",
+        "retail front",
+        "store front"
+      ],
+      "related": [
+        "scene.urban_street",
+        "scene.neon_signage",
+        "scene.convenience_store"
+      ],
+      "parent": "scene.urban_street",
+      "children": [],
+      "description": "The glazed front of a shop along a street, putting a window, a display and lettering directly behind the subject.",
+      "examples": [
+        "a subject framed by a lit shop window"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in front of a shop window",
+      "negative_fragment": "not in front of a shop window",
+      "search_boost": 1,
+      "sort_order": 210
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.beach",
+      "category": "scene",
+      "label": "Beach",
+      "aliases": [
+        "beach",
+        "seaside",
+        "shore",
+        "coast",
+        "sand",
+        "by the sea",
+        "ocean",
+        "seashore",
+        "beech",
+        "sea side"
+      ],
+      "related": [
+        "scene.riverside",
+        "scene.field",
+        "weather.clear"
+      ],
+      "parent": "scene.nature",
+      "children": [],
+      "description": "Open sand at the edge of the sea, with water, a far horizon and almost nothing blocking the light.",
+      "examples": [
+        "a figure on wet sand with the sea behind"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "on a beach",
+      "negative_fragment": "not on a beach",
+      "search_boost": 1.2,
+      "sort_order": 220
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.forest",
+      "category": "scene",
+      "label": "Forest",
+      "aliases": [
+        "forest",
+        "woods",
+        "woodland",
+        "in the trees",
+        "jungle",
+        "among the trees",
+        "forrest",
+        "wood",
+        "forrest path"
+      ],
+      "related": [
+        "scene.greenery",
+        "scene.mountain",
+        "scene.park"
+      ],
+      "parent": "scene.nature",
+      "children": [],
+      "description": "Among dense trees, where trunks fill the background and light reaches the subject only in broken patches.",
+      "examples": [
+        "a subject standing between tall trunks in dappled light"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a forest",
+      "negative_fragment": "not in a forest",
+      "search_boost": 1.2,
+      "sort_order": 230
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.mountain",
+      "category": "scene",
+      "label": "Mountain",
+      "aliases": [
+        "mountain",
+        "mountains",
+        "hills",
+        "alpine",
+        "peak",
+        "highlands",
+        "mountian",
+        "mountainside",
+        "mountain range"
+      ],
+      "related": [
+        "scene.forest",
+        "scene.field",
+        "weather.snow_on_ground"
+      ],
+      "parent": "scene.nature",
+      "children": [],
+      "description": "High ground of slopes and rock with very long views, so the horizon sits far away and often far below the subject.",
+      "examples": [
+        "a small figure on a ridge above a valley"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in the mountains",
+      "negative_fragment": "not in the mountains",
+      "search_boost": 1,
+      "sort_order": 240
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.desert",
+      "category": "scene",
+      "label": "Desert",
+      "aliases": [
+        "desert",
+        "dunes",
+        "sand dunes",
+        "arid landscape",
+        "sandy desert",
+        "wasteland",
+        "dessert",
+        "desrt"
+      ],
+      "related": [
+        "scene.beach",
+        "scene.field",
+        "weather.clear"
+      ],
+      "parent": "scene.nature",
+      "children": [],
+      "description": "Dry open land of sand or bare earth with almost nothing in it, so the subject stands alone against a huge empty background.",
+      "examples": [
+        "a lone figure on a dune under hard sun"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a desert landscape",
+      "negative_fragment": "not in a desert landscape",
+      "search_boost": 1,
+      "sort_order": 250
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.field",
+      "category": "scene",
+      "label": "Open field",
+      "aliases": [
+        "field",
+        "meadow",
+        "open field",
+        "grassland",
+        "countryside field",
+        "grassy field",
+        "paddock",
+        "feild",
+        "open grass"
+      ],
+      "related": [
+        "scene.mountain",
+        "scene.greenery",
+        "scene.riverside"
+      ],
+      "parent": "scene.nature",
+      "children": [],
+      "description": "Flat open ground covered in grass or crops, with a low horizon and a very large area of sky above the subject.",
+      "examples": [
+        "a subject waist-deep in long grass under wide sky"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in an open field",
+      "negative_fragment": "not in an open field",
+      "search_boost": 1,
+      "sort_order": 260
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.riverside",
+      "category": "scene",
+      "label": "Riverside",
+      "aliases": [
+        "riverside",
+        "river",
+        "riverbank",
+        "by the water",
+        "canal",
+        "waterfront",
+        "lakeside",
+        "river side",
+        "riverbanks"
+      ],
+      "related": [
+        "scene.bridge",
+        "scene.beach",
+        "scene.field"
+      ],
+      "parent": "scene.nature",
+      "children": [],
+      "description": "Beside moving water — a river, canal or lake edge — where the surface mirrors the sky and bounces light back onto the subject.",
+      "examples": [
+        "a figure on a canal path with water reflecting the sky"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "beside the water",
+      "negative_fragment": "not beside the water",
+      "search_boost": 1,
+      "sort_order": 270
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.park",
+      "category": "scene",
+      "label": "Park",
+      "aliases": [
+        "park",
+        "city park",
+        "public park",
+        "green space",
+        "gardens",
+        "botanical garden",
+        "parc",
+        "park path"
+      ],
+      "related": [
+        "scene.greenery",
+        "scene.forest",
+        "scene.plaza"
+      ],
+      "parent": "scene.nature",
+      "children": [],
+      "description": "A planted public green space inside a town, with grass, paths and trees but city buildings never far away.",
+      "examples": [
+        "a bench portrait under park trees"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a public park",
+      "negative_fragment": "not in a public park",
+      "search_boost": 1.1,
+      "sort_order": 280
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.bedroom",
+      "category": "scene",
+      "label": "Bedroom",
+      "aliases": [
+        "bedroom",
+        "bed",
+        "in bed",
+        "sleeping room",
+        "bed room",
+        "bedrom",
+        "boudoir",
+        "bedroom interior"
+      ],
+      "related": [
+        "scene.living_room",
+        "scene.bathroom",
+        "scene.home_interior"
+      ],
+      "parent": "scene.home_interior",
+      "children": [],
+      "description": "A private room built around a bed, usually soft and quiet and lit by one window or a single bedside lamp.",
+      "examples": [
+        "morning light across an unmade bed"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a bedroom",
+      "negative_fragment": "not in a bedroom",
+      "search_boost": 1.15,
+      "sort_order": 290
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.living_room",
+      "category": "scene",
+      "label": "Living room",
+      "aliases": [
+        "living room",
+        "lounge",
+        "sitting room",
+        "front room",
+        "couch",
+        "sofa area",
+        "livingroom",
+        "liveing room"
+      ],
+      "related": [
+        "scene.bedroom",
+        "scene.kitchen",
+        "props.chair"
+      ],
+      "parent": "scene.home_interior",
+      "children": [],
+      "description": "The main shared room of a home, with seating, a low table and everyday clutter arranged around the subject.",
+      "examples": [
+        "a subject curled on a sofa in lamplight"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a living room",
+      "negative_fragment": "not in a living room",
+      "search_boost": 1.1,
+      "sort_order": 300
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.kitchen",
+      "category": "scene",
+      "label": "Kitchen",
+      "aliases": [
+        "kitchen",
+        "cooking area",
+        "kitchen counter",
+        "in the kitchen",
+        "galley kitchen",
+        "kitchin",
+        "kithen"
+      ],
+      "related": [
+        "scene.living_room",
+        "scene.restaurant",
+        "scene.home_interior"
+      ],
+      "parent": "scene.home_interior",
+      "children": [],
+      "description": "The room where food is prepared, full of counters, cupboards and hard reflective surfaces that bounce light around.",
+      "examples": [
+        "a subject leaning on a kitchen counter"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a kitchen",
+      "negative_fragment": "not in a kitchen",
+      "search_boost": 1,
+      "sort_order": 310
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.bathroom",
+      "category": "scene",
+      "label": "Bathroom",
+      "aliases": [
+        "bathroom",
+        "bath",
+        "washroom",
+        "mirror bathroom",
+        "restroom",
+        "toilet",
+        "shower room",
+        "bathrom"
+      ],
+      "related": [
+        "scene.bedroom",
+        "scene.kitchen",
+        "scene.home_interior"
+      ],
+      "parent": "scene.home_interior",
+      "children": [],
+      "description": "A small tiled room with a mirror, a basin and hard surfaces, where light bounces and reflections become part of the picture.",
+      "examples": [
+        "a mirror portrait over a small tiled basin"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a bathroom",
+      "negative_fragment": "not in a bathroom",
+      "search_boost": 1,
+      "sort_order": 320
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.cafe",
+      "category": "scene",
+      "label": "Cafe",
+      "aliases": [
+        "cafe",
+        "coffee shop",
+        "coffeeshop",
+        "café",
+        "coffee house",
+        "espresso bar",
+        "cafeteria",
+        "caffe",
+        "cofee shop"
+      ],
+      "related": [
+        "scene.restaurant",
+        "scene.bar",
+        "props.coffee_cup"
+      ],
+      "parent": "scene.interior_public",
+      "children": [],
+      "description": "A small place serving coffee, with tables, a counter and big windows — one of the most common everyday interiors for portraits.",
+      "examples": [
+        "a subject by a cafe window with a cup on the table"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a cafe",
+      "negative_fragment": "not in a cafe",
+      "search_boost": 1.3,
+      "sort_order": 330
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.restaurant",
+      "category": "scene",
+      "label": "Restaurant",
+      "aliases": [
+        "restaurant",
+        "diner",
+        "dining room",
+        "eatery",
+        "bistro",
+        "place to eat",
+        "restaraunt",
+        "restrant"
+      ],
+      "related": [
+        "scene.cafe",
+        "scene.bar",
+        "scene.kitchen"
+      ],
+      "parent": "scene.interior_public",
+      "children": [],
+      "description": "An indoor dining room with laid tables and warm low lighting hung over each seat.",
+      "examples": [
+        "a couple at a candlelit dinner table"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a restaurant",
+      "negative_fragment": "not in a restaurant",
+      "search_boost": 1,
+      "sort_order": 340
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.bar",
+      "category": "scene",
+      "label": "Bar",
+      "aliases": [
+        "bar",
+        "pub",
+        "cocktail bar",
+        "nightclub",
+        "tavern",
+        "drinking spot",
+        "club interior",
+        "bar counter"
+      ],
+      "related": [
+        "scene.restaurant",
+        "scene.cafe",
+        "scene.neon_signage"
+      ],
+      "parent": "scene.interior_public",
+      "children": [],
+      "description": "A dark drinking room lit by small warm lamps and the bottles behind the counter, with deep shadow between each light.",
+      "examples": [
+        "a figure at a bar counter under one hanging lamp"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a bar",
+      "negative_fragment": "not in a bar",
+      "search_boost": 1.1,
+      "sort_order": 350
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.gallery",
+      "category": "scene",
+      "label": "Gallery or museum",
+      "aliases": [
+        "gallery",
+        "art gallery",
+        "museum",
+        "exhibition",
+        "white cube",
+        "exhibition hall",
+        "galery",
+        "musuem"
+      ],
+      "related": [
+        "scene.library",
+        "scene.studio_seamless",
+        "scene.interior_public"
+      ],
+      "parent": "scene.interior_public",
+      "children": [],
+      "description": "A quiet exhibition room with plain walls, even light and a lot of empty space around the subject.",
+      "examples": [
+        "a viewer dwarfed by a white gallery wall"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in an art gallery",
+      "negative_fragment": "not in an art gallery",
+      "search_boost": 1,
+      "sort_order": 360
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.library",
+      "category": "scene",
+      "label": "Library",
+      "aliases": [
+        "library",
+        "bookshelves",
+        "reading room",
+        "archive",
+        "study hall",
+        "book shelves",
+        "libary",
+        "librery"
+      ],
+      "related": [
+        "scene.gallery",
+        "scene.office",
+        "props.book"
+      ],
+      "parent": "scene.interior_public",
+      "children": [],
+      "description": "A room lined with bookshelves and reading tables, usually calm and evenly lit from above.",
+      "examples": [
+        "a reader between tall shelves of books"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a library",
+      "negative_fragment": "not in a library",
+      "search_boost": 1,
+      "sort_order": 370
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.hotel_lobby",
+      "category": "scene",
+      "label": "Hotel lobby",
+      "aliases": [
+        "hotel lobby",
+        "lobby",
+        "reception",
+        "hotel interior",
+        "foyer",
+        "hotel reception",
+        "lobby area",
+        "hotel loby"
+      ],
+      "related": [
+        "scene.office",
+        "scene.airport_terminal",
+        "scene.interior_public"
+      ],
+      "parent": "scene.interior_public",
+      "children": [],
+      "description": "The large public entrance hall of a hotel, with seating groups, polished floors and a mix of lamp and daylight.",
+      "examples": [
+        "a traveller waiting in a polished lobby"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a hotel lobby",
+      "negative_fragment": "not in a hotel lobby",
+      "search_boost": 1,
+      "sort_order": 380
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.convenience_store",
+      "category": "scene",
+      "label": "Convenience store",
+      "aliases": [
+        "convenience store",
+        "corner shop",
+        "mini mart",
+        "bodega",
+        "24 hour store",
+        "grocery store",
+        "supermarket",
+        "konbini",
+        "conveinence store"
+      ],
+      "related": [
+        "scene.storefront",
+        "scene.cafe",
+        "props.shopping_bag"
+      ],
+      "parent": "scene.interior_public",
+      "children": [],
+      "description": "A small brightly lit shop of packed shelves under hard overhead strip lighting — flat, colourful and unmistakably late-night.",
+      "examples": [
+        "a subject at a bright shop fridge after midnight"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "inside a convenience store",
+      "negative_fragment": "not inside a convenience store",
+      "search_boost": 1.15,
+      "sort_order": 390
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.office",
+      "category": "scene",
+      "label": "Office",
+      "aliases": [
+        "office",
+        "workplace",
+        "desk",
+        "corporate interior",
+        "meeting room",
+        "work office",
+        "offce",
+        "office space"
+      ],
+      "related": [
+        "scene.library",
+        "scene.hotel_lobby",
+        "props.table"
+      ],
+      "parent": "scene.interior_public",
+      "children": [],
+      "description": "A place of work with desks, screens and ceiling lights, often glass-walled and evenly bright everywhere.",
+      "examples": [
+        "a subject at a desk beside a glass partition"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in an office",
+      "negative_fragment": "not in an office",
+      "search_boost": 1,
+      "sort_order": 400
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.parking_garage",
+      "category": "scene",
+      "label": "Parking garage",
+      "aliases": [
+        "parking garage",
+        "multi storey car park",
+        "underground parking",
+        "car park interior",
+        "parking deck",
+        "garage",
+        "underground garage",
+        "parking structure"
+      ],
+      "related": [
+        "scene.parking_lot",
+        "scene.tunnel",
+        "scene.urban"
+      ],
+      "parent": "scene.interior_public",
+      "children": [],
+      "description": "A concrete structure of parking floors with low ceilings, pillars and rows of harsh overhead lights — a favourite gritty urban interior.",
+      "examples": [
+        "a figure between concrete pillars under strip lights"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a concrete parking garage",
+      "negative_fragment": "not in a concrete parking garage",
+      "search_boost": 1.2,
+      "sort_order": 410
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.subway_station",
+      "category": "scene",
+      "label": "Subway station",
+      "aliases": [
+        "subway station",
+        "metro station",
+        "underground station",
+        "train station",
+        "platform",
+        "tube station",
+        "railway station",
+        "subway platform",
+        "metro"
+      ],
+      "related": [
+        "scene.subway_train_interior",
+        "scene.tunnel",
+        "scene.crowd"
+      ],
+      "parent": "scene.transit",
+      "children": [],
+      "description": "A rail station platform above or below ground, with tiled walls, signage and trains arriving beside the subject.",
+      "examples": [
+        "a subject alone on a tiled platform as a train blurs past"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a subway station",
+      "negative_fragment": "not in a subway station",
+      "search_boost": 1.25,
+      "sort_order": 420
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.subway_train_interior",
+      "category": "scene",
+      "label": "Subway train interior",
+      "aliases": [
+        "subway car",
+        "inside a train",
+        "train interior",
+        "metro car",
+        "train carriage",
+        "on the subway",
+        "tube carriage",
+        "in the train"
+      ],
+      "related": [
+        "scene.subway_station",
+        "scene.car_interior",
+        "scene.crowd"
+      ],
+      "parent": "scene.transit",
+      "children": [],
+      "description": "Inside a moving carriage, with handrails, bench seats, darkening windows and evenly spaced ceiling lights.",
+      "examples": [
+        "a commuter holding a rail in a lit carriage"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "inside a subway train",
+      "negative_fragment": "not inside a subway train",
+      "search_boost": 1,
+      "sort_order": 430
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.airport_terminal",
+      "category": "scene",
+      "label": "Airport terminal",
+      "aliases": [
+        "airport",
+        "airport terminal",
+        "departure hall",
+        "departures",
+        "boarding gate",
+        "airport lounge",
+        "terminal",
+        "airoport",
+        "aeroport"
+      ],
+      "related": [
+        "scene.hotel_lobby",
+        "scene.subway_station",
+        "props.suitcase"
+      ],
+      "parent": "scene.transit",
+      "children": [],
+      "description": "The large glass-walled hall of an airport, with wide floors, gates, signage and daylight pouring through full-height windows.",
+      "examples": [
+        "a traveller crossing a wide bright departure hall"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in an airport terminal",
+      "negative_fragment": "not in an airport terminal",
+      "search_boost": 1.15,
+      "sort_order": 440
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.car_interior",
+      "category": "scene",
+      "label": "Car interior",
+      "aliases": [
+        "car interior",
+        "inside a car",
+        "in the car",
+        "passenger seat",
+        "driving",
+        "backseat",
+        "car seat",
+        "car intirior"
+      ],
+      "related": [
+        "scene.subway_train_interior",
+        "scene.transit",
+        "props.car"
+      ],
+      "parent": "scene.transit",
+      "children": [],
+      "description": "Inside a car, framed by the seat, the window and the windscreen, with light entering from outside and shifting as the car moves.",
+      "examples": [
+        "a passenger lit by passing street lamps"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "inside a car",
+      "negative_fragment": "not inside a car",
+      "search_boost": 1.1,
+      "sort_order": 450
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.studio_seamless",
+      "category": "scene",
+      "label": "Seamless studio backdrop",
+      "aliases": [
+        "seamless",
+        "studio backdrop",
+        "paper backdrop",
+        "plain background",
+        "solid background",
+        "seamless paper",
+        "studio background",
+        "plain backdrop",
+        "seemless"
+      ],
+      "related": [
+        "scene.studio_cyclorama",
+        "scene.green_screen",
+        "scene.gallery"
+      ],
+      "parent": "scene.studio",
+      "children": [],
+      "description": "A plain roll of coloured paper behind the subject with no visible corner or floor line, so nothing in the background competes with them.",
+      "examples": [
+        "a clean portrait on plain grey paper"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "against a seamless studio backdrop",
+      "negative_fragment": "not against a seamless studio backdrop",
+      "search_boost": 1.2,
+      "sort_order": 460
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.studio_cyclorama",
+      "category": "scene",
+      "label": "Cyclorama studio",
+      "aliases": [
+        "cyclorama",
+        "cyc wall",
+        "infinity cove",
+        "curved wall studio",
+        "infinity wall",
+        "white cove",
+        "cyc studio",
+        "cyclorama wall"
+      ],
+      "related": [
+        "scene.studio_seamless",
+        "scene.green_screen",
+        "scene.studio"
+      ],
+      "parent": "scene.studio",
+      "children": [],
+      "description": "A built studio wall that curves smoothly into the floor, so the space around the subject looks endless in every direction.",
+      "examples": [
+        "a full-length figure in an endless white space"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a white cyclorama studio",
+      "negative_fragment": "not in a white cyclorama studio",
+      "search_boost": 1,
+      "sort_order": 470
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.green_screen",
+      "category": "scene",
+      "label": "Green screen",
+      "aliases": [
+        "green screen",
+        "chroma key",
+        "chromakey",
+        "blue screen",
+        "keying background",
+        "greenscreen",
+        "green screen studio"
+      ],
+      "related": [
+        "scene.studio_seamless",
+        "scene.studio_cyclorama",
+        "scene.studio"
+      ],
+      "parent": "scene.studio",
+      "children": [],
+      "description": "A flat green wall used so the background can be replaced later; the background itself carries no scene information at all.",
+      "examples": [
+        "a subject standing in front of a flat green wall"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "location",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in front of a green screen",
+      "negative_fragment": "not in front of a green screen",
+      "search_boost": 0.9,
+      "sort_order": 480
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.crowd",
+      "category": "scene",
+      "label": "Crowd",
+      "aliases": [
+        "crowd",
+        "busy",
+        "people in the background",
+        "crowded",
+        "packed",
+        "passers by",
+        "many people",
+        "bustling",
+        "croud"
+      ],
+      "related": [
+        "scene.urban_street",
+        "scene.plaza",
+        "scene.empty_space"
+      ],
+      "parent": "scene.setting_detail",
+      "children": [],
+      "description": "Other people fill the space around the subject, so the frame feels busy and the subject has to be picked out of a moving mass.",
+      "examples": [
+        "a face held still inside a blurred moving crowd"
+      ],
+      "conflicts_with": [
+        "scene.empty_space"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "surrounded by a crowd of people",
+      "negative_fragment": "not surrounded by a crowd of people",
+      "search_boost": 1.15,
+      "sort_order": 490
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.empty_space",
+      "category": "scene",
+      "label": "Empty space",
+      "aliases": [
+        "empty",
+        "deserted",
+        "nobody around",
+        "no people",
+        "abandoned",
+        "quiet street",
+        "desolate",
+        "emtpy",
+        "empy"
+      ],
+      "related": [
+        "scene.crowd",
+        "scene.parking_lot",
+        "scene.desert"
+      ],
+      "parent": "scene.setting_detail",
+      "children": [],
+      "description": "The place is empty of other people, which isolates the subject and gives the setting a still, quiet feeling.",
+      "examples": [
+        "a single figure on a deserted street at dawn"
+      ],
+      "conflicts_with": [
+        "scene.crowd"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in an empty, deserted space",
+      "negative_fragment": "not in an empty, deserted space",
+      "search_boost": 1.1,
+      "sort_order": 500
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.graffiti_wall",
+      "category": "scene",
+      "label": "Graffiti wall",
+      "aliases": [
+        "graffiti",
+        "graffiti wall",
+        "street art",
+        "spray paint wall",
+        "tagged wall",
+        "mural",
+        "grafiti",
+        "graffitti"
+      ],
+      "related": [
+        "scene.alley",
+        "scene.brick_wall",
+        "scene.urban_street"
+      ],
+      "parent": "scene.setting_detail",
+      "children": [],
+      "description": "A wall covered in spray-painted art or tags, putting a loud colourful pattern directly behind the subject.",
+      "examples": [
+        "a portrait against a painted wall of tags"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "against a graffiti-covered wall",
+      "negative_fragment": "not against a graffiti-covered wall",
+      "search_boost": 1,
+      "sort_order": 510
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.brick_wall",
+      "category": "scene",
+      "label": "Brick wall",
+      "aliases": [
+        "brick wall",
+        "brickwork",
+        "red brick",
+        "exposed brick",
+        "plain wall",
+        "wall background",
+        "brik wall",
+        "brickwall"
+      ],
+      "related": [
+        "scene.graffiti_wall",
+        "scene.alley",
+        "scene.setting_detail"
+      ],
+      "parent": "scene.setting_detail",
+      "children": [],
+      "description": "A plain brick surface right behind the subject — a simple textured backdrop that keeps the background flat and close.",
+      "examples": [
+        "a subject leaning back on old red brick"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "against a brick wall",
+      "negative_fragment": "not against a brick wall",
+      "search_boost": 1,
+      "sort_order": 520
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.greenery",
+      "category": "scene",
+      "label": "Greenery",
+      "aliases": [
+        "greenery",
+        "plants",
+        "foliage",
+        "leaves",
+        "vegetation",
+        "bushes",
+        "houseplants",
+        "green plants",
+        "greenary"
+      ],
+      "related": [
+        "scene.park",
+        "scene.forest",
+        "scene.home_interior"
+      ],
+      "parent": "scene.setting_detail",
+      "children": [],
+      "description": "Plants and leaves in the frame, indoors or out, adding green shapes and soft shadow patterns around the subject.",
+      "examples": [
+        "leaves crossing the front of the frame"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with plants and foliage around",
+      "negative_fragment": "no plants and foliage around",
+      "search_boost": 1,
+      "sort_order": 530
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.staircase",
+      "category": "scene",
+      "label": "Staircase",
+      "aliases": [
+        "stairs",
+        "staircase",
+        "steps",
+        "stairwell",
+        "flight of stairs",
+        "fire escape",
+        "stair case",
+        "stairz"
+      ],
+      "related": [
+        "scene.parking_garage",
+        "scene.subway_station",
+        "scene.home_interior"
+      ],
+      "parent": "scene.setting_detail",
+      "children": [],
+      "description": "Steps in the frame, indoors or outdoors, which add strong diagonal lines and let the subject sit above or below the camera.",
+      "examples": [
+        "a figure seated halfway up a concrete stairwell"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "on a staircase",
+      "negative_fragment": "not on a staircase",
+      "search_boost": 1,
+      "sort_order": 540
+    },
+    {
+      "schema_version": "1.0",
+      "id": "scene.window_view",
+      "category": "scene",
+      "label": "Window view",
+      "aliases": [
+        "window",
+        "by the window",
+        "window view",
+        "looking out the window",
+        "glass window",
+        "windowsill",
+        "widow view",
+        "window seat"
+      ],
+      "related": [
+        "scene.home_interior",
+        "scene.cafe",
+        "scene.city_skyline"
+      ],
+      "parent": "scene.setting_detail",
+      "children": [],
+      "description": "A window is part of the setting, letting outside light in and showing a slice of whatever lies beyond the room.",
+      "examples": [
+        "a subject sitting against bright window glass"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "beside a window",
+      "negative_fragment": "not beside a window",
+      "search_boost": 1.1,
+      "sort_order": 550
+    },
+    {
+      "schema_version": "1.0",
+      "id": "time.day",
+      "category": "time",
+      "label": "Daytime",
+      "aliases": [
+        "day",
+        "daytime",
+        "daylight",
+        "during the day",
+        "in the day",
+        "broad daylight",
+        "day time",
+        "daylite"
+      ],
+      "related": [
+        "time.morning",
+        "time.midday",
+        "time.night"
+      ],
+      "parent": null,
+      "children": [
+        "time.morning",
+        "time.midday",
+        "time.afternoon",
+        "time.golden_hour"
+      ],
+      "description": "Any time between sunrise and sunset, when the sun itself is the main light in the picture.",
+      "examples": [
+        "a scene lit by plain daylight"
+      ],
+      "conflicts_with": [
+        "time.night"
+      ],
+      "exclusivity_group": "time_of_day",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in daylight",
+      "negative_fragment": "not in daylight",
+      "search_boost": 1.1,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "time.morning",
+      "category": "time",
+      "label": "Morning",
+      "aliases": [
+        "morning",
+        "early morning",
+        "am",
+        "before noon",
+        "morning light",
+        "mornin",
+        "moring",
+        "in the morning"
+      ],
+      "related": [
+        "time.dawn",
+        "time.midday",
+        "time.golden_hour"
+      ],
+      "parent": "time.day",
+      "children": [],
+      "description": "The first hours after sunrise, when the sun is still low and the light is soft, clean and slanted across everything.",
+      "examples": [
+        "low clean light across an empty street"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "time_of_day",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in the morning",
+      "negative_fragment": "not in the morning",
+      "search_boost": 1.15,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "time.midday",
+      "category": "time",
+      "label": "Midday",
+      "aliases": [
+        "midday",
+        "noon",
+        "high noon",
+        "middle of the day",
+        "overhead sun",
+        "lunchtime",
+        "mid day",
+        "midady"
+      ],
+      "related": [
+        "time.morning",
+        "time.afternoon",
+        "time.day"
+      ],
+      "parent": "time.day",
+      "children": [],
+      "description": "The middle of the day with the sun almost straight overhead, which gives short hard shadows and very bright, contrasty light.",
+      "examples": [
+        "hard short shadows directly under the subject"
+      ],
+      "conflicts_with": [
+        "time.midnight"
+      ],
+      "exclusivity_group": "time_of_day",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "at midday",
+      "negative_fragment": "not at midday",
+      "search_boost": 1,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "time.afternoon",
+      "category": "time",
+      "label": "Afternoon",
+      "aliases": [
+        "afternoon",
+        "late afternoon",
+        "pm",
+        "after lunch",
+        "mid afternoon",
+        "aftrnoon",
+        "afternon"
+      ],
+      "related": [
+        "time.midday",
+        "time.golden_hour",
+        "time.morning"
+      ],
+      "parent": "time.day",
+      "children": [],
+      "description": "The stretch after noon when the sun starts dropping again and shadows grow longer and warmer.",
+      "examples": [
+        "long warm shadows stretching down a pavement"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "time_of_day",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in the afternoon",
+      "negative_fragment": "not in the afternoon",
+      "search_boost": 1,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "time.golden_hour",
+      "category": "time",
+      "label": "Golden hour",
+      "aliases": [
+        "golden hour",
+        "magic hour",
+        "warm light",
+        "sunset light",
+        "late sun",
+        "golden light",
+        "goldenhour",
+        "golden our",
+        "magic light"
+      ],
+      "related": [
+        "time.sunset",
+        "time.sunrise",
+        "time.afternoon"
+      ],
+      "parent": "time.day",
+      "children": [],
+      "description": "The hour just after sunrise or just before sunset, when sunlight travels low through the air and turns warm, golden and soft on skin.",
+      "examples": [
+        "warm low sun grazing across a face"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "time_of_day",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "during golden hour",
+      "negative_fragment": "not during golden hour",
+      "search_boost": 1.45,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "time.twilight",
+      "category": "time",
+      "label": "Twilight",
+      "aliases": [
+        "twilight",
+        "half light",
+        "between day and night",
+        "gloaming",
+        "in between light",
+        "twighlight",
+        "twilite"
+      ],
+      "related": [
+        "time.blue_hour",
+        "time.dusk",
+        "time.day"
+      ],
+      "parent": null,
+      "children": [
+        "time.dawn",
+        "time.sunrise",
+        "time.sunset",
+        "time.blue_hour",
+        "time.dusk"
+      ],
+      "description": "The in-between period when the sun is under the horizon but the sky is still lit, so there is light in the scene without a visible sun.",
+      "examples": [
+        "a sky still glowing after the sun has gone"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "time_of_day",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "at twilight",
+      "negative_fragment": "not at twilight",
+      "search_boost": 1.1,
+      "sort_order": 60
+    },
+    {
+      "schema_version": "1.0",
+      "id": "time.dawn",
+      "category": "time",
+      "label": "Dawn",
+      "aliases": [
+        "dawn",
+        "daybreak",
+        "first light",
+        "break of day",
+        "just before sunrise",
+        "sunup",
+        "dawn light",
+        "dawnlight"
+      ],
+      "related": [
+        "time.sunrise",
+        "time.morning",
+        "time.blue_hour"
+      ],
+      "parent": "time.twilight",
+      "children": [],
+      "description": "The first light in the sky before the sun itself appears — cool, dim, and usually very quiet and empty.",
+      "examples": [
+        "a cold pale sky over an empty road"
+      ],
+      "conflicts_with": [
+        "time.dusk"
+      ],
+      "exclusivity_group": "time_of_day",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "at dawn",
+      "negative_fragment": "not at dawn",
+      "search_boost": 1.15,
+      "sort_order": 70
+    },
+    {
+      "schema_version": "1.0",
+      "id": "time.sunrise",
+      "category": "time",
+      "label": "Sunrise",
+      "aliases": [
+        "sunrise",
+        "sun coming up",
+        "rising sun",
+        "early sunrise",
+        "sun rise",
+        "sunrize",
+        "sun up"
+      ],
+      "related": [
+        "time.dawn",
+        "time.golden_hour",
+        "time.morning"
+      ],
+      "parent": "time.twilight",
+      "children": [],
+      "description": "The moment the sun clears the horizon and throws long low light straight across the scene.",
+      "examples": [
+        "a long shadow thrown by the first sun"
+      ],
+      "conflicts_with": [
+        "time.sunset"
+      ],
+      "exclusivity_group": "time_of_day",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "at sunrise",
+      "negative_fragment": "not at sunrise",
+      "search_boost": 1,
+      "sort_order": 80
+    },
+    {
+      "schema_version": "1.0",
+      "id": "time.sunset",
+      "category": "time",
+      "label": "Sunset",
+      "aliases": [
+        "sunset",
+        "sundown",
+        "sun going down",
+        "setting sun",
+        "evening sun",
+        "sun set",
+        "sunet"
+      ],
+      "related": [
+        "time.golden_hour",
+        "time.dusk",
+        "time.blue_hour"
+      ],
+      "parent": "time.twilight",
+      "children": [],
+      "description": "The moment the sun drops below the horizon, with the strongest colour of the day left behind in the sky.",
+      "examples": [
+        "an orange sky behind a silhouetted figure"
+      ],
+      "conflicts_with": [
+        "time.sunrise"
+      ],
+      "exclusivity_group": "time_of_day",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "at sunset",
+      "negative_fragment": "not at sunset",
+      "search_boost": 1.2,
+      "sort_order": 90
+    },
+    {
+      "schema_version": "1.0",
+      "id": "time.blue_hour",
+      "category": "time",
+      "label": "Blue hour",
+      "aliases": [
+        "blue hour",
+        "blue light",
+        "after sunset",
+        "deep twilight",
+        "cold twilight",
+        "bluehour",
+        "blue our"
+      ],
+      "related": [
+        "time.dusk",
+        "time.sunset",
+        "time.night"
+      ],
+      "parent": "time.twilight",
+      "children": [],
+      "description": "The short window after sunset (or before sunrise) when the sky goes deep blue and street lights are already on but the sky is not black yet.",
+      "examples": [
+        "a deep blue sky above warm shop lights"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "time_of_day",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "during blue hour",
+      "negative_fragment": "not during blue hour",
+      "search_boost": 1.35,
+      "sort_order": 100
+    },
+    {
+      "schema_version": "1.0",
+      "id": "time.dusk",
+      "category": "time",
+      "label": "Dusk",
+      "aliases": [
+        "dusk",
+        "nightfall",
+        "evening twilight",
+        "getting dark",
+        "last light",
+        "dusk time",
+        "dusck"
+      ],
+      "related": [
+        "time.blue_hour",
+        "time.evening",
+        "time.sunset"
+      ],
+      "parent": "time.twilight",
+      "children": [],
+      "description": "The end of twilight as the last light drains out of the sky and artificial lights take over the scene.",
+      "examples": [
+        "street lamps coming on against a fading sky"
+      ],
+      "conflicts_with": [
+        "time.dawn"
+      ],
+      "exclusivity_group": "time_of_day",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "at dusk",
+      "negative_fragment": "not at dusk",
+      "search_boost": 1,
+      "sort_order": 110
+    },
+    {
+      "schema_version": "1.0",
+      "id": "time.night",
+      "category": "time",
+      "label": "Night",
+      "aliases": [
+        "night",
+        "nighttime",
+        "at night",
+        "after dark",
+        "dark",
+        "night time",
+        "nite",
+        "nigth"
+      ],
+      "related": [
+        "time.midnight",
+        "time.blue_hour",
+        "scene.night_city"
+      ],
+      "parent": null,
+      "children": [
+        "time.evening",
+        "time.midnight"
+      ],
+      "description": "After dark, when the sun is gone and every light in the picture is artificial, from the moon, or from the city itself.",
+      "examples": [
+        "a subject lit only by shop windows and street lamps"
+      ],
+      "conflicts_with": [
+        "time.day"
+      ],
+      "exclusivity_group": "time_of_day",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "at night",
+      "negative_fragment": "not at night",
+      "search_boost": 1.35,
+      "sort_order": 120
+    },
+    {
+      "schema_version": "1.0",
+      "id": "time.evening",
+      "category": "time",
+      "label": "Evening",
+      "aliases": [
+        "evening",
+        "early evening",
+        "after dinner",
+        "evening time",
+        "late evening",
+        "evning",
+        "eveing"
+      ],
+      "related": [
+        "time.dusk",
+        "time.night",
+        "time.midnight"
+      ],
+      "parent": "time.night",
+      "children": [],
+      "description": "The early part of the night, when it is fully dark outside but streets, homes and shops are still busy and lit.",
+      "examples": [
+        "warm windows along a dark street still full of people"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "time_of_day",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in the evening",
+      "negative_fragment": "not in the evening",
+      "search_boost": 1,
+      "sort_order": 130
+    },
+    {
+      "schema_version": "1.0",
+      "id": "time.midnight",
+      "category": "time",
+      "label": "Midnight",
+      "aliases": [
+        "midnight",
+        "middle of the night",
+        "late night",
+        "3am",
+        "dead of night",
+        "after midnight",
+        "mid night",
+        "midnite"
+      ],
+      "related": [
+        "time.night",
+        "time.evening",
+        "scene.night_city"
+      ],
+      "parent": "time.night",
+      "children": [],
+      "description": "The deepest part of the night, when almost nothing is still lit and the streets are empty.",
+      "examples": [
+        "a single lit sign on an otherwise black street"
+      ],
+      "conflicts_with": [
+        "time.midday"
+      ],
+      "exclusivity_group": "time_of_day",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in the dead of night",
+      "negative_fragment": "not in the dead of night",
+      "search_boost": 1.1,
+      "sort_order": 140
+    },
+    {
+      "schema_version": "1.0",
+      "id": "weather.clear",
+      "category": "weather",
+      "label": "Clear sky",
+      "aliases": [
+        "clear",
+        "clear sky",
+        "sunny",
+        "blue sky",
+        "no clouds",
+        "fine weather",
+        "sunshine",
+        "cloudless",
+        "suny"
+      ],
+      "related": [
+        "weather.partly_cloudy",
+        "weather.cloudy",
+        "time.midday"
+      ],
+      "parent": null,
+      "children": [],
+      "description": "An open sky with no cloud in the way, so sunlight lands directly on the scene and every shadow has a hard edge.",
+      "examples": [
+        "hard sun and a deep blue sky"
+      ],
+      "conflicts_with": [
+        "weather.overcast",
+        "weather.rain",
+        "weather.snow",
+        "weather.thunderstorm"
+      ],
+      "exclusivity_group": "weather_primary",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "under a clear sky",
+      "negative_fragment": "not under a clear sky",
+      "search_boost": 1.2,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "weather.cloudy",
+      "category": "weather",
+      "label": "Cloudy",
+      "aliases": [
+        "cloudy",
+        "clouds",
+        "cloud cover",
+        "some clouds",
+        "clouded sky",
+        "cloudly",
+        "cloudey"
+      ],
+      "related": [
+        "weather.partly_cloudy",
+        "weather.overcast",
+        "weather.clear"
+      ],
+      "parent": null,
+      "children": [
+        "weather.partly_cloudy",
+        "weather.overcast"
+      ],
+      "description": "Cloud is present in the sky, softening the sunlight without shutting it out completely.",
+      "examples": [
+        "soft sun coming and going behind cloud"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "weather_primary",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "under a cloudy sky",
+      "negative_fragment": "not under a cloudy sky",
+      "search_boost": 1,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "weather.partly_cloudy",
+      "category": "weather",
+      "label": "Partly cloudy",
+      "aliases": [
+        "partly cloudy",
+        "scattered clouds",
+        "broken cloud",
+        "sun and clouds",
+        "partly sunny",
+        "part cloudy",
+        "patchy cloud"
+      ],
+      "related": [
+        "weather.cloudy",
+        "weather.clear",
+        "weather.overcast"
+      ],
+      "parent": "weather.cloudy",
+      "children": [],
+      "description": "Separate clouds drift across an otherwise open sky, so the light keeps switching between hard sun and soft shade.",
+      "examples": [
+        "bright sun between drifting clouds"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "weather_primary",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "under scattered clouds",
+      "negative_fragment": "not under scattered clouds",
+      "search_boost": 1,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "weather.overcast",
+      "category": "weather",
+      "label": "Overcast",
+      "aliases": [
+        "overcast",
+        "grey sky",
+        "gray sky",
+        "flat light",
+        "dull sky",
+        "white sky",
+        "cloudy all over",
+        "overcaste",
+        "grey day"
+      ],
+      "related": [
+        "weather.cloudy",
+        "weather.rain",
+        "weather.fog"
+      ],
+      "parent": "weather.cloudy",
+      "children": [],
+      "description": "The sky is completely covered by cloud, which turns it into one huge soft light source: shadows nearly vanish and colours go flat and cool.",
+      "examples": [
+        "even shadowless light under a white sky"
+      ],
+      "conflicts_with": [
+        "weather.clear"
+      ],
+      "exclusivity_group": "weather_primary",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "under a flat overcast sky",
+      "negative_fragment": "not under a flat overcast sky",
+      "search_boost": 1.25,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "weather.rain",
+      "category": "weather",
+      "label": "Rain",
+      "aliases": [
+        "rain",
+        "raining",
+        "rainy",
+        "wet weather",
+        "rainfall",
+        "in the rain",
+        "rainy day",
+        "raning",
+        "rian"
+      ],
+      "related": [
+        "weather.drizzle",
+        "weather.heavy_rain",
+        "weather.wet_ground"
+      ],
+      "parent": null,
+      "children": [
+        "weather.drizzle",
+        "weather.heavy_rain"
+      ],
+      "description": "Water is falling from the sky, which darkens the scene, puts streaks in the air and makes every surface wet and reflective.",
+      "examples": [
+        "rain streaks crossing a lit street"
+      ],
+      "conflicts_with": [
+        "weather.clear",
+        "weather.snow"
+      ],
+      "exclusivity_group": "weather_primary",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in the rain",
+      "negative_fragment": "not in the rain",
+      "search_boost": 1.35,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "weather.drizzle",
+      "category": "weather",
+      "label": "Drizzle",
+      "aliases": [
+        "drizzle",
+        "light rain",
+        "spitting rain",
+        "misty rain",
+        "fine rain",
+        "drizzling",
+        "drizel"
+      ],
+      "related": [
+        "weather.rain",
+        "weather.mist",
+        "weather.wet_ground"
+      ],
+      "parent": "weather.rain",
+      "children": [],
+      "description": "Very fine rain that barely shows in the air but still soaks surfaces and dulls the light.",
+      "examples": [
+        "a faint wet sheen with no visible drops"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "weather_primary",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in light drizzle",
+      "negative_fragment": "not in light drizzle",
+      "search_boost": 1,
+      "sort_order": 60
+    },
+    {
+      "schema_version": "1.0",
+      "id": "weather.heavy_rain",
+      "category": "weather",
+      "label": "Heavy rain",
+      "aliases": [
+        "heavy rain",
+        "downpour",
+        "pouring rain",
+        "torrential rain",
+        "rain storm",
+        "bucketing down",
+        "pouring",
+        "heavy raine"
+      ],
+      "related": [
+        "weather.rain",
+        "weather.thunderstorm",
+        "weather.wet_ground"
+      ],
+      "parent": "weather.rain",
+      "children": [],
+      "description": "Rain hard enough to be a visible wall of water, bouncing off the ground and hiding whatever is far away.",
+      "examples": [
+        "rain bouncing off the road around a figure"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "weather_primary",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in heavy pouring rain",
+      "negative_fragment": "not in heavy pouring rain",
+      "search_boost": 1,
+      "sort_order": 70
+    },
+    {
+      "schema_version": "1.0",
+      "id": "weather.snow",
+      "category": "weather",
+      "label": "Snow",
+      "aliases": [
+        "snow",
+        "snowing",
+        "snowfall",
+        "snowy",
+        "winter snow",
+        "falling snow",
+        "snowin",
+        "snowy weather"
+      ],
+      "related": [
+        "weather.blizzard",
+        "weather.snow_on_ground",
+        "weather.wind"
+      ],
+      "parent": null,
+      "children": [
+        "weather.blizzard"
+      ],
+      "description": "Snow is falling, filling the air with slow white flakes and muffling both contrast and colour.",
+      "examples": [
+        "flakes drifting through lamp light"
+      ],
+      "conflicts_with": [
+        "weather.clear",
+        "weather.rain"
+      ],
+      "exclusivity_group": "weather_primary",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in falling snow",
+      "negative_fragment": "not in falling snow",
+      "search_boost": 1.2,
+      "sort_order": 80
+    },
+    {
+      "schema_version": "1.0",
+      "id": "weather.blizzard",
+      "category": "weather",
+      "label": "Blizzard",
+      "aliases": [
+        "blizzard",
+        "snow storm",
+        "whiteout",
+        "heavy snow",
+        "driving snow",
+        "snowstorm",
+        "blizard"
+      ],
+      "related": [
+        "weather.snow",
+        "weather.wind",
+        "weather.snow_on_ground"
+      ],
+      "parent": "weather.snow",
+      "children": [],
+      "description": "Snow driven hard by wind until the air is nearly white and anything more than a few steps away disappears.",
+      "examples": [
+        "a figure half lost in driving white snow"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": "weather_primary",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in a blizzard",
+      "negative_fragment": "not in a blizzard",
+      "search_boost": 1,
+      "sort_order": 90
+    },
+    {
+      "schema_version": "1.0",
+      "id": "weather.thunderstorm",
+      "category": "weather",
+      "label": "Thunderstorm",
+      "aliases": [
+        "thunderstorm",
+        "storm",
+        "lightning",
+        "stormy",
+        "thunder",
+        "electrical storm",
+        "storm clouds",
+        "thunder storm",
+        "stormy weather"
+      ],
+      "related": [
+        "weather.heavy_rain",
+        "weather.overcast",
+        "weather.wind"
+      ],
+      "parent": null,
+      "children": [],
+      "description": "A storm of dark towering cloud, lightning and rain, where the light can jump from very dark to blindingly bright in an instant.",
+      "examples": [
+        "a black sky split by a lightning flash"
+      ],
+      "conflicts_with": [
+        "weather.clear"
+      ],
+      "exclusivity_group": "weather_primary",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "during a thunderstorm",
+      "negative_fragment": "not during a thunderstorm",
+      "search_boost": 1,
+      "sort_order": 100
+    },
+    {
+      "schema_version": "1.0",
+      "id": "weather.atmospherics",
+      "category": "weather",
+      "label": "Atmospherics",
+      "aliases": [
+        "atmosphere",
+        "atmospherics",
+        "air conditions",
+        "atmospheric effects",
+        "weather effects",
+        "ground conditions",
+        "atmoshperics"
+      ],
+      "related": [
+        "weather.fog",
+        "weather.haze",
+        "weather.wet_ground"
+      ],
+      "parent": null,
+      "children": [
+        "weather.fog",
+        "weather.mist",
+        "weather.haze",
+        "weather.wind",
+        "weather.wet_ground",
+        "weather.snow_on_ground"
+      ],
+      "description": "Secondary conditions in the air or on the ground. They sit on top of whatever the main weather is, so combinations like rain plus fog are normal rather than contradictory.",
+      "examples": [
+        "thin air and a wet road under one sky"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with visible atmosphere in the air",
+      "negative_fragment": "no visible atmosphere in the air",
+      "search_boost": 0.9,
+      "sort_order": 110
+    },
+    {
+      "schema_version": "1.0",
+      "id": "weather.fog",
+      "category": "weather",
+      "label": "Fog",
+      "aliases": [
+        "fog",
+        "foggy",
+        "thick fog",
+        "low cloud",
+        "pea souper",
+        "fogy",
+        "foggy weather",
+        "fog bank"
+      ],
+      "related": [
+        "weather.mist",
+        "weather.haze",
+        "weather.overcast"
+      ],
+      "parent": "weather.atmospherics",
+      "children": [],
+      "description": "Thick water vapour in the air that hides everything past a short distance and turns anything further away into a soft grey outline.",
+      "examples": [
+        "street lamps as soft glowing balls in grey air"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with thick fog in the air",
+      "negative_fragment": "no thick fog in the air",
+      "search_boost": 1.3,
+      "sort_order": 120
+    },
+    {
+      "schema_version": "1.0",
+      "id": "weather.mist",
+      "category": "weather",
+      "label": "Mist",
+      "aliases": [
+        "mist",
+        "misty",
+        "light fog",
+        "morning mist",
+        "drifting mist",
+        "misty air",
+        "mistt",
+        "hazy mist"
+      ],
+      "related": [
+        "weather.fog",
+        "weather.haze",
+        "time.dawn"
+      ],
+      "parent": "weather.atmospherics",
+      "children": [],
+      "description": "A light version of fog: you can still see across the scene, but the air is visibly soft and distance goes pale.",
+      "examples": [
+        "pale soft air over an early field"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with light mist hanging in the air",
+      "negative_fragment": "no light mist hanging in the air",
+      "search_boost": 1,
+      "sort_order": 130
+    },
+    {
+      "schema_version": "1.0",
+      "id": "weather.haze",
+      "category": "weather",
+      "label": "Haze",
+      "aliases": [
+        "haze",
+        "hazy",
+        "smog",
+        "atmospheric haze",
+        "heat haze",
+        "milky air",
+        "hazey",
+        "dusty air"
+      ],
+      "related": [
+        "weather.mist",
+        "weather.fog",
+        "scene.city_skyline"
+      ],
+      "parent": "weather.atmospherics",
+      "children": [],
+      "description": "A thin veil of heat, dust or pollution that lowers contrast and fades whatever is far away into the sky.",
+      "examples": [
+        "a skyline fading into milky white air"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a hazy veil in the air",
+      "negative_fragment": "no hazy veil in the air",
+      "search_boost": 1,
+      "sort_order": 140
+    },
+    {
+      "schema_version": "1.0",
+      "id": "weather.wind",
+      "category": "weather",
+      "label": "Wind",
+      "aliases": [
+        "wind",
+        "windy",
+        "breeze",
+        "gusty",
+        "blowing wind",
+        "strong wind",
+        "wind blown",
+        "windey"
+      ],
+      "related": [
+        "weather.blizzard",
+        "weather.atmospherics",
+        "scene.beach"
+      ],
+      "parent": "weather.atmospherics",
+      "children": [],
+      "description": "Moving air you can actually see in the picture — hair, clothing, trees and dust all pushed the same way.",
+      "examples": [
+        "hair and coat pulled sideways by a gust"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with wind moving through the scene",
+      "negative_fragment": "no wind moving through the scene",
+      "search_boost": 1.15,
+      "sort_order": 150
+    },
+    {
+      "schema_version": "1.0",
+      "id": "weather.wet_ground",
+      "category": "weather",
+      "label": "Wet ground",
+      "aliases": [
+        "wet ground",
+        "wet asphalt",
+        "wet street",
+        "rain slicked",
+        "puddles",
+        "wet pavement",
+        "after the rain",
+        "wet road",
+        "wet grond"
+      ],
+      "related": [
+        "weather.rain",
+        "weather.drizzle",
+        "scene.urban_street"
+      ],
+      "parent": "weather.atmospherics",
+      "children": [],
+      "description": "The ground is still wet after rain, so pavements and roads mirror lights and sky back up even once the rain has stopped.",
+      "examples": [
+        "neon reflected in a puddle on black asphalt"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "on wet, reflective ground",
+      "negative_fragment": "not on wet, reflective ground",
+      "search_boost": 1.3,
+      "sort_order": 160
+    },
+    {
+      "schema_version": "1.0",
+      "id": "weather.snow_on_ground",
+      "category": "weather",
+      "label": "Snow on the ground",
+      "aliases": [
+        "snow on the ground",
+        "snow covered",
+        "settled snow",
+        "snowy ground",
+        "white ground",
+        "snow cover",
+        "laying snow",
+        "snowcovered"
+      ],
+      "related": [
+        "weather.snow",
+        "weather.blizzard",
+        "scene.mountain"
+      ],
+      "parent": "weather.atmospherics",
+      "children": [],
+      "description": "Snow already lying on surfaces, bouncing light back up under the subject, whether or not it is still snowing.",
+      "examples": [
+        "bright bounce light off a white street"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with snow lying on the ground",
+      "negative_fragment": "no snow lying on the ground",
+      "search_boost": 1,
+      "sort_order": 170
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.carried",
+      "category": "props",
+      "label": "Carried items",
+      "aliases": [
+        "bag",
+        "carrying something",
+        "luggage",
+        "carried item",
+        "holding a bag",
+        "bags",
+        "carry on",
+        "carring something"
+      ],
+      "related": [
+        "props.suitcase",
+        "props.backpack",
+        "props.handheld"
+      ],
+      "parent": null,
+      "children": [
+        "props.suitcase",
+        "props.backpack",
+        "props.shopping_bag",
+        "props.tote_bag",
+        "props.briefcase"
+      ],
+      "description": "Things the subject carries with them, usually bags and luggage, which change how they stand and where their hands end up.",
+      "examples": [
+        "a bag pulling one shoulder down"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "carrying a bag",
+      "negative_fragment": "not carrying a bag",
+      "search_boost": 0.9,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.handheld",
+      "category": "props",
+      "label": "Handheld objects",
+      "aliases": [
+        "holding something",
+        "in hand",
+        "handheld object",
+        "prop in hand",
+        "object in hand",
+        "hand held",
+        "handhelds",
+        "holding a prop"
+      ],
+      "related": [
+        "props.coffee_cup",
+        "props.umbrella",
+        "props.carried"
+      ],
+      "parent": null,
+      "children": [
+        "props.coffee_cup",
+        "props.umbrella",
+        "props.camera",
+        "props.smartphone",
+        "props.book",
+        "props.cigarette",
+        "props.flower_bouquet"
+      ],
+      "description": "Small objects held in the hands, which give the subject something to do and anchor an otherwise empty pose.",
+      "examples": [
+        "both hands busy with a small object"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "holding an object",
+      "negative_fragment": "not holding an object",
+      "search_boost": 0.9,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.worn_accessory",
+      "category": "props",
+      "label": "Worn accessories",
+      "aliases": [
+        "accessory",
+        "accessories",
+        "worn item",
+        "wearable",
+        "gear worn",
+        "acessory",
+        "acessories",
+        "worn accessory"
+      ],
+      "related": [
+        "props.sunglasses",
+        "props.headphones",
+        "props.wristwatch"
+      ],
+      "parent": null,
+      "children": [
+        "props.sunglasses",
+        "props.headphones",
+        "props.wristwatch"
+      ],
+      "description": "Objects worn on the body or face that behave like props rather than clothing, such as eyewear or headphones.",
+      "examples": [
+        "a single worn object that changes the face"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "wearing an accessory",
+      "negative_fragment": "not wearing an accessory",
+      "search_boost": 0.9,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.vehicle",
+      "category": "props",
+      "label": "Vehicles",
+      "aliases": [
+        "vehicle",
+        "transport",
+        "ride",
+        "bike or car",
+        "vehicles",
+        "means of transport",
+        "vehical",
+        "vehicel"
+      ],
+      "related": [
+        "props.bicycle",
+        "props.car",
+        "props.motorcycle"
+      ],
+      "parent": null,
+      "children": [
+        "props.bicycle",
+        "props.motorcycle",
+        "props.car",
+        "props.skateboard"
+      ],
+      "description": "A vehicle in the frame that the subject rides, leans on, pushes or simply stands beside.",
+      "examples": [
+        "a subject resting against something they ride"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a vehicle in frame",
+      "negative_fragment": "no vehicle in frame",
+      "search_boost": 0.9,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.furniture",
+      "category": "props",
+      "label": "Furniture",
+      "aliases": [
+        "furniture",
+        "seating",
+        "chair or table",
+        "furnishings",
+        "props furniture",
+        "furnature",
+        "furnishing"
+      ],
+      "related": [
+        "props.chair",
+        "props.table",
+        "props.bench"
+      ],
+      "parent": null,
+      "children": [
+        "props.chair",
+        "props.stool",
+        "props.bench",
+        "props.table",
+        "props.ladder"
+      ],
+      "description": "Pieces of furniture used in the shot, which decide whether the subject sits, leans, perches or rests on something.",
+      "examples": [
+        "a piece of furniture holding the pose up"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with furniture in the scene",
+      "negative_fragment": "no furniture in the scene",
+      "search_boost": 0.9,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.suitcase",
+      "category": "props",
+      "label": "Suitcase",
+      "aliases": [
+        "suitcase",
+        "luggage",
+        "travel case",
+        "rolling suitcase",
+        "trolley case",
+        "suit case",
+        "luggage bag",
+        "suticase"
+      ],
+      "related": [
+        "props.briefcase",
+        "props.backpack",
+        "scene.airport_terminal"
+      ],
+      "parent": "props.carried",
+      "children": [],
+      "description": "A rigid travel case, usually on wheels, that instantly reads as travelling and gives the subject something to pull or lean on.",
+      "examples": [
+        "a traveller with a wheeled case beside them"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a suitcase",
+      "negative_fragment": "no suitcase",
+      "search_boost": 1.1,
+      "sort_order": 60
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.backpack",
+      "category": "props",
+      "label": "Backpack",
+      "aliases": [
+        "backpack",
+        "rucksack",
+        "back pack",
+        "school bag",
+        "daypack",
+        "knapsack",
+        "bagpack",
+        "backpak"
+      ],
+      "related": [
+        "props.tote_bag",
+        "props.suitcase",
+        "props.shopping_bag"
+      ],
+      "parent": "props.carried",
+      "children": [],
+      "description": "A bag worn on both shoulders, which squares the shoulders and adds bulk to the subject’s outline.",
+      "examples": [
+        "straps crossing the chest of a walking figure"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "wearing a backpack",
+      "negative_fragment": "not wearing a backpack",
+      "search_boost": 1,
+      "sort_order": 70
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.shopping_bag",
+      "category": "props",
+      "label": "Shopping bag",
+      "aliases": [
+        "shopping bag",
+        "paper bag",
+        "carrier bag",
+        "shopping bags",
+        "grocery bag",
+        "store bag",
+        "shoping bag"
+      ],
+      "related": [
+        "props.tote_bag",
+        "props.carried",
+        "scene.convenience_store"
+      ],
+      "parent": "props.carried",
+      "children": [],
+      "description": "A paper or plastic bag from a shop, hanging from one hand and swinging as the subject walks.",
+      "examples": [
+        "a paper bag swinging at one side"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "carrying a shopping bag",
+      "negative_fragment": "not carrying a shopping bag",
+      "search_boost": 1,
+      "sort_order": 80
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.tote_bag",
+      "category": "props",
+      "label": "Tote bag",
+      "aliases": [
+        "tote bag",
+        "canvas bag",
+        "tote",
+        "cloth bag",
+        "shoulder bag",
+        "tote-bag",
+        "tot bag"
+      ],
+      "related": [
+        "props.shopping_bag",
+        "props.backpack",
+        "props.carried"
+      ],
+      "parent": "props.carried",
+      "children": [],
+      "description": "A soft fabric bag carried on one shoulder or in the crook of an arm, casual and unstructured.",
+      "examples": [
+        "a canvas bag folded over one arm"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a canvas tote bag",
+      "negative_fragment": "no canvas tote bag",
+      "search_boost": 1,
+      "sort_order": 90
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.briefcase",
+      "category": "props",
+      "label": "Briefcase",
+      "aliases": [
+        "briefcase",
+        "attache case",
+        "work bag",
+        "document case",
+        "business bag",
+        "brief case",
+        "breifcase"
+      ],
+      "related": [
+        "props.suitcase",
+        "props.wristwatch",
+        "scene.office"
+      ],
+      "parent": "props.carried",
+      "children": [],
+      "description": "A flat rigid case for documents, held in one hand — formal, and it locks that arm straight down.",
+      "examples": [
+        "one arm held stiff by a flat case"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "carrying a briefcase",
+      "negative_fragment": "not carrying a briefcase",
+      "search_boost": 1,
+      "sort_order": 100
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.coffee_cup",
+      "category": "props",
+      "label": "Coffee cup",
+      "aliases": [
+        "coffee cup",
+        "coffee",
+        "takeaway cup",
+        "paper cup",
+        "cup of coffee",
+        "mug",
+        "to go cup",
+        "cofee cup",
+        "coffe cup"
+      ],
+      "related": [
+        "props.smartphone",
+        "props.handheld",
+        "scene.cafe"
+      ],
+      "parent": "props.handheld",
+      "children": [],
+      "description": "A cup of coffee in the hand — the most common everyday hand prop, and an easy excuse for a relaxed natural gesture.",
+      "examples": [
+        "a paper cup held at chest height"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "holding a coffee cup",
+      "negative_fragment": "not holding a coffee cup",
+      "search_boost": 1.25,
+      "sort_order": 110
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.umbrella",
+      "category": "props",
+      "label": "Umbrella",
+      "aliases": [
+        "umbrella",
+        "brolly",
+        "parasol",
+        "rain umbrella",
+        "open umbrella",
+        "umberella",
+        "umbrela"
+      ],
+      "related": [
+        "props.handheld",
+        "weather.rain",
+        "weather.wet_ground"
+      ],
+      "parent": "props.handheld",
+      "children": [],
+      "description": "An umbrella held overhead, which shelters the subject, frames their head and drops its own shadow across them.",
+      "examples": [
+        "a dark canopy held above a lit face"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "holding an umbrella",
+      "negative_fragment": "not holding an umbrella",
+      "search_boost": 1.2,
+      "sort_order": 120
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.camera",
+      "category": "props",
+      "label": "Camera",
+      "aliases": [
+        "camera",
+        "holding a camera",
+        "film camera",
+        "dslr",
+        "photographer camera",
+        "point and shoot",
+        "camara",
+        "kamera"
+      ],
+      "related": [
+        "props.smartphone",
+        "props.handheld",
+        "props.sunglasses"
+      ],
+      "parent": "props.handheld",
+      "children": [],
+      "description": "A camera in the subject’s hands, which tells the viewer they are the one taking pictures.",
+      "examples": [
+        "a camera raised toward the viewer"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "holding a camera",
+      "negative_fragment": "not holding a camera",
+      "search_boost": 1,
+      "sort_order": 130
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.smartphone",
+      "category": "props",
+      "label": "Smartphone",
+      "aliases": [
+        "phone",
+        "smartphone",
+        "mobile phone",
+        "cell phone",
+        "on the phone",
+        "texting",
+        "iphone",
+        "smart phone",
+        "phon"
+      ],
+      "related": [
+        "props.camera",
+        "props.headphones",
+        "props.handheld"
+      ],
+      "parent": "props.handheld",
+      "children": [],
+      "description": "A phone in the hand, which pulls the head down and lights the face from below when the screen is on.",
+      "examples": [
+        "a face lit from below by a screen"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "holding a phone",
+      "negative_fragment": "not holding a phone",
+      "search_boost": 1.15,
+      "sort_order": 140
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.book",
+      "category": "props",
+      "label": "Book",
+      "aliases": [
+        "book",
+        "reading a book",
+        "novel",
+        "paperback",
+        "open book",
+        "magazine",
+        "boook",
+        "reading"
+      ],
+      "related": [
+        "props.handheld",
+        "props.coffee_cup",
+        "scene.library"
+      ],
+      "parent": "props.handheld",
+      "children": [],
+      "description": "A book held open or closed in the hands, which lowers the gaze and makes the subject look occupied and still.",
+      "examples": [
+        "an open paperback held in both hands"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "holding a book",
+      "negative_fragment": "not holding a book",
+      "search_boost": 1,
+      "sort_order": 150
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.cigarette",
+      "category": "props",
+      "label": "Cigarette",
+      "aliases": [
+        "cigarette",
+        "smoking",
+        "smoke",
+        "cig",
+        "holding a cigarette",
+        "cigarrette",
+        "cigaret"
+      ],
+      "related": [
+        "props.handheld",
+        "weather.haze",
+        "scene.alley"
+      ],
+      "parent": "props.handheld",
+      "children": [],
+      "description": "A lit cigarette, which adds a small point of light, a rising line of smoke and a very specific mood.",
+      "examples": [
+        "a thin line of smoke crossing a dark frame"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "holding a lit cigarette",
+      "negative_fragment": "not holding a lit cigarette",
+      "search_boost": 1,
+      "sort_order": 160
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.flower_bouquet",
+      "category": "props",
+      "label": "Flower bouquet",
+      "aliases": [
+        "flowers",
+        "bouquet",
+        "bunch of flowers",
+        "holding flowers",
+        "floral bouquet",
+        "flower bunch",
+        "boquet",
+        "bouqet"
+      ],
+      "related": [
+        "props.handheld",
+        "props.book",
+        "scene.greenery"
+      ],
+      "parent": "props.handheld",
+      "children": [],
+      "description": "A bunch of cut flowers held in the arms or hands, adding a bright block of colour right under the face.",
+      "examples": [
+        "a wrapped bunch of flowers held to the chest"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "holding a bouquet of flowers",
+      "negative_fragment": "not holding a bouquet of flowers",
+      "search_boost": 1,
+      "sort_order": 170
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.sunglasses",
+      "category": "props",
+      "label": "Sunglasses",
+      "aliases": [
+        "sunglasses",
+        "shades",
+        "dark glasses",
+        "sun glasses",
+        "eyewear",
+        "sunnies",
+        "sunglases",
+        "sun-glasses"
+      ],
+      "related": [
+        "props.worn_accessory",
+        "props.wristwatch",
+        "weather.clear"
+      ],
+      "parent": "props.worn_accessory",
+      "children": [],
+      "description": "Dark glasses covering the eyes, which hide the gaze completely and lay a hard graphic shape across the face.",
+      "examples": [
+        "eyes hidden behind flat black lenses"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "wearing sunglasses",
+      "negative_fragment": "not wearing sunglasses",
+      "search_boost": 1.2,
+      "sort_order": 180
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.headphones",
+      "category": "props",
+      "label": "Headphones",
+      "aliases": [
+        "headphones",
+        "headphone",
+        "earphones",
+        "over ear headphones",
+        "earbuds",
+        "listening to music",
+        "head phones",
+        "headfones"
+      ],
+      "related": [
+        "props.smartphone",
+        "props.worn_accessory",
+        "props.sunglasses"
+      ],
+      "parent": "props.worn_accessory",
+      "children": [],
+      "description": "Headphones worn over or in the ears, which read instantly as someone in their own world.",
+      "examples": [
+        "large cups covering both ears"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "wearing headphones",
+      "negative_fragment": "not wearing headphones",
+      "search_boost": 1.15,
+      "sort_order": 190
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.wristwatch",
+      "category": "props",
+      "label": "Wristwatch",
+      "aliases": [
+        "watch",
+        "wristwatch",
+        "wrist watch",
+        "timepiece",
+        "watch on wrist",
+        "hand watch",
+        "wristwach"
+      ],
+      "related": [
+        "props.worn_accessory",
+        "props.sunglasses",
+        "props.briefcase"
+      ],
+      "parent": "props.worn_accessory",
+      "children": [],
+      "description": "A watch on the wrist, a small detail that catches light whenever the hand moves and reads as deliberate styling.",
+      "examples": [
+        "a metal watch catching light on a raised wrist"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "wearing a wristwatch",
+      "negative_fragment": "not wearing a wristwatch",
+      "search_boost": 0.9,
+      "sort_order": 200
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.bicycle",
+      "category": "props",
+      "label": "Bicycle",
+      "aliases": [
+        "bicycle",
+        "bike",
+        "cycle",
+        "pushbike",
+        "riding a bike",
+        "bycicle",
+        "bicicle",
+        "bike ride"
+      ],
+      "related": [
+        "props.motorcycle",
+        "props.skateboard",
+        "scene.urban_street"
+      ],
+      "parent": "props.vehicle",
+      "children": [],
+      "description": "A bicycle ridden, pushed or leaned on, which spreads the subject’s stance and puts strong thin lines through the frame.",
+      "examples": [
+        "a rider standing over a bike at a kerb"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a bicycle",
+      "negative_fragment": "no bicycle",
+      "search_boost": 1.1,
+      "sort_order": 210
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.motorcycle",
+      "category": "props",
+      "label": "Motorcycle",
+      "aliases": [
+        "motorcycle",
+        "motorbike",
+        "scooter",
+        "moped",
+        "motor bike",
+        "motorcyle",
+        "motorcicle"
+      ],
+      "related": [
+        "props.bicycle",
+        "props.car",
+        "scene.urban_street"
+      ],
+      "parent": "props.vehicle",
+      "children": [],
+      "description": "A motorbike or scooter in the frame, heavier and lower than a bicycle and usually the loudest shape in the picture.",
+      "examples": [
+        "a rider seated on a parked motorbike"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a motorcycle",
+      "negative_fragment": "no motorcycle",
+      "search_boost": 1,
+      "sort_order": 220
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.car",
+      "category": "props",
+      "label": "Car",
+      "aliases": [
+        "car",
+        "automobile",
+        "parked car",
+        "leaning on a car",
+        "auto",
+        "cars",
+        "vehicle car",
+        "carr"
+      ],
+      "related": [
+        "props.motorcycle",
+        "scene.car_interior",
+        "scene.parking_lot"
+      ],
+      "parent": "props.vehicle",
+      "children": [],
+      "description": "A car in the frame — parked, leaned on or being got into — which supplies both a large surface and reflections.",
+      "examples": [
+        "a figure leaning on a car door"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a car",
+      "negative_fragment": "no car",
+      "search_boost": 1,
+      "sort_order": 230
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.skateboard",
+      "category": "props",
+      "label": "Skateboard",
+      "aliases": [
+        "skateboard",
+        "skate board",
+        "skating",
+        "board",
+        "skater",
+        "longboard",
+        "skatebord"
+      ],
+      "related": [
+        "props.bicycle",
+        "scene.plaza",
+        "scene.parking_lot"
+      ],
+      "parent": "props.vehicle",
+      "children": [],
+      "description": "A skateboard underfoot, carried under an arm or tipped up on its tail, which reads immediately as street culture.",
+      "examples": [
+        "a board held upright beside the leg"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a skateboard",
+      "negative_fragment": "no skateboard",
+      "search_boost": 1,
+      "sort_order": 240
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.chair",
+      "category": "props",
+      "label": "Chair",
+      "aliases": [
+        "chair",
+        "seat",
+        "sitting on a chair",
+        "armchair",
+        "seated chair",
+        "chiar",
+        "chairs"
+      ],
+      "related": [
+        "props.stool",
+        "props.bench",
+        "props.table"
+      ],
+      "parent": "props.furniture",
+      "children": [],
+      "description": "A chair in the shot, which fixes where the subject sits and how their arms and legs can fall.",
+      "examples": [
+        "a subject turned sideways on a wooden chair"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a chair",
+      "negative_fragment": "no chair",
+      "search_boost": 1,
+      "sort_order": 250
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.stool",
+      "category": "props",
+      "label": "Stool",
+      "aliases": [
+        "stool",
+        "bar stool",
+        "high stool",
+        "studio stool",
+        "seat stool",
+        "stoool",
+        "stul"
+      ],
+      "related": [
+        "props.chair",
+        "props.bench",
+        "scene.bar"
+      ],
+      "parent": "props.furniture",
+      "children": [],
+      "description": "A backless seat, often high, which keeps the whole body visible and lets the legs hang or brace.",
+      "examples": [
+        "a perched figure with one foot on a rung"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a stool",
+      "negative_fragment": "no stool",
+      "search_boost": 1,
+      "sort_order": 260
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.bench",
+      "category": "props",
+      "label": "Bench",
+      "aliases": [
+        "bench",
+        "park bench",
+        "seating bench",
+        "long seat",
+        "wooden bench",
+        "benchs",
+        "banch"
+      ],
+      "related": [
+        "props.chair",
+        "props.table",
+        "scene.park"
+      ],
+      "parent": "props.furniture",
+      "children": [],
+      "description": "A long shared seat, usually outdoors, that lets the subject sit, sprawl or lie along a strong horizontal line.",
+      "examples": [
+        "a figure lying along a park bench"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a bench",
+      "negative_fragment": "no bench",
+      "search_boost": 1,
+      "sort_order": 270
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.table",
+      "category": "props",
+      "label": "Table",
+      "aliases": [
+        "table",
+        "desk",
+        "tabletop",
+        "dining table",
+        "cafe table",
+        "tabel",
+        "tble"
+      ],
+      "related": [
+        "props.chair",
+        "scene.cafe",
+        "scene.office"
+      ],
+      "parent": "props.furniture",
+      "children": [],
+      "description": "A table or desk in front of the subject, which gives the arms somewhere to rest and cuts the body at a clean line.",
+      "examples": [
+        "elbows resting on a small cafe table"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a table",
+      "negative_fragment": "no table",
+      "search_boost": 1,
+      "sort_order": 280
+    },
+    {
+      "schema_version": "1.0",
+      "id": "props.ladder",
+      "category": "props",
+      "label": "Ladder",
+      "aliases": [
+        "ladder",
+        "step ladder",
+        "stepladder",
+        "ladders",
+        "climbing ladder",
+        "leaning ladder",
+        "laddar"
+      ],
+      "related": [
+        "props.chair",
+        "scene.studio",
+        "scene.staircase"
+      ],
+      "parent": "props.furniture",
+      "children": [],
+      "description": "A ladder leaned or standing in the frame, which lets the subject climb, perch or sit high and adds a strong repeating line.",
+      "examples": [
+        "a subject seated on the top step of a ladder"
+      ],
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a ladder",
+      "negative_fragment": "no ladder",
+      "search_boost": 1,
+      "sort_order": 290
+    }
+  ]
+}

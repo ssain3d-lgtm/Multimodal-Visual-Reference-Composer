@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.uvrc.dev/v1/visual-recipe.schema.json",
+  "title": "VisualRecipe",
+  "description": "A saved COMBINATION, not a saved prompt. The brief is explicit: a Visual Recipe stores the entire reference combination - which references, which attributes were taken from each, how conflicts were resolved, and the resulting intent - so it can be reopened, re-edited and re-explored. Re-running formatPrompt on a recipe reproduces the prompt; the reverse is impossible, which is exactly why a recipe is not a prompt preset.\n\nSELF-CONTAINMENT: `references` holds full ReferenceSnapshots including license, creator and attribution, so a shared recipe stays attributable even when the recipient has none of those references in their own library and even when the provider is unreachable.\n\nMEDIA URL ROT - the policy, in five rules:\n  R1. IDENTITY IS NOT A URL. The durable identity of a work is (metadata.source, metadata.source_id) plus metadata.source_url. metadata.media_url is a CACHE HINT and is expected to rot.\n  R2. A ROTTED RECIPE STILL WORKS. Intent, mix, conflict resolutions and every taxonomy id are pixel-free, so a recipe with 100% dead media still produces the same prompt. Media loss degrades the CARD, never the RECIPE.\n  R3. RESOLUTION ORDER. resolveMedia(snapshot): (1) HEAD metadata.media_url; on success set media_state='ok'. (2) On failure call provider(source).getMetadata(source_id) and, if a new URL comes back, store it in resolved_media_url and set media_state='moved'. (3) On failure set media_state='gone' and keep the record.\n  R4. ATTRIBUTION SURVIVES. metadata.attribution is stored TEXT, never a computed link, so credit is never erased by a dead URL. A 'gone' snapshot still renders its full credit line.\n  R5. NO REHYDRATION BY COPYING BYTES. Rot is never fixed by embedding the image - binaries are never stored (see reference.schema.json). The offered remedies are re-resolve, open source_url, or replace the reference (which is a recipe EDIT and bumps `version`).",
+  "type": "object",
+  "unevaluatedProperties": false,
+  "required": ["schema_version", "id", "name", "version", "intent", "mix", "references", "prompt_mode"],
+  "properties": {
+    "schema_version": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/schema_version", "description": "Version of the SCHEMA (MAJOR.MINOR). Distinct from `version`, which versions the recipe's CONTENT." },
+    "id": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/recipe_id", "description": "rcp_<slug>. Stable for the life of the recipe across every content revision." },
+    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "description": { "type": "string", "maxLength": 4000 },
+    "version": { "type": "integer", "minimum": 1, "default": 1, "description": "Monotonic CONTENT revision. Incremented on any change to intent, mix or references. Two recipes with the same id and version MUST be byte-identical in those three fields." },
+    "created_by": { "type": "string", "maxLength": 200, "description": "Author handle or identifier. Free-form; the product stores no account model." },
+    "created_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+    "updated_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+    "intent": { "$ref": "https://schema.uvrc.dev/v1/visual-intent.schema.json", "description": "The resolved VisualIntent at save time, in full chip form so per-chip provenance (which reference gave what) survives sharing." },
+    "mix": { "$ref": "https://schema.uvrc.dev/v1/reference-mix.schema.json#/$defs/persisted", "description": "The reference combination, including per-entry use/weight/priority/pin and the conflict resolutions. This is the part a prompt preset cannot express." },
+    "references": {
+      "type": "array",
+      "description": "Full metadata snapshots of every reference the mix touches. INV-RCP-1: every mix.references[].reference_id MUST have a snapshot here, so the recipe is standalone. Snapshots are frozen copies: editing the live library never silently rewrites a saved recipe.",
+      "items": { "$ref": "https://schema.uvrc.dev/v1/reference.schema.json#/$defs/snapshot" },
+      "default": []
+    },
+    "prompt_mode": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/formatter_mode", "default": "generic", "description": "Formatter target saved with the recipe. A recipe can be re-rendered in any other mode without editing it." },
+    "prompt_preview": {
+      "$ref": "https://schema.uvrc.dev/v1/structured-prompt.schema.json#/$defs/document",
+      "description": "Optional cached render, kept purely so a recipe list can show text without loading the taxonomy. ADVISORY: on open, the prompt is always re-derived from intent + mix; if the re-derived text differs (taxonomy moved on, a node was deprecated) the UI shows a 'regenerated' notice rather than trusting the cache."
+    },
+    "tags": { "type": "array", "uniqueItems": true, "items": { "type": "string", "maxLength": 80 }, "default": [] },
+    "cover_reference_id": { "oneOf": [ { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id" }, { "type": "null" } ], "default": null, "description": "Which snapshot's thumbnail represents the recipe. Falls back to the first snapshot whose media_state is not 'gone'." },
+    "license_summary": {
+      "type": "object", "additionalProperties": false,
+      "description": "Aggregated licence position of the whole recipe, computed from the snapshots at save time and recomputed on load. Lets a recipient see, before using it, what obligations they inherit. NOTE: this describes the REFERENCE MEDIA only; it says nothing about the licence of the code or of the generated output. Reference licensing and code licensing are separate concerns and are never conflated.",
+      "properties": {
+        "licenses": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/license_id" }, "default": [] },
+        "requires_attribution": { "type": "boolean", "default": false },
+        "share_alike": { "type": "boolean", "default": false, "description": "True when any snapshot is cc_by_sa." },
+        "has_excluded": { "type": "boolean", "default": false, "description": "True when any snapshot carries an excluded-by-default licence. A recipe with has_excluded=true MUST warn on open and MUST NOT be exported by default." },
+        "attribution_block": { "type": "string", "maxLength": 8000, "description": "Ready-to-paste credit text: one line per snapshot, built from stored attribution strings so it is immune to URL rot." }
+      }
+    },
+    "integrity": {
+      "type": "object", "additionalProperties": false,
+      "description": "Optional tamper/drift detection. No media bytes are hashed - only the recipe's own structured content.",
+      "properties": {
+        "content_hash": { "type": "string", "maxLength": 128, "description": "sha256 over canonical-JSON(intent, mix, references, prompt_mode). Detects silent edits and lets two copies be compared without a diff." },
+        "taxonomy_version": { "type": "string", "maxLength": 60, "description": "Taxonomy revision the recipe was authored against. On load, ids missing from the current taxonomy are rewritten via replaced_by, or kept as custom chips with a 'deprecated node' badge - never dropped." },
+        "app_version": { "type": "string", "maxLength": 60 }
+      }
+    },
+    "media_health": {
+      "type": "object", "additionalProperties": false,
+      "description": "Rollup of the last resolveMedia() sweep across the snapshots. Purely informational; a recipe is never invalidated by it.",
+      "properties": {
+        "checked_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+        "ok": { "type": "integer", "minimum": 0 },
+        "moved": { "type": "integer", "minimum": 0 },
+        "gone": { "type": "integer", "minimum": 0 },
+        "unchecked": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "exports": {
+      "type": "array",
+      "description": "Non-prompt outputs derived from this recipe (brief, Future: storyboard description, shot list, image prompt, video prompt). Derived and regenerable; never the source of truth.",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["kind"],
+        "properties": {
+          "kind": { "enum": ["prompt", "structured_prompt", "visual_intent", "reference_mix", "storyboard", "shot_list", "image_prompt", "video_prompt"], "description": "The first four are exactly the ComfyUI node's outputs, so the node and the web app export the same things." },
+          "prompt_mode": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/formatter_mode" },
+          "text": { "type": "string", "maxLength": 20000 },
+          "generated_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" }
+        }
+      },
+      "default": []
+    },
+    "x_ext": { "type": "object" }
+  }
+}
