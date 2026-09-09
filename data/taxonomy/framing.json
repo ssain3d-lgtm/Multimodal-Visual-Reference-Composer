@@ -1,6 +1,9 @@
 {
   "schema_version": "1.0",
-  "categories": ["framing", "camera_distance"],
+  "categories": [
+    "framing",
+    "camera_distance"
+  ],
   "version": 1,
   "updated_at": "2026-09-09T00:00:00Z",
   "nodes": [
@@ -32,7 +35,10 @@
         "a lone figure crossing an empty desert",
         "a climber as a dot on a vast rock face"
       ],
-      "conflicts_with": ["camera_distance.macro"],
+      "conflicts_with": [
+        "camera_distance.macro",
+        "lens.macro_like"
+      ],
       "exclusivity_group": "shot_size",
       "prompt_fragment": "extreme wide shot",
       "negative_fragment": "not an extreme wide shot",
@@ -61,13 +67,18 @@
         "camera_distance.far"
       ],
       "parent": null,
-      "children": ["framing.full_body"],
+      "children": [
+        "framing.full_body"
+      ],
       "description": "The whole figure is visible together with a good deal of the surroundings, so the person reads clearly but the place is still part of the picture. Beware that some sources call this a 'long shot' while others use that term for the very widest shot of all.",
       "examples": [
         "a person standing on a rooftop with the city behind them",
         "a full figure on a wet street, buildings on both sides"
       ],
-      "conflicts_with": ["camera_distance.macro"],
+      "conflicts_with": [
+        "camera_distance.macro",
+        "lens.macro_like"
+      ],
       "exclusivity_group": "shot_size",
       "prompt_fragment": "wide shot",
       "negative_fragment": "not a wide shot",
@@ -102,7 +113,9 @@
         "a full-length outfit shot against a plain wall",
         "head-to-toe on a studio backdrop"
       ],
-      "conflicts_with": ["camera_distance.macro"],
+      "conflicts_with": [
+        "camera_distance.macro"
+      ],
       "exclusivity_group": "shot_size",
       "prompt_fragment": "full body framing",
       "negative_fragment": "not a full-body crop",
@@ -132,9 +145,9 @@
       ],
       "parent": null,
       "children": [
-        "framing.three_quarter_body",
         "framing.knee_up",
-        "framing.thigh_up"
+        "framing.thigh_up",
+        "framing.three_quarter_body"
       ],
       "description": "Sits between a wide shot and a medium shot: the subject is cut off somewhere between the knees and the mid-thigh, with some space still visible around them. Westerns made it famous as the 'cowboy shot' because it kept the holster in frame.",
       "examples": [
@@ -167,7 +180,9 @@
       "parent": "framing.medium_long_shot",
       "children": [],
       "description": "About three quarters of the body is in frame, cut somewhere below the hips: more of the outfit than a medium shot shows, less than a full-length crop.",
-      "examples": ["a styled outfit shown down to just below the knees"],
+      "examples": [
+        "a styled outfit shown down to just below the knees"
+      ],
       "exclusivity_group": "shot_size",
       "prompt_fragment": "three-quarter body framing",
       "negative_fragment": "not a three-quarter body crop",
@@ -194,7 +209,9 @@
       "parent": "framing.medium_long_shot",
       "children": [],
       "description": "The bottom edge of the frame cuts the subject just above the knees. Some crews call this the American shot.",
-      "examples": ["a standing figure cropped a hand's width above the knee"],
+      "examples": [
+        "a standing figure cropped a hand's width above the knee"
+      ],
       "exclusivity_group": "shot_size",
       "prompt_fragment": "framed from the knees up",
       "negative_fragment": "not cropped at the knees",
@@ -221,7 +238,9 @@
       "parent": "framing.medium_long_shot",
       "children": [],
       "description": "The frame cuts across the mid-thigh, the classic western 'cowboy' crop that keeps the hips and the hands in view.",
-      "examples": ["a figure cropped at mid-thigh, hands at their sides"],
+      "examples": [
+        "a figure cropped at mid-thigh, hands at their sides"
+      ],
       "exclusivity_group": "shot_size",
       "prompt_fragment": "framed from mid-thigh up",
       "negative_fragment": "not cropped at mid-thigh",
@@ -248,7 +267,9 @@
         "camera_distance.near"
       ],
       "parent": null,
-      "children": ["framing.waist_up"],
+      "children": [
+        "framing.waist_up"
+      ],
       "description": "The everyday conversational framing: roughly waist-up, close enough to read expression and gesture while still showing something of the setting.",
       "examples": [
         "someone talking at a table, framed from the waist",
@@ -281,7 +302,9 @@
       "parent": "framing.medium_shot",
       "children": [],
       "description": "The bottom of the frame sits at the waist, showing the torso, the arms and the head.",
-      "examples": ["a half-length portrait, hands just entering the frame"],
+      "examples": [
+        "a half-length portrait, hands just entering the frame"
+      ],
       "exclusivity_group": "shot_size",
       "prompt_fragment": "framed from the waist up",
       "negative_fragment": "not cropped at the waist",
@@ -307,9 +330,13 @@
         "framing.chest_up"
       ],
       "parent": null,
-      "children": ["framing.chest_up"],
+      "children": [
+        "framing.chest_up"
+      ],
       "description": "Tighter than a medium shot and looser than a close-up: the head and upper chest fill most of the frame. This is the standard interview framing.",
-      "examples": ["a talking-head interview framed at the chest"],
+      "examples": [
+        "a talking-head interview framed at the chest"
+      ],
       "exclusivity_group": "shot_size",
       "prompt_fragment": "medium close-up",
       "negative_fragment": "not a medium close-up",
@@ -336,7 +363,9 @@
       "parent": "framing.medium_close_up",
       "children": [],
       "description": "The frame begins around the chest, so the face dominates while the shoulders and a little of the clothing still read.",
-      "examples": ["a portrait cropped just below the collarbone"],
+      "examples": [
+        "a portrait cropped just below the collarbone"
+      ],
       "exclusivity_group": "shot_size",
       "prompt_fragment": "framed from the chest up",
       "negative_fragment": "not cropped at the chest",
@@ -364,7 +393,10 @@
         "camera_distance.near"
       ],
       "parent": null,
-      "children": ["framing.head_and_shoulders", "framing.face_only"],
+      "children": [
+        "framing.face_only",
+        "framing.head_and_shoulders"
+      ],
       "description": "The face, or a single small object, fills most of the frame so that expression and detail dominate. It says nothing about how far the camera actually stood: a long lens can make a close-up from right across the street.",
       "examples": [
         "a face filling the frame, shoulders barely visible",
@@ -398,7 +430,10 @@
       "parent": "framing.close_up",
       "children": [],
       "description": "The standard portrait crop: the head plus the top of the shoulders, and nothing below them.",
-      "examples": ["a passport-style portrait", "an actor's headshot"],
+      "examples": [
+        "a passport-style portrait",
+        "an actor's headshot"
+      ],
       "exclusivity_group": "shot_size",
       "prompt_fragment": "head-and-shoulders framing",
       "negative_fragment": "not a head-and-shoulders crop",
@@ -425,7 +460,9 @@
       "parent": "framing.close_up",
       "children": [],
       "description": "The face alone fills the frame edge to edge, often with the top of the head or the chin cropped away.",
-      "examples": ["a face pressed to the edges of the frame, hair cropped off"],
+      "examples": [
+        "a face pressed to the edges of the frame, hair cropped off"
+      ],
       "exclusivity_group": "shot_size",
       "prompt_fragment": "the face filling the frame",
       "negative_fragment": "not a face-filling crop",
@@ -455,7 +492,10 @@
       "parent": null,
       "children": [],
       "description": "Only a fragment fills the frame: an eye, a mouth, a hand, the weave of a fabric. Use it when the detail itself is the subject.",
-      "examples": ["an eye filling the whole frame", "the texture of wet denim"],
+      "examples": [
+        "an eye filling the whole frame",
+        "the texture of wet denim"
+      ],
       "exclusivity_group": "shot_size",
       "prompt_fragment": "extreme close-up",
       "negative_fragment": "not an extreme close-up",
@@ -474,12 +514,20 @@
         "one subject",
         "alone in frame"
       ],
-      "related": ["framing.two_shot", "framing.group_shot"],
+      "related": [
+        "framing.two_shot",
+        "framing.group_shot"
+      ],
       "parent": null,
       "children": [],
       "description": "Exactly one subject is in the frame. This describes how many subjects the frame holds, so it can be combined with any shot size.",
-      "examples": ["one person alone in the frame, nobody else visible"],
-      "conflicts_with": ["framing.two_shot", "framing.group_shot"],
+      "examples": [
+        "one person alone in the frame, nobody else visible"
+      ],
+      "conflicts_with": [
+        "framing.group_shot",
+        "framing.two_shot"
+      ],
       "exclusivity_group": null,
       "prompt_fragment": "single-subject framing",
       "negative_fragment": "not a single-subject frame",
@@ -506,8 +554,13 @@
       "parent": null,
       "children": [],
       "description": "Two subjects share the frame, usually so that the relationship between them is what you read first.",
-      "examples": ["two people facing each other in one frame"],
-      "conflicts_with": ["framing.single_subject", "framing.group_shot"],
+      "examples": [
+        "two people facing each other in one frame"
+      ],
+      "conflicts_with": [
+        "framing.group_shot",
+        "framing.single_subject"
+      ],
       "exclusivity_group": null,
       "prompt_fragment": "two-shot framing",
       "negative_fragment": "not a two-shot",
@@ -534,8 +587,13 @@
       "parent": null,
       "children": [],
       "description": "Three or more subjects share the frame at once.",
-      "examples": ["a band of five standing shoulder to shoulder"],
-      "conflicts_with": ["framing.single_subject", "framing.two_shot"],
+      "examples": [
+        "a band of five standing shoulder to shoulder"
+      ],
+      "conflicts_with": [
+        "framing.single_subject",
+        "framing.two_shot"
+      ],
       "exclusivity_group": null,
       "prompt_fragment": "group framing",
       "negative_fragment": "not a group shot",
@@ -548,26 +606,42 @@
       "label": "Over-the-shoulder framing",
       "aliases": [
         "over the shoulder",
-        "over-the-shoulder",
-        "OTS",
+        "Over-the-shoulder",
+        "ots",
         "shoulder framing",
         "looking over someone's shoulder",
-        "over shoulder shot"
+        "over shoulder shot",
+        "over-the-shoulder shot",
+        "ots shot",
+        "behind shoulder view",
+        "looking past someone's shoulder"
       ],
       "related": [
         "framing.two_shot",
         "framing.point_of_view",
-        "framing.medium_close_up"
+        "framing.medium_close_up",
+        "camera_angle.back",
+        "camera_angle.three_quarter"
       ],
       "parent": null,
       "children": [],
       "description": "The camera sits behind one person's shoulder, so their back or shoulder frames the person they are facing.",
-      "examples": ["a conversation seen past the near person's shoulder"],
-      "conflicts_with": ["framing.point_of_view"],
+      "examples": [
+        "a conversation seen past the near person's shoulder",
+        "conversation shot past the listener's shoulder",
+        "player's shoulder framing the opponent across the table"
+      ],
+      "conflicts_with": [
+        "framing.point_of_view"
+      ],
       "exclusivity_group": null,
       "prompt_fragment": "over-the-shoulder framing",
       "negative_fragment": "not an over-the-shoulder frame",
-      "sort_order": 106
+      "sort_order": 106,
+      "media_scope": [
+        "image",
+        "video"
+      ]
     },
     {
       "schema_version": "1.0",
@@ -576,22 +650,45 @@
       "label": "Point-of-view framing",
       "aliases": [
         "point of view",
-        "POV",
+        "pov",
         "pov shot",
         "first person view",
         "through their eyes",
-        "seen from the subject's eyes"
+        "seen from the subject's eyes",
+        "first-person",
+        "subjective camera",
+        "seeing what they see",
+        "Point of view (first person)"
       ],
-      "related": ["framing.over_the_shoulder", "framing.single_subject"],
+      "related": [
+        "framing.over_the_shoulder",
+        "framing.single_subject",
+        "camera_angle.eye_level",
+        "camera_angle.dutch_tilt"
+      ],
       "parent": null,
       "children": [],
       "description": "The frame shows what a person in the scene is looking at, as if the camera were their eyes.",
-      "examples": ["hands on a steering wheel, road ahead"],
-      "conflicts_with": ["framing.over_the_shoulder"],
+      "examples": [
+        "hands on a steering wheel, road ahead",
+        "hands entering frame from the bottom as they open a door",
+        "helmet-cam view down a ski slope"
+      ],
+      "conflicts_with": [
+        "camera_angle.back",
+        "camera_angle.front",
+        "camera_angle.profile",
+        "camera_angle.three_quarter",
+        "framing.over_the_shoulder"
+      ],
       "exclusivity_group": null,
       "prompt_fragment": "point-of-view framing",
       "negative_fragment": "not a point-of-view frame",
-      "sort_order": 108
+      "sort_order": 108,
+      "media_scope": [
+        "image",
+        "video"
+      ]
     },
     {
       "schema_version": "1.0",
@@ -606,11 +703,16 @@
         "opening wide shot",
         "stablishing shot"
       ],
-      "related": ["framing.extreme_wide_shot", "framing.wide_shot"],
+      "related": [
+        "framing.extreme_wide_shot",
+        "framing.wide_shot"
+      ],
       "parent": null,
       "children": [],
       "description": "A frame whose job is to show where we are before the story moves closer; usually wide, and usually the first shot of a scene.",
-      "examples": ["a city block at dawn before we meet anybody in it"],
+      "examples": [
+        "a city block at dawn before we meet anybody in it"
+      ],
       "exclusivity_group": null,
       "prompt_fragment": "establishing shot",
       "negative_fragment": "not an establishing shot",
@@ -636,7 +738,9 @@
       "parent": null,
       "children": [],
       "description": "A frame held on somebody responding to what just happened, rather than on the action itself.",
-      "examples": ["a face reacting to news we heard a moment ago"],
+      "examples": [
+        "a face reacting to news we heard a moment ago"
+      ],
       "exclusivity_group": null,
       "prompt_fragment": "reaction-shot framing",
       "negative_fragment": "not a reaction shot",
@@ -655,11 +759,16 @@
         "cutaway detail",
         "inserted detail shot"
       ],
-      "related": ["framing.extreme_close_up", "framing.close_up"],
+      "related": [
+        "framing.extreme_close_up",
+        "framing.close_up"
+      ],
       "parent": null,
       "children": [],
       "description": "A tight frame of one isolated detail dropped into a scene: a watch face, a note, a hand on a door handle.",
-      "examples": ["a close frame of a note on a table, cut into a conversation"],
+      "examples": [
+        "a close frame of a note on a table, cut into a conversation"
+      ],
       "exclusivity_group": null,
       "prompt_fragment": "insert shot of an isolated detail",
       "negative_fragment": "not an insert shot",
@@ -687,11 +796,13 @@
       "parent": null,
       "children": [
         "camera_distance.macro",
-        "camera_distance.very_near",
-        "camera_distance.near"
+        "camera_distance.near",
+        "camera_distance.very_near"
       ],
       "description": "The camera physically stood close to the subject, within a couple of steps. Camera distance is where the camera was, not how tight the crop is: a wide lens up close and a long lens from far away can produce the very same framing and still look nothing alike.",
-      "examples": ["standing right beside the subject while shooting"],
+      "examples": [
+        "standing right beside the subject while shooting"
+      ],
       "exclusivity_group": "distance_band",
       "prompt_fragment": "with the camera close to the subject",
       "negative_fragment": "not shot from close range",
@@ -720,11 +831,13 @@
       "parent": "camera_distance.close_range",
       "children": [],
       "description": "The camera is only centimetres from the subject, close enough that just one small patch of it can be reached at all.",
-      "examples": ["the lens a finger's width from a fabric weave"],
+      "examples": [
+        "the lens a finger's width from a fabric weave"
+      ],
       "conflicts_with": [
         "framing.extreme_wide_shot",
-        "framing.wide_shot",
-        "framing.full_body"
+        "framing.full_body",
+        "framing.wide_shot"
       ],
       "exclusivity_group": "distance_band",
       "prompt_fragment": "with the camera only centimetres from the subject",
@@ -753,7 +866,9 @@
       "parent": "camera_distance.close_range",
       "children": [],
       "description": "Roughly an arm's length away, the distance of an intimate conversation, which slightly enlarges whatever is nearest the lens.",
-      "examples": ["a phone held out at arm's length toward the subject"],
+      "examples": [
+        "a phone held out at arm's length toward the subject"
+      ],
       "exclusivity_group": "distance_band",
       "prompt_fragment": "with the camera about an arm's length away",
       "negative_fragment": "not shot from arm's length",
@@ -782,7 +897,9 @@
       "parent": "camera_distance.close_range",
       "children": [],
       "description": "One to three metres from the subject: the natural distance for talking to somebody, and the distance from which an ordinary lens renders a face most naturally.",
-      "examples": ["standing across a small table from the subject"],
+      "examples": [
+        "standing across a small table from the subject"
+      ],
       "exclusivity_group": "distance_band",
       "prompt_fragment": "with the camera a step or two from the subject",
       "negative_fragment": "not shot from a short distance",
@@ -811,7 +928,9 @@
       "parent": null,
       "children": [],
       "description": "Several metres away, about the width of a room or a small courtyard, so the subject sits naturally inside the space around them.",
-      "examples": ["shooting from the far side of a living room"],
+      "examples": [
+        "shooting from the far side of a living room"
+      ],
       "exclusivity_group": "distance_band",
       "prompt_fragment": "with the camera a few metres from the subject",
       "negative_fragment": "not shot from a medium distance",
@@ -837,9 +956,14 @@
         "camera_distance.very_far"
       ],
       "parent": null,
-      "children": ["camera_distance.far", "camera_distance.very_far"],
+      "children": [
+        "camera_distance.far",
+        "camera_distance.very_far"
+      ],
       "description": "The camera stood well back from the subject and usually reached them with a longer lens, which flattens depth and pulls the background forward.",
-      "examples": ["watching the subject from the far end of a street"],
+      "examples": [
+        "watching the subject from the far end of a street"
+      ],
       "exclusivity_group": "distance_band",
       "prompt_fragment": "with the camera well back from the subject",
       "negative_fragment": "not shot from long range",
@@ -867,11 +991,16 @@
       "parent": "camera_distance.long_range",
       "children": [],
       "description": "Roughly ten to thirty metres away, across a street or a field, usually needing a longer lens to keep the subject readable.",
-      "examples": ["photographing someone from the opposite pavement"],
+      "examples": [
+        "photographing someone from the opposite pavement"
+      ],
       "exclusivity_group": "distance_band",
       "prompt_fragment": "with the camera far from the subject",
       "negative_fragment": "not shot from far away",
-      "sort_order": 32
+      "sort_order": 32,
+      "conflicts_with": [
+        "lens.macro_like"
+      ]
     },
     {
       "schema_version": "1.0",
@@ -895,11 +1024,16 @@
       "parent": "camera_distance.long_range",
       "children": [],
       "description": "Hundreds of metres or more: the scene observed from a distant vantage point such as a hillside, a rooftop or an aircraft.",
-      "examples": ["a valley watched from the ridge above it"],
+      "examples": [
+        "a valley watched from the ridge above it"
+      ],
       "exclusivity_group": "distance_band",
       "prompt_fragment": "with the camera at a great distance from the subject",
       "negative_fragment": "not shot from a great distance",
-      "sort_order": 34
+      "sort_order": 34,
+      "conflicts_with": [
+        "lens.macro_like"
+      ]
     }
   ]
 }

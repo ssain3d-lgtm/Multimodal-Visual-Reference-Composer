@@ -389,7 +389,7 @@ Each file exports: the port's documented shape, a registry, a `NULL_*` adapter (
 |---|---|---|
 | `explorer-modal.js` | Mounts the one modal; owns the dispatch loop `dispatch → reduceExplorer → render + run effects`; renders mode tabs, the four query surfaces, the shared filter bar. | `mountExplorerModal(el, deps) -> { dispatch, getState, subscribe, destroy }` |
 | `reference-card.js` | One result tile: thumbnail, licence badge, USE / EXTRACT×8 / EXPLORE actions, pin toggle. Fixed height for virtualization. | `renderReferenceCard(reference, handlers, caps) -> HTMLElement`, `CARD_SIZE` |
-| `reference-detail.js` | The decomposition panel: 20 categories grouped into the 8 EXTRACT groups, per-attribute confidence, EXPLORE-along-one-axis, licence and attribution block, media-state badge. | `renderReferenceDetail(reference, deps) -> HTMLElement` |
+| `reference-detail.js` | The decomposition panel: all 20 categories of `visual_attributes` — the 17 reachable through the 8 EXTRACT groups plus `subject`, `appearance`, `action`, which are shown but reachable only via USE-everything — with per-attribute confidence, EXPLORE-along-one-axis, licence and attribution block, media-state badge. | `renderReferenceDetail(reference, deps) -> HTMLElement` |
 | `reference-mixer.js` | The mix panel: entries with `use`/`only`/`exclude`/`role`/`priority`, the conflict two-up with both thumbnails, dominance selector, blocked-slot indicator. | `renderMixer(mix, deps) -> HTMLElement` |
 | `intent-chips.js` | The intent editor: 19 rows + confidence, per-chip lock / negate / delete / alternatives menu, provenance hover, `contested` badge, category filter. | `renderIntentChips(intent, deps) -> HTMLElement` |
 
@@ -725,7 +725,7 @@ Every `degrade_notice` renders as a one-line explanation with the missing capabi
 | Structured metadata search over `visual_attributes` | ✅ full | ✅ full | `filterReferences` |
 | Licence filtering and badges | ✅ full | ✅ full | `license-guard.js` |
 | Manual chip authoring, editing, locking, negating | ✅ full | ✅ full | `intent-chips.js` + `visual-intent.js` |
-| Reference decomposition view (8 EXTRACT groups) | ✅ full | ✅ full | stored `visual_attributes` |
+| Reference decomposition view (20 categories; 8 EXTRACT groups covering 17 of them) | ✅ full | ✅ full | stored `visual_attributes` |
 | Selective inheritance (`use` / `only` / `exclude`) | ✅ full | ✅ full | `reference-mix.js` |
 | Multi-reference mixing + conflict detection + resolution | ✅ full | ✅ full | `applyMix` is pure logic, not inference |
 | Structured prompt build + generic formatter | ✅ full | ✅ full | `prompt/` never calls a model |

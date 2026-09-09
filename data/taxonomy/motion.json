@@ -1,6 +1,8 @@
 {
   "schema_version": "1.0",
-  "categories": ["motion"],
+  "categories": [
+    "motion"
+  ],
   "version": 1,
   "updated_at": "2026-09-09T00:00:00Z",
   "nodes": [
@@ -28,16 +30,16 @@
       ],
       "parent": null,
       "children": [
-        "motion.standing",
-        "motion.walking",
+        "motion.approaching_camera",
+        "motion.dancing",
+        "motion.falling",
+        "motion.jumping",
+        "motion.moving_away_from_camera",
         "motion.running",
         "motion.sitting",
-        "motion.jumping",
-        "motion.falling",
-        "motion.dancing",
+        "motion.standing",
         "motion.turning",
-        "motion.approaching_camera",
-        "motion.moving_away_from_camera"
+        "motion.walking"
       ],
       "description": "The branch for what the body itself is doing — whether the subject is still, travelling across the ground, or changing level. Motion is a video-first attribute: a clip shows it directly, while a photograph can only hint at it, so pick a specific child node when you know which movement you mean.",
       "examples": [
@@ -46,7 +48,10 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "moving through the space",
       "negative_fragment": "no movement through the space",
       "search_boost": 0.9,
@@ -83,12 +88,17 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": "locomotion",
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "still_inferable": true,
       "prompt_fragment": "standing still",
       "negative_fragment": "not standing still",
       "search_boost": 1.2,
-      "sort_order": 20
+      "sort_order": 20,
+      "deprecated": true,
+      "replaced_by": "pose.standing"
     },
     {
       "schema_version": "1.0",
@@ -122,11 +132,16 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": "locomotion",
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "walking",
       "negative_fragment": "not walking",
       "search_boost": 1.4,
-      "sort_order": 30
+      "sort_order": 30,
+      "deprecated": true,
+      "replaced_by": "action.walking"
     },
     {
       "schema_version": "1.0",
@@ -160,12 +175,17 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": "locomotion",
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "still_inferable": true,
       "prompt_fragment": "running",
       "negative_fragment": "not running",
       "search_boost": 1.4,
-      "sort_order": 40
+      "sort_order": 40,
+      "deprecated": true,
+      "replaced_by": "action.running"
     },
     {
       "schema_version": "1.0",
@@ -197,12 +217,17 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": "locomotion",
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "still_inferable": true,
       "prompt_fragment": "sitting",
       "negative_fragment": "not sitting",
       "search_boost": 1.2,
-      "sort_order": 50
+      "sort_order": 50,
+      "deprecated": true,
+      "replaced_by": "pose.sitting"
     },
     {
       "schema_version": "1.0",
@@ -235,12 +260,17 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": "locomotion",
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "still_inferable": true,
       "prompt_fragment": "jumping in mid-air",
       "negative_fragment": "not jumping",
       "search_boost": 1.3,
-      "sort_order": 60
+      "sort_order": 60,
+      "deprecated": true,
+      "replaced_by": "action.jumping"
     },
     {
       "schema_version": "1.0",
@@ -273,7 +303,10 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": "locomotion",
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "still_inferable": true,
       "prompt_fragment": "falling",
       "negative_fragment": "not falling",
@@ -311,11 +344,16 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": "locomotion",
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "dancing",
       "negative_fragment": "not dancing",
       "search_boost": 1.4,
-      "sort_order": 80
+      "sort_order": 80,
+      "deprecated": true,
+      "replaced_by": "action.dancing"
     },
     {
       "schema_version": "1.0",
@@ -348,11 +386,16 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": "locomotion",
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "turning",
       "negative_fragment": "not turning",
       "search_boost": 1.2,
-      "sort_order": 90
+      "sort_order": 90,
+      "deprecated": true,
+      "replaced_by": "action.turning"
     },
     {
       "schema_version": "1.0",
@@ -382,9 +425,14 @@
         "walking straight at the lens down a corridor",
         "stepping forward out of a dark background"
       ],
-      "conflicts_with": ["motion.moving_away_from_camera"],
+      "conflicts_with": [
+        "motion.moving_away_from_camera"
+      ],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "moving toward the camera",
       "negative_fragment": "not moving toward the camera",
       "search_boost": 1.2,
@@ -418,9 +466,14 @@
         "walking away down an empty platform",
         "receding into fog with their back to us"
       ],
-      "conflicts_with": ["motion.approaching_camera"],
+      "conflicts_with": [
+        "motion.approaching_camera"
+      ],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "moving away from the camera",
       "negative_fragment": "not moving away from the camera",
       "search_boost": 1.2,
@@ -449,9 +502,9 @@
       ],
       "parent": null,
       "children": [
+        "motion.pointing",
         "motion.reaching",
-        "motion.waving",
-        "motion.pointing"
+        "motion.waving"
       ],
       "description": "The branch for movements of the hands, arms or head that communicate something, rather than moving the whole body somewhere. Gestures sit happily alongside locomotion — someone can walk and wave at once — so choosing one never rules out a travelling movement.",
       "examples": [
@@ -460,7 +513,10 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "gesturing",
       "negative_fragment": "no gesturing",
       "search_boost": 1.1,
@@ -496,11 +552,16 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "reaching out with one arm",
       "negative_fragment": "not reaching out",
       "search_boost": 1,
-      "sort_order": 210
+      "sort_order": 210,
+      "deprecated": true,
+      "replaced_by": "action.reaching"
     },
     {
       "schema_version": "1.0",
@@ -532,11 +593,16 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "waving one hand",
       "negative_fragment": "not waving",
       "search_boost": 1,
-      "sort_order": 220
+      "sort_order": 220,
+      "deprecated": true,
+      "replaced_by": "action.waving"
     },
     {
       "schema_version": "1.0",
@@ -568,11 +634,16 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "pointing at something",
       "negative_fragment": "not pointing",
       "search_boost": 1,
-      "sort_order": 230
+      "sort_order": 230,
+      "deprecated": true,
+      "replaced_by": "action.pointing"
     },
     {
       "schema_version": "1.0",
@@ -596,8 +667,8 @@
       ],
       "parent": null,
       "children": [
-        "motion.hair_movement",
-        "motion.clothing_movement"
+        "motion.clothing_movement",
+        "motion.hair_movement"
       ],
       "description": "The branch for movement that belongs to loose parts of the subject — hair, fabric, straps — dragged along by the body or by the wind rather than driven on purpose. These are the motion values a single photograph evidences best, because the frozen shape of moving hair or cloth is visible in one frame.",
       "examples": [
@@ -606,7 +677,10 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "still_inferable": true,
       "prompt_fragment": "secondary movement in the hair and clothing",
       "negative_fragment": "no secondary movement in hair or clothing",
@@ -644,7 +718,10 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "still_inferable": true,
       "prompt_fragment": "hair moving through the air",
       "negative_fragment": "no hair movement",
@@ -682,7 +759,10 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "still_inferable": true,
       "prompt_fragment": "clothing flowing with the movement",
       "negative_fragment": "no clothing movement",
@@ -711,13 +791,13 @@
       ],
       "parent": null,
       "children": [
-        "motion.rhythmic",
         "motion.fluid",
-        "motion.sharp",
-        "motion.staggered",
+        "motion.frozen_action",
         "motion.looping",
         "motion.motion_blur",
-        "motion.frozen_action"
+        "motion.rhythmic",
+        "motion.sharp",
+        "motion.staggered"
       ],
       "description": "The branch for how a movement feels rather than what the movement is — smooth or abrupt, even or jerky, repeating or one-off. Quality values sit alongside a locomotion value instead of replacing it, so you can ask for walking that is also slow and fluid.",
       "examples": [
@@ -726,7 +806,10 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "movement with a distinct quality",
       "negative_fragment": "no distinct movement quality",
       "search_boost": 0.9,
@@ -761,9 +844,14 @@
         "steps landing exactly on a beat",
         "a shoulder bounce repeating at a fixed interval"
       ],
-      "conflicts_with": ["motion.staggered"],
+      "conflicts_with": [
+        "motion.staggered"
+      ],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "rhythmic, repeating movement",
       "negative_fragment": "not rhythmic movement",
       "search_boost": 1.1,
@@ -798,9 +886,15 @@
         "an arm sweeping in one unbroken curve",
         "a turn that never seems to start or stop"
       ],
-      "conflicts_with": ["motion.sharp", "motion.staggered"],
+      "conflicts_with": [
+        "motion.sharp",
+        "motion.staggered"
+      ],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "smooth, fluid movement",
       "negative_fragment": "not smooth or fluid movement",
       "search_boost": 1.2,
@@ -835,9 +929,14 @@
         "an arm snapping into position and holding",
         "a head turn that stops dead on the beat"
       ],
-      "conflicts_with": ["motion.fluid"],
+      "conflicts_with": [
+        "motion.fluid"
+      ],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "sharp, sudden movement",
       "negative_fragment": "not sharp or sudden movement",
       "search_boost": 1.1,
@@ -872,9 +971,15 @@
         "an unsteady, lurching walk",
         "a stop-start stutter across the frame"
       ],
-      "conflicts_with": ["motion.fluid", "motion.rhythmic"],
+      "conflicts_with": [
+        "motion.fluid",
+        "motion.rhythmic"
+      ],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "uneven, staggered movement",
       "negative_fragment": "not staggered or uneven movement",
       "search_boost": 1,
@@ -911,7 +1016,10 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "looping movement that returns to where it began",
       "negative_fragment": "not a looping movement",
       "search_boost": 1.1,
@@ -945,9 +1053,14 @@
         "a running figure smeared against sharp surroundings",
         "hands blurred while the face stays still"
       ],
-      "conflicts_with": ["motion.frozen_action"],
+      "conflicts_with": [
+        "motion.frozen_action"
+      ],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "still_inferable": true,
       "prompt_fragment": "movement smeared into motion blur",
       "negative_fragment": "no motion blur",
@@ -983,9 +1096,14 @@
         "a jump caught razor sharp at its peak",
         "water droplets held still in mid-flight"
       ],
-      "conflicts_with": ["motion.motion_blur"],
+      "conflicts_with": [
+        "motion.motion_blur"
+      ],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "still_inferable": true,
       "prompt_fragment": "action frozen mid-movement",
       "negative_fragment": "action not frozen",
@@ -1015,9 +1133,9 @@
       ],
       "parent": null,
       "children": [
-        "motion.slow",
+        "motion.fast",
         "motion.medium_speed",
-        "motion.fast"
+        "motion.slow"
       ],
       "description": "The branch for the pace of the movement, kept separate from what the movement is so that any action can be asked for slow, moderate or fast. Only one speed band belongs to one movement, so picking two will be surfaced as a decision to make rather than silently merged.",
       "examples": [
@@ -1026,7 +1144,10 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": null,
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "movement at a distinct pace",
       "negative_fragment": "no distinct pace to the movement",
       "search_boost": 0.9,
@@ -1064,7 +1185,10 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": "speed",
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "moving slowly",
       "negative_fragment": "not moving slowly",
       "search_boost": 1.3,
@@ -1101,7 +1225,10 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": "speed",
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "moving at a moderate pace",
       "negative_fragment": "not moving at a moderate pace",
       "search_boost": 1,
@@ -1139,7 +1266,10 @@
       ],
       "conflicts_with": [],
       "exclusivity_group": "speed",
-      "media_scope": ["image", "video"],
+      "media_scope": [
+        "image",
+        "video"
+      ],
       "prompt_fragment": "moving fast",
       "negative_fragment": "not moving fast",
       "search_boost": 1.3,

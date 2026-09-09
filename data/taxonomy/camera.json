@@ -49,7 +49,8 @@
       "prompt_fragment": "shot at eye level",
       "search_boost": 1.2,
       "sort_order": 10,
-      "negative_fragment": "not shot at eye level"
+      "negative_fragment": "not shot at eye level",
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -139,7 +140,8 @@
       ],
       "prompt_fragment": "extreme worm's-eye view from ground level, looking steeply up",
       "search_boost": 1,
-      "sort_order": 21
+      "sort_order": 21,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -275,7 +277,8 @@
       ],
       "prompt_fragment": "shot from directly overhead, looking straight down",
       "search_boost": 1.1,
-      "sort_order": 32
+      "sort_order": 32,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -296,7 +299,7 @@
       "related": [
         "camera_angle.eye_level",
         "camera_angle.low_angle",
-        "camera_angle.point_of_view"
+        "framing.point_of_view"
       ],
       "parent": null,
       "description": "The camera is rolled sideways so the horizon runs diagonally across the frame, a tilt that makes a shot feel uneasy, tense or off balance.",
@@ -314,7 +317,8 @@
       "prompt_fragment": "camera rolled into a dutch angle with a tilted horizon",
       "search_boost": 1.1,
       "sort_order": 40,
-      "negative_fragment": "level horizon, no dutch tilt"
+      "negative_fragment": "level horizon, no dutch tilt",
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -343,7 +347,8 @@
       "search_boost": 1,
       "sort_order": 41,
       "deprecated": true,
-      "replaced_by": "camera_angle.dutch_tilt"
+      "replaced_by": "camera_angle.dutch_tilt",
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -375,9 +380,9 @@
       "visual_hint": null,
       "conflicts_with": [
         "camera_angle.back",
-        "camera_angle.point_of_view",
         "camera_angle.profile",
-        "camera_angle.three_quarter"
+        "camera_angle.three_quarter",
+        "framing.point_of_view"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -386,7 +391,8 @@
       ],
       "prompt_fragment": "shot head-on from the front",
       "search_boost": 1.1,
-      "sort_order": 50
+      "sort_order": 50,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -419,8 +425,8 @@
       "conflicts_with": [
         "camera_angle.back",
         "camera_angle.front",
-        "camera_angle.point_of_view",
-        "camera_angle.profile"
+        "camera_angle.profile",
+        "framing.point_of_view"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -429,7 +435,8 @@
       ],
       "prompt_fragment": "three-quarter view, subject turned about forty-five degrees from the camera",
       "search_boost": 1.2,
-      "sort_order": 51
+      "sort_order": 51,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -461,8 +468,8 @@
       "conflicts_with": [
         "camera_angle.back",
         "camera_angle.front",
-        "camera_angle.point_of_view",
-        "camera_angle.three_quarter"
+        "camera_angle.three_quarter",
+        "framing.point_of_view"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -471,7 +478,8 @@
       ],
       "prompt_fragment": "strict side-on profile view",
       "search_boost": 1,
-      "sort_order": 52
+      "sort_order": 52,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -489,7 +497,7 @@
         "back of the head"
       ],
       "related": [
-        "camera_angle.over_the_shoulder",
+        "framing.over_the_shoulder",
         "camera_angle.front",
         "camera_angle.profile"
       ],
@@ -502,9 +510,9 @@
       "visual_hint": null,
       "conflicts_with": [
         "camera_angle.front",
-        "camera_angle.point_of_view",
         "camera_angle.profile",
-        "camera_angle.three_quarter"
+        "camera_angle.three_quarter",
+        "framing.point_of_view"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -513,88 +521,8 @@
       ],
       "prompt_fragment": "shot from behind the subject",
       "search_boost": 1,
-      "sort_order": 53
-    },
-    {
-      "schema_version": "1.0",
-      "id": "camera_angle.over_the_shoulder",
-      "category": "camera_angle",
-      "label": "Over-the-shoulder",
-      "aliases": [
-        "over the shoulder",
-        "over-the-shoulder shot",
-        "ots",
-        "ots shot",
-        "behind shoulder view",
-        "looking past someone's shoulder",
-        "shoulder framing"
-      ],
-      "related": [
-        "camera_angle.back",
-        "camera_angle.three_quarter",
-        "camera_angle.point_of_view"
-      ],
-      "parent": null,
-      "description": "The camera sits just behind one person's shoulder, so that shoulder and the back of their head frame whoever or whatever they are facing.",
-      "examples": [
-        "conversation shot past the listener's shoulder",
-        "player's shoulder framing the opponent across the table"
-      ],
-      "visual_hint": null,
-      "conflicts_with": [
-        "camera_angle.point_of_view"
-      ],
-      "exclusivity_group": null,
-      "media_scope": [
-        "image",
-        "video"
-      ],
-      "prompt_fragment": "over-the-shoulder view past a foreground figure",
-      "search_boost": 1.1,
-      "sort_order": 54
-    },
-    {
-      "schema_version": "1.0",
-      "id": "camera_angle.point_of_view",
-      "category": "camera_angle",
-      "label": "Point of view (first person)",
-      "aliases": [
-        "point of view",
-        "pov",
-        "pov shot",
-        "first person view",
-        "first-person",
-        "through their eyes",
-        "subjective camera",
-        "seeing what they see"
-      ],
-      "related": [
-        "camera_angle.over_the_shoulder",
-        "camera_angle.eye_level",
-        "camera_angle.dutch_tilt"
-      ],
-      "parent": null,
-      "description": "The camera stands in for the subject's own eyes, so we see exactly what they see instead of seeing them.",
-      "examples": [
-        "hands entering frame from the bottom as they open a door",
-        "helmet-cam view down a ski slope"
-      ],
-      "visual_hint": null,
-      "conflicts_with": [
-        "camera_angle.back",
-        "camera_angle.front",
-        "camera_angle.over_the_shoulder",
-        "camera_angle.profile",
-        "camera_angle.three_quarter"
-      ],
-      "exclusivity_group": null,
-      "media_scope": [
-        "image",
-        "video"
-      ],
-      "prompt_fragment": "first-person point-of-view shot, camera acting as the subject's eyes",
-      "search_boost": 1.2,
-      "sort_order": 55
+      "sort_order": 53,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -658,7 +586,8 @@
       "prompt_fragment": "static locked-off camera with no camera movement",
       "search_boost": 1.2,
       "sort_order": 10,
-      "negative_fragment": "the camera should not stay locked off"
+      "negative_fragment": "the camera should not stay locked off",
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -731,7 +660,8 @@
       ],
       "prompt_fragment": "camera pans left across the scene",
       "search_boost": 1.2,
-      "sort_order": 21
+      "sort_order": 21,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -766,7 +696,8 @@
       ],
       "prompt_fragment": "camera pans right across the scene",
       "search_boost": 1.2,
-      "sort_order": 22
+      "sort_order": 22,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -802,8 +733,8 @@
       "search_boost": 1,
       "sort_order": 30,
       "children": [
-        "camera_motion.tilt_up",
-        "camera_motion.tilt_down"
+        "camera_motion.tilt_down",
+        "camera_motion.tilt_up"
       ]
     },
     {
@@ -840,7 +771,8 @@
       ],
       "prompt_fragment": "camera tilts up",
       "search_boost": 1.1,
-      "sort_order": 31
+      "sort_order": 31,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -875,7 +807,8 @@
       ],
       "prompt_fragment": "camera tilts down",
       "search_boost": 1.1,
-      "sort_order": 32
+      "sort_order": 32,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1033,7 +966,8 @@
       ],
       "prompt_fragment": "slow push in toward the subject",
       "search_boost": 1.1,
-      "sort_order": 43
+      "sort_order": 43,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1071,7 +1005,8 @@
       ],
       "prompt_fragment": "slow pull back away from the subject, widening the view",
       "search_boost": 1.1,
-      "sort_order": 44
+      "sort_order": 44,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1144,7 +1079,8 @@
       ],
       "prompt_fragment": "lens zooms in on the subject",
       "search_boost": 1.3,
-      "sort_order": 51
+      "sort_order": 51,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1179,7 +1115,8 @@
       ],
       "prompt_fragment": "lens zooms out to a wider view",
       "search_boost": 1.2,
-      "sort_order": 52
+      "sort_order": 52,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1253,7 +1190,8 @@
       ],
       "prompt_fragment": "camera trucks left, sliding sideways with the scene",
       "search_boost": 1,
-      "sort_order": 61
+      "sort_order": 61,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1288,7 +1226,8 @@
       ],
       "prompt_fragment": "camera trucks right, sliding sideways with the scene",
       "search_boost": 1,
-      "sort_order": 62
+      "sort_order": 62,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1324,8 +1263,8 @@
       "search_boost": 1,
       "sort_order": 70,
       "children": [
-        "camera_motion.pedestal_up",
-        "camera_motion.pedestal_down"
+        "camera_motion.pedestal_down",
+        "camera_motion.pedestal_up"
       ]
     },
     {
@@ -1362,7 +1301,8 @@
       ],
       "prompt_fragment": "camera pedestals up, rising while staying level",
       "search_boost": 1,
-      "sort_order": 71
+      "sort_order": 71,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1398,7 +1338,8 @@
       ],
       "prompt_fragment": "camera pedestals down, lowering while staying level",
       "search_boost": 1,
-      "sort_order": 72
+      "sort_order": 72,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1436,7 +1377,8 @@
       ],
       "prompt_fragment": "tracking shot following the subject",
       "search_boost": 1.3,
-      "sort_order": 80
+      "sort_order": 80,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1473,7 +1415,8 @@
       ],
       "prompt_fragment": "camera orbits around the subject in a smooth arc",
       "search_boost": 1.2,
-      "sort_order": 90
+      "sort_order": 90,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1511,7 +1454,8 @@
       "prompt_fragment": "handheld camera with natural shake",
       "search_boost": 1.2,
       "sort_order": 100,
-      "negative_fragment": "steady stabilised camera, no handheld shake"
+      "negative_fragment": "steady stabilised camera, no handheld shake",
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1549,7 +1493,8 @@
       ],
       "prompt_fragment": "sweeping crane move rising through the air over the scene",
       "search_boost": 1.1,
-      "sort_order": 110
+      "sort_order": 110,
+      "children": []
     }
   ]
 }

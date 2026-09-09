@@ -222,7 +222,10 @@
         "straight-on lighting",
         "flat front light",
         "front lit",
-        "frontlighting"
+        "frontlighting",
+        "soft front",
+        "soft frontal light",
+        "soft front lighting"
       ],
       "related": [
         "lighting.flat_light",
@@ -422,7 +425,7 @@
       "exclusivity_group": "light_direction",
       "prompt_fragment": "lit from directly above",
       "negative_fragment": "not lit from above",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 60
     },
     {
@@ -460,7 +463,7 @@
       "exclusivity_group": "light_direction",
       "prompt_fragment": "lit from below",
       "negative_fragment": "not lit from below",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 70
     },
     {
@@ -582,7 +585,7 @@
       "exclusivity_group": null,
       "prompt_fragment": "flat, almost shadowless lighting",
       "negative_fragment": "not flat or shadowless lighting",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 30
     },
     {
@@ -709,7 +712,7 @@
       "exclusivity_group": null,
       "prompt_fragment": "lit by artificial light",
       "negative_fragment": "not lit by artificial light",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 20
     },
     {
@@ -908,7 +911,7 @@
       "exclusivity_group": null,
       "prompt_fragment": "soft light in open shade",
       "negative_fragment": "not in open shade",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 50
     },
     {
@@ -947,7 +950,7 @@
       "exclusivity_group": null,
       "prompt_fragment": "pale blue moonlight",
       "negative_fragment": "not lit by moonlight",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 60
     },
     {
@@ -963,7 +966,11 @@
         "hard flash",
         "flash photography look",
         "direkt flash",
-        "direct-flash"
+        "direct-flash",
+        "flash",
+        "flash photography",
+        "camera flash",
+        "flash lit"
       ],
       "related": [
         "lighting.on_camera_flash",
@@ -1060,7 +1067,7 @@
       "exclusivity_group": null,
       "prompt_fragment": "soft bounced flash",
       "negative_fragment": "no bounced flash",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 30
     },
     {
@@ -1239,7 +1246,7 @@
       "exclusivity_group": null,
       "prompt_fragment": "warm flickering firelight",
       "negative_fragment": "not lit by firelight",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 80
     },
     {
@@ -1308,7 +1315,7 @@
       "exclusivity_group": null,
       "prompt_fragment": "crisp beauty-dish lighting",
       "negative_fragment": "not beauty-dish lighting",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 100
     },
     {
@@ -1673,7 +1680,7 @@
       "exclusivity_group": "portrait_pattern",
       "prompt_fragment": "butterfly lighting from directly above the face",
       "negative_fragment": "not butterfly lighting",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 80
     },
     {
@@ -1706,7 +1713,7 @@
       "exclusivity_group": "portrait_pattern",
       "prompt_fragment": "loop lighting with a small nose shadow",
       "negative_fragment": "not loop lighting",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 90
     },
     {
@@ -1889,7 +1896,7 @@
       "exclusivity_group": "color_temperature",
       "prompt_fragment": "neutral white light",
       "negative_fragment": "not neutral white light",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 30
     },
     {

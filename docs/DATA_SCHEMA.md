@@ -6,7 +6,7 @@
 > 이 문서는 제품이 저장하는 모든 데이터 구조의 레퍼런스 매뉴얼입니다. `VisualIntent`, `IntentChip`, `Reference`, `ReferenceMetadata`, `ReferenceMix`, `StructuredPrompt`, `TaxonomyNode`, `ExplorerState`, `VisualRecipe` 아홉 개 객체를 각각 목적 · 필드표 · 실제 JSON 예제 · 검증 규칙으로 정의합니다.
 > 핵심 결정 세 가지: 20개 카테고리 열거형은 **단 한 곳**(`taxonomy-node.schema.json`)에만 정의되고, VisualIntent 배열의 원소는 문자열이 아니라 **출처·신뢰도·잠금·증거를 담은 `IntentChip` 객체**이며, 충돌은 감지되어 **표면화될 뿐 자동 해결되지 않습니다**.
 > 분류 id는 `<카테고리>.<슬러그>` 두 마디로 고정되고 계층은 id가 아니라 `parent` 필드에 들어갑니다 — 재분류가 저장된 데이터를 깨뜨리지 않게 하기 위해서입니다.
-> 기계가 읽는 정본은 [`schemas/`](./schemas/)의 JSON Schema 7개 파일이며, 본 문서와 어긋나면 스키마 파일이 아니라 [`BRIEF.md`](../BRIEF.md) → 정본 데이터 모델 순으로 우선합니다.
+> 기계가 읽는 정본은 [`schemas/`](./schemas/)의 JSON Schema 7개 파일이며, 본 문서와 어긋나면 스키마 파일이 아니라 `BRIEF.md` (정본 제품 브리프, 이 저장소에 반드시 커밋되어 있지는 않음) → 정본 데이터 모델 순으로 우선합니다.
 
 ---
 
@@ -950,7 +950,7 @@ Required: `source`, `source_id`, `license`, `source_url`.
 | `license_version` | string | no | e.g. `"4.0"` |
 | `media_url` | URL | no | **a cache hint. Expected to rot.** |
 | `thumbnail_url` | URL | no | |
-| `attribution` | string | no | **stored TEXT**, never a computed link — §10.3 R4 |
+| `attribution` | string | no | **stored TEXT**, never a computed link — §10.4 R4 |
 | `credit_line` | string | no | the provider's preferred wording, when it supplies one |
 | `retrieved_at` | ISO datetime | no | |
 | `title` | string | no | the provider's title |
@@ -972,7 +972,44 @@ The brief's four stages, stored as an audit trail. Each stage is `{status: pendi
 
 Full policy, including the operator settings that move `cc_by_sa` between classes, is in [`LICENSE_POLICY.md`](./LICENSE_POLICY.md).
 
-### 10.3 `ReferenceSnapshot` and the media-rot policy
+### 10.3 Worked example and validation rules
+
+A public-domain Wikimedia record — the case that exercises the nullable `creator` and shows the derived caches computed:
+
+```json
+{
+  "source": "wikimedia_commons",
+  "source_id": "File:Alley_1904_glass_plate.jpg",
+  "creator": null,
+  "license": "public_domain",
+  "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Alley_1904_glass_plate.jpg",
+  "media_url": "https://upload.wikimedia.org/.../Alley_1904_glass_plate.jpg",
+  "thumbnail_url": "https://upload.wikimedia.org/.../320px-Alley_1904_glass_plate.jpg",
+  "attribution": "Alley, 1904 (glass plate) — public domain, via Wikimedia Commons",
+  "credit_line": "Unknown photographer, 1904. Public domain.",
+  "retrieved_at": "2026-09-09T10:12:00Z",
+  "title": "Alley, 1904",
+  "license_policy_class": "allowed",
+  "requires_attribution": false,
+  "share_alike": false
+}
+```
+
+`creator: null` is legal **only** because `license` is `public_domain`; the same record with `license: "cc_by"` on an `approved` reference is rejected by INV-LIC-2. `requires_attribution: false` is a derived cache — the product still stores and renders `attribution`, because crediting a source is a courtesy the licence does not have to compel.
+
+| Rule | Enforcement |
+|---|---|
+| `source`, `source_id`, `license`, `source_url` are required | schema |
+| `license` is a member of the closed `license_id` enum — an unrecognised string fails loudly | schema |
+| `creator: null` permitted only for `public_domain` / `pdm` / `cc0` / `user_owned` | schema |
+| `approved` ⇒ non-empty `attribution`, `license ∉ {unknown, proprietary}` (INV-LIC-1) | schema |
+| `approved` + `cc_by` / `cc_by_sa` ⇒ non-empty `creator` **and** `license_url` (INV-LIC-2) | schema |
+| `license_policy_class`, `requires_attribution`, `share_alike` are **derived caches** — recomputed on load from `license` + operator settings, never trusted from storage | code (§6.4) |
+| `attribution` is stored text, never a computed link | code (§10.4 R4) |
+| the stage order `license_check → source_validation → attribution_metadata → approval` is not skippable | code (INV-LIC-3) |
+
+### 10.4 `ReferenceSnapshot` and the media-rot policy
 
 `reference.schema.json#/$defs/snapshot` is the **frozen** copy embedded in a `VisualRecipe`:
 

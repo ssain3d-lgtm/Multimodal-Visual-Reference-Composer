@@ -34,8 +34,8 @@
       "children": [
         "scene.home_interior",
         "scene.interior_public",
-        "scene.transit",
-        "scene.studio"
+        "scene.studio",
+        "scene.transit"
       ],
       "description": "The shot happens inside a building, so walls, ceilings and lamps decide the light and the space instead of the sky.",
       "examples": [
@@ -78,8 +78,8 @@
       ],
       "parent": null,
       "children": [
-        "scene.urban",
-        "scene.nature"
+        "scene.nature",
+        "scene.urban"
       ],
       "description": "The shot happens outside under open sky, so daylight, weather and time of day shape how it looks.",
       "examples": [
@@ -120,10 +120,10 @@
       ],
       "parent": null,
       "children": [
+        "scene.brick_wall",
         "scene.crowd",
         "scene.empty_space",
         "scene.graffiti_wall",
-        "scene.brick_wall",
         "scene.greenery",
         "scene.staircase",
         "scene.window_view"
@@ -167,16 +167,16 @@
       ],
       "parent": "scene.outdoor",
       "children": [
-        "scene.urban_street",
         "scene.alley",
-        "scene.rooftop",
         "scene.bridge",
-        "scene.tunnel",
-        "scene.plaza",
-        "scene.parking_lot",
-        "scene.night_city",
         "scene.city_skyline",
-        "scene.neon_signage"
+        "scene.neon_signage",
+        "scene.night_city",
+        "scene.parking_lot",
+        "scene.plaza",
+        "scene.rooftop",
+        "scene.tunnel",
+        "scene.urban_street"
       ],
       "description": "Outdoor places built by people: streets, alleys, rooftops and the structures between them. Pick one of the children when you know which kind of city space you mean.",
       "examples": [
@@ -217,12 +217,12 @@
       "parent": "scene.outdoor",
       "children": [
         "scene.beach",
-        "scene.forest",
-        "scene.mountain",
         "scene.desert",
         "scene.field",
-        "scene.riverside",
-        "scene.park"
+        "scene.forest",
+        "scene.mountain",
+        "scene.park",
+        "scene.riverside"
       ],
       "description": "Outdoor places shaped by landscape rather than buildings — beaches, forests, mountains and open ground.",
       "examples": [
@@ -263,10 +263,10 @@
       ],
       "parent": "scene.indoor",
       "children": [
+        "scene.bathroom",
         "scene.bedroom",
-        "scene.living_room",
         "scene.kitchen",
-        "scene.bathroom"
+        "scene.living_room"
       ],
       "description": "Inside somebody’s home. Choose a room below when the exact space matters; on its own it simply says the setting is domestic and lived-in.",
       "examples": [
@@ -305,15 +305,15 @@
       ],
       "parent": "scene.indoor",
       "children": [
-        "scene.cafe",
-        "scene.restaurant",
         "scene.bar",
-        "scene.gallery",
-        "scene.library",
-        "scene.hotel_lobby",
+        "scene.cafe",
         "scene.convenience_store",
+        "scene.gallery",
+        "scene.hotel_lobby",
+        "scene.library",
         "scene.office",
-        "scene.parking_garage"
+        "scene.parking_garage",
+        "scene.restaurant"
       ],
       "description": "Indoor spaces open to the public — cafes, bars, shops, galleries, offices and lobbies.",
       "examples": [
@@ -353,10 +353,10 @@
       ],
       "parent": "scene.indoor",
       "children": [
-        "scene.subway_station",
-        "scene.subway_train_interior",
         "scene.airport_terminal",
-        "scene.car_interior"
+        "scene.car_interior",
+        "scene.subway_station",
+        "scene.subway_train_interior"
       ],
       "description": "Places built for travelling through: stations, terminals, platforms and the inside of vehicles.",
       "examples": [
@@ -395,9 +395,9 @@
       ],
       "parent": "scene.indoor",
       "children": [
-        "scene.studio_seamless",
+        "scene.green_screen",
         "scene.studio_cyclorama",
-        "scene.green_screen"
+        "scene.studio_seamless"
       ],
       "description": "A controlled shooting space with a built backdrop instead of a real location, so nothing in the background is accidental.",
       "examples": [
@@ -1880,7 +1880,7 @@
       "schema_version": "1.0",
       "id": "scene.crowd",
       "category": "scene",
-      "label": "Crowd",
+      "label": "Crowded setting",
       "aliases": [
         "crowd",
         "busy",
@@ -2164,10 +2164,10 @@
       ],
       "parent": null,
       "children": [
-        "time.morning",
-        "time.midday",
         "time.afternoon",
-        "time.golden_hour"
+        "time.golden_hour",
+        "time.midday",
+        "time.morning"
       ],
       "description": "Any time between sunrise and sunset, when the sun itself is the main light in the picture.",
       "examples": [
@@ -2306,7 +2306,6 @@
       "aliases": [
         "golden hour",
         "magic hour",
-        "warm light",
         "sunset light",
         "late sun",
         "golden light",
@@ -2357,11 +2356,11 @@
       ],
       "parent": null,
       "children": [
-        "time.dawn",
-        "time.sunrise",
-        "time.sunset",
         "time.blue_hour",
-        "time.dusk"
+        "time.dawn",
+        "time.dusk",
+        "time.sunrise",
+        "time.sunset"
       ],
       "description": "The in-between period when the sun is under the horizon but the sky is still lit, so there is light in the scene without a visible sun.",
       "examples": [
@@ -2748,8 +2747,8 @@
       ],
       "parent": null,
       "children": [
-        "weather.partly_cloudy",
-        "weather.overcast"
+        "weather.overcast",
+        "weather.partly_cloudy"
       ],
       "description": "Cloud is present in the sky, softening the sunlight without shutting it out completely.",
       "examples": [
@@ -3099,11 +3098,11 @@
       "parent": null,
       "children": [
         "weather.fog",
-        "weather.mist",
         "weather.haze",
-        "weather.wind",
+        "weather.mist",
+        "weather.snow_on_ground",
         "weather.wet_ground",
-        "weather.snow_on_ground"
+        "weather.wind"
       ],
       "description": "Secondary conditions in the air or on the ground. They sit on top of whatever the main weather is, so combinations like rain plus fog are normal rather than contradictory.",
       "examples": [
@@ -3360,16 +3359,14 @@
       ],
       "related": [
         "props.suitcase",
-        "props.backpack",
+        "clothing.backpack",
         "props.handheld"
       ],
       "parent": null,
       "children": [
-        "props.suitcase",
-        "props.backpack",
+        "props.briefcase",
         "props.shopping_bag",
-        "props.tote_bag",
-        "props.briefcase"
+        "props.suitcase"
       ],
       "description": "Things the subject carries with them, usually bags and luggage, which change how they stand and where their hands end up.",
       "examples": [
@@ -3381,7 +3378,7 @@
         "image",
         "video"
       ],
-      "prompt_fragment": "carrying a bag",
+      "prompt_fragment": "carrying something",
       "negative_fragment": "not carrying a bag",
       "search_boost": 0.9,
       "sort_order": 10
@@ -3408,13 +3405,13 @@
       ],
       "parent": null,
       "children": [
-        "props.coffee_cup",
-        "props.umbrella",
-        "props.camera",
-        "props.smartphone",
         "props.book",
+        "props.camera",
         "props.cigarette",
-        "props.flower_bouquet"
+        "props.coffee_cup",
+        "props.flower_bouquet",
+        "props.smartphone",
+        "props.umbrella"
       ],
       "description": "Small objects held in the hands, which give the subject something to do and anchor an otherwise empty pose.",
       "examples": [
@@ -3430,47 +3427,6 @@
       "negative_fragment": "not holding an object",
       "search_boost": 0.9,
       "sort_order": 20
-    },
-    {
-      "schema_version": "1.0",
-      "id": "props.worn_accessory",
-      "category": "props",
-      "label": "Worn accessories",
-      "aliases": [
-        "accessory",
-        "accessories",
-        "worn item",
-        "wearable",
-        "gear worn",
-        "acessory",
-        "acessories",
-        "worn accessory"
-      ],
-      "related": [
-        "props.sunglasses",
-        "props.headphones",
-        "props.wristwatch"
-      ],
-      "parent": null,
-      "children": [
-        "props.sunglasses",
-        "props.headphones",
-        "props.wristwatch"
-      ],
-      "description": "Objects worn on the body or face that behave like props rather than clothing, such as eyewear or headphones.",
-      "examples": [
-        "a single worn object that changes the face"
-      ],
-      "conflicts_with": [],
-      "exclusivity_group": null,
-      "media_scope": [
-        "image",
-        "video"
-      ],
-      "prompt_fragment": "wearing an accessory",
-      "negative_fragment": "not wearing an accessory",
-      "search_boost": 0.9,
-      "sort_order": 30
     },
     {
       "schema_version": "1.0",
@@ -3495,8 +3451,8 @@
       "parent": null,
       "children": [
         "props.bicycle",
-        "props.motorcycle",
         "props.car",
+        "props.motorcycle",
         "props.skateboard"
       ],
       "description": "A vehicle in the frame that the subject rides, leans on, pushes or simply stands beside.",
@@ -3535,11 +3491,11 @@
       ],
       "parent": null,
       "children": [
-        "props.chair",
-        "props.stool",
         "props.bench",
-        "props.table",
-        "props.ladder"
+        "props.chair",
+        "props.ladder",
+        "props.stool",
+        "props.table"
       ],
       "description": "Pieces of furniture used in the shot, which decide whether the subject sits, leans, perches or rests on something.",
       "examples": [
@@ -3573,7 +3529,7 @@
       ],
       "related": [
         "props.briefcase",
-        "props.backpack",
+        "clothing.backpack",
         "scene.airport_terminal"
       ],
       "parent": "props.carried",
@@ -3595,43 +3551,6 @@
     },
     {
       "schema_version": "1.0",
-      "id": "props.backpack",
-      "category": "props",
-      "label": "Backpack",
-      "aliases": [
-        "backpack",
-        "rucksack",
-        "back pack",
-        "school bag",
-        "daypack",
-        "knapsack",
-        "bagpack",
-        "backpak"
-      ],
-      "related": [
-        "props.tote_bag",
-        "props.suitcase",
-        "props.shopping_bag"
-      ],
-      "parent": "props.carried",
-      "children": [],
-      "description": "A bag worn on both shoulders, which squares the shoulders and adds bulk to the subject’s outline.",
-      "examples": [
-        "straps crossing the chest of a walking figure"
-      ],
-      "conflicts_with": [],
-      "exclusivity_group": null,
-      "media_scope": [
-        "image",
-        "video"
-      ],
-      "prompt_fragment": "wearing a backpack",
-      "negative_fragment": "not wearing a backpack",
-      "search_boost": 1,
-      "sort_order": 70
-    },
-    {
-      "schema_version": "1.0",
       "id": "props.shopping_bag",
       "category": "props",
       "label": "Shopping bag",
@@ -3645,7 +3564,7 @@
         "shoping bag"
       ],
       "related": [
-        "props.tote_bag",
+        "clothing.tote_bag",
         "props.carried",
         "scene.convenience_store"
       ],
@@ -3668,42 +3587,6 @@
     },
     {
       "schema_version": "1.0",
-      "id": "props.tote_bag",
-      "category": "props",
-      "label": "Tote bag",
-      "aliases": [
-        "tote bag",
-        "canvas bag",
-        "tote",
-        "cloth bag",
-        "shoulder bag",
-        "tote-bag",
-        "tot bag"
-      ],
-      "related": [
-        "props.shopping_bag",
-        "props.backpack",
-        "props.carried"
-      ],
-      "parent": "props.carried",
-      "children": [],
-      "description": "A soft fabric bag carried on one shoulder or in the crook of an arm, casual and unstructured.",
-      "examples": [
-        "a canvas bag folded over one arm"
-      ],
-      "conflicts_with": [],
-      "exclusivity_group": null,
-      "media_scope": [
-        "image",
-        "video"
-      ],
-      "prompt_fragment": "with a canvas tote bag",
-      "negative_fragment": "no canvas tote bag",
-      "search_boost": 1,
-      "sort_order": 90
-    },
-    {
-      "schema_version": "1.0",
       "id": "props.briefcase",
       "category": "props",
       "label": "Briefcase",
@@ -3718,7 +3601,7 @@
       ],
       "related": [
         "props.suitcase",
-        "props.wristwatch",
+        "clothing.wristwatch",
         "scene.office"
       ],
       "parent": "props.carried",
@@ -3830,7 +3713,7 @@
       "related": [
         "props.smartphone",
         "props.handheld",
-        "props.sunglasses"
+        "clothing.sunglasses"
       ],
       "parent": "props.handheld",
       "children": [],
@@ -3867,7 +3750,7 @@
       ],
       "related": [
         "props.camera",
-        "props.headphones",
+        "clothing.headphones",
         "props.handheld"
       ],
       "parent": "props.handheld",
@@ -3996,116 +3879,6 @@
       "negative_fragment": "not holding a bouquet of flowers",
       "search_boost": 1,
       "sort_order": 170
-    },
-    {
-      "schema_version": "1.0",
-      "id": "props.sunglasses",
-      "category": "props",
-      "label": "Sunglasses",
-      "aliases": [
-        "sunglasses",
-        "shades",
-        "dark glasses",
-        "sun glasses",
-        "eyewear",
-        "sunnies",
-        "sunglases",
-        "sun-glasses"
-      ],
-      "related": [
-        "props.worn_accessory",
-        "props.wristwatch",
-        "weather.clear"
-      ],
-      "parent": "props.worn_accessory",
-      "children": [],
-      "description": "Dark glasses covering the eyes, which hide the gaze completely and lay a hard graphic shape across the face.",
-      "examples": [
-        "eyes hidden behind flat black lenses"
-      ],
-      "conflicts_with": [],
-      "exclusivity_group": null,
-      "media_scope": [
-        "image",
-        "video"
-      ],
-      "prompt_fragment": "wearing sunglasses",
-      "negative_fragment": "not wearing sunglasses",
-      "search_boost": 1.2,
-      "sort_order": 180
-    },
-    {
-      "schema_version": "1.0",
-      "id": "props.headphones",
-      "category": "props",
-      "label": "Headphones",
-      "aliases": [
-        "headphones",
-        "headphone",
-        "earphones",
-        "over ear headphones",
-        "earbuds",
-        "listening to music",
-        "head phones",
-        "headfones"
-      ],
-      "related": [
-        "props.smartphone",
-        "props.worn_accessory",
-        "props.sunglasses"
-      ],
-      "parent": "props.worn_accessory",
-      "children": [],
-      "description": "Headphones worn over or in the ears, which read instantly as someone in their own world.",
-      "examples": [
-        "large cups covering both ears"
-      ],
-      "conflicts_with": [],
-      "exclusivity_group": null,
-      "media_scope": [
-        "image",
-        "video"
-      ],
-      "prompt_fragment": "wearing headphones",
-      "negative_fragment": "not wearing headphones",
-      "search_boost": 1.15,
-      "sort_order": 190
-    },
-    {
-      "schema_version": "1.0",
-      "id": "props.wristwatch",
-      "category": "props",
-      "label": "Wristwatch",
-      "aliases": [
-        "watch",
-        "wristwatch",
-        "wrist watch",
-        "timepiece",
-        "watch on wrist",
-        "hand watch",
-        "wristwach"
-      ],
-      "related": [
-        "props.worn_accessory",
-        "props.sunglasses",
-        "props.briefcase"
-      ],
-      "parent": "props.worn_accessory",
-      "children": [],
-      "description": "A watch on the wrist, a small detail that catches light whenever the hand moves and reads as deliberate styling.",
-      "examples": [
-        "a metal watch catching light on a raised wrist"
-      ],
-      "conflicts_with": [],
-      "exclusivity_group": null,
-      "media_scope": [
-        "image",
-        "video"
-      ],
-      "prompt_fragment": "wearing a wristwatch",
-      "negative_fragment": "not wearing a wristwatch",
-      "search_boost": 0.9,
-      "sort_order": 200
     },
     {
       "schema_version": "1.0",

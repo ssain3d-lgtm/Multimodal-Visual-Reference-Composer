@@ -13,14 +13,18 @@
       "category": "pose",
       "label": "Standing",
       "aliases": [
-        "standing",
         "standing pose",
         "stood up",
         "upright on both feet",
         "on their feet",
         "person standing still",
         "standin",
-        "stanidng"
+        "stanidng",
+        "standing still",
+        "upright",
+        "not moving",
+        "stationary",
+        "standig"
       ],
       "related": [
         "pose.contrapposto",
@@ -31,9 +35,9 @@
       "parent": null,
       "children": [
         "pose.contrapposto",
-        "pose.wide_stance",
         "pose.leaning",
-        "pose.walking_pose"
+        "pose.walking_pose",
+        "pose.wide_stance"
       ],
       "description": "The subject is up on both feet and not moving anywhere, which is the plainest and most neutral body position there is.",
       "examples": [
@@ -89,7 +93,8 @@
       "prompt_fragment": "standing in contrapposto with the weight on one leg",
       "negative_fragment": "not standing in contrapposto",
       "search_boost": 1.1,
-      "sort_order": 20
+      "sort_order": 20,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -127,7 +132,8 @@
       "prompt_fragment": "standing with feet planted wide apart",
       "negative_fragment": "not standing with a wide stance",
       "search_boost": 1,
-      "sort_order": 30
+      "sort_order": 30,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -204,7 +210,8 @@
       "prompt_fragment": "leaning back against a wall",
       "negative_fragment": "not leaning against a wall",
       "search_boost": 1.1,
-      "sort_order": 50
+      "sort_order": 50,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -282,7 +289,8 @@
       "prompt_fragment": "caught mid-stride",
       "negative_fragment": "not caught mid-stride",
       "search_boost": 1.2,
-      "sort_order": 70
+      "sort_order": 70,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -290,13 +298,16 @@
       "category": "pose",
       "label": "Sitting",
       "aliases": [
-        "sitting",
         "seated",
         "sat down",
         "sitting pose",
         "person sitting on a chair",
         "siting",
-        "sitted"
+        "sitted",
+        "sitting down",
+        "taking a seat",
+        "person sitting",
+        "sitting on a chair"
       ],
       "related": [
         "pose.sitting_cross_legged",
@@ -306,9 +317,9 @@
       ],
       "parent": null,
       "children": [
-        "pose.sitting_cross_legged",
+        "pose.perched",
         "pose.seated_on_floor",
-        "pose.perched"
+        "pose.sitting_cross_legged"
       ],
       "description": "The subject rests on their bottom with the upper body upright, on a chair, a step, a bed or the ground.",
       "examples": [
@@ -317,11 +328,11 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
-        "action.walking",
+        "action.dancing",
+        "action.jumping",
         "action.running",
         "action.sprinting",
-        "action.dancing",
-        "action.jumping"
+        "action.walking"
       ],
       "exclusivity_group": "pose_base",
       "media_scope": [
@@ -369,7 +380,8 @@
       "prompt_fragment": "sitting cross-legged",
       "negative_fragment": "not sitting cross-legged",
       "search_boost": 1,
-      "sort_order": 90
+      "sort_order": 90,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -406,7 +418,8 @@
       "prompt_fragment": "seated on the floor",
       "negative_fragment": "not seated on the floor",
       "search_boost": 1,
-      "sort_order": 100
+      "sort_order": 100,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -443,7 +456,8 @@
       "prompt_fragment": "perched on the edge of a surface",
       "negative_fragment": "not perched on an edge",
       "search_boost": 1,
-      "sort_order": 110
+      "sort_order": 110,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -520,7 +534,8 @@
       "prompt_fragment": "squatting on the heels",
       "negative_fragment": "not squatting",
       "search_boost": 1,
-      "sort_order": 130
+      "sort_order": 130,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -552,8 +567,8 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
-        "action.walking",
-        "action.running"
+        "action.running",
+        "action.walking"
       ],
       "exclusivity_group": "pose_base",
       "media_scope": [
@@ -600,7 +615,8 @@
       "prompt_fragment": "kneeling on one knee",
       "negative_fragment": "not kneeling on one knee",
       "search_boost": 1,
-      "sort_order": 150
+      "sort_order": 150,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -636,11 +652,11 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
-        "action.walking",
+        "action.dancing",
+        "action.jumping",
         "action.running",
         "action.sprinting",
-        "action.dancing",
-        "action.jumping"
+        "action.walking"
       ],
       "exclusivity_group": "pose_base",
       "media_scope": [
@@ -687,7 +703,8 @@
       "prompt_fragment": "lying on their back, face up",
       "negative_fragment": "not lying on the back",
       "search_boost": 1,
-      "sort_order": 170
+      "sort_order": 170,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -724,7 +741,8 @@
       "prompt_fragment": "lying on their side",
       "negative_fragment": "not lying on the side",
       "search_boost": 1,
-      "sort_order": 180
+      "sort_order": 180,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -761,7 +779,8 @@
       "prompt_fragment": "lying on their stomach",
       "negative_fragment": "not lying on the stomach",
       "search_boost": 1,
-      "sort_order": 190
+      "sort_order": 190,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -798,7 +817,8 @@
       "prompt_fragment": "reclining, propped halfway up",
       "negative_fragment": "not reclining",
       "search_boost": 1,
-      "sort_order": 200
+      "sort_order": 200,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -835,7 +855,8 @@
       "prompt_fragment": "bending forward at the waist",
       "negative_fragment": "not bending forward",
       "search_boost": 1,
-      "sort_order": 210
+      "sort_order": 210,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -864,12 +885,12 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
-        "pose.hands_in_pockets",
+        "pose.arms_at_sides",
+        "pose.arms_raised",
+        "pose.hand_on_hip",
         "pose.hands_behind_back",
         "pose.hands_clasped",
-        "pose.arms_raised",
-        "pose.arms_at_sides",
-        "pose.hand_on_hip"
+        "pose.hands_in_pockets"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -879,7 +900,8 @@
       "prompt_fragment": "arms crossed over the chest",
       "negative_fragment": "arms not crossed",
       "search_boost": 1.3,
-      "sort_order": 300
+      "sort_order": 300,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -908,11 +930,11 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
+        "pose.arms_at_sides",
         "pose.arms_crossed",
-        "pose.hands_behind_back",
-        "pose.hands_clasped",
         "pose.arms_raised",
-        "pose.arms_at_sides"
+        "pose.hands_behind_back",
+        "pose.hands_clasped"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -922,7 +944,8 @@
       "prompt_fragment": "hands in pockets",
       "negative_fragment": "hands not in pockets",
       "search_boost": 1.3,
-      "sort_order": 310
+      "sort_order": 310,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -951,10 +974,10 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
+        "pose.arms_at_sides",
         "pose.arms_crossed",
         "pose.hands_behind_back",
-        "pose.hands_clasped",
-        "pose.arms_at_sides"
+        "pose.hands_clasped"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -964,7 +987,8 @@
       "prompt_fragment": "one hand resting on the hip",
       "negative_fragment": "no hand on the hip",
       "search_boost": 1.2,
-      "sort_order": 320
+      "sort_order": 320,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -992,12 +1016,12 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
-        "pose.arms_crossed",
-        "pose.hands_in_pockets",
-        "pose.hands_clasped",
-        "pose.arms_raised",
         "pose.arms_at_sides",
-        "pose.hand_on_hip"
+        "pose.arms_crossed",
+        "pose.arms_raised",
+        "pose.hand_on_hip",
+        "pose.hands_clasped",
+        "pose.hands_in_pockets"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -1007,7 +1031,8 @@
       "prompt_fragment": "hands held behind the back",
       "negative_fragment": "hands not behind the back",
       "search_boost": 1,
-      "sort_order": 330
+      "sort_order": 330,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1036,12 +1061,12 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
-        "pose.arms_crossed",
-        "pose.hands_in_pockets",
-        "pose.hands_behind_back",
-        "pose.arms_raised",
         "pose.arms_at_sides",
-        "pose.hand_on_hip"
+        "pose.arms_crossed",
+        "pose.arms_raised",
+        "pose.hand_on_hip",
+        "pose.hands_behind_back",
+        "pose.hands_in_pockets"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -1051,7 +1076,8 @@
       "prompt_fragment": "hands clasped in front of the body",
       "negative_fragment": "hands not clasped",
       "search_boost": 1,
-      "sort_order": 340
+      "sort_order": 340,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1080,11 +1106,11 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
+        "pose.arms_at_sides",
         "pose.arms_crossed",
-        "pose.hands_in_pockets",
         "pose.hands_behind_back",
         "pose.hands_clasped",
-        "pose.arms_at_sides"
+        "pose.hands_in_pockets"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -1094,7 +1120,8 @@
       "prompt_fragment": "arms raised above the head",
       "negative_fragment": "arms not raised",
       "search_boost": 1,
-      "sort_order": 350
+      "sort_order": 350,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1124,11 +1151,11 @@
       "visual_hint": null,
       "conflicts_with": [
         "pose.arms_crossed",
-        "pose.hands_in_pockets",
+        "pose.arms_raised",
+        "pose.hand_on_hip",
         "pose.hands_behind_back",
         "pose.hands_clasped",
-        "pose.arms_raised",
-        "pose.hand_on_hip"
+        "pose.hands_in_pockets"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -1138,7 +1165,8 @@
       "prompt_fragment": "arms hanging relaxed at the sides",
       "negative_fragment": "arms not hanging at the sides",
       "search_boost": 1,
-      "sort_order": 360
+      "sort_order": 360,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1175,7 +1203,8 @@
       "prompt_fragment": "legs crossed",
       "negative_fragment": "legs not crossed",
       "search_boost": 1,
-      "sort_order": 370
+      "sort_order": 370,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1212,7 +1241,8 @@
       "prompt_fragment": "head tilted to one side",
       "negative_fragment": "head not tilted",
       "search_boost": 1.1,
-      "sort_order": 380
+      "sort_order": 380,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1251,7 +1281,8 @@
       "prompt_fragment": "body turned three-quarters to the camera",
       "negative_fragment": "body not turned three-quarters",
       "search_boost": 1.1,
-      "sort_order": 390
+      "sort_order": 390,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1291,7 +1322,8 @@
       "prompt_fragment": "seen from behind with the back to the camera",
       "negative_fragment": "not turned away from the camera",
       "search_boost": 1.2,
-      "sort_order": 400
+      "sort_order": 400,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1321,11 +1353,11 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
+        "pose.back_to_camera",
         "pose.looking_away",
-        "pose.over_shoulder_glance",
         "pose.looking_down",
         "pose.looking_up",
-        "pose.back_to_camera"
+        "pose.over_shoulder_glance"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -1335,7 +1367,8 @@
       "prompt_fragment": "looking straight into the camera",
       "negative_fragment": "not looking at the camera",
       "search_boost": 1.4,
-      "sort_order": 410
+      "sort_order": 410,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1398,8 +1431,7 @@
       "related": [
         "pose.looking_away",
         "pose.back_to_camera",
-        "framing.over_the_shoulder",
-        "camera_angle.over_the_shoulder"
+        "framing.over_the_shoulder"
       ],
       "parent": "pose.looking_away",
       "description": "The body faces away while the head turns back, so the face appears past one shoulder. Do not confuse it with an over-the-shoulder shot, which describes where the camera is rather than what the subject does.",
@@ -1419,7 +1451,8 @@
       "prompt_fragment": "glancing back over one shoulder",
       "negative_fragment": "not glancing over the shoulder",
       "search_boost": 1.3,
-      "sort_order": 430
+      "sort_order": 430,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1459,7 +1492,8 @@
       "prompt_fragment": "looking down",
       "negative_fragment": "not looking down",
       "search_boost": 1.1,
-      "sort_order": 440
+      "sort_order": 440,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1499,7 +1533,8 @@
       "prompt_fragment": "looking upward",
       "negative_fragment": "not looking up",
       "search_boost": 1.1,
-      "sort_order": 450
+      "sort_order": 450,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1539,7 +1574,8 @@
       "prompt_fragment": "with a slouched, rounded posture",
       "negative_fragment": "not slouching",
       "search_boost": 1,
-      "sort_order": 460
+      "sort_order": 460,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1579,7 +1615,8 @@
       "prompt_fragment": "with an upright, straight-backed posture",
       "negative_fragment": "not holding an upright posture",
       "search_boost": 1,
-      "sort_order": 470
+      "sort_order": 470,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1619,7 +1656,8 @@
       "prompt_fragment": "in a candid, unposed moment",
       "negative_fragment": "not candid",
       "search_boost": 1.2,
-      "sort_order": 480
+      "sort_order": 480,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1658,7 +1696,8 @@
       "prompt_fragment": "deliberately posed for the camera",
       "negative_fragment": "not deliberately posed",
       "search_boost": 1.1,
-      "sort_order": 490
+      "sort_order": 490,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1666,14 +1705,19 @@
       "category": "action",
       "label": "Walking",
       "aliases": [
-        "walking",
         "walk",
         "strolling",
         "walking down the street",
         "on foot",
         "wandering",
         "waking",
-        "walkin"
+        "walkin",
+        "stepping",
+        "person walking",
+        "pacing",
+        "striding",
+        "walkign",
+        "wlaking"
       ],
       "related": [
         "action.running",
@@ -1689,9 +1733,9 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
-        "pose.sitting",
+        "pose.kneeling",
         "pose.lying_down",
-        "pose.kneeling"
+        "pose.sitting"
       ],
       "exclusivity_group": "locomotion",
       "media_scope": [
@@ -1701,7 +1745,8 @@
       "prompt_fragment": "walking",
       "negative_fragment": "not walking",
       "search_boost": 1.3,
-      "sort_order": 10
+      "sort_order": 10,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1709,14 +1754,15 @@
       "category": "action",
       "label": "Running",
       "aliases": [
-        "running",
         "run",
         "jogging",
         "sprinting along",
         "running fast",
         "runing",
         "on the run",
-        "dashing"
+        "dashing",
+        "person running",
+        "runnning"
       ],
       "related": [
         "action.sprinting",
@@ -1735,9 +1781,9 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
-        "pose.sitting",
+        "pose.kneeling",
         "pose.lying_down",
-        "pose.kneeling"
+        "pose.sitting"
       ],
       "exclusivity_group": "locomotion",
       "media_scope": [
@@ -1776,8 +1822,8 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
-        "pose.sitting",
-        "pose.lying_down"
+        "pose.lying_down",
+        "pose.sitting"
       ],
       "exclusivity_group": "locomotion",
       "media_scope": [
@@ -1787,7 +1833,8 @@
       "prompt_fragment": "sprinting at full speed",
       "negative_fragment": "not sprinting",
       "search_boost": 1,
-      "sort_order": 30
+      "sort_order": 30,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1824,7 +1871,8 @@
       "prompt_fragment": "crawling on hands and knees",
       "negative_fragment": "not crawling",
       "search_boost": 1,
-      "sort_order": 40
+      "sort_order": 40,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1861,7 +1909,8 @@
       "prompt_fragment": "climbing upward",
       "negative_fragment": "not climbing",
       "search_boost": 1,
-      "sort_order": 50
+      "sort_order": 50,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1898,7 +1947,8 @@
       "prompt_fragment": "swimming through the water",
       "negative_fragment": "not swimming",
       "search_boost": 1,
-      "sort_order": 60
+      "sort_order": 60,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1906,13 +1956,17 @@
       "category": "action",
       "label": "Dancing",
       "aliases": [
-        "dancing",
         "dance",
         "dancing to music",
         "moving to the beat",
         "twirling and dancing",
         "danceing",
-        "dance move"
+        "dance move",
+        "swaying to music",
+        "choreography",
+        "person dancing",
+        "grooving",
+        "dancin"
       ],
       "related": [
         "action.turning",
@@ -1927,8 +1981,8 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
-        "pose.sitting",
-        "pose.lying_down"
+        "pose.lying_down",
+        "pose.sitting"
       ],
       "exclusivity_group": "locomotion",
       "media_scope": [
@@ -1938,7 +1992,8 @@
       "prompt_fragment": "dancing",
       "negative_fragment": "not dancing",
       "search_boost": 1.2,
-      "sort_order": 70
+      "sort_order": 70,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2016,7 +2071,8 @@
       "prompt_fragment": "riding a bicycle",
       "negative_fragment": "not riding a bicycle",
       "search_boost": 1.1,
-      "sort_order": 90
+      "sort_order": 90,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2053,7 +2109,8 @@
       "prompt_fragment": "riding a motorcycle",
       "negative_fragment": "not riding a motorcycle",
       "search_boost": 1,
-      "sort_order": 100
+      "sort_order": 100,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2090,7 +2147,8 @@
       "prompt_fragment": "skateboarding",
       "negative_fragment": "not skateboarding",
       "search_boost": 1,
-      "sort_order": 110
+      "sort_order": 110,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2126,7 +2184,8 @@
       "prompt_fragment": "lowering down into a seat",
       "negative_fragment": "not sitting down",
       "search_boost": 1,
-      "sort_order": 120
+      "sort_order": 120,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2163,7 +2222,8 @@
       "prompt_fragment": "rising up to stand",
       "negative_fragment": "not standing up",
       "search_boost": 1,
-      "sort_order": 130
+      "sort_order": 130,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2171,14 +2231,17 @@
       "category": "action",
       "label": "Jumping",
       "aliases": [
-        "jumping",
         "jump",
         "leaping",
         "mid air jump",
         "hopping",
         "both feet off the ground",
         "jumpin",
-        "jumping up"
+        "jumping up",
+        "mid-air",
+        "in the air",
+        "jumping shot",
+        "airborne"
       ],
       "related": [
         "action.running",
@@ -2193,8 +2256,8 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
-        "pose.sitting",
-        "pose.lying_down"
+        "pose.lying_down",
+        "pose.sitting"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -2204,7 +2267,8 @@
       "prompt_fragment": "jumping into the air",
       "negative_fragment": "not jumping",
       "search_boost": 1.2,
-      "sort_order": 200
+      "sort_order": 200,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2212,14 +2276,19 @@
       "category": "action",
       "label": "Turning",
       "aliases": [
-        "turning",
         "turn",
         "spinning around",
         "twisting round",
         "pivoting",
         "turning to look",
         "turnign",
-        "swivelling"
+        "swivelling",
+        "spinning",
+        "twirling",
+        "rotating",
+        "turning around",
+        "looking over the shoulder",
+        "turing"
       ],
       "related": [
         "action.dancing",
@@ -2242,7 +2311,8 @@
       "prompt_fragment": "turning around",
       "negative_fragment": "not turning",
       "search_boost": 1.1,
-      "sort_order": 210
+      "sort_order": 210,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2250,13 +2320,16 @@
       "category": "action",
       "label": "Reaching",
       "aliases": [
-        "reaching",
         "reaching out",
         "stretching a hand towards something",
         "extending an arm",
         "reaching for an object",
         "reachin",
-        "arm outstretched"
+        "arm outstretched",
+        "extending a hand",
+        "stretching an arm out",
+        "reaching for something",
+        "grabbing for"
       ],
       "related": [
         "action.holding_object",
@@ -2279,7 +2352,8 @@
       "prompt_fragment": "reaching out with one arm",
       "negative_fragment": "not reaching out",
       "search_boost": 1.1,
-      "sort_order": 220
+      "sort_order": 220,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2316,7 +2390,8 @@
       "prompt_fragment": "stretching the body",
       "negative_fragment": "not stretching",
       "search_boost": 1,
-      "sort_order": 230
+      "sort_order": 230,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2324,13 +2399,15 @@
       "category": "action",
       "label": "Waving",
       "aliases": [
-        "waving",
         "wave",
         "waving hello",
         "waving goodbye",
         "raised hand waving",
         "waiving",
-        "hand wave"
+        "hand wave",
+        "greeting gesture",
+        "saying goodbye",
+        "wavin"
       ],
       "related": [
         "action.pointing",
@@ -2353,7 +2430,8 @@
       "prompt_fragment": "waving a hand",
       "negative_fragment": "not waving",
       "search_boost": 1,
-      "sort_order": 240
+      "sort_order": 240,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2361,13 +2439,16 @@
       "category": "action",
       "label": "Pointing",
       "aliases": [
-        "pointing",
         "point",
         "pointing at something",
         "indicating with a finger",
         "finger extended pointing",
         "pointin",
-        "gesturing towards"
+        "gesturing towards",
+        "finger pointing",
+        "showing direction",
+        "pointing off screen",
+        "pointng"
       ],
       "related": [
         "action.waving",
@@ -2390,7 +2471,8 @@
       "prompt_fragment": "pointing at something",
       "negative_fragment": "not pointing",
       "search_boost": 1,
-      "sort_order": 250
+      "sort_order": 250,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2427,7 +2509,8 @@
       "prompt_fragment": "throwing an object",
       "negative_fragment": "not throwing anything",
       "search_boost": 1,
-      "sort_order": 260
+      "sort_order": 260,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2504,7 +2587,8 @@
       "prompt_fragment": "carrying a bag",
       "negative_fragment": "not carrying a bag",
       "search_boost": 1,
-      "sort_order": 280
+      "sort_order": 280,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2542,7 +2626,8 @@
       "prompt_fragment": "adjusting their hair with one hand",
       "negative_fragment": "not touching their hair",
       "search_boost": 1.2,
-      "sort_order": 290
+      "sort_order": 290,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2580,7 +2665,8 @@
       "prompt_fragment": "adjusting their clothing",
       "negative_fragment": "not adjusting their clothing",
       "search_boost": 1.1,
-      "sort_order": 300
+      "sort_order": 300,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2617,7 +2703,8 @@
       "prompt_fragment": "applying makeup",
       "negative_fragment": "not applying makeup",
       "search_boost": 1,
-      "sort_order": 310
+      "sort_order": 310,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2654,7 +2741,8 @@
       "prompt_fragment": "opening a door",
       "negative_fragment": "not opening a door",
       "search_boost": 1,
-      "sort_order": 320
+      "sort_order": 320,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2692,7 +2780,8 @@
       "prompt_fragment": "looking down at a phone",
       "negative_fragment": "not looking at a phone",
       "search_boost": 1.2,
-      "sort_order": 330
+      "sort_order": 330,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2769,7 +2858,8 @@
       "prompt_fragment": "talking on a phone held to the ear",
       "negative_fragment": "not talking on a phone",
       "search_boost": 1,
-      "sort_order": 350
+      "sort_order": 350,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2806,7 +2896,8 @@
       "prompt_fragment": "laughing",
       "negative_fragment": "not laughing",
       "search_boost": 1.2,
-      "sort_order": 360
+      "sort_order": 360,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2843,7 +2934,8 @@
       "prompt_fragment": "smiling",
       "negative_fragment": "not smiling",
       "search_boost": 1.2,
-      "sort_order": 370
+      "sort_order": 370,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2880,7 +2972,8 @@
       "prompt_fragment": "reading",
       "negative_fragment": "not reading",
       "search_boost": 1,
-      "sort_order": 380
+      "sort_order": 380,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2917,7 +3010,8 @@
       "prompt_fragment": "writing by hand",
       "negative_fragment": "not writing",
       "search_boost": 1,
-      "sort_order": 390
+      "sort_order": 390,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2954,7 +3048,8 @@
       "prompt_fragment": "typing on a laptop",
       "negative_fragment": "not typing",
       "search_boost": 1,
-      "sort_order": 400
+      "sort_order": 400,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2991,7 +3086,8 @@
       "prompt_fragment": "eating",
       "negative_fragment": "not eating",
       "search_boost": 1,
-      "sort_order": 410
+      "sort_order": 410,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -3028,7 +3124,8 @@
       "prompt_fragment": "drinking from a cup",
       "negative_fragment": "not drinking",
       "search_boost": 1.1,
-      "sort_order": 420
+      "sort_order": 420,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -3065,7 +3162,8 @@
       "prompt_fragment": "cooking",
       "negative_fragment": "not cooking",
       "search_boost": 1,
-      "sort_order": 430
+      "sort_order": 430,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -3102,7 +3200,8 @@
       "prompt_fragment": "playing a musical instrument",
       "negative_fragment": "not playing an instrument",
       "search_boost": 1,
-      "sort_order": 440
+      "sort_order": 440,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -3140,7 +3239,8 @@
       "prompt_fragment": "hugging another person",
       "negative_fragment": "not hugging anyone",
       "search_boost": 1,
-      "sort_order": 450
+      "sort_order": 450,
+      "children": []
     }
   ]
 }

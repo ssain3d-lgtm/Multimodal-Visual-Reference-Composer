@@ -32,12 +32,12 @@
       ],
       "parent": null,
       "children": [
-        "subject.adult_woman",
         "subject.adult_man",
-        "subject.young_adult",
-        "subject.teenager",
+        "subject.adult_woman",
         "subject.child",
-        "subject.elderly_person"
+        "subject.elderly_person",
+        "subject.teenager",
+        "subject.young_adult"
       ],
       "description": "One human being is the subject of the shot, with nothing said yet about their age or gender. Pick a more specific child node when you know who is in frame.",
       "examples": [
@@ -45,7 +45,12 @@
         "portrait of one person against a plain wall"
       ],
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "subject.landscape_only",
+        "subject.no_person",
+        "subject.no_subject",
+        "subject.object_only"
+      ],
       "exclusivity_group": null,
       "media_scope": [
         "image",
@@ -86,7 +91,12 @@
         "half-length portrait of a woman by a window"
       ],
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "subject.landscape_only",
+        "subject.no_person",
+        "subject.no_subject",
+        "subject.object_only"
+      ],
       "exclusivity_group": null,
       "media_scope": [
         "image",
@@ -95,7 +105,8 @@
       "prompt_fragment": "a woman",
       "negative_fragment": "not a woman",
       "search_boost": 1.5,
-      "sort_order": 20
+      "sort_order": 20,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -127,7 +138,12 @@
         "half-length portrait of a man in a doorway"
       ],
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "subject.landscape_only",
+        "subject.no_person",
+        "subject.no_subject",
+        "subject.object_only"
+      ],
       "exclusivity_group": null,
       "media_scope": [
         "image",
@@ -136,7 +152,8 @@
       "prompt_fragment": "a man",
       "negative_fragment": "not a man",
       "search_boost": 1.5,
-      "sort_order": 30
+      "sort_order": 30,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -167,7 +184,12 @@
         "a young adult sitting on a skate ramp"
       ],
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "subject.landscape_only",
+        "subject.no_person",
+        "subject.no_subject",
+        "subject.object_only"
+      ],
       "exclusivity_group": null,
       "media_scope": [
         "image",
@@ -176,7 +198,8 @@
       "prompt_fragment": "a young adult in their twenties",
       "negative_fragment": "not a young adult",
       "search_boost": 1.2,
-      "sort_order": 40
+      "sort_order": 40,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -205,7 +228,12 @@
         "a teenager waiting at a bus stop with headphones on"
       ],
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "subject.landscape_only",
+        "subject.no_person",
+        "subject.no_subject",
+        "subject.object_only"
+      ],
       "exclusivity_group": null,
       "media_scope": [
         "image",
@@ -214,7 +242,8 @@
       "prompt_fragment": "a teenager",
       "negative_fragment": "not a teenager",
       "search_boost": 1.1,
-      "sort_order": 50
+      "sort_order": 50,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -244,7 +273,12 @@
         "a child running across a park lawn"
       ],
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "subject.landscape_only",
+        "subject.no_person",
+        "subject.no_subject",
+        "subject.object_only"
+      ],
       "exclusivity_group": null,
       "media_scope": [
         "image",
@@ -253,7 +287,8 @@
       "prompt_fragment": "a child",
       "negative_fragment": "no children in frame",
       "search_boost": 1.1,
-      "sort_order": 60
+      "sort_order": 60,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -283,7 +318,12 @@
         "an elderly person seated on a park bench in soft light"
       ],
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "subject.landscape_only",
+        "subject.no_person",
+        "subject.no_subject",
+        "subject.object_only"
+      ],
       "exclusivity_group": null,
       "media_scope": [
         "image",
@@ -292,7 +332,8 @@
       "prompt_fragment": "an elderly person",
       "negative_fragment": "not an elderly person",
       "search_boost": 1.1,
-      "sort_order": 70
+      "sort_order": 70,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -317,16 +358,21 @@
       ],
       "parent": null,
       "children": [
+        "subject.crowd",
         "subject.group_two",
-        "subject.small_group",
-        "subject.crowd"
+        "subject.small_group"
       ],
       "description": "More than one person is in the frame. Choose a child node when you know roughly how many.",
       "examples": [
         "a group of people talking on a street corner"
       ],
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "subject.landscape_only",
+        "subject.no_person",
+        "subject.no_subject",
+        "subject.object_only"
+      ],
       "exclusivity_group": null,
       "media_scope": [
         "image",
@@ -368,7 +414,12 @@
         "two people facing each other across a cafe table"
       ],
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "subject.landscape_only",
+        "subject.no_person",
+        "subject.no_subject",
+        "subject.object_only"
+      ],
       "exclusivity_group": "subject_count",
       "media_scope": [
         "image",
@@ -406,7 +457,12 @@
         "a couple walking hand in hand along a wet pavement"
       ],
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "subject.landscape_only",
+        "subject.no_person",
+        "subject.no_subject",
+        "subject.object_only"
+      ],
       "exclusivity_group": null,
       "media_scope": [
         "image",
@@ -415,7 +471,8 @@
       "prompt_fragment": "a couple together",
       "negative_fragment": "not a couple",
       "search_boost": 1.2,
-      "sort_order": 120
+      "sort_order": 120,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -444,7 +501,12 @@
         "a small group of friends sitting on a rooftop"
       ],
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "subject.landscape_only",
+        "subject.no_person",
+        "subject.no_subject",
+        "subject.object_only"
+      ],
       "exclusivity_group": "subject_count",
       "media_scope": [
         "image",
@@ -453,7 +515,8 @@
       "prompt_fragment": "a small group of three to six people",
       "negative_fragment": "not a small group",
       "search_boost": 1.1,
-      "sort_order": 130
+      "sort_order": 130,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -482,7 +545,12 @@
         "a crowd flowing across a busy crossing at night"
       ],
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "subject.landscape_only",
+        "subject.no_person",
+        "subject.no_subject",
+        "subject.object_only"
+      ],
       "exclusivity_group": "subject_count",
       "media_scope": [
         "image",
@@ -491,7 +559,8 @@
       "prompt_fragment": "a crowd of people",
       "negative_fragment": "no crowd",
       "search_boost": 1.2,
-      "sort_order": 140
+      "sort_order": 140,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -513,12 +582,17 @@
       ],
       "parent": null,
       "children": [
-        "subject.animal_dog",
-        "subject.animal_cat"
+        "subject.animal_cat",
+        "subject.animal_dog"
       ],
       "description": "An animal is a subject of the shot. Choose a child node when you know which animal it is.",
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "subject.landscape_only",
+        "subject.no_person",
+        "subject.no_subject",
+        "subject.object_only"
+      ],
       "exclusivity_group": null,
       "media_scope": [
         "image",
@@ -526,7 +600,7 @@
       ],
       "prompt_fragment": "an animal",
       "negative_fragment": "no animals in frame",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 200
     },
     {
@@ -555,7 +629,12 @@
         "a person walking a dog through morning fog"
       ],
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "subject.landscape_only",
+        "subject.no_person",
+        "subject.no_subject",
+        "subject.object_only"
+      ],
       "exclusivity_group": null,
       "media_scope": [
         "image",
@@ -564,7 +643,8 @@
       "prompt_fragment": "a dog",
       "negative_fragment": "no dog",
       "search_boost": 1.1,
-      "sort_order": 210
+      "sort_order": 210,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -591,7 +671,12 @@
         "a cat sitting on a windowsill in hard afternoon light"
       ],
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "subject.landscape_only",
+        "subject.no_person",
+        "subject.no_subject",
+        "subject.object_only"
+      ],
       "exclusivity_group": null,
       "media_scope": [
         "image",
@@ -600,7 +685,8 @@
       "prompt_fragment": "a cat",
       "negative_fragment": "no cat",
       "search_boost": 1.1,
-      "sort_order": 220
+      "sort_order": 220,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -625,28 +711,28 @@
       ],
       "parent": null,
       "children": [
-        "subject.object_only",
         "subject.landscape_only",
-        "subject.no_subject"
+        "subject.no_subject",
+        "subject.object_only"
       ],
       "description": "Nothing living is in the picture: the shot is of a place or a thing rather than of anyone.",
       "visual_hint": null,
       "conflicts_with": [
-        "subject.person",
-        "subject.adult_woman",
         "subject.adult_man",
-        "subject.young_adult",
-        "subject.teenager",
-        "subject.child",
-        "subject.elderly_person",
-        "subject.people_group",
-        "subject.group_two",
-        "subject.couple",
-        "subject.small_group",
-        "subject.crowd",
+        "subject.adult_woman",
         "subject.animal",
+        "subject.animal_cat",
         "subject.animal_dog",
-        "subject.animal_cat"
+        "subject.child",
+        "subject.couple",
+        "subject.crowd",
+        "subject.elderly_person",
+        "subject.group_two",
+        "subject.people_group",
+        "subject.person",
+        "subject.small_group",
+        "subject.teenager",
+        "subject.young_adult"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -685,21 +771,21 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
-        "subject.person",
-        "subject.adult_woman",
         "subject.adult_man",
-        "subject.young_adult",
-        "subject.teenager",
-        "subject.child",
-        "subject.elderly_person",
-        "subject.people_group",
-        "subject.group_two",
-        "subject.couple",
-        "subject.small_group",
-        "subject.crowd",
+        "subject.adult_woman",
         "subject.animal",
+        "subject.animal_cat",
         "subject.animal_dog",
-        "subject.animal_cat"
+        "subject.child",
+        "subject.couple",
+        "subject.crowd",
+        "subject.elderly_person",
+        "subject.group_two",
+        "subject.people_group",
+        "subject.person",
+        "subject.small_group",
+        "subject.teenager",
+        "subject.young_adult"
       ],
       "exclusivity_group": "subject_presence",
       "media_scope": [
@@ -708,7 +794,8 @@
       ],
       "prompt_fragment": "a single object as the only subject",
       "search_boost": 1.1,
-      "sort_order": 310
+      "sort_order": 310,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -738,21 +825,21 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
-        "subject.person",
-        "subject.adult_woman",
         "subject.adult_man",
-        "subject.young_adult",
-        "subject.teenager",
-        "subject.child",
-        "subject.elderly_person",
-        "subject.people_group",
-        "subject.group_two",
-        "subject.couple",
-        "subject.small_group",
-        "subject.crowd",
+        "subject.adult_woman",
         "subject.animal",
+        "subject.animal_cat",
         "subject.animal_dog",
-        "subject.animal_cat"
+        "subject.child",
+        "subject.couple",
+        "subject.crowd",
+        "subject.elderly_person",
+        "subject.group_two",
+        "subject.people_group",
+        "subject.person",
+        "subject.small_group",
+        "subject.teenager",
+        "subject.young_adult"
       ],
       "exclusivity_group": "subject_presence",
       "media_scope": [
@@ -761,7 +848,8 @@
       ],
       "prompt_fragment": "an empty landscape with no people",
       "search_boost": 1.1,
-      "sort_order": 320
+      "sort_order": 320,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -790,21 +878,21 @@
       ],
       "visual_hint": null,
       "conflicts_with": [
-        "subject.person",
-        "subject.adult_woman",
         "subject.adult_man",
-        "subject.young_adult",
-        "subject.teenager",
-        "subject.child",
-        "subject.elderly_person",
-        "subject.people_group",
-        "subject.group_two",
-        "subject.couple",
-        "subject.small_group",
-        "subject.crowd",
+        "subject.adult_woman",
         "subject.animal",
+        "subject.animal_cat",
         "subject.animal_dog",
-        "subject.animal_cat"
+        "subject.child",
+        "subject.couple",
+        "subject.crowd",
+        "subject.elderly_person",
+        "subject.group_two",
+        "subject.people_group",
+        "subject.person",
+        "subject.small_group",
+        "subject.teenager",
+        "subject.young_adult"
       ],
       "exclusivity_group": "subject_presence",
       "media_scope": [
@@ -812,8 +900,9 @@
         "video"
       ],
       "prompt_fragment": "no distinct subject in the frame",
-      "search_boost": 1.0,
-      "sort_order": 330
+      "search_boost": 1,
+      "sort_order": 330,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -841,7 +930,9 @@
         "long hair falling past the shoulders"
       ],
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "appearance.hair_bob"
+      ],
       "exclusivity_group": "hair_length",
       "media_scope": [
         "image",
@@ -850,7 +941,8 @@
       "prompt_fragment": "long hair",
       "negative_fragment": "not long hair",
       "search_boost": 1.3,
-      "sort_order": 1000
+      "sort_order": 1000,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -883,7 +975,8 @@
       "prompt_fragment": "medium-length hair",
       "negative_fragment": "not medium-length hair",
       "search_boost": 1.1,
-      "sort_order": 1010
+      "sort_order": 1010,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -916,7 +1009,8 @@
       "prompt_fragment": "short hair",
       "negative_fragment": "not short hair",
       "search_boost": 1.3,
-      "sort_order": 1020
+      "sort_order": 1020,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -950,7 +1044,8 @@
       "prompt_fragment": "closely buzzed hair",
       "negative_fragment": "not buzzed hair",
       "search_boost": 1.1,
-      "sort_order": 1030
+      "sort_order": 1030,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -975,12 +1070,12 @@
       "description": "There is no hair on the head, either shaved smooth or naturally bald.",
       "visual_hint": null,
       "conflicts_with": [
-        "appearance.hair_ponytail",
-        "appearance.hair_bun",
-        "appearance.hair_braided",
         "appearance.hair_bangs",
         "appearance.hair_bob",
+        "appearance.hair_braided",
+        "appearance.hair_bun",
         "appearance.hair_loose_down",
+        "appearance.hair_ponytail",
         "appearance.hair_slicked_back"
       ],
       "exclusivity_group": "hair_length",
@@ -991,7 +1086,8 @@
       "prompt_fragment": "a bald head",
       "negative_fragment": "not bald",
       "search_boost": 1.2,
-      "sort_order": 1040
+      "sort_order": 1040,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1024,7 +1120,8 @@
       "prompt_fragment": "straight hair",
       "negative_fragment": "not straight hair",
       "search_boost": 1.1,
-      "sort_order": 1100
+      "sort_order": 1100,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1057,7 +1154,8 @@
       "prompt_fragment": "wavy hair",
       "negative_fragment": "not wavy hair",
       "search_boost": 1.1,
-      "sort_order": 1110
+      "sort_order": 1110,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1091,7 +1189,8 @@
       "prompt_fragment": "curly hair",
       "negative_fragment": "not curly hair",
       "search_boost": 1.2,
-      "sort_order": 1120
+      "sort_order": 1120,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1125,7 +1224,8 @@
       "prompt_fragment": "tightly coiled hair",
       "negative_fragment": "not coily hair",
       "search_boost": 1.1,
-      "sort_order": 1130
+      "sort_order": 1130,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1157,7 +1257,8 @@
       "prompt_fragment": "black hair",
       "negative_fragment": "not black hair",
       "search_boost": 1.2,
-      "sort_order": 1200
+      "sort_order": 1200,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1190,7 +1291,8 @@
       "prompt_fragment": "brown hair",
       "negative_fragment": "not brown hair",
       "search_boost": 1.2,
-      "sort_order": 1210
+      "sort_order": 1210,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1224,7 +1326,8 @@
       "prompt_fragment": "blonde hair",
       "negative_fragment": "not blonde hair",
       "search_boost": 1.2,
-      "sort_order": 1220
+      "sort_order": 1220,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1258,7 +1361,8 @@
       "prompt_fragment": "red hair",
       "negative_fragment": "not red hair",
       "search_boost": 1.2,
-      "sort_order": 1230
+      "sort_order": 1230,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1292,7 +1396,8 @@
       "prompt_fragment": "grey hair",
       "negative_fragment": "not grey hair",
       "search_boost": 1.1,
-      "sort_order": 1240
+      "sort_order": 1240,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1327,7 +1432,8 @@
       "prompt_fragment": "vividly dyed hair",
       "negative_fragment": "not vividly dyed hair",
       "search_boost": 1.1,
-      "sort_order": 1250
+      "sort_order": 1250,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1351,7 +1457,9 @@
       "parent": null,
       "description": "The hair is gathered and tied at the back or top of the head so it hangs in one tail.",
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "appearance.hair_bald"
+      ],
       "exclusivity_group": "hair_style",
       "media_scope": [
         "image",
@@ -1360,7 +1468,8 @@
       "prompt_fragment": "hair tied in a ponytail",
       "negative_fragment": "hair not tied in a ponytail",
       "search_boost": 1.2,
-      "sort_order": 1300
+      "sort_order": 1300,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1385,7 +1494,9 @@
       "parent": null,
       "description": "The hair is coiled and pinned into a round knot on the head.",
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "appearance.hair_bald"
+      ],
       "exclusivity_group": "hair_style",
       "media_scope": [
         "image",
@@ -1394,7 +1505,8 @@
       "prompt_fragment": "hair gathered into a bun",
       "negative_fragment": "hair not in a bun",
       "search_boost": 1.2,
-      "sort_order": 1310
+      "sort_order": 1310,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1418,7 +1530,9 @@
       "parent": null,
       "description": "The hair is left hanging free rather than tied up in any way.",
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "appearance.hair_bald"
+      ],
       "exclusivity_group": "hair_style",
       "media_scope": [
         "image",
@@ -1427,7 +1541,8 @@
       "prompt_fragment": "hair worn loose",
       "negative_fragment": "hair not worn loose",
       "search_boost": 1.1,
-      "sort_order": 1320
+      "sort_order": 1320,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1452,6 +1567,7 @@
       "description": "The hair is combed flat back from the face, usually with gel or water so it looks wet.",
       "visual_hint": null,
       "conflicts_with": [
+        "appearance.hair_bald",
         "appearance.hair_bangs"
       ],
       "exclusivity_group": "hair_style",
@@ -1462,7 +1578,8 @@
       "prompt_fragment": "hair slicked back",
       "negative_fragment": "hair not slicked back",
       "search_boost": 1.1,
-      "sort_order": 1330
+      "sort_order": 1330,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1488,7 +1605,9 @@
       "parent": null,
       "description": "The hair is woven into one or more braids or plaits.",
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "appearance.hair_bald"
+      ],
       "exclusivity_group": null,
       "media_scope": [
         "image",
@@ -1497,7 +1616,8 @@
       "prompt_fragment": "braided hair",
       "negative_fragment": "hair not braided",
       "search_boost": 1.1,
-      "sort_order": 1340
+      "sort_order": 1340,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1523,6 +1643,7 @@
       "description": "A section of hair is cut short at the front so it falls across the forehead.",
       "visual_hint": null,
       "conflicts_with": [
+        "appearance.hair_bald",
         "appearance.hair_slicked_back"
       ],
       "exclusivity_group": null,
@@ -1533,7 +1654,8 @@
       "prompt_fragment": "bangs falling across the forehead",
       "negative_fragment": "no bangs across the forehead",
       "search_boost": 1.1,
-      "sort_order": 1350
+      "sort_order": 1350,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1559,6 +1681,7 @@
       "description": "A cut that ends level around the chin or jaw, the same length all the way round.",
       "visual_hint": null,
       "conflicts_with": [
+        "appearance.hair_bald",
         "appearance.hair_long"
       ],
       "exclusivity_group": null,
@@ -1569,7 +1692,8 @@
       "prompt_fragment": "a bob cut",
       "negative_fragment": "not a bob cut",
       "search_boost": 1.1,
-      "sort_order": 1360
+      "sort_order": 1360,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1603,7 +1727,8 @@
       "prompt_fragment": "fair skin",
       "negative_fragment": "not fair skin",
       "search_boost": 1.1,
-      "sort_order": 1400
+      "sort_order": 1400,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1634,8 +1759,9 @@
       ],
       "prompt_fragment": "light skin",
       "negative_fragment": "not light skin",
-      "search_boost": 1.0,
-      "sort_order": 1410
+      "search_boost": 1,
+      "sort_order": 1410,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1667,8 +1793,9 @@
       ],
       "prompt_fragment": "medium skin",
       "negative_fragment": "not medium skin",
-      "search_boost": 1.0,
-      "sort_order": 1420
+      "search_boost": 1,
+      "sort_order": 1420,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1701,8 +1828,9 @@
       ],
       "prompt_fragment": "tan skin",
       "negative_fragment": "not tan skin",
-      "search_boost": 1.0,
-      "sort_order": 1430
+      "search_boost": 1,
+      "sort_order": 1430,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1734,8 +1862,9 @@
       ],
       "prompt_fragment": "deep skin",
       "negative_fragment": "not deep skin",
-      "search_boost": 1.0,
-      "sort_order": 1440
+      "search_boost": 1,
+      "sort_order": 1440,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1768,7 +1897,8 @@
       "prompt_fragment": "freckles across the face",
       "negative_fragment": "no freckles",
       "search_boost": 1.1,
-      "sort_order": 1450
+      "sort_order": 1450,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1802,7 +1932,8 @@
       "prompt_fragment": "a slim build",
       "negative_fragment": "not a slim build",
       "search_boost": 1.1,
-      "sort_order": 1500
+      "sort_order": 1500,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1833,8 +1964,9 @@
       ],
       "prompt_fragment": "an average build",
       "negative_fragment": "not an average build",
-      "search_boost": 1.0,
-      "sort_order": 1510
+      "search_boost": 1,
+      "sort_order": 1510,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1867,7 +1999,8 @@
       "prompt_fragment": "an athletic build",
       "negative_fragment": "not an athletic build",
       "search_boost": 1.1,
-      "sort_order": 1520
+      "sort_order": 1520,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1901,7 +2034,8 @@
       "prompt_fragment": "a muscular build",
       "negative_fragment": "not a muscular build",
       "search_boost": 1.1,
-      "sort_order": 1530
+      "sort_order": 1530,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1934,7 +2068,8 @@
       "prompt_fragment": "a curvy figure",
       "negative_fragment": "not a curvy figure",
       "search_boost": 1.1,
-      "sort_order": 1540
+      "sort_order": 1540,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -1968,7 +2103,8 @@
       "prompt_fragment": "a larger build",
       "negative_fragment": "not a larger build",
       "search_boost": 1.1,
-      "sort_order": 1550
+      "sort_order": 1550,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2000,8 +2136,9 @@
       ],
       "prompt_fragment": "tall",
       "negative_fragment": "not tall",
-      "search_boost": 1.0,
-      "sort_order": 1600
+      "search_boost": 1,
+      "sort_order": 1600,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2032,8 +2169,9 @@
       ],
       "prompt_fragment": "of average height",
       "negative_fragment": "not of average height",
-      "search_boost": 1.0,
-      "sort_order": 1610
+      "search_boost": 1,
+      "sort_order": 1610,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2065,8 +2203,9 @@
       ],
       "prompt_fragment": "short in stature",
       "negative_fragment": "not short in stature",
-      "search_boost": 1.0,
-      "sort_order": 1620
+      "search_boost": 1,
+      "sort_order": 1620,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2090,9 +2229,9 @@
       ],
       "parent": null,
       "children": [
-        "appearance.makeup_natural",
         "appearance.makeup_bold",
-        "appearance.makeup_editorial"
+        "appearance.makeup_editorial",
+        "appearance.makeup_natural"
       ],
       "description": "Makeup is visible on the face. Choose a child node when you know how strong it is.",
       "visual_hint": null,
@@ -2142,7 +2281,8 @@
       "prompt_fragment": "soft natural makeup",
       "negative_fragment": "not natural makeup",
       "search_boost": 1.1,
-      "sort_order": 1710
+      "sort_order": 1710,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2178,7 +2318,8 @@
       "prompt_fragment": "bold makeup",
       "negative_fragment": "not bold makeup",
       "search_boost": 1.1,
-      "sort_order": 1720
+      "sort_order": 1720,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2212,8 +2353,9 @@
       ],
       "prompt_fragment": "editorial makeup with a graphic finish",
       "negative_fragment": "not editorial makeup",
-      "search_boost": 1.0,
-      "sort_order": 1730
+      "search_boost": 1,
+      "sort_order": 1730,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2240,9 +2382,9 @@
       "visual_hint": null,
       "conflicts_with": [
         "appearance.makeup",
-        "appearance.makeup_natural",
         "appearance.makeup_bold",
-        "appearance.makeup_editorial"
+        "appearance.makeup_editorial",
+        "appearance.makeup_natural"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -2252,7 +2394,8 @@
       "prompt_fragment": "no visible makeup",
       "negative_fragment": "wearing visible makeup",
       "search_boost": 1.1,
-      "sort_order": 1740
+      "sort_order": 1740,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2276,9 +2419,9 @@
       ],
       "parent": null,
       "children": [
-        "appearance.stubble",
         "appearance.beard_full",
-        "appearance.goatee"
+        "appearance.goatee",
+        "appearance.stubble"
       ],
       "description": "Hair grown on the jaw and chin. Choose a child node when you know how long or what shape it is.",
       "visual_hint": null,
@@ -2329,7 +2472,8 @@
       "prompt_fragment": "light stubble",
       "negative_fragment": "no stubble",
       "search_boost": 1.2,
-      "sort_order": 1810
+      "sort_order": 1810,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2364,7 +2508,8 @@
       "prompt_fragment": "a full beard",
       "negative_fragment": "no full beard",
       "search_boost": 1.1,
-      "sort_order": 1820
+      "sort_order": 1820,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2397,8 +2542,9 @@
       ],
       "prompt_fragment": "a goatee",
       "negative_fragment": "no goatee",
-      "search_boost": 1.0,
-      "sort_order": 1830
+      "search_boost": 1,
+      "sort_order": 1830,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2433,7 +2579,8 @@
       "prompt_fragment": "a moustache",
       "negative_fragment": "no moustache",
       "search_boost": 1.1,
-      "sort_order": 1840
+      "sort_order": 1840,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2460,10 +2607,10 @@
       "visual_hint": null,
       "conflicts_with": [
         "appearance.beard",
-        "appearance.stubble",
         "appearance.beard_full",
         "appearance.goatee",
-        "appearance.moustache"
+        "appearance.moustache",
+        "appearance.stubble"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -2473,112 +2620,8 @@
       "prompt_fragment": "clean-shaven",
       "negative_fragment": "not clean-shaven",
       "search_boost": 1.1,
-      "sort_order": 1850
-    },
-    {
-      "schema_version": "1.0",
-      "id": "appearance.eyewear",
-      "category": "appearance",
-      "label": "Eyewear",
-      "aliases": [
-        "eyewear",
-        "eye wear",
-        "wearing glasses",
-        "spectacles",
-        "specs",
-        "glasses or sunglasses",
-        "eyewaer"
-      ],
-      "related": [
-        "appearance.glasses",
-        "appearance.sunglasses",
-        "clothing.eyeglasses"
-      ],
-      "parent": null,
-      "children": [
-        "appearance.glasses",
-        "appearance.sunglasses"
-      ],
-      "description": "Something is worn over the eyes. Choose a child node for clear glasses or for sunglasses.",
-      "visual_hint": null,
-      "conflicts_with": [],
-      "exclusivity_group": null,
-      "media_scope": [
-        "image",
-        "video"
-      ],
-      "prompt_fragment": "wearing eyewear",
-      "search_boost": 1.0,
-      "sort_order": 1900
-    },
-    {
-      "schema_version": "1.0",
-      "id": "appearance.glasses",
-      "category": "appearance",
-      "label": "Eyeglasses",
-      "aliases": [
-        "glasses",
-        "eyeglasses",
-        "spectacles",
-        "specs",
-        "reading glasses",
-        "wire frame glasses",
-        "clear glasses",
-        "galsses",
-        "glases"
-      ],
-      "related": [
-        "appearance.sunglasses",
-        "clothing.eyeglasses",
-        "appearance.eyewear"
-      ],
-      "parent": "appearance.eyewear",
-      "description": "Clear prescription-style glasses through which the eyes stay visible.",
-      "visual_hint": null,
-      "conflicts_with": [],
-      "exclusivity_group": "eyewear",
-      "media_scope": [
-        "image",
-        "video"
-      ],
-      "prompt_fragment": "wearing glasses",
-      "negative_fragment": "not wearing glasses",
-      "search_boost": 1.3,
-      "sort_order": 1910
-    },
-    {
-      "schema_version": "1.0",
-      "id": "appearance.sunglasses",
-      "category": "appearance",
-      "label": "Sunglasses",
-      "aliases": [
-        "sunglasses",
-        "shades",
-        "sunnies",
-        "dark glasses",
-        "black sunglasses",
-        "sun glasses",
-        "sunglases",
-        "sunnglasses"
-      ],
-      "related": [
-        "appearance.glasses",
-        "clothing.sunglasses",
-        "props.sunglasses"
-      ],
-      "parent": "appearance.eyewear",
-      "description": "Tinted glasses that hide the eyes.",
-      "visual_hint": null,
-      "conflicts_with": [],
-      "exclusivity_group": "eyewear",
-      "media_scope": [
-        "image",
-        "video"
-      ],
-      "prompt_fragment": "wearing sunglasses",
-      "negative_fragment": "not wearing sunglasses",
-      "search_boost": 1.3,
-      "sort_order": 1920
+      "sort_order": 1850,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2648,8 +2691,9 @@
       ],
       "prompt_fragment": "a full tattoo sleeve down the arm",
       "negative_fragment": "no sleeve tattoo",
-      "search_boost": 1.0,
-      "sort_order": 2010
+      "search_boost": 1,
+      "sort_order": 2010,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2680,8 +2724,9 @@
       ],
       "prompt_fragment": "a small delicate tattoo",
       "negative_fragment": "no small tattoo",
-      "search_boost": 1.0,
-      "sort_order": 2020
+      "search_boost": 1,
+      "sort_order": 2020,
+      "children": []
     },
     {
       "schema_version": "1.0",
@@ -2715,7 +2760,8 @@
       "prompt_fragment": "visible piercings",
       "negative_fragment": "no visible piercings",
       "search_boost": 1.1,
-      "sort_order": 2030
+      "sort_order": 2030,
+      "children": []
     }
   ]
 }

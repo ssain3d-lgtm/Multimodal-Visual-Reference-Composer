@@ -33,14 +33,14 @@
       ],
       "parent": null,
       "children": [
-        "style.fashion_editorial",
-        "style.street_fashion",
+        "style.analog_film",
         "style.documentary",
+        "style.fashion_editorial",
+        "style.fine_art_photography",
         "style.portrait_studio",
         "style.product",
-        "style.fine_art_photography",
         "style.snapshot",
-        "style.analog_film"
+        "style.street_fashion"
       ],
       "description": "The picture looks like it was actually taken with a camera on film or a sensor, rather than drawn, painted or built inside a computer.",
       "examples": [
@@ -87,10 +87,10 @@
       ],
       "parent": "style.photographic",
       "children": [
-        "style.high_fashion",
-        "style.lookbook",
+        "style.beauty",
         "style.campaign_advertising",
-        "style.beauty"
+        "style.high_fashion",
+        "style.lookbook"
       ],
       "description": "The polished, story-telling fashion photography printed across the pages of a magazine, where an outfit is shown inside a styled scene instead of on a plain catalogue background.",
       "examples": [
@@ -186,7 +186,7 @@
       ],
       "prompt_fragment": "brand lookbook photograph",
       "negative_fragment": "not a lookbook photograph",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 40
     },
     {
@@ -225,7 +225,7 @@
       ],
       "prompt_fragment": "advertising campaign photograph",
       "negative_fragment": "not an advertising photograph",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 50
     },
     {
@@ -264,7 +264,7 @@
       ],
       "prompt_fragment": "beauty photograph",
       "negative_fragment": "not a beauty photograph",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 60
     },
     {
@@ -396,7 +396,7 @@
       ],
       "prompt_fragment": "photojournalistic image",
       "negative_fragment": "not a photojournalistic image",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 90
     },
     {
@@ -523,7 +523,7 @@
       ],
       "prompt_fragment": "product photograph",
       "negative_fragment": "not a product photograph",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 120
     },
     {
@@ -715,10 +715,10 @@
       ],
       "parent": "style.photographic",
       "children": [
-        "style.polaroid",
-        "style.medium_format_film",
-        "style.expired_film",
         "style.disposable_camera",
+        "style.expired_film",
+        "style.medium_format_film",
+        "style.polaroid",
         "style.super_8"
       ],
       "description": "The look of a picture taken on photographic film: visible grain, gentle highlight roll-off and colours that come from the film stock rather than a sensor.",
@@ -898,7 +898,7 @@
       ],
       "prompt_fragment": "disposable-camera photograph",
       "negative_fragment": "not a disposable-camera photograph",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 210
     },
     {
@@ -962,10 +962,10 @@
       ],
       "parent": null,
       "children": [
-        "style.film_still",
+        "style.arthouse",
         "style.film_noir",
-        "style.music_video",
-        "style.arthouse"
+        "style.film_still",
+        "style.music_video"
       ],
       "description": "The picture is treated like a frame from a film: deliberate lighting, wide framing and colour grading that feels staged for a story rather than casually captured.",
       "examples": [
@@ -1063,7 +1063,7 @@
       ],
       "prompt_fragment": "film-noir",
       "negative_fragment": "not film-noir",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 250
     },
     {
@@ -1167,9 +1167,9 @@
       "children": [
         "style.anime",
         "style.comic",
-        "style.watercolor",
+        "style.concept_art",
         "style.line_art",
-        "style.concept_art"
+        "style.watercolor"
       ],
       "description": "The image was drawn or painted by hand rather than photographed, so lines, brush marks and flat areas of colour replace real lens and film behaviour.",
       "examples": [
@@ -1276,7 +1276,7 @@
       ],
       "prompt_fragment": "comic-book illustration",
       "negative_fragment": "not a comic-book illustration",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 300
     },
     {
@@ -1423,9 +1423,9 @@
       ],
       "parent": null,
       "children": [
-        "style.photoreal_cgi",
         "style.clay_render",
-        "style.game_engine"
+        "style.game_engine",
+        "style.photoreal_cgi"
       ],
       "description": "The image was built and rendered inside 3D software, so surfaces, light and geometry are simulated rather than photographed.",
       "examples": [
@@ -1483,7 +1483,7 @@
       ],
       "prompt_fragment": "photorealistic 3D render",
       "negative_fragment": "not a photorealistic 3D render",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 350
     },
     {
@@ -1589,8 +1589,8 @@
       ],
       "parent": null,
       "children": [
-        "mood.serene",
-        "mood.contemplative"
+        "mood.contemplative",
+        "mood.serene"
       ],
       "description": "The picture feels settled and unhurried, with nothing urgent happening and nothing fighting for attention.",
       "examples": [
@@ -1691,7 +1691,7 @@
       ],
       "prompt_fragment": "contemplative",
       "negative_fragment": "not contemplative",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 30
     },
     {
@@ -1718,8 +1718,8 @@
       ],
       "parent": null,
       "children": [
-        "mood.playful",
-        "mood.euphoric"
+        "mood.euphoric",
+        "mood.playful"
       ],
       "description": "The picture feels fast and alive, as though everything in it is moving or about to move.",
       "examples": [
@@ -1852,8 +1852,8 @@
       "parent": null,
       "children": [
         "mood.melancholic",
-        "mood.somber",
-        "mood.mysterious"
+        "mood.mysterious",
+        "mood.somber"
       ],
       "description": "A heavy, shadowed feeling where the darkness and the weather of the scene carry as much emotion as the subject does.",
       "examples": [
@@ -1996,7 +1996,7 @@
       ],
       "prompt_fragment": "mysterious",
       "negative_fragment": "not mysterious",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 100
     },
     {
@@ -2211,7 +2211,7 @@
       ],
       "prompt_fragment": "ominous",
       "negative_fragment": "not ominous",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 150
     },
     {
@@ -2335,7 +2335,7 @@
       ],
       "prompt_fragment": "romantic",
       "negative_fragment": "not romantic",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 180
     },
     {
@@ -2402,8 +2402,8 @@
       ],
       "parent": null,
       "children": [
-        "mood.heroic",
-        "mood.dramatic"
+        "mood.dramatic",
+        "mood.heroic"
       ],
       "description": "The scene feels enormous and important, dwarfing the people in it and asking to be looked up at.",
       "examples": [
@@ -2461,7 +2461,7 @@
       ],
       "prompt_fragment": "heroic",
       "negative_fragment": "not heroic",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 210
     },
     {
@@ -2529,9 +2529,9 @@
       ],
       "parent": null,
       "children": [
+        "color.desaturated_film",
         "color.high_saturation",
         "color.muted",
-        "color.desaturated_film",
         "color.pastel"
       ],
       "description": "The family of choices about how strong or washed-out the colours are, from screaming bright to almost grey.",
@@ -2733,10 +2733,8 @@
       "schema_version": "1.0",
       "id": "color.temperature",
       "category": "color",
-      "label": "Colour temperature",
+      "label": "Colour tone",
       "aliases": [
-        "colour temperature",
-        "color temperature",
         "warm or cool",
         "white balance feel",
         "colour cast",
@@ -2750,9 +2748,9 @@
       ],
       "parent": null,
       "children": [
-        "color.warm_tone",
         "color.cool_tone",
-        "color.neutral_tone"
+        "color.neutral_tone",
+        "color.warm_tone"
       ],
       "description": "The family of choices about whether the whole picture leans warm like sunlight, cool like shade, or neither.",
       "examples": [
@@ -2922,16 +2920,16 @@
       ],
       "parent": null,
       "children": [
-        "color.monochrome",
-        "color.teal_and_orange",
-        "color.complementary_palette",
         "color.analogous_palette",
+        "color.complementary_palette",
         "color.duotone",
         "color.earth_tone",
-        "color.neon_palette",
         "color.jewel_tone",
         "color.limited_palette",
-        "color.split_tone"
+        "color.monochrome",
+        "color.neon_palette",
+        "color.split_tone",
+        "color.teal_and_orange"
       ],
       "description": "The family of choices about which colours are allowed in the picture and how they relate to each other.",
       "examples": [
@@ -2974,8 +2972,8 @@
       "parent": "color.palette",
       "children": [
         "color.black_and_white",
-        "color.sepia",
-        "color.cyanotype"
+        "color.cyanotype",
+        "color.sepia"
       ],
       "description": "The picture is built from a single colour and its light and dark versions, so no second hue competes with it.",
       "examples": [
@@ -3508,14 +3506,14 @@
       ],
       "parent": null,
       "children": [
-        "composition.rule_of_thirds",
-        "composition.centered",
-        "composition.golden_ratio",
-        "composition.symmetry",
         "composition.asymmetry",
+        "composition.centered",
         "composition.diagonal",
-        "composition.triangular",
-        "composition.radial"
+        "composition.golden_ratio",
+        "composition.radial",
+        "composition.rule_of_thirds",
+        "composition.symmetry",
+        "composition.triangular"
       ],
       "description": "The family of choices about where things are placed inside the rectangle of the picture.",
       "examples": [
@@ -3726,7 +3724,7 @@
       ],
       "prompt_fragment": "asymmetrical composition",
       "negative_fragment": "not asymmetrical",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 60
     },
     {
@@ -3865,12 +3863,12 @@
       ],
       "parent": null,
       "children": [
-        "composition.leading_lines",
-        "composition.vanishing_point",
-        "composition.framing_within_frame",
         "composition.foreground_occlusion",
+        "composition.framing_within_frame",
         "composition.layered_depth",
-        "composition.reflection"
+        "composition.leading_lines",
+        "composition.reflection",
+        "composition.vanishing_point"
       ],
       "description": "The family of devices that make a flat picture feel deep, by layering things from front to back.",
       "examples": [
@@ -4077,7 +4075,7 @@
       ],
       "prompt_fragment": "with clearly layered foreground, middle and background",
       "negative_fragment": "no layered depth",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 150
     },
     {
@@ -4140,9 +4138,9 @@
       ],
       "parent": null,
       "children": [
-        "composition.low_horizon",
+        "composition.centered_horizon",
         "composition.high_horizon",
-        "composition.centered_horizon"
+        "composition.low_horizon"
       ],
       "description": "The family of choices about how high or low the horizon line sits, which decides how much sky or ground you see.",
       "examples": [
@@ -4234,7 +4232,7 @@
       ],
       "prompt_fragment": "with a high horizon and a large expanse of ground",
       "negative_fragment": "not a high horizon",
-      "search_boost": 1.0,
+      "search_boost": 1,
       "sort_order": 190
     },
     {
@@ -4296,9 +4294,9 @@
       ],
       "parent": null,
       "children": [
+        "composition.filled_frame",
         "composition.negative_space",
-        "composition.tight_crop",
-        "composition.filled_frame"
+        "composition.tight_crop"
       ],
       "description": "The family of choices about how much empty room is left around the subject, from a lot of air to none at all.",
       "examples": [
