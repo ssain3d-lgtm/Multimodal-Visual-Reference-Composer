@@ -1,0 +1,4486 @@
+{
+  "schema_version": "1.0",
+  "categories": [
+    "style",
+    "mood",
+    "color",
+    "composition"
+  ],
+  "version": 1,
+  "updated_at": "2026-09-09T00:00:00Z",
+  "nodes": [
+    {
+      "schema_version": "1.0",
+      "id": "style.photographic",
+      "category": "style",
+      "label": "Photographic",
+      "aliases": [
+        "photographic",
+        "photo",
+        "photograph",
+        "real photo",
+        "shot on a camera",
+        "photorealistic photo",
+        "camera photography",
+        "photografic",
+        "not a drawing"
+      ],
+      "related": [
+        "style.cinematic",
+        "style.illustration",
+        "style.analog_film",
+        "style.documentary"
+      ],
+      "parent": null,
+      "children": [
+        "style.fashion_editorial",
+        "style.street_fashion",
+        "style.documentary",
+        "style.portrait_studio",
+        "style.product",
+        "style.fine_art_photography",
+        "style.snapshot",
+        "style.analog_film"
+      ],
+      "description": "The picture looks like it was actually taken with a camera on film or a sensor, rather than drawn, painted or built inside a computer.",
+      "examples": [
+        "a real photograph of a person on a street",
+        "an image with true lens and film behaviour"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "style.anime",
+        "style.line_art",
+        "style.watercolor"
+      ],
+      "exclusivity_group": "render_medium",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "photographic",
+      "negative_fragment": "not photographic",
+      "search_boost": 1.2,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.fashion_editorial",
+      "category": "style",
+      "label": "Fashion editorial",
+      "aliases": [
+        "fashion editorial",
+        "editorial",
+        "editorial fashion",
+        "magazine fashion shoot",
+        "fashion magazine spread",
+        "vogue style",
+        "styled fashion shoot",
+        "fashion editoral",
+        "editorial shoot"
+      ],
+      "related": [
+        "style.high_fashion",
+        "style.lookbook",
+        "style.street_fashion",
+        "style.campaign_advertising"
+      ],
+      "parent": "style.photographic",
+      "children": [
+        "style.high_fashion",
+        "style.lookbook",
+        "style.campaign_advertising",
+        "style.beauty"
+      ],
+      "description": "The polished, story-telling fashion photography printed across the pages of a magazine, where an outfit is shown inside a styled scene instead of on a plain catalogue background.",
+      "examples": [
+        "a styled fashion spread shot in a hotel corridor",
+        "clothes presented as part of a mood, not as products"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "fashion editorial photograph",
+      "negative_fragment": "not a fashion editorial photograph",
+      "search_boost": 1.3,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.high_fashion",
+      "category": "style",
+      "label": "High fashion",
+      "aliases": [
+        "high fashion",
+        "haute couture",
+        "couture",
+        "runway fashion",
+        "luxury fashion",
+        "avant garde fashion",
+        "high-fashion",
+        "designer fashion look",
+        "high fasion"
+      ],
+      "related": [
+        "style.fashion_editorial",
+        "style.campaign_advertising",
+        "style.beauty"
+      ],
+      "parent": "style.fashion_editorial",
+      "children": [],
+      "description": "The most extreme, designer end of fashion imagery: sculptural clothing, dramatic styling and poses that are closer to art direction than to everyday wear.",
+      "examples": [
+        "a couture gown photographed as sculpture",
+        "an exaggerated silhouette against a bare set"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "high-fashion photograph",
+      "negative_fragment": "not a high-fashion photograph",
+      "search_boost": 1.1,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.lookbook",
+      "category": "style",
+      "label": "Lookbook",
+      "aliases": [
+        "lookbook",
+        "look book",
+        "brand lookbook",
+        "outfit lookbook",
+        "seasonal lookbook",
+        "clothing catalogue",
+        "catalog fashion",
+        "lookbok",
+        "outfit of the day shoot"
+      ],
+      "related": [
+        "style.fashion_editorial",
+        "style.campaign_advertising",
+        "style.product"
+      ],
+      "parent": "style.fashion_editorial",
+      "children": [],
+      "description": "Clean, repeatable fashion photography made to show a brand's collection clearly, so each full outfit reads plainly from head to toe.",
+      "examples": [
+        "a full-length outfit shot against a plain wall",
+        "a seasonal collection shown one look per frame"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "brand lookbook photograph",
+      "negative_fragment": "not a lookbook photograph",
+      "search_boost": 1.0,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.campaign_advertising",
+      "category": "style",
+      "label": "Advertising campaign",
+      "aliases": [
+        "advertising",
+        "ad campaign",
+        "commercial photography",
+        "brand campaign",
+        "advertisement look",
+        "billboard advert",
+        "campain",
+        "commercial shoot"
+      ],
+      "related": [
+        "style.fashion_editorial",
+        "style.product",
+        "style.high_fashion"
+      ],
+      "parent": "style.fashion_editorial",
+      "children": [],
+      "description": "Glossy commercial imagery built to sell something, with deliberate styling, generous space for text and a confident, flattering finish.",
+      "examples": [
+        "a perfume advert with a single striking figure",
+        "a billboard image with room for a headline"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "advertising campaign photograph",
+      "negative_fragment": "not an advertising photograph",
+      "search_boost": 1.0,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.beauty",
+      "category": "style",
+      "label": "Beauty",
+      "aliases": [
+        "beauty",
+        "beauty shot",
+        "beauty photography",
+        "makeup shot",
+        "cosmetics photography",
+        "skin and makeup close up",
+        "beauty editorial",
+        "beuty shot"
+      ],
+      "related": [
+        "style.high_fashion",
+        "style.portrait_studio",
+        "style.fashion_editorial"
+      ],
+      "parent": "style.fashion_editorial",
+      "children": [],
+      "description": "Photography focused tightly on a face, skin, hair or make-up, lit and retouched so that texture and colour on the face are the whole subject.",
+      "examples": [
+        "a close-up of a made-up face on a plain backdrop",
+        "glossy skin and lips filling the frame"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "beauty photograph",
+      "negative_fragment": "not a beauty photograph",
+      "search_boost": 1.0,
+      "sort_order": 60
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.street_fashion",
+      "category": "style",
+      "label": "Street fashion",
+      "aliases": [
+        "street fashion",
+        "street style",
+        "streetstyle",
+        "sidewalk fashion",
+        "off duty style",
+        "fashion week street",
+        "street style photography",
+        "street fasion",
+        "outfit on the street"
+      ],
+      "related": [
+        "style.fashion_editorial",
+        "style.street_photography",
+        "style.documentary",
+        "style.snapshot"
+      ],
+      "parent": "style.photographic",
+      "children": [],
+      "description": "Real outfits photographed out in the city as people actually wear them, with pavements, traffic and passers-by left in the frame.",
+      "examples": [
+        "an outfit caught crossing a busy pavement",
+        "a fashion-week attendee shot outside the venue"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "street-style fashion photograph",
+      "negative_fragment": "not a street-style photograph",
+      "search_boost": 1.3,
+      "sort_order": 70
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.documentary",
+      "category": "style",
+      "label": "Documentary",
+      "aliases": [
+        "documentary",
+        "documentary photography",
+        "reportage",
+        "real life",
+        "unposed",
+        "observational",
+        "fly on the wall",
+        "documentry",
+        "candid real moment"
+      ],
+      "related": [
+        "style.photojournalism",
+        "style.street_photography",
+        "style.snapshot",
+        "style.analog_film"
+      ],
+      "parent": "style.photographic",
+      "children": [
+        "style.photojournalism",
+        "style.street_photography"
+      ],
+      "description": "Pictures that observe something real as it happens, with nothing arranged for the camera, so the moment matters more than the polish.",
+      "examples": [
+        "a family moment recorded without direction",
+        "workers photographed mid-task, unposed"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "style.3d_render",
+        "style.anime",
+        "style.illustration",
+        "style.portrait_studio",
+        "style.product"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "documentary photograph",
+      "negative_fragment": "not a documentary photograph",
+      "search_boost": 1.2,
+      "sort_order": 80
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.photojournalism",
+      "category": "style",
+      "label": "Photojournalism",
+      "aliases": [
+        "photojournalism",
+        "press photo",
+        "news photography",
+        "reportage photography",
+        "journalistic photo",
+        "photo journalism",
+        "photojurnalism",
+        "news wire image"
+      ],
+      "related": [
+        "style.documentary",
+        "style.street_photography"
+      ],
+      "parent": "style.documentary",
+      "children": [],
+      "description": "News photography made to report an event honestly, prizing clarity and truthfulness over beauty or styling.",
+      "examples": [
+        "a protest photographed from inside the crowd",
+        "a news image that explains an event at a glance"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "style.anime",
+        "style.illustration"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "photojournalistic image",
+      "negative_fragment": "not a photojournalistic image",
+      "search_boost": 1.0,
+      "sort_order": 90
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.street_photography",
+      "category": "style",
+      "label": "Street photography",
+      "aliases": [
+        "street photography",
+        "street photo",
+        "candid street",
+        "urban candid",
+        "streetphotography",
+        "cartier-bresson style",
+        "decisive moment",
+        "street shooting"
+      ],
+      "related": [
+        "style.documentary",
+        "style.street_fashion",
+        "style.snapshot"
+      ],
+      "parent": "style.documentary",
+      "children": [],
+      "description": "Unposed pictures of everyday public life, where the photographer waits for chance arrangements of people, light and gesture to line up.",
+      "examples": [
+        "a stranger caught in a shaft of light between buildings",
+        "an accidental gesture framed on a pavement"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "style.portrait_studio"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "street photograph",
+      "negative_fragment": "not a street photograph",
+      "search_boost": 1.1,
+      "sort_order": 100
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.portrait_studio",
+      "category": "style",
+      "label": "Studio portrait",
+      "aliases": [
+        "studio portrait",
+        "studio photography",
+        "photo studio",
+        "seamless backdrop",
+        "controlled studio shot",
+        "studio headshot",
+        "portrait studio",
+        "stuido portrait",
+        "shot in a studio"
+      ],
+      "related": [
+        "style.beauty",
+        "style.product",
+        "style.fashion_editorial"
+      ],
+      "parent": "style.photographic",
+      "children": [],
+      "description": "A portrait made in a controlled studio, where the background is a plain sweep or backdrop and every light is placed on purpose.",
+      "examples": [
+        "a headshot on a grey seamless backdrop",
+        "a figure lit by studio flash against plain paper"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "style.documentary",
+        "style.snapshot",
+        "style.street_photography"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "studio portrait photograph",
+      "negative_fragment": "not a studio portrait",
+      "search_boost": 1.2,
+      "sort_order": 110
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.product",
+      "category": "style",
+      "label": "Product photography",
+      "aliases": [
+        "product photography",
+        "product shot",
+        "packshot",
+        "pack shot",
+        "e-commerce photo",
+        "catalogue product",
+        "still life product",
+        "prodcut shot",
+        "white background product"
+      ],
+      "related": [
+        "style.lookbook",
+        "style.portrait_studio",
+        "style.campaign_advertising"
+      ],
+      "parent": "style.photographic",
+      "children": [],
+      "description": "An object photographed as the subject in its own right, lit evenly and cleanly so the shape, material and finish read without distraction.",
+      "examples": [
+        "a bottle on a plain white sweep",
+        "a shoe lit to show its stitching and texture"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "style.documentary"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "product photograph",
+      "negative_fragment": "not a product photograph",
+      "search_boost": 1.0,
+      "sort_order": 120
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.fine_art_photography",
+      "category": "style",
+      "label": "Fine-art photography",
+      "aliases": [
+        "fine art photography",
+        "art photography",
+        "gallery photograph",
+        "conceptual photography",
+        "fine-art photo",
+        "artistic photograph",
+        "museum print look"
+      ],
+      "related": [
+        "style.arthouse",
+        "style.documentary",
+        "style.analog_film"
+      ],
+      "parent": "style.photographic",
+      "children": [],
+      "description": "Photography made to hang on a wall rather than to sell or report, where the idea and the print quality matter more than the subject being useful.",
+      "examples": [
+        "a quiet, deliberate image printed for a gallery wall",
+        "a conceptual photograph with no commercial purpose"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "fine-art photograph",
+      "negative_fragment": "not a fine-art photograph",
+      "search_boost": 0.9,
+      "sort_order": 130
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.snapshot",
+      "category": "style",
+      "label": "Snapshot",
+      "aliases": [
+        "snapshot",
+        "snap shot",
+        "casual snap",
+        "amateur photo",
+        "quick snap",
+        "phone photo",
+        "point and shoot",
+        "everyday photo",
+        "unpolished photo"
+      ],
+      "related": [
+        "style.y2k_digicam",
+        "style.flash_snapshot",
+        "style.documentary",
+        "style.disposable_camera"
+      ],
+      "parent": "style.photographic",
+      "children": [
+        "style.flash_snapshot",
+        "style.y2k_digicam"
+      ],
+      "description": "A quick, casual picture taken without much care about framing or lighting, the way an ordinary person photographs their own life.",
+      "examples": [
+        "a slightly crooked photo of friends at a table",
+        "an unplanned picture taken on a phone"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "style.portrait_studio"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "casual snapshot",
+      "negative_fragment": "not a casual snapshot",
+      "search_boost": 1.1,
+      "sort_order": 140
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.flash_snapshot",
+      "category": "style",
+      "label": "Direct-flash snapshot",
+      "aliases": [
+        "direct flash",
+        "on camera flash",
+        "flash snapshot",
+        "party flash photo",
+        "harsh flash",
+        "hard flash look",
+        "flash photo",
+        "pop flash"
+      ],
+      "related": [
+        "style.snapshot",
+        "style.y2k_digicam",
+        "style.polaroid"
+      ],
+      "parent": "style.snapshot",
+      "children": [],
+      "description": "A picture lit by the camera's own flash pointed straight at the subject, giving bright faces, hard little shadows and a dark background behind them.",
+      "examples": [
+        "a party photo with a bright face and black background",
+        "harsh frontal flash on skin at night"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "direct-flash snapshot",
+      "negative_fragment": "not a direct-flash snapshot",
+      "search_boost": 1.1,
+      "sort_order": 150
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.y2k_digicam",
+      "category": "style",
+      "label": "Y2K digicam",
+      "aliases": [
+        "y2k",
+        "digicam",
+        "digi cam",
+        "y2k digicam",
+        "early digital camera",
+        "2000s digital photo",
+        "compact digicam",
+        "ccd camera look",
+        "y2k asthetic",
+        "old digital camera photo"
+      ],
+      "related": [
+        "style.snapshot",
+        "style.flash_snapshot",
+        "style.analog_film"
+      ],
+      "parent": "style.snapshot",
+      "children": [],
+      "description": "The look of a cheap digital compact camera from the early 2000s: slightly soft, a bit noisy, over-bright flash and colours that miss slightly.",
+      "examples": [
+        "a night-out photo with blown-out flash and date stamp",
+        "a soft, noisy image from a small early digital sensor"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "early-2000s digital compact camera look",
+      "negative_fragment": "not an early-2000s digicam look",
+      "search_boost": 1.2,
+      "sort_order": 160
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.analog_film",
+      "category": "style",
+      "label": "Analogue film",
+      "aliases": [
+        "film",
+        "analog",
+        "analogue",
+        "film photography",
+        "shot on film",
+        "35mm film look",
+        "film grain",
+        "filmic",
+        "anolog",
+        "film stock look"
+      ],
+      "related": [
+        "style.polaroid",
+        "style.expired_film",
+        "style.medium_format_film",
+        "style.y2k_digicam"
+      ],
+      "parent": "style.photographic",
+      "children": [
+        "style.polaroid",
+        "style.medium_format_film",
+        "style.expired_film",
+        "style.disposable_camera",
+        "style.super_8"
+      ],
+      "description": "The look of a picture taken on photographic film: visible grain, gentle highlight roll-off and colours that come from the film stock rather than a sensor.",
+      "examples": [
+        "a grainy 35mm frame with soft highlights",
+        "colour that shifts the way film stock does"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "style.3d_render",
+        "style.anime",
+        "style.game_engine",
+        "style.illustration"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "analogue film photograph",
+      "negative_fragment": "not shot on analogue film",
+      "search_boost": 1.3,
+      "sort_order": 170
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.polaroid",
+      "category": "style",
+      "label": "Polaroid",
+      "aliases": [
+        "polaroid",
+        "instant film",
+        "instant photo",
+        "instax",
+        "sx-70",
+        "polaroid look",
+        "poloroid",
+        "instant camera"
+      ],
+      "related": [
+        "style.analog_film",
+        "style.flash_snapshot",
+        "style.expired_film"
+      ],
+      "parent": "style.analog_film",
+      "children": [],
+      "description": "The look of an instant photo that developed in your hand: soft focus, milky colours, heavy contrast and often the thick white border of the print.",
+      "examples": [
+        "a washed-out instant print with a white frame",
+        "soft, pale colours in a square instant photo"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "style.3d_render"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "instant-film photograph",
+      "negative_fragment": "not an instant-film photograph",
+      "search_boost": 1.2,
+      "sort_order": 180
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.medium_format_film",
+      "category": "style",
+      "label": "Medium-format film",
+      "aliases": [
+        "medium format",
+        "120 film",
+        "6x6",
+        "hasselblad look",
+        "medium format film",
+        "square negative",
+        "large negative film",
+        "medium fromat"
+      ],
+      "related": [
+        "style.analog_film",
+        "style.fashion_editorial",
+        "style.fine_art_photography"
+      ],
+      "parent": "style.analog_film",
+      "children": [],
+      "description": "Film shot on a negative much larger than 35mm, so the picture holds very fine detail and smooth tones with barely any visible grain.",
+      "examples": [
+        "a square film frame with extremely smooth skin tones",
+        "a fashion frame with very fine film detail"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "medium-format film photograph",
+      "negative_fragment": "not a medium-format film photograph",
+      "search_boost": 0.9,
+      "sort_order": 190
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.expired_film",
+      "category": "style",
+      "label": "Expired film",
+      "aliases": [
+        "expired film",
+        "light leak",
+        "light leaks",
+        "film degradation",
+        "expired stock",
+        "lomography",
+        "lomo",
+        "colour shifted film",
+        "damaged film look"
+      ],
+      "related": [
+        "style.analog_film",
+        "style.polaroid",
+        "style.disposable_camera"
+      ],
+      "parent": "style.analog_film",
+      "children": [],
+      "description": "Film that has aged past its date, so colours drift towards odd casts, contrast breaks down and stray streaks of light bleed across the frame.",
+      "examples": [
+        "a green-and-magenta cast with a red light streak",
+        "muddy, unpredictable colour on an old roll"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "expired-film photograph with colour shifts and light leaks",
+      "negative_fragment": "no expired-film colour shifts or light leaks",
+      "search_boost": 0.9,
+      "sort_order": 200
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.disposable_camera",
+      "category": "style",
+      "label": "Disposable camera",
+      "aliases": [
+        "disposable camera",
+        "single use camera",
+        "throwaway camera",
+        "cheap film camera",
+        "disposable cam",
+        "funsaver look",
+        "party disposable"
+      ],
+      "related": [
+        "style.analog_film",
+        "style.flash_snapshot",
+        "style.snapshot"
+      ],
+      "parent": "style.analog_film",
+      "children": [],
+      "description": "The rough look of a one-use plastic film camera: fixed focus, heavy grain, a hard built-in flash and slightly crooked framing.",
+      "examples": [
+        "a grainy flash photo from a plastic camera",
+        "soft corners and heavy grain on a night-out frame"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "disposable-camera photograph",
+      "negative_fragment": "not a disposable-camera photograph",
+      "search_boost": 1.0,
+      "sort_order": 210
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.super_8",
+      "category": "style",
+      "label": "Super 8",
+      "aliases": [
+        "super 8",
+        "super8",
+        "8mm film",
+        "home movie",
+        "cine film",
+        "vintage film footage",
+        "8 mm"
+      ],
+      "related": [
+        "style.analog_film",
+        "style.expired_film",
+        "style.film_still"
+      ],
+      "parent": "style.analog_film",
+      "children": [],
+      "description": "The look of an old home-movie film camera: small grainy frames, jittery movement, faded warm colour and occasional flicker.",
+      "examples": [
+        "a faded, flickering home-movie clip",
+        "warm grainy footage that jumps slightly between frames"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "Super 8 home-movie film look",
+      "negative_fragment": "not a Super 8 home-movie look",
+      "search_boost": 0.9,
+      "sort_order": 220
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.cinematic",
+      "category": "style",
+      "label": "Cinematic",
+      "aliases": [
+        "cinematic",
+        "movie look",
+        "film look",
+        "cinema style",
+        "like a movie",
+        "filmic look",
+        "cinematc",
+        "widescreen movie look",
+        "hollywood look"
+      ],
+      "related": [
+        "style.film_still",
+        "style.arthouse",
+        "style.film_noir",
+        "style.photographic"
+      ],
+      "parent": null,
+      "children": [
+        "style.film_still",
+        "style.film_noir",
+        "style.music_video",
+        "style.arthouse"
+      ],
+      "description": "The picture is treated like a frame from a film: deliberate lighting, wide framing and colour grading that feels staged for a story rather than casually captured.",
+      "examples": [
+        "a moody frame that looks pulled from a feature film",
+        "a graded, widescreen-feeling image"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "cinematic",
+      "negative_fragment": "not cinematic",
+      "search_boost": 1.4,
+      "sort_order": 230,
+      "model_hints": {
+        "generic": "cinematic",
+        "flux": "cinematic still, filmic color grading"
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.film_still",
+      "category": "style",
+      "label": "Film still",
+      "aliases": [
+        "film still",
+        "movie still",
+        "frame from a film",
+        "cinema still",
+        "screen grab from a movie",
+        "still frame",
+        "filmstill",
+        "movie screenshot"
+      ],
+      "related": [
+        "style.cinematic",
+        "style.arthouse",
+        "style.film_noir"
+      ],
+      "parent": "style.cinematic",
+      "children": [],
+      "description": "A single frame that looks lifted straight out of a film, complete with the composition, wardrobe and lighting of a real scene.",
+      "examples": [
+        "one frame from a scene, mid-conversation",
+        "an image that implies a story before and after it"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "film still",
+      "negative_fragment": "not a film still",
+      "search_boost": 1.3,
+      "sort_order": 240
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.film_noir",
+      "category": "style",
+      "label": "Film noir",
+      "aliases": [
+        "noir",
+        "film noir",
+        "neo noir",
+        "black and white crime film",
+        "hard shadow noir",
+        "noire",
+        "detective film look"
+      ],
+      "related": [
+        "style.cinematic",
+        "style.film_still",
+        "color.monochrome",
+        "mood.tense"
+      ],
+      "parent": "style.cinematic",
+      "children": [],
+      "description": "The hard-shadowed crime-film look of the 1940s and 50s: deep blacks, slatted light through blinds, and a dangerous, secretive feeling.",
+      "examples": [
+        "a face half-hidden in blind shadows",
+        "a rain-slick street in stark black and white"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "film-noir",
+      "negative_fragment": "not film-noir",
+      "search_boost": 1.0,
+      "sort_order": 250
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.music_video",
+      "category": "style",
+      "label": "Music video",
+      "aliases": [
+        "music video",
+        "mv",
+        "music video style",
+        "promo video look",
+        "band video",
+        "music vid"
+      ],
+      "related": [
+        "style.cinematic",
+        "style.arthouse",
+        "style.street_fashion"
+      ],
+      "parent": "style.cinematic",
+      "children": [],
+      "description": "The bold, performance-driven look of a music promo, where styling, colour and camera work are pushed harder than in ordinary film.",
+      "examples": [
+        "a saturated performance frame with strong colour lighting",
+        "a stylised sequence built around a song"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "music-video",
+      "negative_fragment": "not a music-video look",
+      "search_boost": 0.9,
+      "sort_order": 260
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.arthouse",
+      "category": "style",
+      "label": "Arthouse",
+      "aliases": [
+        "arthouse",
+        "art house",
+        "slow cinema",
+        "auteur film",
+        "festival film look",
+        "art-house",
+        "european art film"
+      ],
+      "related": [
+        "style.cinematic",
+        "style.fine_art_photography",
+        "style.film_still"
+      ],
+      "parent": "style.cinematic",
+      "children": [],
+      "description": "The restrained, unhurried look of festival cinema: quiet framing, natural light and space left for the viewer to sit in the scene.",
+      "examples": [
+        "a still, patient frame of an empty room",
+        "a naturally lit scene held longer than usual"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "arthouse cinema",
+      "negative_fragment": "not an arthouse look",
+      "search_boost": 0.9,
+      "sort_order": 270
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.illustration",
+      "category": "style",
+      "label": "Illustration",
+      "aliases": [
+        "illustration",
+        "drawing",
+        "drawn",
+        "illustrated",
+        "hand drawn",
+        "artwork",
+        "painted",
+        "ilustration",
+        "not a photo"
+      ],
+      "related": [
+        "style.anime",
+        "style.comic",
+        "style.watercolor",
+        "style.concept_art"
+      ],
+      "parent": null,
+      "children": [
+        "style.anime",
+        "style.comic",
+        "style.watercolor",
+        "style.line_art",
+        "style.concept_art"
+      ],
+      "description": "The image was drawn or painted by hand rather than photographed, so lines, brush marks and flat areas of colour replace real lens and film behaviour.",
+      "examples": [
+        "a hand-drawn figure with visible linework",
+        "a painted scene with no photographic detail"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "style.analog_film",
+        "style.documentary",
+        "style.photojournalism"
+      ],
+      "exclusivity_group": "render_medium",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "illustration",
+      "negative_fragment": "not an illustration",
+      "search_boost": 1.2,
+      "sort_order": 280
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.anime",
+      "category": "style",
+      "label": "Anime",
+      "aliases": [
+        "anime",
+        "manga",
+        "japanese animation",
+        "anime style",
+        "cel shaded anime",
+        "anime art",
+        "anmie",
+        "animé"
+      ],
+      "related": [
+        "style.illustration",
+        "style.comic",
+        "style.line_art"
+      ],
+      "parent": "style.illustration",
+      "children": [],
+      "description": "The Japanese animation look: clean outlines, large expressive eyes and flat blocks of colour with hard-edged shading.",
+      "examples": [
+        "a cel-shaded character with crisp outlines",
+        "flat colour and sharp shadow edges on a face"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "style.analog_film",
+        "style.documentary",
+        "style.photographic",
+        "style.photojournalism"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "anime illustration",
+      "negative_fragment": "not an anime illustration",
+      "search_boost": 1.2,
+      "sort_order": 290,
+      "model_hints": {
+        "generic": "anime illustration",
+        "sd": "anime style, cel shaded, clean lineart"
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.comic",
+      "category": "style",
+      "label": "Comic art",
+      "aliases": [
+        "comic",
+        "comic book",
+        "graphic novel",
+        "western comic art",
+        "inked comic",
+        "comic style",
+        "comix",
+        "superhero comic art"
+      ],
+      "related": [
+        "style.illustration",
+        "style.anime",
+        "style.line_art"
+      ],
+      "parent": "style.illustration",
+      "children": [],
+      "description": "The printed comic-book look: bold inked outlines, dramatic poses and flat or dotted colour laid inside the lines.",
+      "examples": [
+        "a heavily inked panel with dramatic shadows",
+        "flat printed colour inside thick black outlines"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "comic-book illustration",
+      "negative_fragment": "not a comic-book illustration",
+      "search_boost": 1.0,
+      "sort_order": 300
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.watercolor",
+      "category": "style",
+      "label": "Watercolour",
+      "aliases": [
+        "watercolor",
+        "watercolour",
+        "aquarelle",
+        "water colour",
+        "painted in watercolour",
+        "soft wash painting",
+        "watercolour wash"
+      ],
+      "related": [
+        "style.illustration",
+        "style.line_art",
+        "style.concept_art"
+      ],
+      "parent": "style.illustration",
+      "children": [],
+      "description": "A painted look where translucent colour pools and bleeds into wet paper, leaving soft edges and visible paper texture.",
+      "examples": [
+        "soft colour bleeding at the edges of a figure",
+        "pale washes with paper grain showing through"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "style.photographic"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "watercolour painting",
+      "negative_fragment": "not a watercolour painting",
+      "search_boost": 0.9,
+      "sort_order": 310
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.line_art",
+      "category": "style",
+      "label": "Line art",
+      "aliases": [
+        "line art",
+        "lineart",
+        "line-art",
+        "ink drawing",
+        "outline drawing",
+        "pen and ink",
+        "contour drawing",
+        "black and white drawing"
+      ],
+      "related": [
+        "style.illustration",
+        "style.comic",
+        "style.anime"
+      ],
+      "parent": "style.illustration",
+      "children": [],
+      "description": "A drawing made almost entirely of outlines, with little or no shading or colour filling them in.",
+      "examples": [
+        "a clean ink outline of a figure",
+        "a drawing built only from contour lines"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "style.photographic"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "line-art drawing",
+      "negative_fragment": "not a line-art drawing",
+      "search_boost": 0.9,
+      "sort_order": 320
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.concept_art",
+      "category": "style",
+      "label": "Concept art",
+      "aliases": [
+        "concept art",
+        "conceptart",
+        "production design art",
+        "key art",
+        "matte painting",
+        "game concept art",
+        "environment concept"
+      ],
+      "related": [
+        "style.illustration",
+        "style.3d_render",
+        "style.cinematic"
+      ],
+      "parent": "style.illustration",
+      "children": [],
+      "description": "Painted design work made to plan a film or game: atmospheric, loosely brushed and focused on mood and world-building rather than fine finish.",
+      "examples": [
+        "a painted city vista made to plan a scene",
+        "a loose, atmospheric design painting"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "concept art painting",
+      "negative_fragment": "not concept art",
+      "search_boost": 0.9,
+      "sort_order": 330
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.3d_render",
+      "category": "style",
+      "label": "3D render",
+      "aliases": [
+        "3d render",
+        "3d",
+        "cgi",
+        "render",
+        "computer generated",
+        "3d rendering",
+        "3-d render",
+        "blender render",
+        "octane render",
+        "cg image"
+      ],
+      "related": [
+        "style.photoreal_cgi",
+        "style.clay_render",
+        "style.game_engine",
+        "style.illustration"
+      ],
+      "parent": null,
+      "children": [
+        "style.photoreal_cgi",
+        "style.clay_render",
+        "style.game_engine"
+      ],
+      "description": "The image was built and rendered inside 3D software, so surfaces, light and geometry are simulated rather than photographed.",
+      "examples": [
+        "a rendered object with perfectly clean surfaces",
+        "simulated light bouncing inside a modelled room"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "style.analog_film",
+        "style.documentary",
+        "style.polaroid"
+      ],
+      "exclusivity_group": "render_medium",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "3D render",
+      "negative_fragment": "not a 3D render",
+      "search_boost": 1.2,
+      "sort_order": 340
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.photoreal_cgi",
+      "category": "style",
+      "label": "Photoreal CGI",
+      "aliases": [
+        "photoreal cgi",
+        "photorealistic render",
+        "realistic 3d",
+        "vfx render",
+        "cg photoreal",
+        "photoreal render",
+        "hyperreal 3d"
+      ],
+      "related": [
+        "style.3d_render",
+        "style.game_engine",
+        "style.photographic"
+      ],
+      "parent": "style.3d_render",
+      "children": [],
+      "description": "A 3D render made to look as much like a photograph as possible, with believable materials, shadows and lens behaviour.",
+      "examples": [
+        "a rendered interior that could pass for a photo",
+        "simulated skin and fabric with photographic detail"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "photorealistic 3D render",
+      "negative_fragment": "not a photorealistic 3D render",
+      "search_boost": 1.0,
+      "sort_order": 350
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.clay_render",
+      "category": "style",
+      "label": "Clay render",
+      "aliases": [
+        "clay render",
+        "claymation look",
+        "matte clay 3d",
+        "untextured render",
+        "clay model render",
+        "clay shading"
+      ],
+      "related": [
+        "style.3d_render",
+        "style.photoreal_cgi",
+        "style.concept_art"
+      ],
+      "parent": "style.3d_render",
+      "children": [],
+      "description": "A 3D render left without textures, so everything appears moulded from the same matte, putty-like material.",
+      "examples": [
+        "an untextured model in soft even light",
+        "a scene entirely in matte grey clay"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "matte clay 3D render",
+      "negative_fragment": "not a clay render",
+      "search_boost": 0.8,
+      "sort_order": 360
+    },
+    {
+      "schema_version": "1.0",
+      "id": "style.game_engine",
+      "category": "style",
+      "label": "Game engine look",
+      "aliases": [
+        "game engine",
+        "unreal engine look",
+        "realtime render",
+        "video game graphics",
+        "in-game screenshot",
+        "unreal",
+        "game screenshot",
+        "videogame look"
+      ],
+      "related": [
+        "style.3d_render",
+        "style.photoreal_cgi",
+        "style.concept_art"
+      ],
+      "parent": "style.3d_render",
+      "children": [],
+      "description": "The look of graphics drawn live by a game engine: strong ambient light, crisp surfaces and the slightly clean, weightless feel of real-time rendering.",
+      "examples": [
+        "a screenshot-like frame from a modern game",
+        "real-time lighting with very clean surfaces"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "style.analog_film"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "real-time game-engine render",
+      "negative_fragment": "not a game-engine render",
+      "search_boost": 0.9,
+      "sort_order": 370
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.calm",
+      "category": "mood",
+      "label": "Calm",
+      "aliases": [
+        "calm",
+        "peaceful",
+        "quiet",
+        "still",
+        "relaxed",
+        "tranquil",
+        "serene mood",
+        "clam",
+        "restful",
+        "settled feeling"
+      ],
+      "related": [
+        "mood.serene",
+        "mood.contemplative",
+        "mood.intimate",
+        "mood.energetic"
+      ],
+      "parent": null,
+      "children": [
+        "mood.serene",
+        "mood.contemplative"
+      ],
+      "description": "The picture feels settled and unhurried, with nothing urgent happening and nothing fighting for attention.",
+      "examples": [
+        "a quiet room with soft light and no movement",
+        "a figure sitting still, breathing slowly"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "mood.dramatic",
+        "mood.tense"
+      ],
+      "exclusivity_group": "mood_energy",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "calm",
+      "negative_fragment": "not calm",
+      "search_boost": 1.2,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.serene",
+      "category": "mood",
+      "label": "Serene",
+      "aliases": [
+        "serene",
+        "blissful",
+        "at peace",
+        "meditative calm",
+        "untroubled",
+        "peaceful stillness",
+        "sereen"
+      ],
+      "related": [
+        "mood.calm",
+        "mood.contemplative",
+        "mood.dreamy"
+      ],
+      "parent": "mood.calm",
+      "children": [],
+      "description": "An especially clear, untroubled calm, as though nothing difficult exists just outside the frame.",
+      "examples": [
+        "still water at first light",
+        "a face completely at ease"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "mood.dramatic",
+        "mood.energetic",
+        "mood.ominous",
+        "mood.tense"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "serene",
+      "negative_fragment": "not serene",
+      "search_boost": 0.9,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.contemplative",
+      "category": "mood",
+      "label": "Contemplative",
+      "aliases": [
+        "contemplative",
+        "thoughtful",
+        "pensive",
+        "reflective",
+        "lost in thought",
+        "introspective",
+        "pondering",
+        "contemplitive"
+      ],
+      "related": [
+        "mood.calm",
+        "mood.melancholic",
+        "mood.intimate"
+      ],
+      "parent": "mood.calm",
+      "children": [],
+      "description": "The subject seems to be thinking rather than doing, giving the image an inward, unhurried quality.",
+      "examples": [
+        "a person staring out of a window, unmoving",
+        "a gaze turned inward, away from the camera"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "contemplative",
+      "negative_fragment": "not contemplative",
+      "search_boost": 1.0,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.energetic",
+      "category": "mood",
+      "label": "Energetic",
+      "aliases": [
+        "energetic",
+        "high energy",
+        "lively",
+        "dynamic",
+        "vibrant mood",
+        "upbeat",
+        "full of movement",
+        "energetc",
+        "buzzing"
+      ],
+      "related": [
+        "mood.playful",
+        "mood.euphoric",
+        "mood.calm",
+        "mood.dramatic"
+      ],
+      "parent": null,
+      "children": [
+        "mood.playful",
+        "mood.euphoric"
+      ],
+      "description": "The picture feels fast and alive, as though everything in it is moving or about to move.",
+      "examples": [
+        "a crowd mid-jump at a concert",
+        "a body caught in the middle of a fast movement"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "mood.melancholic",
+        "mood.serene"
+      ],
+      "exclusivity_group": "mood_energy",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "energetic",
+      "negative_fragment": "not energetic",
+      "search_boost": 1.2,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.playful",
+      "category": "mood",
+      "label": "Playful",
+      "aliases": [
+        "playful",
+        "fun",
+        "cheeky",
+        "lighthearted",
+        "light-hearted",
+        "silly",
+        "joyful",
+        "having fun",
+        "playfull"
+      ],
+      "related": [
+        "mood.energetic",
+        "mood.euphoric",
+        "mood.melancholic"
+      ],
+      "parent": "mood.energetic",
+      "children": [],
+      "description": "The image is light and good-humoured, with a sense of people enjoying themselves and not taking it seriously.",
+      "examples": [
+        "friends laughing mid-joke",
+        "a knowing, grinning look straight to camera"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "mood.moody",
+        "mood.ominous",
+        "mood.somber",
+        "mood.tense"
+      ],
+      "exclusivity_group": "mood_valence",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "playful",
+      "negative_fragment": "not playful",
+      "search_boost": 1.2,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.euphoric",
+      "category": "mood",
+      "label": "Euphoric",
+      "aliases": [
+        "euphoric",
+        "ecstatic",
+        "elated",
+        "overjoyed",
+        "blissed out",
+        "pure joy",
+        "rapturous",
+        "euforic"
+      ],
+      "related": [
+        "mood.energetic",
+        "mood.playful"
+      ],
+      "parent": "mood.energetic",
+      "children": [],
+      "description": "An overwhelming, peaking happiness, the feeling of a moment breaking wide open.",
+      "examples": [
+        "arms thrown up in a crowd at the drop",
+        "a face lit with uncontainable joy"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "mood.melancholic",
+        "mood.moody",
+        "mood.somber"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "euphoric",
+      "negative_fragment": "not euphoric",
+      "search_boost": 0.9,
+      "sort_order": 60
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.moody",
+      "category": "mood",
+      "label": "Moody",
+      "aliases": [
+        "moody",
+        "dark mood",
+        "brooding",
+        "atmospheric",
+        "heavy atmosphere",
+        "somber mood",
+        "shadowy feeling",
+        "mody"
+      ],
+      "related": [
+        "mood.melancholic",
+        "mood.mysterious",
+        "mood.somber",
+        "mood.tense"
+      ],
+      "parent": null,
+      "children": [
+        "mood.melancholic",
+        "mood.somber",
+        "mood.mysterious"
+      ],
+      "description": "A heavy, shadowed feeling where the darkness and the weather of the scene carry as much emotion as the subject does.",
+      "examples": [
+        "a figure half-lost in shadow on a wet street",
+        "low light and heavy air over a quiet scene"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "mood.euphoric",
+        "mood.playful"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "moody",
+      "negative_fragment": "not moody",
+      "search_boost": 1.3,
+      "sort_order": 70
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.melancholic",
+      "category": "mood",
+      "label": "Melancholic",
+      "aliases": [
+        "melancholic",
+        "melancholy",
+        "sad",
+        "wistful",
+        "sorrowful",
+        "downcast",
+        "blue mood",
+        "melancolic",
+        "quietly sad"
+      ],
+      "related": [
+        "mood.moody",
+        "mood.nostalgic",
+        "mood.contemplative"
+      ],
+      "parent": "mood.moody",
+      "children": [],
+      "description": "A gentle, lingering sadness rather than sharp grief, the feeling of missing something that has already gone.",
+      "examples": [
+        "a solitary figure at a rain-streaked window",
+        "an empty chair in fading afternoon light"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "mood.energetic",
+        "mood.euphoric"
+      ],
+      "exclusivity_group": "mood_valence",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "melancholic",
+      "negative_fragment": "not melancholic",
+      "search_boost": 1.2,
+      "sort_order": 80
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.somber",
+      "category": "mood",
+      "label": "Sombre",
+      "aliases": [
+        "somber",
+        "sombre",
+        "solemn",
+        "grave",
+        "serious mood",
+        "mournful",
+        "heavy hearted",
+        "sober mood"
+      ],
+      "related": [
+        "mood.moody",
+        "mood.melancholic",
+        "mood.tense"
+      ],
+      "parent": "mood.moody",
+      "children": [],
+      "description": "A serious, weighty feeling with no lightness in it, the tone of a moment that matters and is not enjoyable.",
+      "examples": [
+        "a hushed room of people standing still",
+        "faces set and unsmiling in low light"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "mood.euphoric",
+        "mood.playful"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "sombre",
+      "negative_fragment": "not sombre",
+      "search_boost": 0.9,
+      "sort_order": 90
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.mysterious",
+      "category": "mood",
+      "label": "Mysterious",
+      "aliases": [
+        "mysterious",
+        "enigmatic",
+        "secretive",
+        "unknown",
+        "cryptic",
+        "hidden meaning",
+        "mysterius",
+        "unclear intent"
+      ],
+      "related": [
+        "mood.moody",
+        "mood.tense",
+        "mood.ominous"
+      ],
+      "parent": "mood.moody",
+      "children": [],
+      "description": "Something is deliberately withheld, so the viewer is left guessing at who this is or what is about to happen.",
+      "examples": [
+        "a face obscured by shadow or steam",
+        "a doorway leading somewhere unseen"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "mysterious",
+      "negative_fragment": "not mysterious",
+      "search_boost": 1.0,
+      "sort_order": 100
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.dreamy",
+      "category": "mood",
+      "label": "Dreamy",
+      "aliases": [
+        "dreamy",
+        "dreamlike",
+        "surreal soft",
+        "hazy feeling",
+        "floaty",
+        "like a dream",
+        "reverie",
+        "dreamlike mood",
+        "dreamey"
+      ],
+      "related": [
+        "mood.ethereal",
+        "mood.nostalgic",
+        "mood.serene"
+      ],
+      "parent": null,
+      "children": [
+        "mood.ethereal",
+        "mood.nostalgic"
+      ],
+      "description": "The scene feels slightly unreal and softened, as though remembered or imagined rather than witnessed.",
+      "examples": [
+        "a soft, glowing scene with blurred edges",
+        "light and colour that feel half-remembered"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "mood.ominous",
+        "mood.tense"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "dreamy",
+      "negative_fragment": "not dreamy",
+      "search_boost": 1.2,
+      "sort_order": 110
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.ethereal",
+      "category": "mood",
+      "label": "Ethereal",
+      "aliases": [
+        "ethereal",
+        "otherworldly",
+        "heavenly",
+        "airy",
+        "weightless mood",
+        "angelic",
+        "etherial",
+        "delicate glow"
+      ],
+      "related": [
+        "mood.dreamy",
+        "mood.serene"
+      ],
+      "parent": "mood.dreamy",
+      "children": [],
+      "description": "Light, delicate and barely of this world, as though the subject might dissolve into the light around it.",
+      "examples": [
+        "a figure surrounded by pale glowing haze",
+        "a weightless, floating quality to the whole frame"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "ethereal",
+      "negative_fragment": "not ethereal",
+      "search_boost": 0.9,
+      "sort_order": 120
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.nostalgic",
+      "category": "mood",
+      "label": "Nostalgic",
+      "aliases": [
+        "nostalgic",
+        "nostalgia",
+        "wistful memory",
+        "throwback feeling",
+        "reminiscent",
+        "old times feeling",
+        "nostalgic mood",
+        "nostalgc"
+      ],
+      "related": [
+        "mood.dreamy",
+        "mood.melancholic",
+        "style.analog_film"
+      ],
+      "parent": "mood.dreamy",
+      "children": [],
+      "description": "The image feels like a memory of the past, warm and a little faded, pulling on something the viewer has already lived.",
+      "examples": [
+        "a sun-faded summer afternoon from childhood",
+        "a scene that looks recalled rather than seen"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "nostalgic",
+      "negative_fragment": "not nostalgic",
+      "search_boost": 1.1,
+      "sort_order": 130
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.tense",
+      "category": "mood",
+      "label": "Tense",
+      "aliases": [
+        "tense",
+        "tension",
+        "anxious",
+        "on edge",
+        "suspenseful",
+        "uneasy feeling",
+        "nervous",
+        "tence",
+        "about to snap"
+      ],
+      "related": [
+        "mood.ominous",
+        "mood.unsettling",
+        "mood.dramatic",
+        "mood.calm"
+      ],
+      "parent": null,
+      "children": [
+        "mood.ominous",
+        "mood.unsettling"
+      ],
+      "description": "Something feels about to go wrong, so the picture holds a strain that has not yet been released.",
+      "examples": [
+        "two figures facing off in silence",
+        "a still frame that feels held breath"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "mood.calm",
+        "mood.dreamy",
+        "mood.playful",
+        "mood.serene"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "tense",
+      "negative_fragment": "not tense",
+      "search_boost": 1.2,
+      "sort_order": 140
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.ominous",
+      "category": "mood",
+      "label": "Ominous",
+      "aliases": [
+        "ominous",
+        "foreboding",
+        "menacing",
+        "threatening",
+        "sinister",
+        "bad feeling",
+        "dread",
+        "ominus"
+      ],
+      "related": [
+        "mood.tense",
+        "mood.mysterious",
+        "mood.unsettling"
+      ],
+      "parent": "mood.tense",
+      "children": [],
+      "description": "The picture warns that something bad is coming, even though nothing bad has happened yet.",
+      "examples": [
+        "a dark storm front over an empty road",
+        "a long, unlit corridor ahead of the subject"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "mood.dreamy",
+        "mood.playful",
+        "mood.serene"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "ominous",
+      "negative_fragment": "not ominous",
+      "search_boost": 1.0,
+      "sort_order": 150
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.unsettling",
+      "category": "mood",
+      "label": "Unsettling",
+      "aliases": [
+        "unsettling",
+        "eerie",
+        "uncanny",
+        "creepy",
+        "disturbing",
+        "off feeling",
+        "wrong somehow",
+        "unsetling"
+      ],
+      "related": [
+        "mood.tense",
+        "mood.ominous",
+        "mood.mysterious"
+      ],
+      "parent": "mood.tense",
+      "children": [],
+      "description": "Everything looks almost normal but something is quietly wrong, leaving the viewer uncomfortable without knowing why.",
+      "examples": [
+        "an ordinary room where one thing is out of place",
+        "a smile held a moment too long"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "unsettling",
+      "negative_fragment": "not unsettling",
+      "search_boost": 0.9,
+      "sort_order": 160
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.intimate",
+      "category": "mood",
+      "label": "Intimate",
+      "aliases": [
+        "intimate",
+        "close",
+        "personal",
+        "private moment",
+        "tender closeness",
+        "vulnerable",
+        "quiet closeness",
+        "intamate",
+        "up close and personal"
+      ],
+      "related": [
+        "mood.romantic",
+        "mood.tender",
+        "mood.calm",
+        "mood.epic"
+      ],
+      "parent": null,
+      "children": [
+        "mood.romantic",
+        "mood.tender"
+      ],
+      "description": "The picture feels close and private, as though the viewer has been let into a moment meant for very few people.",
+      "examples": [
+        "two people sharing a quiet moment inches apart",
+        "a small gesture caught very close to the subject"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "mood.heroic"
+      ],
+      "exclusivity_group": "mood_scale",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "intimate",
+      "negative_fragment": "not intimate",
+      "search_boost": 1.3,
+      "sort_order": 170
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.romantic",
+      "category": "mood",
+      "label": "Romantic",
+      "aliases": [
+        "romantic",
+        "love",
+        "romance",
+        "loving",
+        "affectionate",
+        "in love",
+        "tender romance",
+        "romatic"
+      ],
+      "related": [
+        "mood.intimate",
+        "mood.tender",
+        "mood.dreamy"
+      ],
+      "parent": "mood.intimate",
+      "children": [],
+      "description": "Warm, affectionate feeling between people, or a scene lit and framed to feel like falling for someone.",
+      "examples": [
+        "two figures leaning together in warm light",
+        "a soft, glowing scene built around affection"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "romantic",
+      "negative_fragment": "not romantic",
+      "search_boost": 1.0,
+      "sort_order": 180
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.tender",
+      "category": "mood",
+      "label": "Tender",
+      "aliases": [
+        "tender",
+        "gentle",
+        "caring",
+        "soft hearted",
+        "delicate feeling",
+        "kind",
+        "tenderness",
+        "softness"
+      ],
+      "related": [
+        "mood.intimate",
+        "mood.romantic",
+        "mood.calm"
+      ],
+      "parent": "mood.intimate",
+      "children": [],
+      "description": "A soft, careful gentleness, the feeling of someone being handled kindly.",
+      "examples": [
+        "a hand resting lightly on a shoulder",
+        "a parent holding a sleeping child"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "mood.epic"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "tender",
+      "negative_fragment": "not tender",
+      "search_boost": 0.9,
+      "sort_order": 190
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.epic",
+      "category": "mood",
+      "label": "Epic",
+      "aliases": [
+        "epic",
+        "grand",
+        "monumental",
+        "awe inspiring",
+        "larger than life",
+        "sweeping",
+        "majestic",
+        "epci",
+        "huge scale feeling"
+      ],
+      "related": [
+        "mood.heroic",
+        "mood.dramatic",
+        "mood.intimate"
+      ],
+      "parent": null,
+      "children": [
+        "mood.heroic",
+        "mood.dramatic"
+      ],
+      "description": "The scene feels enormous and important, dwarfing the people in it and asking to be looked up at.",
+      "examples": [
+        "a lone figure against a vast mountain range",
+        "a sweeping view that makes the subject small"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "mood.tender"
+      ],
+      "exclusivity_group": "mood_scale",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "epic in scale",
+      "negative_fragment": "not epic in scale",
+      "search_boost": 1.2,
+      "sort_order": 200
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.heroic",
+      "category": "mood",
+      "label": "Heroic",
+      "aliases": [
+        "heroic",
+        "hero shot",
+        "triumphant",
+        "powerful stance",
+        "victorious",
+        "commanding",
+        "heroik",
+        "champion feeling"
+      ],
+      "related": [
+        "mood.epic",
+        "mood.dramatic"
+      ],
+      "parent": "mood.epic",
+      "children": [],
+      "description": "The subject is presented as strong and admirable, framed and lit so the viewer looks up to them.",
+      "examples": [
+        "a figure standing tall against the sky",
+        "a confident stance photographed from below"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "mood.intimate"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "heroic",
+      "negative_fragment": "not heroic",
+      "search_boost": 1.0,
+      "sort_order": 210
+    },
+    {
+      "schema_version": "1.0",
+      "id": "mood.dramatic",
+      "category": "mood",
+      "label": "Dramatic",
+      "aliases": [
+        "dramatic",
+        "theatrical",
+        "high drama",
+        "intense",
+        "bold feeling",
+        "stagey",
+        "dramtic",
+        "heightened emotion"
+      ],
+      "related": [
+        "mood.epic",
+        "mood.tense",
+        "mood.moody"
+      ],
+      "parent": "mood.epic",
+      "children": [],
+      "description": "Everything is heightened: the light, the gesture and the emotion are all pushed well past everyday life.",
+      "examples": [
+        "a face lit by one hard, raking light",
+        "a gesture held at its most extreme point"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "mood.calm",
+        "mood.serene"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "dramatic",
+      "negative_fragment": "not dramatic",
+      "search_boost": 1.2,
+      "sort_order": 220
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.saturation",
+      "category": "color",
+      "label": "Colour intensity",
+      "aliases": [
+        "saturation",
+        "colour intensity",
+        "color intensity",
+        "how colourful",
+        "colour strength",
+        "chroma",
+        "saturaton",
+        "vividness"
+      ],
+      "related": [
+        "color.high_saturation",
+        "color.muted",
+        "color.desaturated_film",
+        "color.pastel"
+      ],
+      "parent": null,
+      "children": [
+        "color.high_saturation",
+        "color.muted",
+        "color.desaturated_film",
+        "color.pastel"
+      ],
+      "description": "The family of choices about how strong or washed-out the colours are, from screaming bright to almost grey.",
+      "examples": [
+        "choosing between punchy colour and faded colour",
+        "how loud the colours are overall"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with deliberate colour intensity",
+      "negative_fragment": "no deliberate colour intensity",
+      "search_boost": 0.7,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.high_saturation",
+      "category": "color",
+      "label": "High saturation",
+      "aliases": [
+        "high saturation",
+        "saturated",
+        "vivid",
+        "punchy colour",
+        "bright colours",
+        "bold color",
+        "colourful",
+        "oversaturated",
+        "high saturaton",
+        "intense colour"
+      ],
+      "related": [
+        "color.saturation",
+        "color.neon_palette",
+        "color.muted",
+        "color.jewel_tone"
+      ],
+      "parent": "color.saturation",
+      "children": [],
+      "description": "The colours are pushed hard so everything looks bright and intense, well beyond how the eye would see it.",
+      "examples": [
+        "a red jacket that glows off the screen",
+        "deep, punchy colour in every part of the frame"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "color.black_and_white",
+        "color.monochrome",
+        "color.pastel"
+      ],
+      "exclusivity_group": "saturation_level",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "highly saturated colour",
+      "negative_fragment": "not highly saturated",
+      "search_boost": 1.2,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.muted",
+      "category": "color",
+      "label": "Muted",
+      "aliases": [
+        "muted",
+        "subdued colour",
+        "soft colours",
+        "low saturation",
+        "toned down colour",
+        "quiet palette",
+        "muted tones",
+        "mutted",
+        "understated colour"
+      ],
+      "related": [
+        "color.saturation",
+        "color.desaturated_film",
+        "color.earth_tone",
+        "color.pastel"
+      ],
+      "parent": "color.saturation",
+      "children": [],
+      "description": "The colours are gently dialled back so nothing shouts, giving a quiet, restrained overall feel.",
+      "examples": [
+        "a soft palette where no colour dominates",
+        "clothing and walls in quiet, dusty tones"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "color.neon_palette"
+      ],
+      "exclusivity_group": "saturation_level",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a muted colour palette",
+      "negative_fragment": "not a muted palette",
+      "search_boost": 1.3,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.desaturated_film",
+      "category": "color",
+      "label": "Desaturated film",
+      "aliases": [
+        "desaturated",
+        "desaturated film",
+        "washed out",
+        "faded colour",
+        "bleach bypass",
+        "low colour film look",
+        "drained colour",
+        "desatured",
+        "colour drained"
+      ],
+      "related": [
+        "color.saturation",
+        "color.muted",
+        "color.monochrome",
+        "style.analog_film"
+      ],
+      "parent": "color.saturation",
+      "children": [],
+      "description": "Colour is pulled most of the way out, leaving a pale, filmic image that sits just short of black and white.",
+      "examples": [
+        "a nearly grey scene with a hint of skin tone",
+        "a bleached, drained film look"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "color.jewel_tone",
+        "color.neon_palette"
+      ],
+      "exclusivity_group": "saturation_level",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "desaturated, filmic colour",
+      "negative_fragment": "not desaturated",
+      "search_boost": 1.1,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.pastel",
+      "category": "color",
+      "label": "Pastel",
+      "aliases": [
+        "pastel",
+        "pastel colours",
+        "soft pale colours",
+        "candy colours",
+        "baby colours",
+        "milky colours",
+        "pastell",
+        "light airy palette"
+      ],
+      "related": [
+        "color.muted",
+        "color.saturation",
+        "color.warm_tone"
+      ],
+      "parent": "color.saturation",
+      "children": [],
+      "description": "Pale, milky versions of colours, as though white has been mixed into every one of them.",
+      "examples": [
+        "soft pink and mint against a cream wall",
+        "a whole frame in pale, chalky colour"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "color.black_and_white",
+        "color.high_saturation",
+        "color.jewel_tone",
+        "color.monochrome",
+        "color.neon_palette"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a pastel colour palette",
+      "negative_fragment": "not a pastel palette",
+      "search_boost": 1.2,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.temperature",
+      "category": "color",
+      "label": "Colour temperature",
+      "aliases": [
+        "colour temperature",
+        "color temperature",
+        "warm or cool",
+        "white balance feel",
+        "colour cast",
+        "temprature",
+        "tone warmth"
+      ],
+      "related": [
+        "color.warm_tone",
+        "color.cool_tone",
+        "color.neutral_tone"
+      ],
+      "parent": null,
+      "children": [
+        "color.warm_tone",
+        "color.cool_tone",
+        "color.neutral_tone"
+      ],
+      "description": "The family of choices about whether the whole picture leans warm like sunlight, cool like shade, or neither.",
+      "examples": [
+        "choosing between a golden or a blue cast",
+        "the overall warmth of the image"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a deliberate colour temperature",
+      "negative_fragment": "no deliberate colour temperature",
+      "search_boost": 0.7,
+      "sort_order": 60
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.warm_tone",
+      "category": "color",
+      "label": "Warm tone",
+      "aliases": [
+        "warm",
+        "warm tone",
+        "warm colours",
+        "golden tones",
+        "orange cast",
+        "amber tones",
+        "warm cast",
+        "warm tones",
+        "cosy colour",
+        "warm tint"
+      ],
+      "related": [
+        "color.temperature",
+        "color.cool_tone",
+        "color.earth_tone",
+        "color.teal_and_orange"
+      ],
+      "parent": "color.temperature",
+      "children": [],
+      "description": "The whole image leans towards yellows, oranges and reds, so it feels sunlit, cosy or a little nostalgic.",
+      "examples": [
+        "a room bathed in late-afternoon amber",
+        "skin and walls both tipped towards gold"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "color.cyanotype"
+      ],
+      "exclusivity_group": "color_temperature",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a warm colour cast",
+      "negative_fragment": "no warm colour cast",
+      "search_boost": 1.3,
+      "sort_order": 70
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.cool_tone",
+      "category": "color",
+      "label": "Cool tone",
+      "aliases": [
+        "cool",
+        "cool tone",
+        "cool colours",
+        "blue cast",
+        "cold colours",
+        "blue tint",
+        "icy tones",
+        "cool tones",
+        "cold cast",
+        "coool tone"
+      ],
+      "related": [
+        "color.temperature",
+        "color.warm_tone",
+        "color.teal_and_orange",
+        "color.monochrome"
+      ],
+      "parent": "color.temperature",
+      "children": [],
+      "description": "The whole image leans towards blues and cyans, so it feels cold, clinical or late in the evening.",
+      "examples": [
+        "a blue-grey street just after sunset",
+        "skin tipped slightly towards blue under shade"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "color.sepia"
+      ],
+      "exclusivity_group": "color_temperature",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a cool colour cast",
+      "negative_fragment": "no cool colour cast",
+      "search_boost": 1.3,
+      "sort_order": 80
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.neutral_tone",
+      "category": "color",
+      "label": "Neutral tone",
+      "aliases": [
+        "neutral",
+        "neutral tone",
+        "balanced colour",
+        "accurate white balance",
+        "no colour cast",
+        "true colour",
+        "netural tone"
+      ],
+      "related": [
+        "color.temperature",
+        "color.muted",
+        "color.warm_tone"
+      ],
+      "parent": "color.temperature",
+      "children": [],
+      "description": "Colours sit where the eye expects them, with no push towards warm or cool, so whites simply look white.",
+      "examples": [
+        "daylight-balanced skin tones with no cast",
+        "a clean, honest rendering of colour"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "color.teal_and_orange"
+      ],
+      "exclusivity_group": "color_temperature",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "neutral colour balance",
+      "negative_fragment": "not neutrally balanced",
+      "search_boost": 0.9,
+      "sort_order": 90
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.palette",
+      "category": "color",
+      "label": "Colour palette",
+      "aliases": [
+        "palette",
+        "colour palette",
+        "color palette",
+        "colour scheme",
+        "color scheme",
+        "colourway",
+        "palete",
+        "colour combination"
+      ],
+      "related": [
+        "color.monochrome",
+        "color.teal_and_orange",
+        "color.earth_tone",
+        "color.neon_palette"
+      ],
+      "parent": null,
+      "children": [
+        "color.monochrome",
+        "color.teal_and_orange",
+        "color.complementary_palette",
+        "color.analogous_palette",
+        "color.duotone",
+        "color.earth_tone",
+        "color.neon_palette",
+        "color.jewel_tone",
+        "color.limited_palette",
+        "color.split_tone"
+      ],
+      "description": "The family of choices about which colours are allowed in the picture and how they relate to each other.",
+      "examples": [
+        "restricting a scene to two related colours",
+        "the set of colours the image is built from"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a deliberate colour palette",
+      "negative_fragment": "no deliberate colour palette",
+      "search_boost": 0.7,
+      "sort_order": 100
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.monochrome",
+      "category": "color",
+      "label": "Monochrome",
+      "aliases": [
+        "monochrome",
+        "monochromatic",
+        "one colour",
+        "single hue",
+        "one hue palette",
+        "single colour image",
+        "no second colour",
+        "monocrome"
+      ],
+      "related": [
+        "color.black_and_white",
+        "color.sepia",
+        "color.cyanotype",
+        "color.desaturated_film"
+      ],
+      "parent": "color.palette",
+      "children": [
+        "color.black_and_white",
+        "color.sepia",
+        "color.cyanotype"
+      ],
+      "description": "The picture is built from a single colour and its light and dark versions, so no second hue competes with it.",
+      "examples": [
+        "a photograph entirely in greys",
+        "a scene rendered only in shades of one blue"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "color.high_saturation",
+        "color.pastel"
+      ],
+      "exclusivity_group": "palette_scheme",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "monochrome",
+      "negative_fragment": "not monochrome",
+      "search_boost": 1.3,
+      "sort_order": 110
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.black_and_white",
+      "category": "color",
+      "label": "Black and white",
+      "aliases": [
+        "black and white",
+        "b&w",
+        "bw",
+        "black & white",
+        "greyscale",
+        "grayscale",
+        "no colour photo",
+        "black and whte",
+        "monochrome photo",
+        "no colour at all"
+      ],
+      "related": [
+        "color.monochrome",
+        "color.sepia",
+        "style.film_noir"
+      ],
+      "parent": "color.monochrome",
+      "children": [],
+      "description": "All colour is removed, leaving only brightness, so the picture is carried by contrast, shape and texture.",
+      "examples": [
+        "a grainy black-and-white street photograph",
+        "a portrait with only greys, blacks and whites"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "color.high_saturation",
+        "color.neon_palette",
+        "color.pastel",
+        "color.teal_and_orange"
+      ],
+      "exclusivity_group": "monochrome_variant",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "in black and white",
+      "negative_fragment": "not in black and white",
+      "search_boost": 1.3,
+      "sort_order": 120
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.sepia",
+      "category": "color",
+      "label": "Sepia",
+      "aliases": [
+        "sepia",
+        "sepia tone",
+        "brown tone",
+        "old photo brown",
+        "antique tone",
+        "sepia toned",
+        "sepis",
+        "vintage brown photo"
+      ],
+      "related": [
+        "color.monochrome",
+        "color.black_and_white",
+        "color.warm_tone"
+      ],
+      "parent": "color.monochrome",
+      "children": [],
+      "description": "A single warm brown tone stands in for all colour, the way very old prints have aged.",
+      "examples": [
+        "an aged print in warm brown tones",
+        "a portrait toned entirely in soft brown"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "color.cool_tone"
+      ],
+      "exclusivity_group": "monochrome_variant",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "sepia-toned",
+      "negative_fragment": "not sepia-toned",
+      "search_boost": 0.9,
+      "sort_order": 130
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.cyanotype",
+      "category": "color",
+      "label": "Cyanotype",
+      "aliases": [
+        "cyanotype",
+        "blueprint blue",
+        "prussian blue print",
+        "blue monochrome",
+        "sun print",
+        "cyanotipe",
+        "blue toned print"
+      ],
+      "related": [
+        "color.monochrome",
+        "color.black_and_white",
+        "color.cool_tone"
+      ],
+      "parent": "color.monochrome",
+      "children": [],
+      "description": "A single deep blue tone stands in for all colour, like an old blueprint or sun-printed photograph.",
+      "examples": [
+        "a print entirely in deep prussian blue",
+        "a blue-toned image with white highlights"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "color.warm_tone"
+      ],
+      "exclusivity_group": "monochrome_variant",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "cyanotype blue-toned",
+      "negative_fragment": "not cyanotype-toned",
+      "search_boost": 0.7,
+      "sort_order": 140
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.teal_and_orange",
+      "category": "color",
+      "label": "Teal and orange",
+      "aliases": [
+        "teal and orange",
+        "orange and teal",
+        "blockbuster grade",
+        "hollywood grade",
+        "complementary film grade",
+        "teal orange",
+        "cyan and orange",
+        "teal & orange"
+      ],
+      "related": [
+        "color.palette",
+        "color.complementary_palette",
+        "color.warm_tone",
+        "color.cool_tone"
+      ],
+      "parent": "color.palette",
+      "children": [],
+      "description": "The familiar cinema grade where skin is pushed warm and orange while the shadows and background go blue-green.",
+      "examples": [
+        "warm faces against a blue-green night street",
+        "a graded frame split between amber and teal"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "color.black_and_white",
+        "color.neutral_tone"
+      ],
+      "exclusivity_group": "palette_scheme",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a teal-and-orange colour grade",
+      "negative_fragment": "no teal-and-orange grade",
+      "search_boost": 1.2,
+      "sort_order": 150
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.complementary_palette",
+      "category": "color",
+      "label": "Complementary palette",
+      "aliases": [
+        "complementary colours",
+        "opposite colours",
+        "contrasting colours",
+        "colour contrast pairing",
+        "complementary palette",
+        "complimentary colours",
+        "clashing pair"
+      ],
+      "related": [
+        "color.palette",
+        "color.teal_and_orange",
+        "color.analogous_palette"
+      ],
+      "parent": "color.palette",
+      "children": [],
+      "description": "The picture is built from two colours that sit opposite each other on the colour wheel, so each makes the other look stronger.",
+      "examples": [
+        "a red coat against a green hedge",
+        "purple light against a yellow wall"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "palette_scheme",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a complementary colour palette",
+      "negative_fragment": "not a complementary palette",
+      "search_boost": 0.9,
+      "sort_order": 160
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.analogous_palette",
+      "category": "color",
+      "label": "Analogous palette",
+      "aliases": [
+        "analogous colours",
+        "neighbouring colours",
+        "harmonious palette",
+        "similar hues",
+        "analogous palette",
+        "analagous",
+        "colour harmony"
+      ],
+      "related": [
+        "color.palette",
+        "color.complementary_palette",
+        "color.muted"
+      ],
+      "parent": "color.palette",
+      "children": [],
+      "description": "The picture uses colours that sit next to each other on the colour wheel, so the whole frame feels harmonious and unified.",
+      "examples": [
+        "blues and greens throughout a forest scene",
+        "yellow into orange into red across one frame"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "palette_scheme",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "an analogous colour palette",
+      "negative_fragment": "not an analogous palette",
+      "search_boost": 0.8,
+      "sort_order": 170
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.duotone",
+      "category": "color",
+      "label": "Duotone",
+      "aliases": [
+        "duotone",
+        "two tone",
+        "two colour print",
+        "split colour",
+        "bicolour",
+        "duo tone",
+        "two-tone grade"
+      ],
+      "related": [
+        "color.palette",
+        "color.monochrome",
+        "color.complementary_palette"
+      ],
+      "parent": "color.palette",
+      "children": [],
+      "description": "The whole picture is printed in just two colours, one carrying the shadows and one the highlights.",
+      "examples": [
+        "a poster in only pink and deep blue",
+        "an image mapped to two flat inks"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "palette_scheme",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a duotone colour treatment",
+      "negative_fragment": "not a duotone treatment",
+      "search_boost": 0.8,
+      "sort_order": 180
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.earth_tone",
+      "category": "color",
+      "label": "Earth tone",
+      "aliases": [
+        "earth tone",
+        "earth tones",
+        "earthy colours",
+        "natural tones",
+        "beige and brown",
+        "terracotta palette",
+        "neutral earth palette",
+        "erth tones",
+        "sand and clay colours"
+      ],
+      "related": [
+        "color.palette",
+        "color.muted",
+        "color.warm_tone"
+      ],
+      "parent": "color.palette",
+      "children": [],
+      "description": "A palette drawn from soil, sand, clay and dry plants: browns, ochres, olive greens and warm greys.",
+      "examples": [
+        "a linen outfit against a clay wall",
+        "sand, olive and rust across the whole frame"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "palette_scheme",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "an earth-tone colour palette",
+      "negative_fragment": "not an earth-tone palette",
+      "search_boost": 1.2,
+      "sort_order": 190
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.neon_palette",
+      "category": "color",
+      "label": "Neon palette",
+      "aliases": [
+        "neon",
+        "neon colours",
+        "neon palette",
+        "electric colours",
+        "glowing colours",
+        "cyberpunk colours",
+        "fluorescent colours",
+        "nion",
+        "neon lights palette"
+      ],
+      "related": [
+        "color.palette",
+        "color.high_saturation",
+        "color.jewel_tone",
+        "color.cool_tone"
+      ],
+      "parent": "color.palette",
+      "children": [],
+      "description": "Electric, glowing colours like lit signage: hot pinks, acid greens and burning blues that look self-illuminated.",
+      "examples": [
+        "magenta and cyan signage reflected on wet tarmac",
+        "a face lit by glowing pink and green tubes"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "color.black_and_white",
+        "color.desaturated_film",
+        "color.muted",
+        "color.pastel"
+      ],
+      "exclusivity_group": "palette_scheme",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a neon colour palette",
+      "negative_fragment": "not a neon palette",
+      "search_boost": 1.3,
+      "sort_order": 200
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.jewel_tone",
+      "category": "color",
+      "label": "Jewel tone",
+      "aliases": [
+        "jewel tones",
+        "jewel tone",
+        "rich colours",
+        "emerald and sapphire",
+        "deep saturated colours",
+        "gemstone colours",
+        "jewl tones",
+        "ruby and emerald palette"
+      ],
+      "related": [
+        "color.palette",
+        "color.high_saturation",
+        "color.neon_palette"
+      ],
+      "parent": "color.palette",
+      "children": [],
+      "description": "Deep, rich colours named after gemstones: emerald, sapphire, ruby and amethyst, saturated but never glowing.",
+      "examples": [
+        "a deep emerald velvet dress in low light",
+        "rich sapphire and ruby across a dark frame"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "color.desaturated_film",
+        "color.pastel"
+      ],
+      "exclusivity_group": "palette_scheme",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a jewel-tone colour palette",
+      "negative_fragment": "not a jewel-tone palette",
+      "search_boost": 0.9,
+      "sort_order": 210
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.limited_palette",
+      "category": "color",
+      "label": "Limited palette",
+      "aliases": [
+        "limited palette",
+        "restricted colours",
+        "few colours",
+        "two or three colours",
+        "reduced palette",
+        "minimal colour",
+        "limted palette"
+      ],
+      "related": [
+        "color.palette",
+        "color.duotone",
+        "color.monochrome"
+      ],
+      "parent": "color.palette",
+      "children": [],
+      "description": "Only a small number of colours are allowed anywhere in the frame, so the image feels deliberate and graphic.",
+      "examples": [
+        "a scene using only red, cream and black",
+        "three colours repeated across the whole picture"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a strictly limited colour palette",
+      "negative_fragment": "not a limited palette",
+      "search_boost": 0.9,
+      "sort_order": 220
+    },
+    {
+      "schema_version": "1.0",
+      "id": "color.split_tone",
+      "category": "color",
+      "label": "Split tone",
+      "aliases": [
+        "split tone",
+        "split toning",
+        "warm highlights cool shadows",
+        "toned shadows",
+        "split-toned",
+        "split toneing",
+        "colour split grade"
+      ],
+      "related": [
+        "color.palette",
+        "color.teal_and_orange",
+        "color.duotone"
+      ],
+      "parent": "color.palette",
+      "children": [],
+      "description": "The bright parts of the picture are tinted one colour and the dark parts another, usually warm highlights over cool shadows.",
+      "examples": [
+        "golden highlights with blue-green shadows",
+        "a print with warm skin and cold shade"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "split-toned colour",
+      "negative_fragment": "not split-toned",
+      "search_boost": 0.8,
+      "sort_order": 230
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.frame_layout",
+      "category": "composition",
+      "label": "Frame layout",
+      "aliases": [
+        "composition",
+        "frame layout",
+        "how it is arranged",
+        "framing rules",
+        "layout of the frame",
+        "arrangement",
+        "frame composition",
+        "compostion"
+      ],
+      "related": [
+        "composition.rule_of_thirds",
+        "composition.centered",
+        "composition.symmetry",
+        "composition.diagonal"
+      ],
+      "parent": null,
+      "children": [
+        "composition.rule_of_thirds",
+        "composition.centered",
+        "composition.golden_ratio",
+        "composition.symmetry",
+        "composition.asymmetry",
+        "composition.diagonal",
+        "composition.triangular",
+        "composition.radial"
+      ],
+      "description": "The family of choices about where things are placed inside the rectangle of the picture.",
+      "examples": [
+        "deciding where the subject sits in the frame",
+        "the underlying geometry of the arrangement"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a deliberate frame layout",
+      "negative_fragment": "no deliberate frame layout",
+      "search_boost": 0.7,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.rule_of_thirds",
+      "category": "composition",
+      "label": "Rule of thirds",
+      "aliases": [
+        "rule of thirds",
+        "thirds",
+        "off centre subject",
+        "off center",
+        "thirds grid",
+        "one third placement",
+        "rule of 3rds",
+        "rule of thrids"
+      ],
+      "related": [
+        "composition.centered",
+        "composition.golden_ratio",
+        "composition.frame_layout",
+        "composition.negative_space"
+      ],
+      "parent": "composition.frame_layout",
+      "children": [],
+      "description": "The frame is imagined as a three-by-three grid and the subject is placed on one of those lines instead of dead centre, which usually feels more natural.",
+      "examples": [
+        "a face placed on the left third of the frame",
+        "a horizon sitting on the lower third line"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "frame_geometry",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "composed on the rule of thirds",
+      "negative_fragment": "not composed on the rule of thirds",
+      "search_boost": 1.3,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.centered",
+      "category": "composition",
+      "label": "Centred",
+      "aliases": [
+        "centered",
+        "centred",
+        "dead center",
+        "middle of the frame",
+        "central subject",
+        "bullseye composition",
+        "center framing",
+        "centerd"
+      ],
+      "related": [
+        "composition.rule_of_thirds",
+        "composition.symmetry",
+        "composition.frame_layout"
+      ],
+      "parent": "composition.frame_layout",
+      "children": [],
+      "description": "The subject sits squarely in the middle of the frame, which feels direct, formal and confrontational.",
+      "examples": [
+        "a face placed exactly in the centre",
+        "a doorway centred perfectly in the frame"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "frame_geometry",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "centred composition",
+      "negative_fragment": "not centred",
+      "search_boost": 1.3,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.golden_ratio",
+      "category": "composition",
+      "label": "Golden ratio",
+      "aliases": [
+        "golden ratio",
+        "golden spiral",
+        "fibonacci composition",
+        "phi grid",
+        "golden section",
+        "golden mean",
+        "golden ratio composition",
+        "goldern ratio"
+      ],
+      "related": [
+        "composition.rule_of_thirds",
+        "composition.frame_layout",
+        "composition.diagonal"
+      ],
+      "parent": "composition.frame_layout",
+      "children": [],
+      "description": "A slightly tighter cousin of the rule of thirds, placing the subject along a spiral or proportion long used in painting.",
+      "examples": [
+        "a subject placed where a spiral tightens",
+        "classical proportion used to place the figure"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "frame_geometry",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "composed on the golden ratio",
+      "negative_fragment": "not composed on the golden ratio",
+      "search_boost": 0.8,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.symmetry",
+      "category": "composition",
+      "label": "Symmetry",
+      "aliases": [
+        "symmetry",
+        "symmetrical",
+        "mirrored composition",
+        "both sides the same",
+        "balanced halves",
+        "symetry",
+        "symmetric framing",
+        "mirror image composition"
+      ],
+      "related": [
+        "composition.asymmetry",
+        "composition.centered",
+        "composition.reflection"
+      ],
+      "parent": "composition.frame_layout",
+      "children": [],
+      "description": "The left and right (or top and bottom) halves of the picture mirror each other, giving a formal, deliberate stillness.",
+      "examples": [
+        "a corridor identical on both sides",
+        "a face lit and framed perfectly evenly"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "symmetry_mode",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "symmetrical composition",
+      "negative_fragment": "not symmetrical",
+      "search_boost": 1.3,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.asymmetry",
+      "category": "composition",
+      "label": "Asymmetry",
+      "aliases": [
+        "asymmetry",
+        "asymmetrical",
+        "unbalanced composition",
+        "off balance",
+        "uneven framing",
+        "asymetry",
+        "lopsided composition"
+      ],
+      "related": [
+        "composition.symmetry",
+        "composition.rule_of_thirds",
+        "composition.negative_space"
+      ],
+      "parent": "composition.frame_layout",
+      "children": [],
+      "description": "The two halves of the frame deliberately do not match, so weight sits to one side and the picture feels alive rather than formal.",
+      "examples": [
+        "a figure pushed hard to one edge",
+        "all the visual weight gathered on one side"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "symmetry_mode",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "asymmetrical composition",
+      "negative_fragment": "not asymmetrical",
+      "search_boost": 1.0,
+      "sort_order": 60
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.diagonal",
+      "category": "composition",
+      "label": "Diagonal",
+      "aliases": [
+        "diagonal",
+        "diagonal composition",
+        "slanted lines",
+        "oblique arrangement",
+        "dynamic diagonal",
+        "diagnal",
+        "tilted arrangement"
+      ],
+      "related": [
+        "composition.leading_lines",
+        "composition.frame_layout",
+        "composition.triangular"
+      ],
+      "parent": "composition.frame_layout",
+      "children": [],
+      "description": "The main shapes run corner to corner rather than straight across, which makes the picture feel like it is moving.",
+      "examples": [
+        "a staircase cutting across the frame",
+        "a body angled from one corner towards another"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "built on strong diagonals",
+      "negative_fragment": "no strong diagonals",
+      "search_boost": 1.1,
+      "sort_order": 70
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.triangular",
+      "category": "composition",
+      "label": "Triangular",
+      "aliases": [
+        "triangular composition",
+        "triangle composition",
+        "pyramid arrangement",
+        "triangular grouping",
+        "three point arrangement",
+        "trianglular"
+      ],
+      "related": [
+        "composition.diagonal",
+        "composition.symmetry",
+        "composition.frame_layout"
+      ],
+      "parent": "composition.frame_layout",
+      "children": [],
+      "description": "The main elements form a triangle, which holds a group of people or objects together and feels stable.",
+      "examples": [
+        "three figures arranged as a triangle",
+        "a seated pose forming a broad pyramid"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "arranged in a triangular composition",
+      "negative_fragment": "not a triangular composition",
+      "search_boost": 0.8,
+      "sort_order": 80
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.radial",
+      "category": "composition",
+      "label": "Radial",
+      "aliases": [
+        "radial composition",
+        "radiating lines",
+        "spokes",
+        "circular arrangement",
+        "star pattern composition",
+        "radial layout",
+        "radial"
+      ],
+      "related": [
+        "composition.vanishing_point",
+        "composition.symmetry",
+        "composition.frame_layout"
+      ],
+      "parent": "composition.frame_layout",
+      "children": [],
+      "description": "Everything spreads outwards from a single point like the spokes of a wheel, pulling the eye to that centre.",
+      "examples": [
+        "a spiral staircase seen from directly above",
+        "ceiling beams radiating from one point"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a radial composition",
+      "negative_fragment": "not a radial composition",
+      "search_boost": 0.7,
+      "sort_order": 90
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.depth_cue",
+      "category": "composition",
+      "label": "Depth cue",
+      "aliases": [
+        "depth",
+        "depth cue",
+        "sense of depth",
+        "layers",
+        "three dimensional feel",
+        "depth in the frame",
+        "deph",
+        "spatial depth"
+      ],
+      "related": [
+        "composition.leading_lines",
+        "composition.framing_within_frame",
+        "composition.foreground_occlusion",
+        "composition.layered_depth"
+      ],
+      "parent": null,
+      "children": [
+        "composition.leading_lines",
+        "composition.vanishing_point",
+        "composition.framing_within_frame",
+        "composition.foreground_occlusion",
+        "composition.layered_depth",
+        "composition.reflection"
+      ],
+      "description": "The family of devices that make a flat picture feel deep, by layering things from front to back.",
+      "examples": [
+        "putting something close to the lens in front",
+        "arranging near, middle and far layers"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with deliberate depth cues",
+      "negative_fragment": "no deliberate depth cues",
+      "search_boost": 0.7,
+      "sort_order": 100
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.leading_lines",
+      "category": "composition",
+      "label": "Leading lines",
+      "aliases": [
+        "leading lines",
+        "lines leading to subject",
+        "guiding lines",
+        "converging lines",
+        "path leads the eye",
+        "leadin lines",
+        "line of sight lines"
+      ],
+      "related": [
+        "composition.vanishing_point",
+        "composition.diagonal",
+        "composition.depth_cue"
+      ],
+      "parent": "composition.depth_cue",
+      "children": [],
+      "description": "Lines in the scene, like a road, railing or shadow, run towards the subject and pull the viewer's eye along with them.",
+      "examples": [
+        "a road narrowing towards a distant figure",
+        "railings guiding the eye to a face"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with leading lines drawing the eye in",
+      "negative_fragment": "no leading lines",
+      "search_boost": 1.3,
+      "sort_order": 110
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.vanishing_point",
+      "category": "composition",
+      "label": "Vanishing point",
+      "aliases": [
+        "vanishing point",
+        "one point perspective",
+        "converging perspective",
+        "perspective lines meet",
+        "single point perspective",
+        "vanishng point"
+      ],
+      "related": [
+        "composition.leading_lines",
+        "composition.radial",
+        "composition.depth_cue"
+      ],
+      "parent": "composition.depth_cue",
+      "children": [],
+      "description": "Parallel lines appear to meet at one distant point, which makes the space feel like a tunnel running away from the viewer.",
+      "examples": [
+        "a corridor whose walls converge far away",
+        "train tracks meeting at the horizon"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a strong vanishing point",
+      "negative_fragment": "no strong vanishing point",
+      "search_boost": 0.9,
+      "sort_order": 120
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.framing_within_frame",
+      "category": "composition",
+      "label": "Framing within a frame",
+      "aliases": [
+        "frame within a frame",
+        "framing within frame",
+        "natural frame",
+        "shot through a doorway",
+        "window framing",
+        "framed by an opening",
+        "frame in frame",
+        "frame withing frame"
+      ],
+      "related": [
+        "composition.foreground_occlusion",
+        "composition.depth_cue",
+        "composition.tight_crop"
+      ],
+      "parent": "composition.depth_cue",
+      "children": [],
+      "description": "The subject is seen through an opening in the scene, such as a doorway, window or archway, which boxes them in and adds depth.",
+      "examples": [
+        "a figure seen through a doorway",
+        "a face framed by a car window"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "framed within an opening in the scene",
+      "negative_fragment": "not framed within an opening",
+      "search_boost": 1.2,
+      "sort_order": 130
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.foreground_occlusion",
+      "category": "composition",
+      "label": "Foreground occlusion",
+      "aliases": [
+        "foreground occlusion",
+        "shot through something",
+        "obstructed foreground",
+        "blocked view",
+        "something in front of the lens",
+        "shooting through leaves",
+        "occluded foreground",
+        "foregorund blocking"
+      ],
+      "related": [
+        "composition.framing_within_frame",
+        "composition.layered_depth",
+        "composition.depth_cue"
+      ],
+      "parent": "composition.depth_cue",
+      "children": [],
+      "description": "Something sits between the camera and the subject and partly blocks the view, which makes the shot feel observed or stolen.",
+      "examples": [
+        "leaves blurred across the front of the frame",
+        "a shoulder cutting into the near edge"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with an object partly blocking the foreground",
+      "negative_fragment": "nothing blocking the foreground",
+      "search_boost": 1.2,
+      "sort_order": 140
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.layered_depth",
+      "category": "composition",
+      "label": "Layered depth",
+      "aliases": [
+        "layered depth",
+        "foreground middle background",
+        "layers of depth",
+        "stacked layers",
+        "depth layers",
+        "layerd depth",
+        "three layers"
+      ],
+      "related": [
+        "composition.foreground_occlusion",
+        "composition.depth_cue",
+        "composition.vanishing_point"
+      ],
+      "parent": "composition.depth_cue",
+      "children": [],
+      "description": "The picture is clearly built from a near layer, a middle layer and a far layer, so the eye travels back through it.",
+      "examples": [
+        "people near, mid and far in one street frame",
+        "clear foreground, subject and distant skyline"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with clearly layered foreground, middle and background",
+      "negative_fragment": "no layered depth",
+      "search_boost": 1.0,
+      "sort_order": 150
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.reflection",
+      "category": "composition",
+      "label": "Reflection",
+      "aliases": [
+        "reflection",
+        "reflected",
+        "mirror",
+        "puddle reflection",
+        "window reflection",
+        "mirrored surface",
+        "reflectoin",
+        "seen in a mirror"
+      ],
+      "related": [
+        "composition.symmetry",
+        "composition.depth_cue",
+        "composition.framing_within_frame"
+      ],
+      "parent": "composition.depth_cue",
+      "children": [],
+      "description": "The subject appears in a mirror, window or puddle, doubling them and folding two spaces into one frame.",
+      "examples": [
+        "a figure doubled in a rain puddle",
+        "a face caught in a shop window"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "using a reflection in the composition",
+      "negative_fragment": "no reflection used",
+      "search_boost": 1.1,
+      "sort_order": 160
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.horizon",
+      "category": "composition",
+      "label": "Horizon placement",
+      "aliases": [
+        "horizon",
+        "horizon line",
+        "where the horizon sits",
+        "skyline height",
+        "horizon placement",
+        "horizen",
+        "sky to ground ratio"
+      ],
+      "related": [
+        "composition.low_horizon",
+        "composition.high_horizon",
+        "composition.centered_horizon"
+      ],
+      "parent": null,
+      "children": [
+        "composition.low_horizon",
+        "composition.high_horizon",
+        "composition.centered_horizon"
+      ],
+      "description": "The family of choices about how high or low the horizon line sits, which decides how much sky or ground you see.",
+      "examples": [
+        "choosing how much sky to include",
+        "raising or lowering the horizon line"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a deliberate horizon placement",
+      "negative_fragment": "no deliberate horizon placement",
+      "search_boost": 0.7,
+      "sort_order": 170
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.low_horizon",
+      "category": "composition",
+      "label": "Low horizon",
+      "aliases": [
+        "low horizon",
+        "lots of sky",
+        "horizon near the bottom",
+        "big sky composition",
+        "sky heavy frame",
+        "low horizen",
+        "mostly sky"
+      ],
+      "related": [
+        "composition.high_horizon",
+        "composition.centered_horizon",
+        "composition.negative_space"
+      ],
+      "parent": "composition.horizon",
+      "children": [],
+      "description": "The horizon sits near the bottom of the frame so most of the picture is sky, which makes the scene feel open and airy.",
+      "examples": [
+        "a small figure under an enormous sky",
+        "a thin strip of land beneath tall clouds"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "horizon_placement",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a low horizon and a large expanse of sky",
+      "negative_fragment": "not a low horizon",
+      "search_boost": 1.1,
+      "sort_order": 180
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.high_horizon",
+      "category": "composition",
+      "label": "High horizon",
+      "aliases": [
+        "high horizon",
+        "lots of ground",
+        "horizon near the top",
+        "ground heavy frame",
+        "little sky",
+        "high horizen",
+        "mostly ground"
+      ],
+      "related": [
+        "composition.low_horizon",
+        "composition.centered_horizon",
+        "composition.foreground_occlusion"
+      ],
+      "parent": "composition.horizon",
+      "children": [],
+      "description": "The horizon sits near the top of the frame so most of the picture is ground or floor, which makes the scene feel grounded and enclosed.",
+      "examples": [
+        "a wide road filling most of the frame",
+        "a beach stretching up to a high waterline"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "horizon_placement",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a high horizon and a large expanse of ground",
+      "negative_fragment": "not a high horizon",
+      "search_boost": 1.0,
+      "sort_order": 190
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.centered_horizon",
+      "category": "composition",
+      "label": "Centred horizon",
+      "aliases": [
+        "centered horizon",
+        "centred horizon",
+        "horizon in the middle",
+        "half sky half ground",
+        "split frame horizon",
+        "middle horizon",
+        "horizon dead centre"
+      ],
+      "related": [
+        "composition.low_horizon",
+        "composition.high_horizon",
+        "composition.symmetry"
+      ],
+      "parent": "composition.horizon",
+      "children": [],
+      "description": "The horizon cuts the frame in half, giving equal sky and ground, which feels calm, formal and still.",
+      "examples": [
+        "equal sky and sea across the middle",
+        "a landscape split evenly in two"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "horizon_placement",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with the horizon centred in the frame",
+      "negative_fragment": "not a centred horizon",
+      "search_boost": 0.8,
+      "sort_order": 200
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.subject_space",
+      "category": "composition",
+      "label": "Space around the subject",
+      "aliases": [
+        "space around subject",
+        "breathing room",
+        "how tight the crop is",
+        "subject size in frame",
+        "framing tightness",
+        "spacing",
+        "how much empty space"
+      ],
+      "related": [
+        "composition.negative_space",
+        "composition.tight_crop",
+        "composition.filled_frame"
+      ],
+      "parent": null,
+      "children": [
+        "composition.negative_space",
+        "composition.tight_crop",
+        "composition.filled_frame"
+      ],
+      "description": "The family of choices about how much empty room is left around the subject, from a lot of air to none at all.",
+      "examples": [
+        "deciding how much empty space surrounds the figure",
+        "choosing a tight or an airy crop"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with deliberate space around the subject",
+      "negative_fragment": "no deliberate spacing around the subject",
+      "search_boost": 0.7,
+      "sort_order": 210
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.negative_space",
+      "category": "composition",
+      "label": "Negative space",
+      "aliases": [
+        "negative space",
+        "empty space",
+        "breathing space",
+        "lots of empty area",
+        "minimal composition",
+        "negative-space",
+        "negatve space",
+        "blank area"
+      ],
+      "related": [
+        "composition.wide_negative_space",
+        "composition.tight_crop",
+        "composition.subject_space",
+        "composition.rule_of_thirds"
+      ],
+      "parent": "composition.subject_space",
+      "children": [
+        "composition.wide_negative_space"
+      ],
+      "description": "Large parts of the frame are deliberately left empty around the subject, which makes them feel small, calm or isolated.",
+      "examples": [
+        "a figure alone against a huge blank wall",
+        "a small subject with plenty of empty air around it"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "subject_density",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with generous negative space around the subject",
+      "negative_fragment": "no negative space",
+      "search_boost": 1.3,
+      "sort_order": 220
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.wide_negative_space",
+      "category": "composition",
+      "label": "Wide negative space",
+      "aliases": [
+        "wide negative space",
+        "vast empty space",
+        "extreme negative space",
+        "tiny subject in a big frame",
+        "huge empty area",
+        "very minimal composition",
+        "wide negatve space"
+      ],
+      "related": [
+        "composition.negative_space",
+        "composition.low_horizon",
+        "composition.subject_space"
+      ],
+      "parent": "composition.negative_space",
+      "children": [],
+      "description": "Negative space taken to an extreme: the subject occupies only a small corner of a mostly empty frame.",
+      "examples": [
+        "a lone walker in a vast snowfield",
+        "a tiny figure at the base of a blank facade"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "composition.filled_frame",
+        "composition.tight_crop"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with vast negative space dwarfing the subject",
+      "negative_fragment": "no vast negative space",
+      "search_boost": 1.1,
+      "sort_order": 230
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.tight_crop",
+      "category": "composition",
+      "label": "Tight crop",
+      "aliases": [
+        "tight crop",
+        "cropped in close",
+        "cropped tight",
+        "filling the frame",
+        "no room around subject",
+        "close crop",
+        "tigh crop",
+        "crop into the subject"
+      ],
+      "related": [
+        "composition.filled_frame",
+        "composition.negative_space",
+        "composition.subject_space"
+      ],
+      "parent": "composition.subject_space",
+      "children": [],
+      "description": "The frame is cut in hard around the subject, often slicing through them at the edges, so nothing else is visible.",
+      "examples": [
+        "a face cropped through the forehead and chin",
+        "fabric filling the entire frame edge to edge"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "composition.wide_negative_space"
+      ],
+      "exclusivity_group": "subject_density",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "tightly cropped on the subject",
+      "negative_fragment": "not tightly cropped",
+      "search_boost": 1.2,
+      "sort_order": 240
+    },
+    {
+      "schema_version": "1.0",
+      "id": "composition.filled_frame",
+      "category": "composition",
+      "label": "Filled frame",
+      "aliases": [
+        "filled frame",
+        "busy frame",
+        "packed composition",
+        "dense composition",
+        "no empty space",
+        "cluttered frame",
+        "filed frame",
+        "everything filled in"
+      ],
+      "related": [
+        "composition.tight_crop",
+        "composition.negative_space",
+        "composition.layered_depth"
+      ],
+      "parent": "composition.subject_space",
+      "children": [],
+      "description": "Every part of the picture is occupied by something, leaving no quiet or empty areas for the eye to rest.",
+      "examples": [
+        "a market stall packed corner to corner",
+        "a wall of objects filling the whole frame"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "composition.wide_negative_space"
+      ],
+      "exclusivity_group": "subject_density",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "with a densely filled frame",
+      "negative_fragment": "not a densely filled frame",
+      "search_boost": 0.9,
+      "sort_order": 250
+    }
+  ]
+}

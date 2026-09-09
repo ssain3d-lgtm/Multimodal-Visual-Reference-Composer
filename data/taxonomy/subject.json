@@ -1,0 +1,2721 @@
+{
+  "schema_version": "1.0",
+  "categories": [
+    "subject",
+    "appearance"
+  ],
+  "version": 1,
+  "updated_at": "2026-09-09T00:00:00Z",
+  "nodes": [
+    {
+      "schema_version": "1.0",
+      "id": "subject.person",
+      "category": "subject",
+      "label": "Person (single)",
+      "aliases": [
+        "person",
+        "one person",
+        "single person",
+        "a person",
+        "human",
+        "individual",
+        "somebody",
+        "solo subject",
+        "persson",
+        "one persen"
+      ],
+      "related": [
+        "subject.adult_woman",
+        "subject.adult_man",
+        "subject.people_group",
+        "framing.single_subject"
+      ],
+      "parent": null,
+      "children": [
+        "subject.adult_woman",
+        "subject.adult_man",
+        "subject.young_adult",
+        "subject.teenager",
+        "subject.child",
+        "subject.elderly_person"
+      ],
+      "description": "One human being is the subject of the shot, with nothing said yet about their age or gender. Pick a more specific child node when you know who is in frame.",
+      "examples": [
+        "a single person standing in an empty room",
+        "portrait of one person against a plain wall"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a person",
+      "negative_fragment": "no person in frame",
+      "search_boost": 1.4,
+      "sort_order": 10
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.adult_woman",
+      "category": "subject",
+      "label": "Adult woman",
+      "aliases": [
+        "woman",
+        "adult woman",
+        "female subject",
+        "lady",
+        "grown woman",
+        "she",
+        "a woman",
+        "womna",
+        "wonan",
+        "women"
+      ],
+      "related": [
+        "subject.adult_man",
+        "subject.young_adult",
+        "subject.elderly_person",
+        "subject.person"
+      ],
+      "parent": "subject.person",
+      "description": "One adult woman is the subject of the shot.",
+      "examples": [
+        "a woman walking down a city street",
+        "half-length portrait of a woman by a window"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a woman",
+      "negative_fragment": "not a woman",
+      "search_boost": 1.5,
+      "sort_order": 20
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.adult_man",
+      "category": "subject",
+      "label": "Adult man",
+      "aliases": [
+        "man",
+        "adult man",
+        "male subject",
+        "guy",
+        "gentleman",
+        "bloke",
+        "grown man",
+        "a man",
+        "mann",
+        "amn"
+      ],
+      "related": [
+        "subject.adult_woman",
+        "subject.young_adult",
+        "subject.elderly_person",
+        "subject.person"
+      ],
+      "parent": "subject.person",
+      "description": "One adult man is the subject of the shot.",
+      "examples": [
+        "a man leaning against a parked car",
+        "half-length portrait of a man in a doorway"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a man",
+      "negative_fragment": "not a man",
+      "search_boost": 1.5,
+      "sort_order": 30
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.young_adult",
+      "category": "subject",
+      "label": "Young adult",
+      "aliases": [
+        "young adult",
+        "twenties",
+        "20s",
+        "in their twenties",
+        "young man",
+        "young woman",
+        "early twenties",
+        "youthful adult",
+        "yound adult",
+        "young persson"
+      ],
+      "related": [
+        "subject.teenager",
+        "subject.adult_woman",
+        "subject.adult_man",
+        "subject.person"
+      ],
+      "parent": "subject.person",
+      "description": "A person who reads as roughly college age to late twenties: clearly past their teens, but still young.",
+      "examples": [
+        "a young adult sitting on a skate ramp"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a young adult in their twenties",
+      "negative_fragment": "not a young adult",
+      "search_boost": 1.2,
+      "sort_order": 40
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.teenager",
+      "category": "subject",
+      "label": "Teenager",
+      "aliases": [
+        "teenager",
+        "teen",
+        "teens",
+        "adolescent",
+        "high school age",
+        "youth",
+        "teenaged",
+        "tenager",
+        "teeneger"
+      ],
+      "related": [
+        "subject.child",
+        "subject.young_adult",
+        "subject.person"
+      ],
+      "parent": "subject.person",
+      "description": "A person who reads as being roughly thirteen to nineteen years old.",
+      "examples": [
+        "a teenager waiting at a bus stop with headphones on"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a teenager",
+      "negative_fragment": "not a teenager",
+      "search_boost": 1.1,
+      "sort_order": 50
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.child",
+      "category": "subject",
+      "label": "Child",
+      "aliases": [
+        "child",
+        "kid",
+        "young child",
+        "little boy",
+        "little girl",
+        "children",
+        "small child",
+        "chid",
+        "kiddo",
+        "chlid"
+      ],
+      "related": [
+        "subject.teenager",
+        "subject.person",
+        "subject.small_group"
+      ],
+      "parent": "subject.person",
+      "description": "A young person, roughly pre-teen, as the subject of the shot.",
+      "examples": [
+        "a child running across a park lawn"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a child",
+      "negative_fragment": "no children in frame",
+      "search_boost": 1.1,
+      "sort_order": 60
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.elderly_person",
+      "category": "subject",
+      "label": "Elderly person",
+      "aliases": [
+        "elderly person",
+        "older person",
+        "senior",
+        "old man",
+        "old woman",
+        "grandparent",
+        "elderly",
+        "older adult",
+        "eldery",
+        "ederly person"
+      ],
+      "related": [
+        "subject.adult_woman",
+        "subject.adult_man",
+        "subject.person"
+      ],
+      "parent": "subject.person",
+      "description": "An older person as the subject of the shot, described respectfully and without any judgement about them.",
+      "examples": [
+        "an elderly person seated on a park bench in soft light"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "an elderly person",
+      "negative_fragment": "not an elderly person",
+      "search_boost": 1.1,
+      "sort_order": 70
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.people_group",
+      "category": "subject",
+      "label": "Group of people",
+      "aliases": [
+        "group",
+        "group of people",
+        "people",
+        "multiple people",
+        "several people",
+        "more than one person",
+        "a few people",
+        "gorup",
+        "goup of people"
+      ],
+      "related": [
+        "subject.person",
+        "subject.crowd",
+        "framing.group_shot"
+      ],
+      "parent": null,
+      "children": [
+        "subject.group_two",
+        "subject.small_group",
+        "subject.crowd"
+      ],
+      "description": "More than one person is in the frame. Choose a child node when you know roughly how many.",
+      "examples": [
+        "a group of people talking on a street corner"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a group of people",
+      "negative_fragment": "no group of people",
+      "search_boost": 1.2,
+      "sort_order": 100
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.group_two",
+      "category": "subject",
+      "label": "Two people",
+      "aliases": [
+        "two people",
+        "two subjects",
+        "pair",
+        "duo",
+        "two shot",
+        "2 people",
+        "twosome",
+        "both of them",
+        "two persons"
+      ],
+      "related": [
+        "subject.couple",
+        "subject.small_group",
+        "framing.two_shot",
+        "subject.people_group"
+      ],
+      "parent": "subject.people_group",
+      "children": [
+        "subject.couple"
+      ],
+      "description": "Exactly two people share the frame, whatever their relationship is.",
+      "examples": [
+        "two people facing each other across a cafe table"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "subject_count",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "two people",
+      "negative_fragment": "not two people",
+      "search_boost": 1.2,
+      "sort_order": 110
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.couple",
+      "category": "subject",
+      "label": "Couple",
+      "aliases": [
+        "couple",
+        "romantic couple",
+        "partners",
+        "two lovers",
+        "boyfriend and girlfriend",
+        "married couple",
+        "dating couple",
+        "cuple",
+        "coople"
+      ],
+      "related": [
+        "subject.group_two",
+        "subject.person",
+        "action.hugging"
+      ],
+      "parent": "subject.group_two",
+      "description": "Two people shown together as a couple, usually close to each other or touching.",
+      "examples": [
+        "a couple walking hand in hand along a wet pavement"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a couple together",
+      "negative_fragment": "not a couple",
+      "search_boost": 1.2,
+      "sort_order": 120
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.small_group",
+      "category": "subject",
+      "label": "Small group (three to six)",
+      "aliases": [
+        "small group",
+        "three people",
+        "few people",
+        "handful of people",
+        "trio",
+        "group of friends",
+        "3 people",
+        "four people",
+        "smal group"
+      ],
+      "related": [
+        "subject.group_two",
+        "subject.crowd",
+        "subject.people_group"
+      ],
+      "parent": "subject.people_group",
+      "description": "Roughly three to six people together, few enough that you can still see each of them clearly.",
+      "examples": [
+        "a small group of friends sitting on a rooftop"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "subject_count",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a small group of three to six people",
+      "negative_fragment": "not a small group",
+      "search_boost": 1.1,
+      "sort_order": 130
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.crowd",
+      "category": "subject",
+      "label": "Crowd",
+      "aliases": [
+        "crowd",
+        "many people",
+        "lots of people",
+        "packed crowd",
+        "mass of people",
+        "busy street full of people",
+        "crowded",
+        "croud",
+        "crowdd"
+      ],
+      "related": [
+        "subject.small_group",
+        "scene.crowd",
+        "framing.group_shot"
+      ],
+      "parent": "subject.people_group",
+      "description": "So many people that they read as one mass rather than as individuals.",
+      "examples": [
+        "a crowd flowing across a busy crossing at night"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "subject_count",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a crowd of people",
+      "negative_fragment": "no crowd",
+      "search_boost": 1.2,
+      "sort_order": 140
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.animal",
+      "category": "subject",
+      "label": "Animal",
+      "aliases": [
+        "animal",
+        "animals",
+        "pet",
+        "creature",
+        "an animal",
+        "aminal"
+      ],
+      "related": [
+        "subject.animal_dog",
+        "subject.animal_cat",
+        "subject.person"
+      ],
+      "parent": null,
+      "children": [
+        "subject.animal_dog",
+        "subject.animal_cat"
+      ],
+      "description": "An animal is a subject of the shot. Choose a child node when you know which animal it is.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "an animal",
+      "negative_fragment": "no animals in frame",
+      "search_boost": 1.0,
+      "sort_order": 200
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.animal_dog",
+      "category": "subject",
+      "label": "Dog",
+      "aliases": [
+        "dog",
+        "puppy",
+        "canine",
+        "pup",
+        "doggo",
+        "dog on a lead",
+        "dogg",
+        "dgo"
+      ],
+      "related": [
+        "subject.animal_cat",
+        "subject.animal",
+        "subject.person"
+      ],
+      "parent": "subject.animal",
+      "description": "A dog is a subject of the shot, on its own or with a person.",
+      "examples": [
+        "a person walking a dog through morning fog"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a dog",
+      "negative_fragment": "no dog",
+      "search_boost": 1.1,
+      "sort_order": 210
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.animal_cat",
+      "category": "subject",
+      "label": "Cat",
+      "aliases": [
+        "cat",
+        "kitten",
+        "kitty",
+        "feline",
+        "house cat",
+        "cta",
+        "kat"
+      ],
+      "related": [
+        "subject.animal_dog",
+        "subject.animal",
+        "subject.person"
+      ],
+      "parent": "subject.animal",
+      "description": "A cat is a subject of the shot, on its own or with a person.",
+      "examples": [
+        "a cat sitting on a windowsill in hard afternoon light"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a cat",
+      "negative_fragment": "no cat",
+      "search_boost": 1.1,
+      "sort_order": 220
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.no_person",
+      "category": "subject",
+      "label": "No people in frame",
+      "aliases": [
+        "no people",
+        "nobody",
+        "without people",
+        "no person",
+        "empty of people",
+        "unpopulated",
+        "no humans",
+        "peopleless",
+        "no ppl"
+      ],
+      "related": [
+        "subject.object_only",
+        "subject.landscape_only",
+        "subject.no_subject"
+      ],
+      "parent": null,
+      "children": [
+        "subject.object_only",
+        "subject.landscape_only",
+        "subject.no_subject"
+      ],
+      "description": "Nothing living is in the picture: the shot is of a place or a thing rather than of anyone.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "subject.person",
+        "subject.adult_woman",
+        "subject.adult_man",
+        "subject.young_adult",
+        "subject.teenager",
+        "subject.child",
+        "subject.elderly_person",
+        "subject.people_group",
+        "subject.group_two",
+        "subject.couple",
+        "subject.small_group",
+        "subject.crowd",
+        "subject.animal",
+        "subject.animal_dog",
+        "subject.animal_cat"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "no people in the frame",
+      "search_boost": 1.1,
+      "sort_order": 300
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.object_only",
+      "category": "subject",
+      "label": "Object only",
+      "aliases": [
+        "object only",
+        "still life",
+        "product only",
+        "just an object",
+        "inanimate object",
+        "no people just objects",
+        "product shot",
+        "obect only"
+      ],
+      "related": [
+        "subject.landscape_only",
+        "subject.no_subject",
+        "props.coffee_cup",
+        "subject.no_person"
+      ],
+      "parent": "subject.no_person",
+      "description": "A single object or small arrangement of objects is the whole subject, the way a still life or a product photo works.",
+      "examples": [
+        "a coffee cup on a table lit by a window, nobody around"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "subject.person",
+        "subject.adult_woman",
+        "subject.adult_man",
+        "subject.young_adult",
+        "subject.teenager",
+        "subject.child",
+        "subject.elderly_person",
+        "subject.people_group",
+        "subject.group_two",
+        "subject.couple",
+        "subject.small_group",
+        "subject.crowd",
+        "subject.animal",
+        "subject.animal_dog",
+        "subject.animal_cat"
+      ],
+      "exclusivity_group": "subject_presence",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a single object as the only subject",
+      "search_boost": 1.1,
+      "sort_order": 310
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.landscape_only",
+      "category": "subject",
+      "label": "Landscape only",
+      "aliases": [
+        "landscape only",
+        "scenery",
+        "empty landscape",
+        "just the view",
+        "nature only",
+        "landscape without people",
+        "scenary",
+        "landcape only"
+      ],
+      "related": [
+        "subject.object_only",
+        "subject.no_subject",
+        "scene.mountain",
+        "scene.field"
+      ],
+      "parent": "subject.no_person",
+      "description": "A wide view of a place with no one in it, such as scenery, a skyline or an empty street.",
+      "examples": [
+        "an empty mountain valley at first light"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "subject.person",
+        "subject.adult_woman",
+        "subject.adult_man",
+        "subject.young_adult",
+        "subject.teenager",
+        "subject.child",
+        "subject.elderly_person",
+        "subject.people_group",
+        "subject.group_two",
+        "subject.couple",
+        "subject.small_group",
+        "subject.crowd",
+        "subject.animal",
+        "subject.animal_dog",
+        "subject.animal_cat"
+      ],
+      "exclusivity_group": "subject_presence",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "an empty landscape with no people",
+      "search_boost": 1.1,
+      "sort_order": 320
+    },
+    {
+      "schema_version": "1.0",
+      "id": "subject.no_subject",
+      "category": "subject",
+      "label": "No distinct subject",
+      "aliases": [
+        "no subject",
+        "empty frame",
+        "nothing in frame",
+        "abstract",
+        "texture only",
+        "empty scene",
+        "no focal subject",
+        "no main subject"
+      ],
+      "related": [
+        "subject.object_only",
+        "subject.landscape_only",
+        "scene.empty_space"
+      ],
+      "parent": "subject.no_person",
+      "description": "Nothing in the frame is picked out as the subject at all: the image is a texture, a pattern or an empty space.",
+      "examples": [
+        "a flat wall of peeling paint filling the whole frame"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [
+        "subject.person",
+        "subject.adult_woman",
+        "subject.adult_man",
+        "subject.young_adult",
+        "subject.teenager",
+        "subject.child",
+        "subject.elderly_person",
+        "subject.people_group",
+        "subject.group_two",
+        "subject.couple",
+        "subject.small_group",
+        "subject.crowd",
+        "subject.animal",
+        "subject.animal_dog",
+        "subject.animal_cat"
+      ],
+      "exclusivity_group": "subject_presence",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "no distinct subject in the frame",
+      "search_boost": 1.0,
+      "sort_order": 330
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_long",
+      "category": "appearance",
+      "label": "Long hair",
+      "aliases": [
+        "long hair",
+        "long haired",
+        "hair past the shoulders",
+        "waist length hair",
+        "flowing hair",
+        "longhair",
+        "lon hair",
+        "long-haired"
+      ],
+      "related": [
+        "appearance.hair_medium_length",
+        "appearance.hair_short",
+        "appearance.hair_wavy"
+      ],
+      "parent": null,
+      "description": "The hair falls well below the shoulders.",
+      "examples": [
+        "long hair falling past the shoulders"
+      ],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "hair_length",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "long hair",
+      "negative_fragment": "not long hair",
+      "search_boost": 1.3,
+      "sort_order": 1000
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_medium_length",
+      "category": "appearance",
+      "label": "Medium-length hair",
+      "aliases": [
+        "medium hair",
+        "shoulder length hair",
+        "mid length hair",
+        "medium length hair",
+        "shoulder-length",
+        "midlength hair",
+        "medium lenght hair"
+      ],
+      "related": [
+        "appearance.hair_long",
+        "appearance.hair_short",
+        "appearance.hair_bob"
+      ],
+      "parent": null,
+      "description": "The hair reaches roughly to the shoulders: neither short nor long.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "hair_length",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "medium-length hair",
+      "negative_fragment": "not medium-length hair",
+      "search_boost": 1.1,
+      "sort_order": 1010
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_short",
+      "category": "appearance",
+      "label": "Short hair",
+      "aliases": [
+        "short hair",
+        "cropped hair",
+        "short cut",
+        "pixie cut",
+        "short haircut",
+        "shorthair",
+        "shor hair"
+      ],
+      "related": [
+        "appearance.hair_buzzed",
+        "appearance.hair_bob",
+        "appearance.hair_medium_length"
+      ],
+      "parent": null,
+      "description": "The hair is cut above the shoulders, roughly ear length or shorter.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "hair_length",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "short hair",
+      "negative_fragment": "not short hair",
+      "search_boost": 1.3,
+      "sort_order": 1020
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_buzzed",
+      "category": "appearance",
+      "label": "Buzzed hair",
+      "aliases": [
+        "buzz cut",
+        "buzzed hair",
+        "shaved head",
+        "crew cut",
+        "clippered hair",
+        "number one cut",
+        "buzzcut",
+        "buzz-cut"
+      ],
+      "related": [
+        "appearance.hair_short",
+        "appearance.hair_bald",
+        "appearance.hair_slicked_back"
+      ],
+      "parent": null,
+      "description": "The hair is clipped down to a few millimetres all over, like a buzz cut or a crew cut.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "hair_length",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "closely buzzed hair",
+      "negative_fragment": "not buzzed hair",
+      "search_boost": 1.1,
+      "sort_order": 1030
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_bald",
+      "category": "appearance",
+      "label": "Bald",
+      "aliases": [
+        "bald",
+        "bald head",
+        "no hair",
+        "hairless",
+        "shaved bald",
+        "balding",
+        "bold head",
+        "bald headed"
+      ],
+      "related": [
+        "appearance.hair_buzzed",
+        "appearance.hair_short"
+      ],
+      "parent": null,
+      "description": "There is no hair on the head, either shaved smooth or naturally bald.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "appearance.hair_ponytail",
+        "appearance.hair_bun",
+        "appearance.hair_braided",
+        "appearance.hair_bangs",
+        "appearance.hair_bob",
+        "appearance.hair_loose_down",
+        "appearance.hair_slicked_back"
+      ],
+      "exclusivity_group": "hair_length",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a bald head",
+      "negative_fragment": "not bald",
+      "search_boost": 1.2,
+      "sort_order": 1040
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_straight",
+      "category": "appearance",
+      "label": "Straight hair",
+      "aliases": [
+        "straight hair",
+        "sleek hair",
+        "poker straight hair",
+        "flat hair",
+        "straightened hair",
+        "striaght hair",
+        "stright hair"
+      ],
+      "related": [
+        "appearance.hair_wavy",
+        "appearance.hair_curly",
+        "appearance.hair_long"
+      ],
+      "parent": null,
+      "description": "The hair falls in a straight line with no wave or curl in it.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "hair_texture",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "straight hair",
+      "negative_fragment": "not straight hair",
+      "search_boost": 1.1,
+      "sort_order": 1100
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_wavy",
+      "category": "appearance",
+      "label": "Wavy hair",
+      "aliases": [
+        "wavy hair",
+        "waves",
+        "beach waves",
+        "loose waves",
+        "soft waves",
+        "wavey hair",
+        "wavy haired"
+      ],
+      "related": [
+        "appearance.hair_straight",
+        "appearance.hair_curly",
+        "appearance.hair_long"
+      ],
+      "parent": null,
+      "description": "The hair has soft S-shaped waves rather than tight curls.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "hair_texture",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "wavy hair",
+      "negative_fragment": "not wavy hair",
+      "search_boost": 1.1,
+      "sort_order": 1110
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_curly",
+      "category": "appearance",
+      "label": "Curly hair",
+      "aliases": [
+        "curly hair",
+        "curls",
+        "ringlets",
+        "spiral curls",
+        "curled hair",
+        "curly haired",
+        "curlyhair",
+        "curley hair"
+      ],
+      "related": [
+        "appearance.hair_wavy",
+        "appearance.hair_coily",
+        "appearance.hair_long"
+      ],
+      "parent": null,
+      "description": "The hair grows in defined curls or ringlets.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "hair_texture",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "curly hair",
+      "negative_fragment": "not curly hair",
+      "search_boost": 1.2,
+      "sort_order": 1120
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_coily",
+      "category": "appearance",
+      "label": "Coily hair",
+      "aliases": [
+        "coily hair",
+        "tight curls",
+        "afro textured hair",
+        "kinky curly",
+        "4c hair",
+        "natural coils",
+        "afro",
+        "coilly hair"
+      ],
+      "related": [
+        "appearance.hair_curly",
+        "appearance.hair_short",
+        "appearance.hair_braided"
+      ],
+      "parent": null,
+      "description": "The hair grows in very tight coils or a dense springy texture. This describes the hair itself only.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "hair_texture",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "tightly coiled hair",
+      "negative_fragment": "not coily hair",
+      "search_boost": 1.1,
+      "sort_order": 1130
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_black",
+      "category": "appearance",
+      "label": "Black hair",
+      "aliases": [
+        "black hair",
+        "jet black hair",
+        "raven hair",
+        "very dark hair",
+        "blak hair",
+        "black haired"
+      ],
+      "related": [
+        "appearance.hair_brown",
+        "appearance.hair_grey",
+        "appearance.hair_dyed_vivid"
+      ],
+      "parent": null,
+      "description": "The hair is black or so dark it reads as black.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "hair_color",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "black hair",
+      "negative_fragment": "not black hair",
+      "search_boost": 1.2,
+      "sort_order": 1200
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_brown",
+      "category": "appearance",
+      "label": "Brown hair",
+      "aliases": [
+        "brown hair",
+        "brunette",
+        "chestnut hair",
+        "dark brown hair",
+        "light brown hair",
+        "brunete",
+        "brwon hair"
+      ],
+      "related": [
+        "appearance.hair_black",
+        "appearance.hair_blonde",
+        "appearance.hair_red"
+      ],
+      "parent": null,
+      "description": "The hair is some shade of brown, from light chestnut to near-black brown.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "hair_color",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "brown hair",
+      "negative_fragment": "not brown hair",
+      "search_boost": 1.2,
+      "sort_order": 1210
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_blonde",
+      "category": "appearance",
+      "label": "Blonde hair",
+      "aliases": [
+        "blonde hair",
+        "blond",
+        "blonde",
+        "golden hair",
+        "platinum blonde",
+        "fair hair",
+        "bleached hair",
+        "blondee"
+      ],
+      "related": [
+        "appearance.hair_brown",
+        "appearance.hair_dyed_vivid",
+        "appearance.hair_grey"
+      ],
+      "parent": null,
+      "description": "The hair is light gold, honey or platinum in colour.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "hair_color",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "blonde hair",
+      "negative_fragment": "not blonde hair",
+      "search_boost": 1.2,
+      "sort_order": 1220
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_red",
+      "category": "appearance",
+      "label": "Red hair",
+      "aliases": [
+        "red hair",
+        "ginger",
+        "ginger hair",
+        "auburn hair",
+        "copper hair",
+        "redhead",
+        "red haired",
+        "readhead"
+      ],
+      "related": [
+        "appearance.hair_brown",
+        "appearance.hair_blonde",
+        "appearance.freckles"
+      ],
+      "parent": null,
+      "description": "The hair is red, copper, auburn or ginger.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "hair_color",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "red hair",
+      "negative_fragment": "not red hair",
+      "search_boost": 1.2,
+      "sort_order": 1230
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_grey",
+      "category": "appearance",
+      "label": "Grey hair",
+      "aliases": [
+        "grey hair",
+        "gray hair",
+        "silver hair",
+        "white hair",
+        "salt and pepper hair",
+        "greying hair",
+        "graying hair",
+        "gray haired"
+      ],
+      "related": [
+        "appearance.hair_black",
+        "appearance.hair_blonde",
+        "subject.elderly_person"
+      ],
+      "parent": null,
+      "description": "The hair has gone grey, silver or white.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "hair_color",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "grey hair",
+      "negative_fragment": "not grey hair",
+      "search_boost": 1.1,
+      "sort_order": 1240
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_dyed_vivid",
+      "category": "appearance",
+      "label": "Vividly dyed hair",
+      "aliases": [
+        "dyed hair",
+        "coloured hair",
+        "colored hair",
+        "pink hair",
+        "blue hair",
+        "green hair",
+        "unnatural hair colour",
+        "bleached and dyed",
+        "dyed hare"
+      ],
+      "related": [
+        "appearance.hair_blonde",
+        "appearance.hair_red",
+        "appearance.hair_black"
+      ],
+      "parent": null,
+      "description": "The hair is dyed a colour hair does not grow in naturally, such as pink, blue, green or lilac.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "hair_color",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "vividly dyed hair",
+      "negative_fragment": "not vividly dyed hair",
+      "search_boost": 1.1,
+      "sort_order": 1250
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_ponytail",
+      "category": "appearance",
+      "label": "Ponytail",
+      "aliases": [
+        "ponytail",
+        "pony tail",
+        "hair tied back",
+        "high ponytail",
+        "tied up hair",
+        "poneytail",
+        "ponny tail"
+      ],
+      "related": [
+        "appearance.hair_bun",
+        "appearance.hair_loose_down",
+        "appearance.hair_braided"
+      ],
+      "parent": null,
+      "description": "The hair is gathered and tied at the back or top of the head so it hangs in one tail.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "hair_style",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "hair tied in a ponytail",
+      "negative_fragment": "hair not tied in a ponytail",
+      "search_boost": 1.2,
+      "sort_order": 1300
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_bun",
+      "category": "appearance",
+      "label": "Bun",
+      "aliases": [
+        "bun",
+        "hair bun",
+        "top knot",
+        "topknot",
+        "messy bun",
+        "hair in a bun",
+        "hair up in a bun",
+        "bunn"
+      ],
+      "related": [
+        "appearance.hair_ponytail",
+        "appearance.hair_loose_down",
+        "appearance.hair_slicked_back"
+      ],
+      "parent": null,
+      "description": "The hair is coiled and pinned into a round knot on the head.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "hair_style",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "hair gathered into a bun",
+      "negative_fragment": "hair not in a bun",
+      "search_boost": 1.2,
+      "sort_order": 1310
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_loose_down",
+      "category": "appearance",
+      "label": "Hair worn loose",
+      "aliases": [
+        "hair down",
+        "loose hair",
+        "hair worn down",
+        "untied hair",
+        "free flowing hair",
+        "hair let down",
+        "hair down loose"
+      ],
+      "related": [
+        "appearance.hair_ponytail",
+        "appearance.hair_bun",
+        "appearance.hair_long"
+      ],
+      "parent": null,
+      "description": "The hair is left hanging free rather than tied up in any way.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "hair_style",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "hair worn loose",
+      "negative_fragment": "hair not worn loose",
+      "search_boost": 1.1,
+      "sort_order": 1320
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_slicked_back",
+      "category": "appearance",
+      "label": "Slicked-back hair",
+      "aliases": [
+        "slicked back hair",
+        "slick back",
+        "gelled hair",
+        "wet look hair",
+        "combed back hair",
+        "slicked-back",
+        "sliked back"
+      ],
+      "related": [
+        "appearance.hair_bun",
+        "appearance.hair_bangs",
+        "appearance.hair_short"
+      ],
+      "parent": null,
+      "description": "The hair is combed flat back from the face, usually with gel or water so it looks wet.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "appearance.hair_bangs"
+      ],
+      "exclusivity_group": "hair_style",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "hair slicked back",
+      "negative_fragment": "hair not slicked back",
+      "search_boost": 1.1,
+      "sort_order": 1330
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_braided",
+      "category": "appearance",
+      "label": "Braided hair",
+      "aliases": [
+        "braid",
+        "braids",
+        "braided hair",
+        "plait",
+        "plaited hair",
+        "french braid",
+        "cornrows",
+        "brading",
+        "braded hair"
+      ],
+      "related": [
+        "appearance.hair_ponytail",
+        "appearance.hair_bun",
+        "appearance.hair_coily"
+      ],
+      "parent": null,
+      "description": "The hair is woven into one or more braids or plaits.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "braided hair",
+      "negative_fragment": "hair not braided",
+      "search_boost": 1.1,
+      "sort_order": 1340
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_bangs",
+      "category": "appearance",
+      "label": "Bangs (fringe)",
+      "aliases": [
+        "bangs",
+        "fringe",
+        "blunt bangs",
+        "curtain bangs",
+        "hair over the forehead",
+        "fringe haircut",
+        "bangz",
+        "frienge"
+      ],
+      "related": [
+        "appearance.hair_bob",
+        "appearance.hair_short",
+        "appearance.hair_loose_down"
+      ],
+      "parent": null,
+      "description": "A section of hair is cut short at the front so it falls across the forehead.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "appearance.hair_slicked_back"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "bangs falling across the forehead",
+      "negative_fragment": "no bangs across the forehead",
+      "search_boost": 1.1,
+      "sort_order": 1350
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.hair_bob",
+      "category": "appearance",
+      "label": "Bob cut",
+      "aliases": [
+        "bob",
+        "bob cut",
+        "bob haircut",
+        "chin length bob",
+        "blunt bob",
+        "lob",
+        "bobcut",
+        "bobbed hair"
+      ],
+      "related": [
+        "appearance.hair_short",
+        "appearance.hair_medium_length",
+        "appearance.hair_bangs"
+      ],
+      "parent": null,
+      "description": "A cut that ends level around the chin or jaw, the same length all the way round.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "appearance.hair_long"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a bob cut",
+      "negative_fragment": "not a bob cut",
+      "search_boost": 1.1,
+      "sort_order": 1360
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.skin_fair",
+      "category": "appearance",
+      "label": "Fair skin tone",
+      "aliases": [
+        "fair skin",
+        "pale skin",
+        "very light skin",
+        "porcelain skin",
+        "fair complexion",
+        "light complexion",
+        "pale complexion",
+        "fair skinned"
+      ],
+      "related": [
+        "appearance.skin_light",
+        "appearance.skin_medium",
+        "appearance.freckles"
+      ],
+      "parent": null,
+      "description": "The skin reads as very light in the picture. This taxonomy describes only how the skin looks in the picture; it deliberately carries no ethnicity, race or nationality categories.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "skin_tone",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "fair skin",
+      "negative_fragment": "not fair skin",
+      "search_boost": 1.1,
+      "sort_order": 1400
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.skin_light",
+      "category": "appearance",
+      "label": "Light skin tone",
+      "aliases": [
+        "light skin",
+        "light skin tone",
+        "lighter skin",
+        "light toned skin",
+        "light complexion",
+        "lite skin"
+      ],
+      "related": [
+        "appearance.skin_fair",
+        "appearance.skin_medium",
+        "appearance.skin_tan"
+      ],
+      "parent": null,
+      "description": "The skin reads as light in the picture, a step deeper than fair. This taxonomy describes only how the skin looks in the picture; it deliberately carries no ethnicity, race or nationality categories.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "skin_tone",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "light skin",
+      "negative_fragment": "not light skin",
+      "search_boost": 1.0,
+      "sort_order": 1410
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.skin_medium",
+      "category": "appearance",
+      "label": "Medium skin tone",
+      "aliases": [
+        "medium skin",
+        "medium skin tone",
+        "mid skin tone",
+        "olive skin",
+        "medium complexion",
+        "medium toned skin",
+        "meduim skin"
+      ],
+      "related": [
+        "appearance.skin_light",
+        "appearance.skin_tan",
+        "appearance.skin_deep"
+      ],
+      "parent": null,
+      "description": "The skin reads as mid-toned in the picture, between light and deep. This taxonomy describes only how the skin looks in the picture; it deliberately carries no ethnicity, race or nationality categories.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "skin_tone",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "medium skin",
+      "negative_fragment": "not medium skin",
+      "search_boost": 1.0,
+      "sort_order": 1420
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.skin_tan",
+      "category": "appearance",
+      "label": "Tan skin tone",
+      "aliases": [
+        "tan skin",
+        "tanned skin",
+        "bronzed skin",
+        "sun tanned",
+        "golden skin tone",
+        "tanned complexion",
+        "tan complexion",
+        "sunkissed skin"
+      ],
+      "related": [
+        "appearance.skin_medium",
+        "appearance.skin_deep",
+        "appearance.skin_light"
+      ],
+      "parent": null,
+      "description": "The skin reads as warm and sun-tanned in the picture. This taxonomy describes only how the skin looks in the picture; it deliberately carries no ethnicity, race or nationality categories.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "skin_tone",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "tan skin",
+      "negative_fragment": "not tan skin",
+      "search_boost": 1.0,
+      "sort_order": 1430
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.skin_deep",
+      "category": "appearance",
+      "label": "Deep skin tone",
+      "aliases": [
+        "deep skin",
+        "deep skin tone",
+        "dark skin",
+        "darker skin tone",
+        "rich deep skin",
+        "deep complexion",
+        "dark complexion"
+      ],
+      "related": [
+        "appearance.skin_medium",
+        "appearance.skin_tan",
+        "appearance.skin_light"
+      ],
+      "parent": null,
+      "description": "The skin reads as deep-toned in the picture. This taxonomy describes only how the skin looks in the picture; it deliberately carries no ethnicity, race or nationality categories.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "skin_tone",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "deep skin",
+      "negative_fragment": "not deep skin",
+      "search_boost": 1.0,
+      "sort_order": 1440
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.freckles",
+      "category": "appearance",
+      "label": "Freckles",
+      "aliases": [
+        "freckles",
+        "freckled skin",
+        "freckly",
+        "freckles across the nose",
+        "sun spots on the face",
+        "freckels",
+        "frekles"
+      ],
+      "related": [
+        "appearance.skin_fair",
+        "appearance.hair_red",
+        "appearance.skin_light"
+      ],
+      "parent": null,
+      "description": "Small natural spots of darker pigment scattered across the face or shoulders.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "freckles across the face",
+      "negative_fragment": "no freckles",
+      "search_boost": 1.1,
+      "sort_order": 1450
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.build_slim",
+      "category": "appearance",
+      "label": "Slim build",
+      "aliases": [
+        "slim build",
+        "slim",
+        "slender",
+        "lean build",
+        "thin build",
+        "slim figure",
+        "skinny",
+        "slimm"
+      ],
+      "related": [
+        "appearance.build_average",
+        "appearance.build_athletic",
+        "appearance.build_curvy"
+      ],
+      "parent": null,
+      "description": "The body reads as narrow and light in build.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "body_build",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a slim build",
+      "negative_fragment": "not a slim build",
+      "search_boost": 1.1,
+      "sort_order": 1500
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.build_average",
+      "category": "appearance",
+      "label": "Average build",
+      "aliases": [
+        "average build",
+        "medium build",
+        "regular build",
+        "normal build",
+        "average figure",
+        "avarage build"
+      ],
+      "related": [
+        "appearance.build_slim",
+        "appearance.build_athletic",
+        "appearance.build_larger"
+      ],
+      "parent": null,
+      "description": "The body reads as neither notably slim nor notably heavy: an ordinary build.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "body_build",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "an average build",
+      "negative_fragment": "not an average build",
+      "search_boost": 1.0,
+      "sort_order": 1510
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.build_athletic",
+      "category": "appearance",
+      "label": "Athletic build",
+      "aliases": [
+        "athletic build",
+        "fit",
+        "toned",
+        "sporty build",
+        "athletic figure",
+        "atheltic build",
+        "athlete build"
+      ],
+      "related": [
+        "appearance.build_muscular",
+        "appearance.build_slim",
+        "appearance.build_average"
+      ],
+      "parent": null,
+      "description": "The body reads as trained and toned, the way an athlete looks.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "body_build",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "an athletic build",
+      "negative_fragment": "not an athletic build",
+      "search_boost": 1.1,
+      "sort_order": 1520
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.build_muscular",
+      "category": "appearance",
+      "label": "Muscular build",
+      "aliases": [
+        "muscular",
+        "muscular build",
+        "buff",
+        "heavily built",
+        "bodybuilder build",
+        "muscley",
+        "musclar",
+        "ripped"
+      ],
+      "related": [
+        "appearance.build_athletic",
+        "appearance.build_larger",
+        "appearance.build_average"
+      ],
+      "parent": null,
+      "description": "The body reads as visibly heavily muscled.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "body_build",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a muscular build",
+      "negative_fragment": "not a muscular build",
+      "search_boost": 1.1,
+      "sort_order": 1530
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.build_curvy",
+      "category": "appearance",
+      "label": "Curvy figure",
+      "aliases": [
+        "curvy",
+        "curvy figure",
+        "hourglass figure",
+        "full figured",
+        "curvey",
+        "curvy build",
+        "curved figure"
+      ],
+      "related": [
+        "appearance.build_slim",
+        "appearance.build_larger",
+        "appearance.build_average"
+      ],
+      "parent": null,
+      "description": "The body reads with pronounced curves through the waist and hips.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "body_build",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a curvy figure",
+      "negative_fragment": "not a curvy figure",
+      "search_boost": 1.1,
+      "sort_order": 1540
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.build_larger",
+      "category": "appearance",
+      "label": "Larger build",
+      "aliases": [
+        "larger build",
+        "plus size",
+        "plus-size",
+        "bigger build",
+        "heavier build",
+        "fuller figure",
+        "heavyset",
+        "large build"
+      ],
+      "related": [
+        "appearance.build_average",
+        "appearance.build_curvy",
+        "appearance.build_muscular"
+      ],
+      "parent": null,
+      "description": "The body reads as fuller and larger in build. Described plainly and without judgement.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "body_build",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a larger build",
+      "negative_fragment": "not a larger build",
+      "search_boost": 1.1,
+      "sort_order": 1550
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.height_tall",
+      "category": "appearance",
+      "label": "Tall (impression)",
+      "aliases": [
+        "tall",
+        "tall person",
+        "looks tall",
+        "towering",
+        "long limbed",
+        "talll",
+        "very tall"
+      ],
+      "related": [
+        "appearance.height_average",
+        "appearance.height_short",
+        "appearance.build_slim"
+      ],
+      "parent": null,
+      "description": "The person gives the impression of being tall. This is only an impression from the picture, never a measurement.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "height_impression",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "tall",
+      "negative_fragment": "not tall",
+      "search_boost": 1.0,
+      "sort_order": 1600
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.height_average",
+      "category": "appearance",
+      "label": "Average height (impression)",
+      "aliases": [
+        "average height",
+        "medium height",
+        "normal height",
+        "mid height",
+        "avarage height",
+        "regular height"
+      ],
+      "related": [
+        "appearance.height_tall",
+        "appearance.height_short",
+        "appearance.build_average"
+      ],
+      "parent": null,
+      "description": "The person gives no particular impression of being tall or short.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "height_impression",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "of average height",
+      "negative_fragment": "not of average height",
+      "search_boost": 1.0,
+      "sort_order": 1610
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.height_short",
+      "category": "appearance",
+      "label": "Short (impression)",
+      "aliases": [
+        "short",
+        "short person",
+        "petite",
+        "small stature",
+        "looks short",
+        "petit",
+        "shortish"
+      ],
+      "related": [
+        "appearance.height_average",
+        "appearance.height_tall",
+        "appearance.build_slim"
+      ],
+      "parent": null,
+      "description": "The person gives the impression of being short or petite. This is only an impression from the picture, never a measurement.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "height_impression",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "short in stature",
+      "negative_fragment": "not short in stature",
+      "search_boost": 1.0,
+      "sort_order": 1620
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.makeup",
+      "category": "appearance",
+      "label": "Wearing makeup",
+      "aliases": [
+        "makeup",
+        "make up",
+        "make-up",
+        "wearing makeup",
+        "cosmetics",
+        "made up face",
+        "makup",
+        "makeup on"
+      ],
+      "related": [
+        "appearance.makeup_natural",
+        "appearance.makeup_bold",
+        "appearance.makeup_none"
+      ],
+      "parent": null,
+      "children": [
+        "appearance.makeup_natural",
+        "appearance.makeup_bold",
+        "appearance.makeup_editorial"
+      ],
+      "description": "Makeup is visible on the face. Choose a child node when you know how strong it is.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "appearance.makeup_none"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "wearing makeup",
+      "negative_fragment": "no makeup",
+      "search_boost": 1.1,
+      "sort_order": 1700
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.makeup_natural",
+      "category": "appearance",
+      "label": "Natural makeup",
+      "aliases": [
+        "natural makeup",
+        "subtle makeup",
+        "light makeup",
+        "no makeup makeup",
+        "barely there makeup",
+        "nude makeup",
+        "soft makeup"
+      ],
+      "related": [
+        "appearance.makeup_bold",
+        "appearance.makeup_none",
+        "appearance.makeup"
+      ],
+      "parent": "appearance.makeup",
+      "description": "Makeup so soft it barely reads as makeup at all: even skin, a little colour, nothing dramatic.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "appearance.makeup_none"
+      ],
+      "exclusivity_group": "makeup_level",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "soft natural makeup",
+      "negative_fragment": "not natural makeup",
+      "search_boost": 1.1,
+      "sort_order": 1710
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.makeup_bold",
+      "category": "appearance",
+      "label": "Bold makeup",
+      "aliases": [
+        "bold makeup",
+        "heavy makeup",
+        "strong makeup",
+        "dramatic makeup",
+        "glam makeup",
+        "red lipstick and liner",
+        "smokey eye",
+        "bold make up"
+      ],
+      "related": [
+        "appearance.makeup_natural",
+        "appearance.makeup_editorial",
+        "appearance.makeup"
+      ],
+      "parent": "appearance.makeup",
+      "description": "Strong, obvious makeup such as a dark eye, a sharp liner or a deep lip colour.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "appearance.makeup_none"
+      ],
+      "exclusivity_group": "makeup_level",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "bold makeup",
+      "negative_fragment": "not bold makeup",
+      "search_boost": 1.1,
+      "sort_order": 1720
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.makeup_editorial",
+      "category": "appearance",
+      "label": "Editorial makeup",
+      "aliases": [
+        "editorial makeup",
+        "graphic makeup",
+        "runway makeup",
+        "artistic makeup",
+        "avant garde makeup",
+        "fashion makeup",
+        "creative makeup"
+      ],
+      "related": [
+        "appearance.makeup_bold",
+        "appearance.makeup",
+        "clothing.editorial"
+      ],
+      "parent": "appearance.makeup",
+      "description": "Makeup used as a design element rather than as flattery, the way a fashion magazine shoot uses it.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "appearance.makeup_none"
+      ],
+      "exclusivity_group": "makeup_level",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "editorial makeup with a graphic finish",
+      "negative_fragment": "not editorial makeup",
+      "search_boost": 1.0,
+      "sort_order": 1730
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.makeup_none",
+      "category": "appearance",
+      "label": "No visible makeup",
+      "aliases": [
+        "no makeup",
+        "bare face",
+        "without makeup",
+        "makeup free",
+        "natural face",
+        "no make up",
+        "barefaced",
+        "no cosmetics"
+      ],
+      "related": [
+        "appearance.makeup",
+        "appearance.makeup_natural",
+        "appearance.freckles"
+      ],
+      "parent": null,
+      "description": "The face is bare, with no makeup visible on it.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "appearance.makeup",
+        "appearance.makeup_natural",
+        "appearance.makeup_bold",
+        "appearance.makeup_editorial"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "no visible makeup",
+      "negative_fragment": "wearing visible makeup",
+      "search_boost": 1.1,
+      "sort_order": 1740
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.beard",
+      "category": "appearance",
+      "label": "Beard",
+      "aliases": [
+        "beard",
+        "bearded",
+        "facial hair",
+        "beard and moustache",
+        "bearded man",
+        "berad",
+        "bread beard",
+        "has a beard"
+      ],
+      "related": [
+        "appearance.stubble",
+        "appearance.beard_full",
+        "appearance.clean_shaven"
+      ],
+      "parent": null,
+      "children": [
+        "appearance.stubble",
+        "appearance.beard_full",
+        "appearance.goatee"
+      ],
+      "description": "Hair grown on the jaw and chin. Choose a child node when you know how long or what shape it is.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "appearance.clean_shaven"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a beard",
+      "negative_fragment": "no beard",
+      "search_boost": 1.2,
+      "sort_order": 1800
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.stubble",
+      "category": "appearance",
+      "label": "Stubble",
+      "aliases": [
+        "stubble",
+        "five o'clock shadow",
+        "short stubble",
+        "unshaven",
+        "scruff",
+        "designer stubble",
+        "3 day beard",
+        "stuble"
+      ],
+      "related": [
+        "appearance.beard_full",
+        "appearance.clean_shaven",
+        "appearance.beard"
+      ],
+      "parent": "appearance.beard",
+      "description": "A day or two of beard growth, short enough to read as shadow rather than as a beard.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "appearance.clean_shaven"
+      ],
+      "exclusivity_group": "beard_style",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "light stubble",
+      "negative_fragment": "no stubble",
+      "search_boost": 1.2,
+      "sort_order": 1810
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.beard_full",
+      "category": "appearance",
+      "label": "Full beard",
+      "aliases": [
+        "full beard",
+        "thick beard",
+        "long beard",
+        "bushy beard",
+        "heavy beard",
+        "big beard",
+        "ful beard"
+      ],
+      "related": [
+        "appearance.stubble",
+        "appearance.goatee",
+        "appearance.beard"
+      ],
+      "parent": "appearance.beard",
+      "description": "A thick beard covering the jaw and chin, clearly longer than stubble.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "appearance.clean_shaven"
+      ],
+      "exclusivity_group": "beard_style",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a full beard",
+      "negative_fragment": "no full beard",
+      "search_boost": 1.1,
+      "sort_order": 1820
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.goatee",
+      "category": "appearance",
+      "label": "Goatee",
+      "aliases": [
+        "goatee",
+        "chin beard",
+        "van dyke",
+        "goatee beard",
+        "goaty",
+        "gotee"
+      ],
+      "related": [
+        "appearance.beard_full",
+        "appearance.moustache",
+        "appearance.beard"
+      ],
+      "parent": "appearance.beard",
+      "description": "Beard hair kept only on the chin, with the cheeks shaved.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "appearance.clean_shaven"
+      ],
+      "exclusivity_group": "beard_style",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a goatee",
+      "negative_fragment": "no goatee",
+      "search_boost": 1.0,
+      "sort_order": 1830
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.moustache",
+      "category": "appearance",
+      "label": "Moustache",
+      "aliases": [
+        "moustache",
+        "mustache",
+        "tache",
+        "stache",
+        "handlebar moustache",
+        "mustach",
+        "moustage"
+      ],
+      "related": [
+        "appearance.beard",
+        "appearance.goatee",
+        "appearance.clean_shaven"
+      ],
+      "parent": null,
+      "description": "Hair grown on the upper lip only.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "appearance.clean_shaven"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a moustache",
+      "negative_fragment": "no moustache",
+      "search_boost": 1.1,
+      "sort_order": 1840
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.clean_shaven",
+      "category": "appearance",
+      "label": "Clean-shaven",
+      "aliases": [
+        "clean shaven",
+        "cleanshaven",
+        "no beard",
+        "no facial hair",
+        "shaved face",
+        "smooth face",
+        "clean-shaven",
+        "freshly shaved"
+      ],
+      "related": [
+        "appearance.beard",
+        "appearance.stubble",
+        "appearance.moustache"
+      ],
+      "parent": null,
+      "description": "There is no facial hair at all: the face is freshly shaved.",
+      "visual_hint": null,
+      "conflicts_with": [
+        "appearance.beard",
+        "appearance.stubble",
+        "appearance.beard_full",
+        "appearance.goatee",
+        "appearance.moustache"
+      ],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "clean-shaven",
+      "negative_fragment": "not clean-shaven",
+      "search_boost": 1.1,
+      "sort_order": 1850
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.eyewear",
+      "category": "appearance",
+      "label": "Eyewear",
+      "aliases": [
+        "eyewear",
+        "eye wear",
+        "wearing glasses",
+        "spectacles",
+        "specs",
+        "glasses or sunglasses",
+        "eyewaer"
+      ],
+      "related": [
+        "appearance.glasses",
+        "appearance.sunglasses",
+        "clothing.eyeglasses"
+      ],
+      "parent": null,
+      "children": [
+        "appearance.glasses",
+        "appearance.sunglasses"
+      ],
+      "description": "Something is worn over the eyes. Choose a child node for clear glasses or for sunglasses.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "wearing eyewear",
+      "search_boost": 1.0,
+      "sort_order": 1900
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.glasses",
+      "category": "appearance",
+      "label": "Eyeglasses",
+      "aliases": [
+        "glasses",
+        "eyeglasses",
+        "spectacles",
+        "specs",
+        "reading glasses",
+        "wire frame glasses",
+        "clear glasses",
+        "galsses",
+        "glases"
+      ],
+      "related": [
+        "appearance.sunglasses",
+        "clothing.eyeglasses",
+        "appearance.eyewear"
+      ],
+      "parent": "appearance.eyewear",
+      "description": "Clear prescription-style glasses through which the eyes stay visible.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "eyewear",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "wearing glasses",
+      "negative_fragment": "not wearing glasses",
+      "search_boost": 1.3,
+      "sort_order": 1910
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.sunglasses",
+      "category": "appearance",
+      "label": "Sunglasses",
+      "aliases": [
+        "sunglasses",
+        "shades",
+        "sunnies",
+        "dark glasses",
+        "black sunglasses",
+        "sun glasses",
+        "sunglases",
+        "sunnglasses"
+      ],
+      "related": [
+        "appearance.glasses",
+        "clothing.sunglasses",
+        "props.sunglasses"
+      ],
+      "parent": "appearance.eyewear",
+      "description": "Tinted glasses that hide the eyes.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": "eyewear",
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "wearing sunglasses",
+      "negative_fragment": "not wearing sunglasses",
+      "search_boost": 1.3,
+      "sort_order": 1920
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.tattoos",
+      "category": "appearance",
+      "label": "Visible tattoos",
+      "aliases": [
+        "tattoos",
+        "tattoo",
+        "tattooed",
+        "ink",
+        "inked",
+        "body art",
+        "tatoos",
+        "tattos",
+        "has tattoos"
+      ],
+      "related": [
+        "appearance.tattoo_sleeve",
+        "appearance.tattoo_small",
+        "appearance.piercings"
+      ],
+      "parent": null,
+      "children": [
+        "appearance.tattoo_sleeve",
+        "appearance.tattoo_small"
+      ],
+      "description": "Tattooed ink is visible on the skin somewhere in frame.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "visible tattoos",
+      "negative_fragment": "no visible tattoos",
+      "search_boost": 1.2,
+      "sort_order": 2000
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.tattoo_sleeve",
+      "category": "appearance",
+      "label": "Sleeve tattoo",
+      "aliases": [
+        "sleeve tattoo",
+        "full sleeve",
+        "tattoo sleeve",
+        "half sleeve",
+        "arm covered in tattoos",
+        "sleve tattoo"
+      ],
+      "related": [
+        "appearance.tattoos",
+        "appearance.tattoo_small",
+        "appearance.piercings"
+      ],
+      "parent": "appearance.tattoos",
+      "description": "Tattoos cover most of an arm, from shoulder to wrist or to the elbow.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a full tattoo sleeve down the arm",
+      "negative_fragment": "no sleeve tattoo",
+      "search_boost": 1.0,
+      "sort_order": 2010
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.tattoo_small",
+      "category": "appearance",
+      "label": "Small tattoo",
+      "aliases": [
+        "small tattoo",
+        "tiny tattoo",
+        "minimal tattoo",
+        "little tattoo",
+        "fine line tattoo",
+        "smal tattoo"
+      ],
+      "related": [
+        "appearance.tattoos",
+        "appearance.tattoo_sleeve",
+        "appearance.piercings"
+      ],
+      "parent": "appearance.tattoos",
+      "description": "One small, delicate tattoo rather than large coverage.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "a small delicate tattoo",
+      "negative_fragment": "no small tattoo",
+      "search_boost": 1.0,
+      "sort_order": 2020
+    },
+    {
+      "schema_version": "1.0",
+      "id": "appearance.piercings",
+      "category": "appearance",
+      "label": "Piercings",
+      "aliases": [
+        "piercings",
+        "piercing",
+        "nose ring",
+        "septum piercing",
+        "ear piercings",
+        "pierced ears",
+        "peircings",
+        "piercings on the face"
+      ],
+      "related": [
+        "appearance.tattoos",
+        "clothing.earrings",
+        "appearance.makeup_bold"
+      ],
+      "parent": null,
+      "description": "Jewellery worn through a piercing in the ear, nose, brow or lip.",
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "image",
+        "video"
+      ],
+      "prompt_fragment": "visible piercings",
+      "negative_fragment": "no visible piercings",
+      "search_boost": 1.1,
+      "sort_order": 2030
+    }
+  ]
+}
