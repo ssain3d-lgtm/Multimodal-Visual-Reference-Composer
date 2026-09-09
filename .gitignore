@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+
+# build / cache
+dist/
+.cache/
+*.tsbuildinfo
+
+# local model + media caches (never commit media binaries)
+models/
+.media-cache/
+data/local-library/
+
+# editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# logs
+*.log
+npm-debug.log*
