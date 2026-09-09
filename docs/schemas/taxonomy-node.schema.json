@@ -254,7 +254,7 @@
             "pattern": "^lens\\.[a-z0-9_]*$"
           },
           "prompt_fragment": {
-            "pattern": "(?i)(-like|like a|likeness|reminiscent|approximat|similar to)"
+            "pattern": "(-[Ll]ike|[Ll]ike a|[Ll]ikeness|[Rr]eminiscent|[Aa]pproximat|[Ss]imilar to)"
           }
         },
         "allOf": [
@@ -428,7 +428,8 @@
     },
     "reference_id": {
       "type": "string",
-      "pattern": "^(img|vid|ref)_[A-Za-z0-9][A-Za-z0-9_-]{0,62}$",
+      "pattern": "^(img|image|vid|video|ref)_[A-Za-z0-9][A-Za-z0-9_-]{0,62}$",
+      "$comment": "image_/video_ are accepted equivalents of img_/vid_ so the brief section 20 interop minimum (which writes video_C) validates verbatim. Minted ids use img_/vid_/ref_.",
       "description": "img_ for images, vid_ for videos, ref_ for type-agnostic ids minted before the media type is known. Readers MUST accept all three; writers SHOULD emit img_/vid_. Minted form: '<img|vid>_' + slugify(source) + '_' + sha256(source+'|'+source_id).slice(0,8)."
     },
     "mix_id": {

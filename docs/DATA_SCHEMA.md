@@ -213,7 +213,7 @@ Every `TaxonomyNode` declares `exclusivity_group: string | null`. This one field
               category arity = single_dominant        category arity = multi
             ┌──────────────────────────────────┐   ┌──────────────────────────────┐
  group=null │ MODIFIER — never conflicts       │   │ free value — never conflicts │
-            │ camera_angle.dutch_tilt          │   │ lighting.rim_light           │
+            │ camera_angle.dutch_tilt          │   │ lighting.rim_lighting           │
             │ pose.arms_crossed, weather.fog   │   │ scene.wet_asphalt            │
             ├──────────────────────────────────┤   ├──────────────────────────────┤
  group set  │ DOMINANT — 2 distinct values     │   │ 2 distinct values sharing the│
@@ -330,6 +330,7 @@ These cover 17 of 20 categories. **`subject`, `appearance` and `action` are deli
 |---|---|---|
 | `img_` | `Reference`, `type: "image"` | prefix and `type` MUST agree (INV-REF-1) |
 | `vid_` | `Reference`, `type: "video"` | prefix and `type` MUST agree |
+| `image_` / `video_` | accepted on input only | equivalents of `img_` / `vid_`, so the brief §20 interop minimum (`video_C`) validates verbatim; we mint `img_` / `vid_` |
 | `ref_` | `Reference`, type not yet known | ingest-only; readers MUST accept it, writers SHOULD emit `img_`/`vid_` |
 | `mix_` | `ReferenceMix` | |
 | `rcp_` | `VisualRecipe` | stable across every content revision |
@@ -576,7 +577,7 @@ This same epistemic stance — *never assert what the medium cannot evidence* �
 ```json
 {
   "subject": [
-    { "value": "subject.woman", "label": "a woman", "source": "user", "confidence": 1.0, "locked": true }
+    { "value": "subject.adult_woman", "label": "a woman", "source": "user", "confidence": 1.0, "locked": true }
   ],
   "appearance": [],
   "framing": [
@@ -605,19 +606,19 @@ This same epistemic stance — *never assert what the medium cannot evidence* �
   "motion": [],
   "camera_motion": [],
   "clothing": [
-    { "value": "clothing.oversized_hoodie", "label": "oversized hoodie", "source": "reference",
+    { "value": "clothing.hoodie", "label": "oversized hoodie", "source": "reference",
       "ref_id": "img_openverse_1a2b3c4d", "confidence": 0.9 },
-    { "value": "clothing.cargo_trousers", "label": "cargo trousers", "source": "reference",
+    { "value": "clothing.cargo_pants", "label": "cargo trousers", "source": "reference",
       "ref_id": "img_openverse_1a2b3c4d", "confidence": 0.84 }
   ],
   "scene": [
-    { "value": "scene.narrow_alley", "label": "a narrow alley", "source": "reference",
+    { "value": "scene.alley", "label": "a narrow alley", "source": "reference",
       "ref_id": "img_wikimedia_commons_9f2ab41c", "confidence": 0.81 },
     { "value": "props.coffee_cup", "label": "a paper coffee cup", "source": "reference",
       "ref_id": "img_openverse_1a2b3c4d", "confidence": 0.58, "origin_category": "props" }
   ],
   "lighting": [
-    { "value": "lighting.backlit", "label": "backlit", "source": "reference",
+    { "value": "lighting.backlighting", "label": "backlit", "source": "reference",
       "ref_id": "img_wikimedia_commons_9f2ab41c", "confidence": 0.79 }
   ],
   "composition": [
@@ -625,12 +626,12 @@ This same epistemic stance — *never assert what the medium cannot evidence* �
       "ref_id": "img_wikimedia_commons_9f2ab41c", "confidence": 0.83, "locked": true }
   ],
   "color": [
-    { "value": "color.muted_teal", "label": "muted teal palette", "source": "analyzer_image",
+    { "value": "color.muted", "label": "muted teal palette", "source": "analyzer_image",
       "confidence": 0.64 }
   ],
   "mood": [],
   "style": [
-    { "value": "style.editorial_photography", "label": "editorial photography",
+    { "value": "style.fashion_editorial", "label": "editorial photography",
       "source": "preset", "confidence": 0.7 }
   ],
   "time": [
@@ -807,21 +808,23 @@ Required: `schema_version`, `id`, `type`, `status`, `visual_attributes`, `metada
 `visual_attributes` holds **bare taxonomy ids** — precisely the brief's shape — so the interop contract stays minimal and a reference exported to any consumer is trivially readable:
 
 ```json
-"visual_attributes": {
+{ "visual_attributes": {
   "composition": ["composition.centered", "composition.leading_lines"],
   "camera_angle": ["camera_angle.low_angle"],
-  "clothing": ["clothing.oversized_hoodie"]
-}
+  "clothing": ["clothing.hoodie", "clothing.oversized"]
+} }
 ```
 
 Everything an analyzer knows *about* one of those ids lives in `attribute_meta[id]`:
 
 ```json
+{
 "attribute_meta": {
   "camera_angle.low_angle": {
     "confidence": 0.9, "source": "analyzer_image", "verified_by_user": true,
     "evidence": { "kind": "observed", "detector": "analyzer-adapter:local@2" }
   }
+}
 }
 ```
 
@@ -859,20 +862,20 @@ This is the brief's "do NOT store media binaries in the repo" turned from a poli
   "status": "approved",
   "title": "Rainy alley at blue hour",
   "visual_attributes": {
-    "subject": ["subject.woman"],
+    "subject": ["subject.adult_woman"],
     "framing": ["framing.medium_shot"],
     "camera_angle": ["camera_angle.low_angle"],
     "camera_distance": ["camera_distance.near"],
     "lens": ["lens.35mm_like"],
     "pose": ["pose.contrapposto", "pose.arms_crossed"],
     "composition": ["composition.centered", "composition.leading_lines"],
-    "lighting": ["lighting.backlit", "lighting.rim_light"],
-    "scene": ["scene.narrow_alley", "scene.wet_asphalt"],
-    "color": ["color.muted_teal"],
-    "mood": ["mood.quiet"],
-    "style": ["style.editorial_photography"],
+    "lighting": ["lighting.backlighting", "lighting.rim_lighting"],
+    "scene": ["scene.alley"],
+    "color": ["color.muted"],
+    "mood": ["mood.calm"],
+    "style": ["style.fashion_editorial"],
     "time": ["time.blue_hour"],
-    "weather": ["weather.rain"],
+    "weather": ["weather.rain", "weather.wet_ground"],
     "props": ["props.umbrella"]
   },
   "attribute_meta": {
@@ -1291,27 +1294,27 @@ INV-FMT-3 is what stops a formatter from quietly becoming a second, hidden promp
 
 ```json
 {
-  "subject":     [ { "text": "a woman", "source_category": "subject", "value": "subject.woman", "confidence": 1.0 } ],
+  "subject":     [ { "text": "a woman", "source_category": "subject", "value": "subject.adult_woman", "confidence": 1.0 } ],
   "appearance":  [],
   "clothing":    [ { "text": "an oversized hoodie", "source_category": "clothing",
-                     "value": "clothing.oversized_hoodie", "ref_id": "img_openverse_1a2b3c4d", "confidence": 0.9 },
+                     "value": "clothing.hoodie", "ref_id": "img_openverse_1a2b3c4d", "confidence": 0.9 },
                    { "text": "cargo trousers", "source_category": "clothing",
-                     "value": "clothing.cargo_trousers", "ref_id": "img_openverse_1a2b3c4d", "confidence": 0.84 } ],
+                     "value": "clothing.cargo_pants", "ref_id": "img_openverse_1a2b3c4d", "confidence": 0.84 } ],
   "action":      [ { "text": "standing in contrapposto", "source_category": "pose", "value": "pose.contrapposto" },
                    { "text": "arms crossed", "source_category": "pose", "value": "pose.arms_crossed" } ],
   "framing":     [ { "text": "medium shot", "source_category": "framing", "value": "framing.medium_shot" } ],
   "camera":      [],
   "lens":        [ { "text": "35mm-like perspective", "source_category": "lens",
                      "value": "lens.35mm_like", "hedged": true } ],
-  "scene":       [ { "text": "a narrow alley", "source_category": "scene", "value": "scene.narrow_alley" },
+  "scene":       [ { "text": "a narrow alley", "source_category": "scene", "value": "scene.alley" },
                    { "text": "in the rain", "source_category": "weather", "value": "weather.rain" },
                    { "text": "holding a paper coffee cup", "source_category": "props", "value": "props.coffee_cup" } ],
   "lighting":    [ { "text": "blue hour", "source_category": "time", "value": "time.blue_hour" },
-                   { "text": "backlit", "source_category": "lighting", "value": "lighting.backlit" } ],
+                   { "text": "backlit", "source_category": "lighting", "value": "lighting.backlighting" } ],
   "composition": [ { "text": "centered composition", "source_category": "composition", "value": "composition.centered" } ],
-  "style":       [ { "text": "editorial photograph", "source_category": "style", "value": "style.editorial_photography" },
-                   { "text": "quiet and intimate", "source_category": "mood", "value": "mood.quiet" },
-                   { "text": "muted teal palette", "source_category": "color", "value": "color.muted_teal" } ],
+  "style":       [ { "text": "editorial photograph", "source_category": "style", "value": "style.fashion_editorial" },
+                   { "text": "quiet and intimate", "source_category": "mood", "value": "mood.calm" },
+                   { "text": "muted teal palette", "source_category": "color", "value": "color.muted" } ],
   "motion":      [],
   "constraints": [ { "text": "no text overlays", "kind": "negative" },
                    { "text": "3:2 aspect ratio", "kind": "aspect" } ]
@@ -1385,7 +1388,7 @@ Required: `schema_version`, `id`, `category`, `label`.
 
 ```json
 { "schema_version": "1.0", "categories": ["camera_angle", "camera_distance", "camera_motion"],
-  "version": 3, "updated_at": "2026-09-09T09:00:00Z", "nodes": [ … ] }
+  "version": 3, "updated_at": "2026-09-09T09:00:00Z", "nodes": [] }
 ```
 
 One file may carry several categories — the brief ships **nine files for twenty categories** (e.g. `camera.json` holds `camera_angle` + `camera_distance` + `camera_motion`).
@@ -1400,7 +1403,7 @@ One file may carry several categories — the brief ships **nine files for twent
   "label": "35mm-like perspective",
   "aliases": ["35mm", "35 mm", "wide-ish", "reportage lens", "documentary lens", "35mm look"],
   "related": ["lens.28mm_like", "lens.50mm_like", "camera_distance.near"],
-  "parent": "lens.wide_normal",
+  "parent": "lens.wide_like",
   "description": "The mildly wide, natural-reportage look of a 35mm-equivalent lens: some environment around the subject, gentle perspective, minimal distortion at the edges.",
   "examples": ["street reportage", "environmental portrait"],
   "visual_hint": "img_wikimedia_commons_9f2ab41c",
@@ -1589,7 +1592,7 @@ Categories in neither list are **free**. **INV-EXP-5 (code, not expressible in J
       { "reference_id": "img_wikimedia_commons_9f2ab41c", "rank": 0, "score": 0.81,
         "score_breakdown": { "metadata": 0.81, "keyword": 0.62 },
         "matched_categories": ["lighting", "scene", "time"],
-        "matched_values": ["lighting.backlit", "scene.narrow_alley", "time.blue_hour"] }
+        "matched_values": ["lighting.backlighting", "scene.alley", "time.blue_hour"] }
     ]
   },
   "selected_reference_id": "img_wikimedia_commons_9f2ab41c",
@@ -1701,7 +1704,7 @@ Snapshots are **frozen**. Editing the live library never silently rewrites a sav
       "snapshot_at": "2026-09-09T10:31:00Z", "media_state": "ok", "media_checked_at": "2026-09-09T10:31:02Z" },
     { "id": "img_openverse_1a2b3c4d", "type": "image", "status": "approved",
       "title": "Street portrait, oversized hoodie",
-      "visual_attributes": { "clothing": ["clothing.oversized_hoodie", "clothing.cargo_trousers"] },
+      "visual_attributes": { "clothing": ["clothing.hoodie", "clothing.cargo_pants"] },
       "metadata": { "source": "openverse", "source_id": "1a2b3c4d", "creator": "B. Shooter",
                     "license": "cc_by", "license_url": "https://creativecommons.org/licenses/by/4.0/",
                     "source_url": "https://openverse.org/image/1a2b3c4d",
@@ -1767,9 +1770,9 @@ A user drops a still into the modal. The analyzer emits a `VisualIntentDocument`
   "source_explorer_id": "exp_alley_session",
   "notes": "Analysis of upl_9c31de70. Not yet ingested as a Reference, so chips carry no ref_id.",
   "intent": {
-    "subject":     [ { "value": "subject.woman", "label": "a woman", "source": "analyzer_image", "confidence": 0.93,
+    "subject":     [ { "value": "subject.adult_woman", "label": "a woman", "source": "analyzer_image", "confidence": 0.93,
                        "evidence": { "kind": "observed", "bbox": [0.31, 0.18, 0.34, 0.78], "detector": "analyzer-adapter:local@2" } } ],
-    "appearance":  [ { "value": "appearance.long_dark_hair", "label": "long dark hair", "source": "analyzer_image", "confidence": 0.87 } ],
+    "appearance":  [ { "value": "appearance.hair_long", "label": "long hair", "source": "analyzer_image", "confidence": 0.87 } ],
     "framing":     [ { "value": "framing.medium_shot", "label": "medium shot", "source": "analyzer_image", "confidence": 0.88 } ],
     "camera_angle":[ { "value": "camera_angle.low_angle", "label": "low angle", "source": "analyzer_image", "confidence": 0.76,
                        "alternatives": [ { "value": "camera_angle.eye_level", "label": "eye level", "confidence": 0.31 } ] } ],
@@ -1777,24 +1780,25 @@ A user drops a still into the modal. The analyzer emits a `VisualIntentDocument`
                            "evidence": { "kind": "derived", "note": "framing.medium_shot ⇒ camera_distance.near" } } ],
     "lens":        [ { "value": "lens.35mm_like", "label": "35mm-like perspective", "source": "analyzer_image", "confidence": 0.61 } ],
     "pose":        [ { "value": "pose.contrapposto", "label": "contrapposto stance", "source": "analyzer_image", "confidence": 0.72 },
-                     { "value": "pose.arms_crossed", "label": "arms crossed", "source": "analyzer_image", "confidence": 0.69 } ],
-    "action":      [ { "value": "action.looking_away", "label": "looking away from camera", "source": "analyzer_image", "confidence": 0.64 } ],
+                     { "value": "pose.arms_crossed", "label": "arms crossed", "source": "analyzer_image", "confidence": 0.69 },
+                     { "value": "pose.looking_away", "label": "looking away from camera", "source": "analyzer_image", "confidence": 0.64 } ],
+    "action":      [],
     "motion":      [ { "value": "motion.hair_movement", "label": "hair moving", "source": "analyzer_image", "confidence": 0.42,
                        "evidence": { "kind": "implied", "note": "motion blur at the hair edge", "detector": "analyzer-adapter:local@2" } } ],
     "camera_motion": [],
-    "clothing":    [ { "value": "clothing.oversized_hoodie", "label": "oversized hoodie", "source": "analyzer_image", "confidence": 0.9 },
-                     { "value": "clothing.cargo_trousers", "label": "cargo trousers", "source": "analyzer_image", "confidence": 0.84 } ],
-    "scene":       [ { "value": "scene.narrow_alley", "label": "a narrow alley", "source": "analyzer_image", "confidence": 0.81 },
-                     { "value": "scene.wet_asphalt", "label": "wet asphalt", "source": "analyzer_image", "confidence": 0.66 },
+    "clothing":    [ { "value": "clothing.hoodie", "label": "oversized hoodie", "source": "analyzer_image", "confidence": 0.9 },
+                     { "value": "clothing.cargo_pants", "label": "cargo trousers", "source": "analyzer_image", "confidence": 0.84 } ],
+    "scene":       [ { "value": "scene.alley", "label": "a narrow alley", "source": "analyzer_image", "confidence": 0.81 },
                      { "value": "props.umbrella", "label": "an umbrella", "source": "analyzer_image", "confidence": 0.58,
                        "origin_category": "props" } ],
-    "lighting":    [ { "value": "lighting.backlit", "label": "backlit", "source": "analyzer_image", "confidence": 0.79 },
-                     { "value": "lighting.rim_light", "label": "rim light", "source": "analyzer_image", "confidence": 0.7 } ],
+    "weather":     [ { "value": "weather.wet_ground", "label": "wet asphalt", "source": "analyzer_image", "confidence": 0.66 } ],
+    "lighting":    [ { "value": "lighting.backlighting", "label": "backlit", "source": "analyzer_image", "confidence": 0.79 },
+                     { "value": "lighting.rim_lighting", "label": "rim light", "source": "analyzer_image", "confidence": 0.7 } ],
     "composition": [ { "value": "composition.centered", "label": "centered composition", "source": "analyzer_image", "confidence": 0.83 },
                      { "value": "composition.leading_lines", "label": "leading lines", "source": "analyzer_image", "confidence": 0.71 } ],
-    "color":       [ { "value": "color.muted_teal", "label": "muted teal palette", "source": "analyzer_image", "confidence": 0.64 } ],
-    "mood":        [ { "value": "mood.quiet", "label": "quiet, intimate", "source": "analyzer_image", "confidence": 0.58 } ],
-    "style":       [ { "value": "style.editorial_photography", "label": "editorial photography", "source": "analyzer_image", "confidence": 0.71 } ],
+    "color":       [ { "value": "color.muted", "label": "muted teal palette", "source": "analyzer_image", "confidence": 0.64 } ],
+    "mood":        [ { "value": "mood.calm", "label": "quiet, intimate", "source": "analyzer_image", "confidence": 0.58 } ],
+    "style":       [ { "value": "style.fashion_editorial", "label": "editorial photography", "source": "analyzer_image", "confidence": 0.71 } ],
     "time":        [ { "value": "time.blue_hour", "label": "blue hour", "source": "analyzer_image", "confidence": 0.69 } ],
     "weather":     [ { "value": "weather.rain", "label": "rain", "source": "analyzer_image", "confidence": 0.55 } ],
     "confidence": {
@@ -1850,9 +1854,9 @@ The same document type, from `analyzer_video`. Only the categories that differ f
       { "value": "motion.slow", "label": "slow", "source": "analyzer_video",
         "ref_id": "vid_openverse_4d7e0a13", "confidence": 0.7 }
     ],
-    "subject":     [ { "value": "subject.man", "label": "a man", "source": "analyzer_video", "confidence": 0.91 } ],
+    "subject":     [ { "value": "subject.adult_man", "label": "a man", "source": "analyzer_video", "confidence": 0.91 } ],
     "framing":     [ { "value": "framing.wide_shot", "label": "wide shot", "source": "analyzer_video", "confidence": 0.85 } ],
-    "scene":       [ { "value": "scene.city_street", "label": "a city street", "source": "analyzer_video", "confidence": 0.8 } ],
+    "scene":       [ { "value": "scene.urban_street", "label": "a city street", "source": "analyzer_video", "confidence": 0.8 } ],
     "confidence": { "camera_motion": 0.82, "motion": 0.88, "subject": 0.91, "framing": 0.85, "scene": 0.8 }
   }
 }
@@ -1898,8 +1902,10 @@ Two **different** categories ⇒ **no conflict, by construction**. This is the p
 **Both values remain present in the intent** — nothing was dropped. `formatPrompt` returns:
 
 ```json
+{
 "blocked": [ { "slot": "camera", "category": "camera_angle",
                "reason": "unresolved_conflict", "conflict_id": "cfl_ab12cd34ef56" } ]
+}
 ```
 
 until a human chooses. When they do, the chosen chip's `source` becomes `mix_resolution` with `ref_id` = the winner, and `Resolution.strategy` is `"user"` — the only strategy reachable while `auto_resolve` is `false`.

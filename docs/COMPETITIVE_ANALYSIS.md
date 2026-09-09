@@ -1707,7 +1707,7 @@ Give them full credit:
   MIDJOURNEY --sref / --oref                     OURS
   ─────────────────────────                      ────
   image ──► [ latent style code 3847291 ]        image ──► composition.rule_of_thirds   (conf .81, ref img_A)
-                     │                                  ├─► lighting.rim_light          (conf .74, ref img_A)
+                     │                                  ├─► lighting.rim_lighting          (conf .74, ref img_A)
                      │  opaque, 1 slot                  ├─► camera_angle.low_angle      (conf .90, ref img_A)
                      ▼                                  └─► clothing.hoodie             (conf .66, ref img_A)
               generation, now                                        │

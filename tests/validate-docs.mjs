@@ -79,7 +79,10 @@ const ghost = new Map()
 for (const f of mdFiles) {
   const lines = fs.readFileSync(path.join(ROOT, f), 'utf8').split('\n')
   lines.forEach((line, i) => {
-    for (const m of line.matchAll(/`([a-z_]+)\.([a-z0-9_]+)`/g)) {
+    // Backticked prose citations AND quoted ids inside fenced JSON examples: a worked
+    // example that cites an id nothing defines is exactly the drift that wastes an
+    // implementer's afternoon, so both forms are checked.
+    for (const m of line.matchAll(/[`"']([a-z_]+)\.([a-z0-9_]+)[`"']/g)) {
       const [id, cat] = [m[1] + '.' + m[2], m[1]]
       if (!taxCats.has(cat) || taxIds.has(id) || COUNTEREXAMPLES.has(id)) continue
       if (!ghost.has(id)) ghost.set(id, [])
