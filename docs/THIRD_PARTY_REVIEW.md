@@ -12,7 +12,7 @@ The provenance record: every external project examined while designing this prod
 
 ## 0. Document contract and precedence
 
-**Precedence.** [`BRIEF.md`](../BRIEF.md) wins over everything. [`DATA_SCHEMA.md`](./DATA_SCHEMA.md) wins over this document for field names, enums and invariants. [`LICENSE_POLICY.md`](./LICENSE_POLICY.md) wins for *reference media* policy — which licence values may enter the product and under what predicate a `Reference.status` transition fires. This document owns *code and dependency provenance*: what external software and data we read, what we took from it, and the process that keeps that answer true.
+**Precedence.** the product brief (the founding specification, held outside this repository) wins over everything. [`DATA_SCHEMA.md`](./DATA_SCHEMA.md) wins over this document for field names, enums and invariants. [`LICENSE_POLICY.md`](./LICENSE_POLICY.md) wins for *reference media* policy — which licence values may enter the product and under what predicate a `Reference.status` transition fires. This document owns *code and dependency provenance*: what external software and data we read, what we took from it, and the process that keeps that answer true.
 
 **Relationship to siblings.**
 
@@ -122,7 +122,7 @@ This statement is unconditional and covers, explicitly:
 
 - **Code**, including permissively licensed code (MIT, BSD, Apache-2.0). Permission was available from many of the projects below and was declined in every case.
 - **Prompt databases and vocabulary corpora**: `flavors.txt` (100,970 lines), Prompt Vault's `vault_data.py`, WildPromptor's keyword and artist directories, Fooocus-derived style JSON, danbooru tag dumps, community wildcard bundles.
-- **Schema field-name lists** — including PromptJSON's, whose nested shape resembles ours. The resemblance is convergent: both descend from how cinematographers already talk. Ours is fixed by [`BRIEF.md`](../BRIEF.md) and formalised in [`DATA_SCHEMA.md`](./DATA_SCHEMA.md).
+- **Schema field-name lists** — including PromptJSON's, whose nested shape resembles ours. The resemblance is convergent: both descend from how cinematographers already talk. Ours is fixed by the product brief (the founding specification, held outside this repository) and formalised in [`DATA_SCHEMA.md`](./DATA_SCHEMA.md).
 - **Dataset annotations and label files**: Fashionpedia's 294 attributes, DeepFashion2's 13 classes, AVE's tag vocabulary, CameraBench's taxonomy JSON, ShotBench's option strings, CineScale's class ladders.
 - **Trained weights** of any model, and any artefact derived from them.
 - **Media**: no image, no video, no film frame, no thumbnail. INV-REF-2 enforces this at the schema level — `media_blob`, `media_base64`, `media_bytes`, `data_uri` and `binary` are declared invalid in `reference.schema.json`, so a document carrying media bytes cannot validate.

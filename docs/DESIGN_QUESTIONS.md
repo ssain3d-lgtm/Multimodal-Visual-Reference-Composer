@@ -491,7 +491,7 @@ The deterministic `cfl_` id is the load-bearing detail: `applyMix` is pure, so i
 
 ### Agreement is the mirror image, and is never a conflict
 
-Deduplication by `(target_array, value)` is **AGREEMENT**, not collision: keep max confidence, **union `contributors[]`**, OR the `locked` flags, keep the earliest `created_at`. Two references saying `lighting.backlit` makes the value *stronger* and records both sources. Only *different* values under a conflict rule disagree. This is why `contributors[]` and `contested` are separate fields rather than one.
+Deduplication by `(target_array, value)` is **AGREEMENT**, not collision: keep max confidence, **union `contributors[]`**, OR the `locked` flags, keep the earliest `created_at`. Two references saying `lighting.backlighting` makes the value *stronger* and records both sources. Only *different* values under a conflict rule disagree. This is why `contributors[]` and `contested` are separate fields rather than one.
 
 ### Conflict avoidance by construction
 

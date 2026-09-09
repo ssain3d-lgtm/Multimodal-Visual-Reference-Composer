@@ -658,7 +658,7 @@ Plus two non-ladder members from CineScale that are genuinely useful and often m
 | Following | `tracking` / `follow`, `lead`, `side_track`, `aerial_follow` | object-centric reference frame |
 | Steadiness | `static`, `smooth`, `handheld`, `shaky`, `whip` (whip pan / crash zoom as speed-extreme variants) | AVE files `handheld` under `shot-motion` |
 
-**Motion intensity** (`camera_motion.intensity` and `motion.speed`): ordinal `subtle | moderate | strong` mapped to a
+**Motion intensity** (`camera_motion.move_speed` and `motion.speed`): ordinal `subtle | moderate | strong` mapped to a
 normalised 0..1 scalar. Formatter targets: Kling `−10…10`, prose adverbs ("slow", "rapid"), or omitted.
 
 **The dolly-in vs zoom-in rule (write this into `data/taxonomy/camera.json` as a doc string):**

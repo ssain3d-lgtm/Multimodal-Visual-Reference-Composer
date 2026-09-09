@@ -577,7 +577,9 @@
         "camera_motion.truck_right",
         "camera_motion.zoom",
         "camera_motion.zoom_in",
-        "camera_motion.zoom_out"
+        "camera_motion.zoom_out",
+        "camera_motion.slow_move",
+        "camera_motion.moderate_move"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -866,7 +868,8 @@
       "related": [
         "camera_motion.dolly_out",
         "camera_motion.zoom_in",
-        "camera_motion.tracking"
+        "camera_motion.tracking",
+        "camera_motion.move_speed"
       ],
       "parent": "camera_motion.dolly",
       "description": "The whole camera physically moves closer to the subject, so the background shifts and changes scale as you approach it — this is what makes it different from a zoom, which only magnifies the picture from where the camera already stands.",
@@ -1494,6 +1497,132 @@
       "prompt_fragment": "sweeping crane move rising through the air over the scene",
       "search_boost": 1.1,
       "sort_order": 110,
+      "children": []
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.move_speed",
+      "category": "camera_motion",
+      "label": "Camera move speed",
+      "aliases": [
+        "camera move speed",
+        "camera motion intensity",
+        "how fast the camera moves",
+        "move intensity",
+        "camera speed"
+      ],
+      "related": [],
+      "parent": null,
+      "description": "How quickly the camera itself travels, which is separate from how fast the subject is moving.",
+      "examples": [],
+      "visual_hint": null,
+      "conflicts_with": [],
+      "exclusivity_group": null,
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "camera moving at a distinct pace",
+      "children": [
+        "camera_motion.slow_move",
+        "camera_motion.moderate_move",
+        "camera_motion.fast_move"
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.slow_move",
+      "category": "camera_motion",
+      "label": "Slow camera move",
+      "aliases": [
+        "slow camera move",
+        "slow dolly",
+        "slow push in",
+        "creeping camera",
+        "slow drift",
+        "slow dolly in",
+        "gentle camera move"
+      ],
+      "related": [
+        "camera_motion.move_speed",
+        "motion.speed"
+      ],
+      "parent": "camera_motion.move_speed",
+      "description": "The camera travels slowly and deliberately, so the movement is felt more than noticed.",
+      "examples": [],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.moderate_move",
+        "camera_motion.fast_move",
+        "camera_motion.static"
+      ],
+      "exclusivity_group": "camera_move_speed",
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "the camera moving slowly and deliberately",
+      "children": []
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.moderate_move",
+      "category": "camera_motion",
+      "label": "Moderate camera move",
+      "aliases": [
+        "moderate camera move",
+        "medium speed camera",
+        "steady camera move",
+        "normal camera speed"
+      ],
+      "related": [
+        "camera_motion.move_speed",
+        "motion.speed"
+      ],
+      "parent": "camera_motion.move_speed",
+      "description": "The camera travels at a moderate, readable pace.",
+      "examples": [],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.slow_move",
+        "camera_motion.fast_move",
+        "camera_motion.static"
+      ],
+      "exclusivity_group": "camera_move_speed",
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "the camera moving at a moderate pace",
+      "children": []
+    },
+    {
+      "schema_version": "1.0",
+      "id": "camera_motion.fast_move",
+      "category": "camera_motion",
+      "label": "Fast camera move",
+      "aliases": [
+        "fast camera move",
+        "whip pan speed",
+        "rapid camera move",
+        "quick camera move",
+        "snap move",
+        "aggressive camera move"
+      ],
+      "related": [
+        "camera_motion.move_speed",
+        "motion.speed"
+      ],
+      "parent": "camera_motion.move_speed",
+      "description": "The camera travels quickly, making the movement itself the most obvious thing in the shot.",
+      "examples": [],
+      "visual_hint": null,
+      "conflicts_with": [
+        "camera_motion.slow_move",
+        "camera_motion.moderate_move"
+      ],
+      "exclusivity_group": "camera_move_speed",
+      "media_scope": [
+        "video"
+      ],
+      "prompt_fragment": "the camera moving fast",
       "children": []
     }
   ]
