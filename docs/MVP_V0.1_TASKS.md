@@ -148,7 +148,7 @@ tests/**                                T-01 T-02 and the test half of every tas
 
 **T-05** — Exports `VISUAL_CATEGORIES` (20, brief order), `INTENT_CATEGORIES` (19), `PROMPT_SLOTS` (13), `CATEGORY_ARITY` (7 `single_dominant` / 13 `multi`), `CATEGORY_TO_PROMPT_SLOT` (20 → 13), `PROMPT_SLOT_EMIT_ORDER`, `EXTRACT_GROUPS` (8 groups covering 17 categories). A test asserts each table is **deep-equal to the `const` carried by `docs/schemas/taxonomy-node.schema.json#/$defs`** — the schema is the source, this module is the mirror, and drift fails the build. All exports `Object.freeze`d.
 
-**T-06** — Validates INV-TAX-1/2/3/4/5/6 on every node and throws with the offending id; recomputes `children` from `parent` and never trusts the stored array (derived-cache rule 0.3); builds the symmetric closure of `conflicts_with`; throws on a `parent` cycle naming the cycle. Loads all 736 shipped nodes in < 50 ms (UNVERIFIED target, measured by T-72).
+**T-06** — Validates INV-TAX-1/2/3/4/5/6 on every node and throws with the offending id; recomputes `children` from `parent` and never trusts the stored array (derived-cache rule 0.3); builds the symmetric closure of `conflicts_with`; throws on a `parent` cycle naming the cycle. Loads all 740 shipped nodes in < 50 ms (UNVERIFIED target, measured by T-72).
 
 **T-07** — `get/has/byCategory/roots/children/ancestors/related/resolve/fragment/negativeFragment/arity/exclusivityGroup/conflictsWith/mediaScope/version` per [`ARCHITECTURE.md`](./ARCHITECTURE.md) §2.1. `fragment(id, mode)` resolves `model_hints[mode] ?? prompt_fragment ?? label ?? humanize(id)`; an unknown mode falls back to `prompt_fragment` without throwing. `resolve()` follows the `replaced_by` chain and reports `{rewritten, from}`. `byCategory` sorts `sort_order` asc then id asc, deterministically.
 
@@ -241,7 +241,7 @@ tests/**                                T-01 T-02 and the test half of every tas
 | T-34 | `query-builder` — state → `Query` | `src/search/query-builder.js`, `tests/unit/query-builder.test.mjs` | T-33, T-22 | M |
 | T-35 | `fusion-ranker` + `ResultSet` + `semantic-search` NULL path | `src/search/fusion-ranker.js`, `src/search/semantic-search.js`, `tests/unit/fusion.test.mjs` | T-34 | M |
 
-**T-29** — Two document kinds (taxonomy nodes, references) on one tier vocabulary (*id · label · alias · description*), exactly per [`SEARCH_ARCHITECTURE.md`](./SEARCH_ARCHITECTURE.md) §3.3. `Reference.search_text` is **recomputed on load**, never read from storage. Deprecated nodes are excluded from results while stored chips referencing them stay valid. Index build over 736 nodes + the seed library completes in < 300 ms (UNVERIFIED target, T-72).
+**T-29** — Two document kinds (taxonomy nodes, references) on one tier vocabulary (*id · label · alias · description*), exactly per [`SEARCH_ARCHITECTURE.md`](./SEARCH_ARCHITECTURE.md) §3.3. `Reference.search_text` is **recomputed on load**, never read from storage. Deprecated nodes are excluded from results while stored chips referencing them stay valid. Index build over 740 nodes + the seed library completes in < 300 ms (UNVERIFIED target, T-72).
 
 **T-30** — `KEYWORD_SCORES` frozen at the canonical values (1.00 / 0.95 / 0.90 / 0.70 / 0.50 / 0.35 / 0.30 / 0.20). Phrase pass and token pass, combined by `max`, token pass divided by **all** query tokens. `search_boost` multiplies **last** and is not clamped. **Chip confidence uses the pre-boost `s_raw`** — a tuning constant never masquerades as belief. Golden test: `"golden hour alley"` reproduces the worked example in §3.5 of the search doc, hit for hit.
 
@@ -562,7 +562,7 @@ Setup: `npm test` green, `npm run serve`, browser at `app/index.html`, `ai.enabl
 4. **The License Guard implemented in T-44 … T-46 is the state machine of [`LICENSE_POLICY.md`](./LICENSE_POLICY.md) §4**, including LP-16 (no bypass), LP-18 (`unknown` → `license_review`), LP-21 (no offline approval of a remote reference) and LP-26 (demotion on edit). The maintainer ingest tool (D-3) is the only place a stage-2 network call happens, and it is not part of the shipped app.
 5. **`DOD-01-1 … DOD-01-12` of [`ROADMAP.md`](./ROADMAP.md) §2.1 are all covered** by §8.1; this document adds criteria and relaxes none.
 6. **The conflict copy in T-61 is quoted verbatim** from [`UNIFIED_MODAL_STATE.md`](./UNIFIED_MODAL_STATE.md) §7.3; changing a string there is a change to this task.
-7. **The taxonomy shipped in [`../data/taxonomy/`](../data/taxonomy/) already covers all 20 categories across 736 nodes**, so T-08 is a completion-and-validation pass, not an authoring milestone.
+7. **The taxonomy shipped in [`../data/taxonomy/`](../data/taxonomy/) already covers all 20 categories across 740 nodes**, so T-08 is a completion-and-validation pass, not an authoring milestone.
 
 ---
 

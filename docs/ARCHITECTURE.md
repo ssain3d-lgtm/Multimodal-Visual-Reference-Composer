@@ -395,7 +395,7 @@ Each file exports: the port's documented shape, a registry, a `NULL_*` adapter (
 
 `deps` always carries `{ dispatch, taxonomy, capabilities }` and never a network client: the UI dispatches events; effects are executed by the effect runner in `explorer-modal.js`.
 
-`app/index.html` is the shell: a `<dialog>`, an ESM import of `explorer-modal.js`, a `fetch` of the nine taxonomy JSON files and `data/presets.json`, and nothing else. It contains no product logic, so the same modules mount unchanged in any other host.
+`app/index.html` is the shell: a `<dialog>`, an ESM import of `explorer-modal.js`, a `fetch` of the ten taxonomy JSON files and `data/presets.json`, and nothing else. It contains no product logic, so the same modules mount unchanged in any other host.
 
 ---
 

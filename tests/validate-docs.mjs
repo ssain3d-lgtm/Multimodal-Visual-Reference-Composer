@@ -92,6 +92,44 @@ for (const f of mdFiles) {
 }
 for (const [id, locs] of ghost) errors.push(`taxonomy id \`${id}\` cited in docs but absent from data/taxonomy (${locs.length}x, e.g. ${locs[0]})`)
 
+// ------------------------------------------------- counts stated in prose
+// Every merge or addition to data/taxonomy silently falsifies any exact count
+// written into a document. Three cases are distinguished:
+//   "194 nodes" on a line naming `clothing`  -> checked against that category
+//   a number near the whole-taxonomy total    -> checked against the total
+//   "a 21-node utility pack" (another project) -> ignored
+// Approximate figures ("~750") are engineering budgets and are left alone.
+const nodeTotal = taxIds.size
+const perCategory = {}
+for (const f of fs.readdirSync(path.join(ROOT, 'data/taxonomy'))) {
+  if (!f.endsWith('.json')) continue
+  for (const n of JSON.parse(fs.readFileSync(path.join(ROOT, 'data/taxonomy', f), 'utf8')).nodes || [])
+    perCategory[n.category] = (perCategory[n.category] || 0) + 1
+}
+const fileTotal = fs.readdirSync(path.join(ROOT, 'data/taxonomy')).filter((f) => f.endsWith('.json')).length
+const NUMWORD = { seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12 }
+for (const f of mdFiles) {
+  fs.readFileSync(path.join(ROOT, f), 'utf8').split('\n').forEach((line, i) => {
+    for (const m of line.matchAll(/(~|≈|about |approximately |roughly )?\b(\d{2,4})[ -](?:taxonomy )?nodes?\b/g)) {
+      if (m[1]) continue                                   // an explicit approximation
+      const claimed = Number(m[2])
+      // The category must be named NEXT TO the number. Doc lines run long, and a
+      // category mentioned 300 characters later is about something else entirely.
+      const near = line.slice(Math.max(0, m.index - 60), m.index + m[0].length + 60)
+      const cat = Object.keys(perCategory).find((c) => new RegExp('`' + c + '`|\\b' + c + ' (?:subtree|category|branch)').test(near))
+      if (cat) {
+        if (claimed !== perCategory[cat]) errors.push(`${f}:${i + 1} states ${claimed} nodes for \`${cat}\`; data/taxonomy holds ${perCategory[cat]}`)
+      } else if (claimed > nodeTotal * 0.65 && claimed < nodeTotal * 1.35 && claimed !== nodeTotal) {
+        errors.push(`${f}:${i + 1} states ${claimed} taxonomy nodes; data/taxonomy holds ${nodeTotal}`)
+      }
+    }
+    for (const m of line.matchAll(/\b(\d+|seven|eight|nine|ten|eleven|twelve)[ -]taxonomy (?:JSON )?files\b/gi)) {
+      const n = NUMWORD[m[1].toLowerCase()] ?? Number(m[1])
+      if (n !== fileTotal) errors.push(`${f}:${i + 1} states ${m[1]} taxonomy files; data/taxonomy holds ${fileTotal}`)
+    }
+  })
+}
+
 // ------------------------------------------------- schema files referenced
 for (const f of mdFiles) {
   const lines = fs.readFileSync(path.join(ROOT, f), 'utf8').split('\n')

@@ -349,7 +349,7 @@ score_kw_norm(d) = score_kw(d) / max(1e-9, max_d score_kw(d))   // per-list, ove
 
 ### 3.5 Worked example — `"golden hour alley"`
 
-Computed against the shipped taxonomy (`data/taxonomy/scene.json`, `.../lighting.json`; 747 nodes total).
+Computed against the shipped taxonomy (`data/taxonomy/scene.json`, `.../lighting.json`; 740 nodes total).
 
 ```
 Input      : "Golden Hour alley"
@@ -840,7 +840,7 @@ change  ["scene"]
 
 | Edge | Factor | Rationale |
 |---|---|---|
-| `related[]`, treated as **symmetric** | `0.35 × score(source)` | canonical. Symmetry is a decision (§14): a one-directional authoring omission across 747 nodes must not create a retrieval asymmetry the user can feel but not explain. |
+| `related[]`, treated as **symmetric** | `0.35 × score(source)` | canonical. Symmetry is a decision (§14): a one-directional authoring omission across 740 nodes must not create a retrieval asymmetry the user can feel but not explain. |
 | `children[]` of a hit branch node | `0.30 × score(source)` | **addition** (§14). Branch nodes like `lighting.light_direction` or `clothing.styles` are almost never what a user means; their children are. Without a child hop, hitting a branch is a dead end. |
 | `deprecated → replaced_by` | rewrite at `1.00` | not an expansion — a rewrite, performed in `normalizeVisualIntent`, logged in the rewrites log. |
 
@@ -850,7 +850,7 @@ Control:
 seeds       = top 5 node hits by score_kw           // top-N, not a threshold: multi-token
                                                     // queries dilute scores and a fixed
                                                     // threshold would disable expansion
-hops        = 1  (never 2 — a two-hop neighbourhood of a 747-node graph is the whole graph)
+hops        = 1  (never 2 — a two-hop neighbourhood of a 740-node graph is the whole graph)
 cap         = 24 expansion nodes, then truncated by score
 dedupe      = an expansion hit that is already a direct hit keeps the max (direct wins)
 ```
@@ -1088,11 +1088,11 @@ With ~40 queries over a few hundred references, the confidence intervals are wid
 | Keyword + metadata, N ≤ 5,000 | < 30 ms | inverted index; `rel()` memoized per `(v, v')` per taxonomy version |
 | Semantic kNN, N ≤ 5,000, dim ≤ 1,024 | < 150 ms | typed-array brute force in a Web Worker (estimate; **UNVERIFIED** — measure) |
 | Fusion + MMR over ≤ 600 pool items | < 10 ms | O(pool·k) greedy |
-| Full re-index of 747 taxonomy nodes | < 20 ms | rebuilt on taxonomy load only |
+| Full re-index of 740 taxonomy nodes | < 20 ms | rebuilt on taxonomy load only |
 
 Notes a builder needs:
 
-- **The taxonomy is small.** 747 nodes × ~10 surface forms is ~7,500 strings; a linear scan is genuinely viable. The inverted index is built anyway because it is canonical and because it earns its keep on the reference corpus, which grows.
+- **The taxonomy is small.** 740 nodes × ~10 surface forms is ~7,500 strings; a linear scan is genuinely viable. The inverted index is built anyway because it is canonical and because it earns its keep on the reference corpus, which grows.
 - **The reference index is incremental.** `buildIncremental(index, references, adapter, {budget_ms, signal})` yields between chunks so approval of one reference costs one upsert, never a rebuild.
 - **Staleness is a `query_id` problem, not a lock problem.** Every stage carries `query_id`; anything arriving for a non-current id is discarded silently *at the boundary* and never reaches state. That is why the brief's "the modal never closes mid-exploration" survives slow adapters.
 - **`rel()` and `credit()` are pure** over `(taxonomy_version, v, v')` and are cached in a `Map` cleared on taxonomy reload. This is the single highest-value memoization in the search path.

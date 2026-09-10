@@ -76,7 +76,7 @@ Two more commitments that are not pillars but are equally non-negotiable:
 | Area | State | Detail |
 |---|---|---|
 | Canonical data model | **Done** | 7 JSON Schemas (draft 2020-12), all meta-valid and cross-referenced; 37 numbered invariants; a 57-case instance matrix passes. |
-| Taxonomy data | **Done (v1 seed)** | 736 nodes across 10 files covering all 20 categories, with `aliases`, `related`, `parent`, `prompt_fragment`, `exclusivity_group`. |
+| Taxonomy data | **Done (v1 seed)** | 740 nodes across 10 files covering all 20 categories, with `aliases`, `related`, `parent`, `prompt_fragment`, `exclusivity_group`. |
 | Taxonomy integrity checker | **Done** | `node tests/validate-taxonomy.mjs` — passes; enforces id grammar, namespace agreement, the lens rule, `camera_motion` media scope, parent cycles, alias collisions. |
 | Design documentation | **Done** | 10 design documents + 8 research dossiers, ~16k lines. All nine brief questions answered in [docs/DESIGN_QUESTIONS.md](docs/DESIGN_QUESTIONS.md). |
 | `src/**` runtime modules | **Not written** | Directories exist and are empty. Public API signatures are fixed in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). |
@@ -135,7 +135,7 @@ Multimodal-Visual-Reference-Composer/
 │  └─ ui/                        ○ explorer-modal, reference-card, reference-detail,
 │                                  reference-mixer, intent-chips
 ├─ data/
-│  ├─ taxonomy/                  ✓ 10 files, 736 nodes, all 20 categories
+│  ├─ taxonomy/                  ✓ 10 files, 740 nodes, all 20 categories
 │  │   camera · clothing · framing · lens · lighting · motion · pose · scene ·
 │  │   style · subject
 │  ├─ presets.json               ○
