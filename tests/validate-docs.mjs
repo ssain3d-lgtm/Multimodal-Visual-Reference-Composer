@@ -152,6 +152,99 @@ for (const f of mdFiles) {
   })
 }
 
+// --------------------------------------------- fenced JSON blocks are honest
+// JSON.parse accepts a duplicate key and silently keeps the last one. A worked
+// example that does this is lying about its own output — exactly how a dropped
+// `weather` chip survived review. Also catches blocks that do not parse at all.
+function duplicateKeys(text) {
+  // Track one frame per {} or []. Inside an object, strings alternate key, value,
+  // key, value; only the key positions are collected. Getting this wrong reports
+  // every repeated *value* as a duplicate key.
+  const dups = []
+  const stack = []
+  let inStr = false, esc = false
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i]
+    if (inStr) {
+      if (esc) { esc = false; continue }
+      if (c === '\\') { esc = true; continue }
+      if (c !== '"') continue
+      inStr = false
+      const top = stack[stack.length - 1]
+      if (top && top.isObject && top.expectingKey) {
+        let j = i - 1, buf = ''
+        while (j >= 0 && !(text[j] === '"' && text[j - 1] !== '\\')) { buf = text[j] + buf; j-- }
+        if (top.keys.has(buf)) dups.push(buf)
+        else top.keys.add(buf)
+        top.expectingKey = false
+      }
+      continue
+    }
+    if (c === '"') inStr = true
+    else if (c === '{') stack.push({ isObject: true, expectingKey: true, keys: new Set() })
+    else if (c === '[') stack.push({ isObject: false })
+    else if (c === '}' || c === ']') stack.pop()
+    else if (c === ',') { const top = stack[stack.length - 1]; if (top && top.isObject) top.expectingKey = true }
+  }
+  return dups
+}
+for (const f of mdFiles) {
+  const text = fs.readFileSync(path.join(ROOT, f), 'utf8')
+  for (const m of text.matchAll(/```json\n([\s\S]*?)```/g)) {
+    const line = text.slice(0, m.index).split('\n').length
+    try { JSON.parse(m[1]) } catch (e) {
+      errors.push(`${f}:${line} fenced json block does not parse — ${e.message.slice(0, 90)}`)
+      continue
+    }
+    for (const k of new Set(duplicateKeys(m[1])))
+      errors.push(`${f}:${line} fenced json block declares "${k}" twice; JSON.parse keeps only the last, so the example silently drops data`)
+  }
+}
+
+// ------------------------------------------- intra-document section references
+// "(see §12.5)" pointing at a section that does not exist sends a reader hunting.
+for (const f of mdFiles) {
+  const text = fs.readFileSync(path.join(ROOT, f), 'utf8')
+  const sections = new Set()
+  const lines0 = text.split('\n')
+  const headingAt = []
+  lines0.forEach((l, idx) => {
+    const m = l.match(/^#{2,6}\s+(?:§\s*)?(\d+(?:\.\d+)*)/)
+    if (m) { sections.add(m[1]); headingAt.push({ num: m[1], line: idx }) }
+  })
+  // Some sections number their points as an ordered list rather than as sub-headings,
+  // so "§0.4" means item 4 of section 0. Count those items so the reference resolves.
+  for (let h = 0; h < headingAt.length; h++) {
+    const { num, line } = headingAt[h]
+    if (num.includes('.')) continue
+    const end = h + 1 < headingAt.length ? headingAt[h + 1].line : lines0.length
+    let items = 0
+    for (let i = line; i < end; i++) if (/^\s*(\d+)\.\s/.test(lines0[i])) items++
+    for (let i = 1; i <= items; i++) sections.add(`${num}.${i}`)
+  }
+  if (sections.size < 3) continue          // not a numbered document
+  text.split('\n').forEach((line, i) => {
+    if (/^#{1,6}\s/.test(line)) return
+    // "[`DATA_SCHEMA.md`](./DATA_SCHEMA.md) §12.3" is a cross-document citation,
+    // resolved by the link, not by a heading in this file.
+    if (/\]\([^)]*\.md[^)]*\)/.test(line) || /\b[A-Z_0-9]+\.md\b/.test(line)) return
+    for (const m of line.matchAll(/§\s?(\d+(?:\.\d+)*)/g)) {
+      if (sections.has(m[1])) continue
+      // "DATA_SCHEMA §6.4", "the brief §20", "§3.5 of the search doc" all point
+      // elsewhere. Only a bare § with no nearby document word is a self-reference.
+      const before = line.slice(Math.max(0, m.index - 60), m.index)
+      // the tail of a range: "SEARCH_ARCHITECTURE §7.2-§7.5"
+      if (/[-–—]\s*$|\bto\s*$/.test(before)) continue
+      const after = line.slice(m.index + m[0].length, m.index + m[0].length + 40)
+      if (/[A-Z][A-Z_0-9]{3,}\s*$|\b(?:brief|doc|document|spec|policy|roadmap|model|schema)\b[^.]{0,20}$/i.test(before)) continue
+      if (/^\s*of\s+(?:the\s+)?\w+/i.test(after)) continue
+      // a bare top-level §7 is fine when §7.1 exists
+      if ([...sections].some((s) => s.startsWith(m[1] + '.'))) continue
+      warnings.push(`${f}:${i + 1} cites §${m[1]}, which is not a heading in this document`)
+    }
+  })
+}
+
 // ---------------------------------------------------------------- report
 console.log(`docs: ${mdFiles.length} markdown files checked`)
 if (warnings.length) {
