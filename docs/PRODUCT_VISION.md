@@ -145,7 +145,7 @@ These five are non-negotiable. Each is stated, then made concrete with a worked 
 
 **INV-EXP-1 (the central invariant):** switching `mode` NEVER resets `intent`, `pinned_reference_ids`, `mix`, `difference` or `filters`. A mode switch changes which input surface is visible and nothing else. It MAY reset `results` (a new mode implies new retrieval) and `ui.active_panel`. Nothing else.
 
-**Worked example.** The user types `golden hour alley`, gets results, pins one card, then drags in a photo from their desktop to search by image. The pinned card is still pinned, the licence filter is still set, the two chips they had already accepted are still in the intent, and the words `golden hour alley` are still in the text box when they switch back. In a two-page design this session would be destroyed twice.
+**Worked example.** The user types `golden hour alley`, gets results, pins one card, then drags in a photo from their desktop to search by image. The pinned card is still pinned, the licence filter is still set, the chips they had already accepted are still in the intent, and the words `golden hour alley` are still in the text box when they switch back. In a two-page design this session would be destroyed twice.
 
 ### Pillar 2 — Visual Intent
 
@@ -278,19 +278,19 @@ Mira is making a key visual for a small streetwear brand. She has one photograph
 
 **T0 — Open.** She opens the composer. One modal. Four mode tabs across the top: `TEXT` `IMAGE` `VIDEO` `BROWSE`. `ExplorerState.mode = "text"`, `open = true`. The modal will not close again until she dismisses it explicitly.
 
-**T1 — Text, with no vocabulary.** She types `golden hour alley`. No model runs. The keyword index over `{id, label, aliases[], description}` resolves `golden hour` → `time.golden_hour` (exact alias, 0.90) and `alley` → `scene.alley` (exact label, 0.95). Two chips land in the intent with `source: "user"`, `confidence: 1.0`. One hop through `related[]` proposes `lighting.golden_hour_sun` at reduced score as a `query_expansion` chip — greyed, low confidence, one click to remove. Results appear, ranked `keyword_only` because AI is off.
+**T1 — Text, with no vocabulary.** She types `golden hour alley`. No model runs. The keyword index over `{id, label, aliases[], description}` returns three direct hits, scored in full in [`SEARCH_ARCHITECTURE.md`](./SEARCH_ARCHITECTURE.md) §3.5: `lighting.golden_hour_sun` (0.665), `time.golden_hour` (0.643) and `scene.alley` (0.396). The two golden-hour nodes tie before `search_boost` and are separated only by it — the right outcome for a query genuinely ambiguous between a time of day and a quality of light, since both surface and she picks. Three chips land in the intent with `source: "user"`, `confidence: 1.0`. One hop through `related[]` proposes `lighting.backlit_haze` at reduced score as a `query_expansion` chip — greyed, low confidence, one click to remove. Results appear, ranked `keyword_only` because AI is off.
 
-**T2 — Browse, because she doesn't know the word.** She still can't describe the *angle* she wants. She switches to `BROWSE`. **The two chips do not move; the results panel refreshes, nothing else** (INV-EXP-1). She opens the `camera_angle` category and sees thumbnailed tiles: Eye level, Low angle, Worm's-eye, High angle, Bird's-eye. She recognises the third picture. She clicks it. `camera_angle.low_angle` enters the intent as `source: "user"`. **This is S4 solved: she chose the word by looking at a picture, and she now owns the word.**
+**T2 — Browse, because she doesn't know the word.** She still can't describe the *angle* she wants. She switches to `BROWSE`. **The T1 chips do not move; the results panel refreshes, nothing else** (INV-EXP-1). She opens the `camera_angle` category and sees thumbnailed tiles: Eye level, Low angle, Worm's-eye, High angle, Bird's-eye. She recognises the third picture. She clicks it. `camera_angle.low_angle` enters the intent as `source: "user"`. **This is S4 solved: she chose the word by looking at a picture, and she now owns the word.**
 
-**T3 — Image, as a query.** She switches to `IMAGE` and drops in her look reference. `query.image.analysis_status` goes `pending`. (In `v0.1` it goes to `mocked` — the upload surface ships before real analysis, and the state machine says so honestly rather than faking a spinner.) With the analyser on, the still returns proposals: `composition.rule_of_thirds` 0.88, `composition.leading_lines` 0.74, `framing.medium_shot` 0.81, `lens.35mm_like` 0.55, `weather.wet_ground` 0.66. Every one is a **proposal**: greyed until accepted, each with an `alternatives` menu. She accepts three, rejects the lens guess, and locks `composition.rule_of_thirds`.
+**T3 — Image, as a query.** She switches to `IMAGE` and drops in her look reference. `query.image.analysis_status` goes `pending`. (In `v0.1` it goes to `mocked` — the upload surface ships before real analysis, and the state machine says so honestly rather than faking a spinner.) With the analyser on, the still returns proposals: `composition.rule_of_thirds` 0.88, `composition.leading_lines` 0.74, `framing.medium_shot` 0.81, `lens.35mm_like` 0.55, `weather.wet_ground` 0.66. Every one is a **proposal**: greyed until accepted, each with an `alternatives` menu. She accepts three — `composition.rule_of_thirds`, `composition.leading_lines`, `framing.medium_shot` — rejects the lens guess, leaves the wet-ground proposal sitting in the tray undecided, and locks `composition.rule_of_thirds`. A proposal that is neither accepted nor rejected stays in the tray and never reaches the intent.
 
 Note what did *not* happen: the analyser did not overwrite her `camera_angle.low_angle`, and did not touch her two text chips. Analysis adds; the user decides.
 
-**T4 — Decompose a result.** The image query returns similar references. One card is close. She opens the detail panel and sees the reference decomposed into its eight EXTRACT groups with per-attribute confidence. She clicks **EXTRACT → composition** and **EXTRACT → lighting**. The UI expands the groups (`lighting` → `[lighting, time]`) and writes a `MixEntry`:
+**T4 — Decompose a result.** The image query returns similar references. One card is close. She opens the detail panel and sees the reference decomposed into its eight EXTRACT groups with per-attribute confidence. She clicks **EXTRACT → composition** and **EXTRACT → lighting**, then opens the attributes tab and takes the anchor's `lens` on its own — the one optical claim in this session is a value she lifted from a reference by hand, not a guess she accepted. The UI expands the groups (`lighting` → `[lighting, time]`) and writes a `MixEntry`:
 
 ```json
 { "reference_id": "img_wikimedia_commons_9f2ab41c",
-  "use": ["composition","lighting","time"], "priority": 10, "pinned": true,
+  "use": ["composition","lighting","time","lens"], "priority": 10, "pinned": true,
   "role": "look anchor" }
 ```
 
@@ -298,7 +298,7 @@ The reference is added to `pinned_reference_ids` at the same moment (INV-EXP-4):
 
 **T5 — The second reference.** She switches back to `IMAGE`, drops her outfit photo, and this time uses **EXTRACT → clothing** only. She does not want the model, the location, or the framing — only the garments. The card contributes `clothing.hoodie`, `clothing.cargo_pants`, `clothing.chunky_sneakers`, `clothing.beanie`. She dislikes the beanie and clicks the × on that one chip; the UI writes `exclude: ["clothing.beanie"]` into that entry rather than deleting a chip that the mix would silently re-add on the next recompute. **This is S1 solved.**
 
-**T6 — The conflict.** The outfit photo was shot from above. Its `camera_angle.high_angle` collides with the `camera_angle.low_angle` she chose in T2. Because `camera_angle` is `single_dominant` and neither value is a modifier, `applyMix` raises an `arity` conflict. The mixer panel shows a two-up: her low-angle tile on the left, marked **from you** and pre-selected; the reference's high-angle thumbnail on the right. The prompt preview shows the `camera` slot greyed with the label *"1 decision pending"*. Nothing was dropped, nothing was picked for her. She clicks her own value. The conflict becomes `status: "resolved"` with `strategy: "user"`, and `dominance.camera_angle` remembers the answer so the question is not asked again on the next edit.
+**T6 — The conflict.** The outfit photo was shot from above, and she wants that angle weighed against her own, so she pulls `camera_angle` from it too — one category, not the whole `camera` group, so the entry's `use` becomes `["clothing","camera_angle"]`. A mix entry contributes only the categories its `use` names: without that second EXTRACT there would be nothing to disagree with. Now its `camera_angle.high_angle` collides with the `camera_angle.low_angle` she chose in T2. Because `camera_angle` is `single_dominant` and neither value is a modifier, `applyMix` raises an `arity` conflict. The mixer panel shows a two-up: her low-angle tile on the left, marked **from you** and pre-selected; the reference's high-angle thumbnail on the right. The prompt preview shows the `camera` slot greyed with the label *"1 decision pending"*. Nothing was dropped, nothing was picked for her. She clicks her own value. The conflict becomes `status: "resolved"` with `strategy: "user"`. `dominance` records a *reference* per category, and the winner here is her own chip, so nothing is written to it; what persists is the resolution itself, keyed by a `cfl_` id derived from the category and the sorted values, so the answer survives every recomputation and the question is not asked again on the next edit. Had she picked the outfit photo's angle instead, `dominance.camera_angle` would have recorded that reference.
 
 **T7 — Video.** She switches to `VIDEO`, uploads her 6-second clip, and scrubs the filmstrip to the window `1.2 s → 3.4 s` — she wants *that* move, not the whole clip. The video analyser proposes `camera_motion.dolly_in` at 0.82 with `evidence.t_start_s: 1.2, t_end_s: 3.4`. She accepts it, then adds `camera_motion.pan_left` with `order: 1` for the second half: a compound move is two ordered chips, not one merged value. **This is S6 solved.** Had she uploaded a still, `camera_motion` would have been unavailable to the analyser entirely (INV-VID-1): a single frame cannot evidence camera movement, and the product does not assert what the medium cannot show.
 
@@ -308,19 +308,18 @@ The reference is added to `pinned_reference_ids` at the same moment (INV-EXP-4):
 
 ```
 a woman, hair worn loose, a hoodie, cargo trousers, chunky-soled sneakers,
-walking, in a narrow alley, on wet, reflective ground, during golden hour,
-warm low golden-hour sunlight, composed on the rule of thirds, with leading
-lines drawing the eye in, medium shot, shot from a low angle looking up at the
-subject, camera dollies in toward the subject, camera pans left across the
-scene, 35mm-like perspective, street-style fashion photograph, intimate,
-a muted colour palette
+walking, in a narrow alley, during golden hour, warm low golden-hour sunlight,
+composed on the rule of thirds, with leading lines drawing the eye in, medium
+shot, shot from a low angle looking up at the subject, camera dollies in toward
+the subject, camera pans left across the scene, 35mm-like perspective,
+street-style fashion photograph, intimate, a muted colour palette
 ```
 
-Every fragment is hoverable and traceable to its chip, its category and its reference. Deleting one contribution of one reference is one click, and it deletes exactly that fragment. Note `35mm-like perspective` — never `35mm`. The product does not assert optics it cannot know (INV-LENS-1/2), and the hedge is enforced in the taxonomy, in the intent schema and in the fragment, in all three places.
+Every fragment is hoverable and traceable to its chip, its category and its reference. Deleting one contribution of one reference is one click, and it deletes exactly that fragment. Note `35mm-like perspective` — never `35mm`. That fragment is the anchor's own attribute, taken by hand in T4; the analyser's 0.55 lens guess in T3 was rejected and left no trace. The product does not assert optics it cannot know (INV-LENS-1/2), and the hedge is enforced in the taxonomy, in the intent schema and in the fragment, in all three places.
 
 **T10 — Save the combination.** She saves a `VisualRecipe`: the intent with per-chip provenance, the mix with its resolved conflicts, and a **frozen snapshot of every contributing reference** including creator, licence and attribution text (INV-RCP-1). She has not saved a prompt string; she has saved the *combination*. Re-opening it re-derives the prompt. If the taxonomy has moved on since, the recipe shows a "regenerated" notice rather than trusting its cached text; if a `media_url` has rotted, the thumbnail degrades to a placeholder and the **recipe still produces the identical prompt**, because intent, mix and taxonomy ids are pixel-free.
 
-**T11 — Switch formatter.** She changes `prompt_mode` from `generic` to another mode. The same `StructuredPrompt` re-renders under a different formatter module. Nothing about the intent, the mix or the references changed — the formatter is a leaf, not a dependency. She also exports `visual_intent` and `reference_mix` as JSON to hand to a collaborator, which are the same four outputs the future ComfyUI node will emit.
+**T11 — Switch formatter.** She changes `prompt_mode` from `generic` to another mode. The same `StructuredPrompt` re-renders under a different formatter module. Nothing about the intent, the mix or the references changed — the formatter is a leaf, not a dependency. She also exports `visual_intent` and `reference_mix` as JSON to hand to a collaborator — two of the same four outputs (`prompt`, `structured_prompt`, `visual_intent`, `reference_mix`) the future ComfyUI node will emit.
 
 **What made this session possible**, in one line each: the modal never closed (P1); every input became the same object (P2); every card was a bag of parts (P3); she took parts, not pictures (P4); the machine surfaced the one real disagreement and asked her (P5).
 
@@ -338,7 +337,7 @@ What the north star **requires**:
 |---|---|
 | One entry point for all four input kinds | The Unified Modal; mode tabs, not pages |
 | Never lose work when the input kind changes | `query` holds all four payloads; INV-EXP-1 |
-| The picture may be the query and the *word* the answer | Browse tiles with thumbnails; `visual_hint` on every taxonomy node |
+| The picture may be the query and the *word* the answer | Browse tiles with thumbnails; `visual_hint` on every browse-reachable taxonomy node |
 | The word may be the query and the *picture* the answer | Keyword + metadata search over `aliases`/`related`, AI or no AI |
 | Never be dead-ended by vocabulary | `aliases[]` absorb colloquialisms and misspellings; unknown terms become `custom: true` chips, never errors |
 | Always be able to go back | Navigation history with `back()`/`forward()` that restores mode, query and filters — and by default does **not** overwrite the live intent (INV-EXP-3): going back to an earlier search must never delete the outfit you already collected |
@@ -500,6 +499,6 @@ The brief requires the doc set to answer nine questions (spec section 70). Short
 | [`THIRD_PARTY_REVIEW.md`](./THIRD_PARTY_REVIEW.md) | What we may and may not borrow, and from where. |
 | [`ROADMAP.md`](./ROADMAP.md) | `v0.1`–`v0.5` and the ComfyUI node. |
 | [`research/`](./research/) | Primary-source notes behind the taxonomy and the retrieval design. |
-| [`../data/taxonomy/`](../data/taxonomy/) | Nine files, twenty categories, the controlled vocabulary itself. |
+| [`../data/taxonomy/`](../data/taxonomy/) | Ten taxonomy files, twenty categories, the controlled vocabulary itself. |
 
 **Precedence, when documents disagree:** `BRIEF.md` → `DATA_SCHEMA.md` (the canonical data model) → this document → everything else.

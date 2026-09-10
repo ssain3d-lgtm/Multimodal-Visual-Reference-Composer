@@ -78,7 +78,8 @@
         "thumbnail_url": { "type": ["string", "null"], "description": "Local object URL or remote thumbnail for display only." },
         "analysis_status": { "enum": ["none", "pending", "running", "done", "error", "mocked"], "default": "none", "description": "'mocked' is a first-class v0.1 state: the upload UI ships before real analysis exists." },
         "analysis_error": { "type": ["string", "null"], "maxLength": 500 },
-        "analyzed_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" }
+        "analyzed_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+        "proposals": { "type": "array", "items": { "$ref": "#/$defs/proposal" }, "default": [], "description": "The IMAGE proposal tray. Analyzer output STAGES here and nowhere else; it reaches `intent` only through ACCEPT_PROPOSAL, and REJECT_PROPOSAL removes it from this array only." }
       }
     },
     "video_query": {
@@ -92,14 +93,27 @@
         "t_end_s": { "type": ["number", "null"], "minimum": 0, "default": null },
         "analysis_status": { "enum": ["none", "pending", "running", "done", "error", "mocked"], "default": "none" },
         "analysis_error": { "type": ["string", "null"], "maxLength": 500 },
-        "analyzed_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" }
+        "analyzed_at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
+        "proposals": { "type": "array", "items": { "$ref": "#/$defs/proposal" }, "default": [], "description": "The VIDEO proposal tray. Same staging rule as the still tray; these chips additionally carry `evidence.t_start_s`/`t_end_s`, so a camera_motion proposal points at the window it was read from." }
+      }
+    },
+    "proposal": {
+      "type": "object", "additionalProperties": false,
+      "required": ["category", "chip"],
+      "description": "One staged analyzer output. 'AI output is a proposal, never a commitment' is structural here: a proposal is a fully formed IntentChip that is NOT part of `intent` yet, held together with the category it would land in because a chip does not name its own category. A proposal's `chip.id` is mandatory - it is the `chip_id` that REJECT_PROPOSAL addresses - and `chip.alternatives` supplies the swap menu.",
+      "properties": {
+        "category": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category", "description": "The VisualIntent array the chip is offered for; ACCEPT_PROPOSAL adds it there via the normal ADD_CHIP path." },
+        "chip": {
+          "allOf": [ { "$ref": "https://schema.uvrc.dev/v1/visual-intent.schema.json#/$defs/intent_chip" }, { "required": ["id"] } ],
+          "description": "The proposed chip, already carrying source (analyzer_image / analyzer_video), confidence and evidence. Never written into `intent` by staging alone."
+        }
       }
     },
     "filters": {
       "type": "object", "additionalProperties": false,
       "description": "Structured retrieval filters. Persist across mode switches and are recorded in every history entry so a search is exactly replayable.",
       "properties": {
-        "license": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/license_id" }, "default": ["public_domain", "pdm", "cc0", "cc_by"], "description": "Default = the allowed-by-default set from the brief. cc_by_sa is opt-in; NC/ND/unknown/proprietary are excluded by default." },
+        "license": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/license_id" }, "default": ["public_domain", "pdm", "cc0", "cc_by", "user_owned"], "description": "Default = defaultLicenseFilter(), the allowed-by-default set of LICENSE_POLICY LP-5; user_owned is in it so the local-first path does not filter out the user's own media. cc_by_sa is opt-in; NC/ND/unknown/proprietary are excluded by default." },
         "type": { "type": "array", "uniqueItems": true, "items": { "enum": ["image", "video"] }, "default": ["image", "video"] },
         "status": { "type": "array", "uniqueItems": true, "items": { "enum": ["candidate", "approved", "rejected", "license_review"] }, "default": ["approved"], "description": "Default 'approved' only: an unverified reference never reaches a normal search result." },
         "source": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/provider_source" }, "default": [] },
@@ -130,13 +144,13 @@
               "score": { "type": "number", "description": "Fused score. Comparable only within one result set." },
               "score_breakdown": {
                 "type": "object", "additionalProperties": false,
-                "description": "Per-signal contributions, kept so ranking is explainable and so the 60/40 fusion default can be tuned visibly.",
+                "description": "Per-signal contributions, kept so ranking is explainable and so the 60/40 fusion default can be tuned visibly. Values are the NORMALIZED, PRE-WEIGHT ones. `null` means the signal did not exist for this item ('no embedding for this reference'), which is distinct from 0 ('it existed and scored zero') - the UI must render the two differently, and per-item weight renormalization keys off exactly that distinction.",
                 "properties": {
-                  "semantic": { "type": "number" },
-                  "metadata": { "type": "number" },
-                  "rerank": { "type": "number" },
-                  "keyword": { "type": "number" },
-                  "recency": { "type": "number" }
+                  "semantic": { "type": ["number", "null"] },
+                  "metadata": { "type": ["number", "null"] },
+                  "rerank": { "type": ["number", "null"] },
+                  "keyword": { "type": ["number", "null"] },
+                  "recency": { "type": ["number", "null"] }
                 }
               },
               "matched_categories": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category" }, "default": [], "description": "Which categories actually matched. Drives the 'why did this come back' badges and the KEEP/CHANGE readout." },
@@ -176,7 +190,7 @@
     "history_entry": {
       "type": "object", "additionalProperties": false,
       "required": ["mode", "query", "intent_snapshot", "filters", "origin"],
-      "description": "A fully REPLAYABLE navigation step: replay(entry) = set mode, query and filters, then re-run retrieval with intent_snapshot. Nothing outside the entry is needed.",
+      "description": "A fully REPLAYABLE navigation step: replay(entry) = set mode, query and filters, then re-run retrieval with intent_snapshot and difference_snapshot. Nothing outside the entry is needed.",
       "properties": {
         "id": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/history_entry_id" },
         "at": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/iso_datetime" },
@@ -192,12 +206,13 @@
         "origin_categories": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category" }, "default": [], "description": "Which categories the EXPLORE/EXTRACT action targeted ('same lighting', 'same pose')." },
         "label": { "type": "string", "maxLength": 200, "description": "Human breadcrumb text." },
         "result_ref_ids": { "type": "array", "items": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id" }, "default": [], "description": "Optional cache of the result ids so back() can render instantly before re-running retrieval." },
-        "ranking_snapshot": { "type": "object", "description": "Optional copy of results.ranking so a replay reproduces the exact ordering." }
+        "ranking_snapshot": { "type": "object", "description": "Optional copy of results.ranking so a replay reproduces the exact ordering. Open on purpose: a run using non-default fusion-ranker tuning constants records the effective {...ranking, ...tuning} pair here, and it is the one place a replay reads them back from." },
+        "difference_snapshot": { "$ref": "#/$defs/difference", "description": "The Search by Difference state that was in force for THIS retrieval, recorded by every step whose origin is search_by_difference, reference_explore or reference_use, because difference.keep is a hard pool filter and so is a retrieval input like intent. Read by replay() as an input only and NEVER written back into state.difference: INV-EXP-3 keeps difference a document-tier value that back/forward must not touch." }
       }
     },
     "difference": {
       "type": "object", "additionalProperties": false,
-      "description": "Search by Difference (v0.5, the key differentiator). The user marks which categories must stay the same and which must change: 'keep composition + lighting + camera, change clothing' finds the same framing/lighting/camera with a different outfit.\n\nINV-EXP-5 (code-enforced, not expressible in JSON Schema): keep and change MUST be disjoint. A category in neither set is simply unconstrained.\nQuery construction: KEEP categories become hard structured filters pinned to the anchor's values; CHANGE categories become negative filters against the anchor's values plus a diversity boost; unlisted categories are free.",
+      "description": "Search by Difference (v0.5, the key differentiator). The user marks which categories must stay the same and which must change: 'keep composition + lighting + camera, change clothing' finds the same framing/lighting/camera with a different outfit.\n\nINV-EXP-5 (code-enforced, not expressible in JSON Schema): keep and change MUST be disjoint. A category in neither set is simply unconstrained.\nQuery construction: KEEP categories become hard structured filters pinned to the anchor's values; CHANGE categories become a soft overlap penalty against the anchor's values (lambda = tuning.change_lambda, default 0.7) plus a hard requirement that the category be present at all (filters.require_categories) plus a diversity boost on the CHANGE axis, and NEVER a filter on values (SEARCH_ARCHITECTURE.md 7.4 and D9; INV-SRCH-3 - a filter is never implemented as a penalty, nor a penalty as a filter); unlisted categories are free.",
       "properties": {
         "enabled": { "type": "boolean", "default": false },
         "anchor_reference_id": { "oneOf": [ { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/reference_id" }, { "type": "null" } ], "default": null, "description": "The reference the difference is measured against. Null means the live intent is the anchor." },

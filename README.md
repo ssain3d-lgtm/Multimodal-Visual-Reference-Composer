@@ -75,17 +75,17 @@ Two more commitments that are not pillars but are equally non-negotiable:
 
 | Area | State | Detail |
 |---|---|---|
-| Canonical data model | **Done** | 7 JSON Schemas (draft 2020-12), all meta-valid and cross-referenced; 37 numbered invariants; a 57-case instance matrix passes. |
+| Canonical data model | **Done** | 7 JSON Schemas (draft 2020-12), all meta-valid and cross-referenced; 37 numbered invariants; a 57-case design-time instance matrix passes — it is not yet in `tests/`, [T-68](docs/MVP_V0.1_TASKS.md) ports it there. |
 | Taxonomy data | **Done (v1 seed)** | 740 nodes across 10 files covering all 20 categories, with `aliases`, `related`, `parent`, `prompt_fragment`, `exclusivity_group`. |
-| Taxonomy integrity checker | **Done** | `node tests/validate-taxonomy.mjs` — passes; enforces id grammar, namespace agreement, the lens rule, `camera_motion` media scope, parent cycles, alias collisions. |
-| Design documentation | **Done** | 10 design documents + 8 research dossiers, ~16k lines. All nine brief questions answered in [docs/DESIGN_QUESTIONS.md](docs/DESIGN_QUESTIONS.md). |
+| Repository checkers | **Done** | Three, all passing. `validate-taxonomy.mjs` enforces id grammar, namespace agreement, referential integrity, parent cycles, conflict symmetry, the lens `_like` rule, duplicate `label`/`prompt_fragment`, the brief's worked examples and the 20-category closure. `validate-docs.mjs` catches dead links, dead anchors, taxonomy ids cited in prose that do not exist, and a missing brief-mandated document. `validate-schemas.mjs` checks `$ref` resolution, ECMA-262 patterns, duplicate `$id` and unreachable `$defs`. |
+| Design documentation | **Done** | 11 design documents + 8 research dossiers, ~16k lines. All nine brief questions answered in [docs/DESIGN_QUESTIONS.md](docs/DESIGN_QUESTIONS.md). |
 | `src/**` runtime modules | **Not written** | Directories exist and are empty. Public API signatures are fixed in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). |
 | `app/index.html` | **Not written** | The v0.1 shell (Text + Browse modes, cards, mixer, composer) is specified in [docs/UNIFIED_MODAL_STATE.md](docs/UNIFIED_MODAL_STATE.md). |
 | `data/presets.json`, `data/references.json` | **Not written** | Seed content lands with v0.1. |
 | Live providers (Openverse, Wikimedia) | **Not written** | v0.2. Provider port is `search / getMetadata / getPreview`. |
 | Image analysis, embeddings, video analysis | **Not written** | v0.2 / v0.3 / v0.4. v0.1 ships the upload UI with `analysis_status: "mocked"` as a first-class state. |
 
-Honest summary: **nothing in `src/` or `app/` runs yet.** What exists today is a complete, validated specification plus the taxonomy the whole product indexes against. The one executable artefact is the taxonomy checker. See [docs/ROADMAP.md](docs/ROADMAP.md) for what unblocks what and for the promotion gate the web MVP must pass before a ComfyUI node is written.
+Honest summary: **nothing in `src/` or `app/` runs yet.** What exists today is a complete, validated specification plus the taxonomy the whole product indexes against. The only executable artefacts are the three checkers in `tests/`. See [docs/ROADMAP.md](docs/ROADMAP.md) for what unblocks what and for the promotion gate the web MVP must pass before a ComfyUI node is written.
 
 ---
 
@@ -103,10 +103,12 @@ http://localhost:8000/app/index.html
 
 **An HTTP server is required.** ES modules are fetched under CORS rules, so opening `app/index.html` directly as a `file://` URL fails to load `src/**` and `data/**`. Any static server works (`python3 -m http.server`, `npx serve`, `php -S`); serve from the **repository root**, not from `app/`, because the app reads `../data/taxonomy/*.json`.
 
-Until `app/index.html` lands, the only thing to run is the taxonomy checker:
+Until `app/index.html` lands, the only things to run are the three checkers. Each exits non-zero on any broken invariant:
 
 ```bash
-node tests/validate-taxonomy.mjs      # exits non-zero on any broken invariant
+node tests/validate-taxonomy.mjs      # data/taxonomy/*.json  — ids, references, hierarchy, lens rule
+node tests/validate-docs.mjs          # docs/**/*.md          — dead links, dead anchors, ghost ids
+node tests/validate-schemas.mjs       # docs/schemas/*.json   — $ref resolution, patterns, dead $defs
 ```
 
 Node.js is used for tests and tooling only. It is never required to *serve* the app.
@@ -142,7 +144,9 @@ Multimodal-Visual-Reference-Composer/
 │  └─ references.json            ○
 ├─ docs/                         ✓ design documents, research dossiers, JSON Schemas
 ├─ tests/
-│  └─ validate-taxonomy.mjs      ✓ taxonomy integrity checker
+│  ├─ validate-taxonomy.mjs      ✓ taxonomy integrity checker
+│  ├─ validate-docs.mjs          ✓ documentation integrity checker
+│  └─ validate-schemas.mjs       ✓ JSON Schema integrity checker
 ├─ LICENSE                       ✓ MIT (code only)
 ├─ THIRD_PARTY_NOTICES.md        ✓
 └─ README.md                     ✓ this file
@@ -167,6 +171,7 @@ The dependency rule is one line and is enforced by review: **UI → (Search | Pr
 | [docs/LICENSE_POLICY.md](docs/LICENSE_POLICY.md) | Which media may enter, the four-stage License Guard, attribution rendering, forbidden sources, remediation. |
 | [docs/THIRD_PARTY_REVIEW.md](docs/THIRD_PARTY_REVIEW.md) | Provenance record: every external project examined, its licence, what was taken (concepts only), what was left behind. |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | v0.1 → v0.5, the dependency graph, the ComfyUI promotion gate, the risk register. |
+| [docs/MVP_V0.1_TASKS.md](docs/MVP_V0.1_TASKS.md) | The v0.1 build plan: 72 numbered tasks with file paths, dependencies and acceptance criteria, the wave order, what is out of scope, the definition of done and the manual QA script. |
 | [docs/DESIGN_QUESTIONS.md](docs/DESIGN_QUESTIONS.md) | The brief's nine required questions, each answered against an actual field, invariant or module boundary. |
 
 ### JSON Schemas — `docs/schemas/` (draft 2020-12)
@@ -236,7 +241,7 @@ This is engineering policy, not legal advice.
 2. **The canonical data model wins.** Field names, enum members, category keys and id prefixes come from [docs/DATA_SCHEMA.md](docs/DATA_SCHEMA.md) and `docs/schemas/`. Do not invent a synonym for an existing name.
 3. **Respect the dependency rule.** Core imports nothing. Search and Prompt never import each other. UI never reaches past its layer. No module imports a concrete AI backend.
 4. **Never break an invariant silently.** The `INV-*` ids in the docs are the contract. If a change requires relaxing one, change the doc in the same commit and say why.
-5. **Taxonomy changes must pass the checker.** Run `node tests/validate-taxonomy.mjs` before committing anything under `data/taxonomy/`. New ids are exactly two dotted segments — hierarchy lives in `parent`, never in the id, so re-parenting never invalidates a stored intent.
+5. **Taxonomy changes must pass the checkers.** Run `node tests/validate-taxonomy.mjs` and `node tests/validate-docs.mjs` before committing anything under `data/taxonomy/` — the second one catches ids the docs still cite after a rename. Run `node tests/validate-schemas.mjs` after touching `docs/schemas/`. New ids are exactly two dotted segments — hierarchy lives in `parent`, never in the id, so re-parenting never invalidates a stored intent.
 6. **Never commit media binaries** or references with an unverified licence.
 7. **Schema changes are versioned.** MAJOR = breaking; MINOR = additive only. Readers must ignore unknown properties from a higher MINOR.
 

@@ -35,7 +35,7 @@ Sibling context: [`PRODUCT_VISION.md`](./PRODUCT_VISION.md) (why the structures 
 | [`schemas/reference.schema.json`](./schemas/reference.schema.json) | `…/v1/reference.schema.json` | `Reference`, `ReferenceMetadata`, `EmbeddingRecord`, `ReferenceSnapshot` |
 | [`schemas/reference-mix.schema.json`](./schemas/reference-mix.schema.json) | `…/v1/reference-mix.schema.json` | `ReferenceMix`, `MixEntry`, `Conflict`, `Resolution` |
 | [`schemas/structured-prompt.schema.json`](./schemas/structured-prompt.schema.json) | `…/v1/structured-prompt.schema.json` | `StructuredPrompt`, `PromptFragment`, `ConstraintFragment`, `BlockedSlot` |
-| [`schemas/explorer-state.schema.json`](./schemas/explorer-state.schema.json) | `…/v1/explorer-state.schema.json` | `ExplorerState`, `Query`, `Filters`, `ResultSet`, `History`, `Difference` |
+| [`schemas/explorer-state.schema.json`](./schemas/explorer-state.schema.json) | `…/v1/explorer-state.schema.json` | `ExplorerState`, `Query`, `Proposal`, `Filters`, `ResultSet`, `History`, `Difference` |
 | [`schemas/visual-recipe.schema.json`](./schemas/visual-recipe.schema.json) | `…/v1/visual-recipe.schema.json` | `VisualRecipe` |
 
 All seven are JSON Schema **draft 2020-12** and pass `Draft202012Validator.check_schema`. `$id`s are identifiers, **not network locations** — nothing resolves them over HTTP; the validator is handed the seven documents from disk. `taxonomy-node.schema.json` has zero outgoing `$ref`s, so it always resolves first; every other file `$ref`s into it.
@@ -50,10 +50,12 @@ All seven are JSON Schema **draft 2020-12** and pass `Draft202012Validator.check
           ┌───────────────────────┘  │  │  │  │  └────────────────────────┐
           │            ┌─────────────┘  │  │  └──────────┐                │
   visual-intent   reference      reference-mix   structured-prompt   visual-recipe
-          ▲            ▲                ▲                ▲                ▲
-          └────────────┴────── explorer-state ───────────┘                │
-          └──────────────────── visual-recipe ───────────────────────────┘
+          ▲            ▲                ▲                ▲
+          └────────────┴────────────────┴────────────────┘   visual-recipe
+          └─────────────────────────────┴────────────────┘   explorer-state
 ```
+
+The two bottom rows are the container schemas and what each embeds: `visual-recipe` embeds all four, `explorer-state` all but `reference` — a session stores reference **ids**, and only a recipe freezes `ReferenceSnapshot`s (§15.2). Nothing `$ref`s `visual-recipe`.
 
 ---
 
@@ -180,6 +182,8 @@ scene     lighting     composition  style  motion    constraints
 > **CRITICAL SEMANTICS: arity is a CONFLICT-DETECTION rule, not a cardinality constraint.**
 > No schema sets `maxItems` on a `single_dominant` category (**INV-MIX-4**). A conflicting state must be **representable** in order to be **surfaced**. A schema that rejected two camera angles would force the code to drop one silently — exactly what the brief forbids.
 
+### 3.1 Arity per category
+
 | Category | Arity | Why |
 |---|---|---|
 | `framing` | **single_dominant** | A shot is one shot type. Close-up and wide shot are mutually exclusive framings. |
@@ -192,12 +196,12 @@ scene     lighting     composition  style  motion    constraints
 | `subject` | multi | Several subjects coexist. |
 | `appearance` | multi | Hair, build, age register, skin — all coexist. |
 | `action` | multi | "leaning on a railing, looking back" is one shot. |
-| `motion` | multi | `motion.hair_movement` + `motion.walking` coexist; `walking` vs `running` do not — handled by `exclusivity_group` (`locomotion`, `speed`). |
-| `camera_motion` | multi | **Compound moves are real and are the point** ("dolly in while panning left"). Exclusivity is expressed by `camera_motion.static` declaring `conflicts_with` every other node, not by arity. |
+| `motion` | multi | `motion.hair_movement` + `motion.motion_blur` coexist; `motion.slow` vs `motion.fast` do not — handled by `exclusivity_group`. `speed` is the only group still operative here: the activity itself moved to `action`, where `locomotion` has its live members, and `motion.falling` is the single live `locomotion` node left in `motion` — one member can never trip §3.3's "≥2 distinct values", so the group is inert inside this category. |
+| `camera_motion` | multi | **Compound moves are real and are the point** ("dolly in while panning left"). Exclusivity is expressed two ways, neither of them arity: `camera_motion.static` declares `conflicts_with` every other node, and opposite directions on one axis share an `exclusivity_group` — `camera_move_pan_axis`, `camera_move_tilt_axis`, `camera_move_dolly_axis`, `camera_move_zoom_axis`, `camera_move_truck_axis`, `camera_move_pedestal_axis`, `camera_move_speed`. The groups are the only thing that catches "pan left + pan right". |
 | `clothing` | multi | The canonical multi-valued category. Groups per garment slot: `garment_top`, `garment_bottom`, `garment_outer`, `garment_full_body`, `footwear`, `headwear`. Cross-group incompatibility (a dress vs a top + trousers) uses `conflicts_with`. |
 | `scene` | multi | "rooftop" + "city skyline" + "wet asphalt" is legitimate. Groups: `interiority`, `location`. |
-| `lighting` | multi | backlit + golden hour + rim coexist; `high_key` vs `low_key` do not. Groups: `key_level`, `light_direction`. |
-| `composition` | multi | `leading_lines` + `negative_space` coexist; `rule_of_thirds` vs `centered` do not. Group: `frame_geometry`. |
+| `lighting` | multi | backlit + golden hour + rim coexist; `high_key` vs `low_key` do not. Groups: `key_level`, `light_direction`, `light_quality`, `portrait_pattern`, `color_temperature`. |
+| `composition` | multi | `leading_lines` + `negative_space` coexist; `rule_of_thirds` vs `centered` do not. Groups: `frame_geometry`, `horizon_placement`, `subject_density`, `symmetry_mode`. |
 | `color` | multi | A palette is several values. |
 | `mood` | multi | Emotional registers layer. |
 | `style` | multi | Aesthetic references layer. |
@@ -213,8 +217,8 @@ Every `TaxonomyNode` declares `exclusivity_group: string | null`. This one field
               category arity = single_dominant        category arity = multi
             ┌──────────────────────────────────┐   ┌──────────────────────────────┐
  group=null │ MODIFIER — never conflicts       │   │ free value — never conflicts │
-            │ camera_angle.dutch_tilt          │   │ lighting.rim_lighting           │
-            │ pose.arms_crossed, weather.fog   │   │ scene.wet_asphalt            │
+            │ camera_angle.dutch_tilt          │   │ lighting.rim_lighting        │
+            │ pose.arms_crossed, weather.fog   │   │ scene.graffiti_wall          │
             ├──────────────────────────────────┤   ├──────────────────────────────┤
  group set  │ DOMINANT — 2 distinct values     │   │ 2 distinct values sharing the│
             │ from 2 refs ⇒ kind:"arity"       │   │ group ⇒ kind:"exclusivity_   │
@@ -230,6 +234,8 @@ Every `TaxonomyNode` declares `exclusivity_group: string | null`. This one field
 | `arity` | single_dominant category, ≥2 **distinct non-modifier** values from ≥2 distinct sources | absent |
 | `exclusivity_group` | multi category, ≥2 distinct values sharing one non-null `exclusivity_group` | **required** |
 | `explicit` | the taxonomy declares `conflicts_with` between the two ids (may cross categories) | absent |
+
+**`exclusivity_group` is scoped to one category — deliberately.** `Conflict.category` is "the one category both values live in" (§11.4), so a group shared across two categories raises nothing: `action.walking` from reference A and `motion.falling` from reference B both carry `locomotion`, and both emit. Widening the rule would make the group a global namespace, and a taxonomy editor adding a group name to a second category would silently start blocking prompts in the first. `explicit` is the mechanism for a cross-category exclusion, and it is the one to reach for if that pair ever needs catching.
 
 ---
 
@@ -277,7 +283,7 @@ Every `TaxonomyNode` declares `exclusivity_group: string | null`. This one field
  (negate:true, any category) ──────────► constraints      (no source category)
 ```
 
-Eight slots are 1:1. Five slots take fan-in.
+Seven slots are 1:1. Five slots take fan-in. `constraints` has no source category.
 
 ### 4.1 Emit order inside a multi-source slot
 
@@ -338,7 +344,7 @@ These cover 17 of 20 categories. **`subject`, `appearance` and `action` are deli
 | `hst_` | history entry | |
 | `chip_` | `IntentChip` instance | optional; required in practice for undo/redo and conflict addressing |
 | `cfl_` | `Conflict` record | **deterministic**, see §11.4 |
-| `pst_` | preset in `data/presets.json` | |
+| `pst_` | preset in `data/presets.json` | shape in §7.8 |
 | `upl_` | local upload handle | an `upl_` handle **never** implies bytes left the device |
 | *(none)* | `TaxonomyNode` | dotted namespace, §5.2 |
 
@@ -516,7 +522,15 @@ ctx = { taxonomy, default_source = "user", default_ref_id = null, now, locale, k
 3. An object element is filled in: label from taxonomy; confidence default as (2);
    locked=false, custom=false where absent.
 4. Deprecated ids are rewritten to replaced_by; each {from,to} is appended to the rewrites log.
+   A rewrite MAY LEAVE THE CATEGORY -- 10 of the 11 shipped deprecations do (motion.walking ->
+   action.walking, motion.standing -> pose.standing) -- so a rewritten value whose namespace no
+   longer matches its host array is MOVED into the array that namespace names, and the log entry
+   carries {from, to, from_category, to_category}. Rewriting in place would leave an action.* value
+   inside motion[] and break INV-INT-2.
 5. Any props.* value found outside `scene` is MOVED into `scene` with origin_category="props".
+   `props` is the one namespace that legitimately lives in another array; (4) is the general case
+   of the same move. Both run before (6), so a relocated value meeting an identical value already
+   in the destination array is AGREEMENT, not conflict.
 6. Deduplicate by (target_array, value): keep max confidence, union contributors[],
    OR the locked flags, keep the earliest created_at.
    >>> DUPLICATES ARE AGREEMENT, NEVER CONFLICT. <<<
@@ -566,7 +580,7 @@ Values are `*_like`; labels and prompt fragments render the hedge.
 |---|---|---|
 | `VisualIntent.lens`, `VisualIntentCompact.lens` | a value matching `[0-9]+mm` MUST end `_like`. `lens.35mm` is **invalid**; `lens.35mm_like` is valid. | INV-LENS-1 |
 | `TaxonomyNode` with `category == "lens"` | `prompt_fragment` MUST match `(-like\|like a\|likeness\|reminiscent\|approximat\|similar to)`; an id containing `[0-9]+mm` MUST end `_like`. | INV-LENS-1/2 |
-| `StructuredPrompt.lens` | every `PromptFragment` MUST have `hedged: true`. | INV-LENS-2 |
+| `StructuredPrompt.lens` | every `PromptFragment` MUST have `hedged: true`. **(code)** — the slot's schema description states it; `buildStructuredPrompt` enforces it. | INV-LENS-2 |
 
 Effect-only lens nodes (`lens.shallow_depth_of_field`, `lens.bokeh_heavy`, `lens.anamorphic_flare`) name no focal length and need no `_like` suffix, but their fragments still may not read as EXIF claims.
 
@@ -598,9 +612,9 @@ This same epistemic stance — *never assert what the medium cannot evidence* �
       "confidence": 0.61 }
   ],
   "pose": [
+    { "value": "pose.arms_crossed", "label": "arms crossed", "source": "user", "confidence": 1.0 },
     { "value": "pose.contrapposto", "label": "contrapposto stance", "source": "reference",
-      "ref_id": "img_wikimedia_commons_9f2ab41c", "confidence": 0.72 },
-    { "value": "pose.arms_crossed", "label": "arms crossed", "source": "user", "confidence": 1.0 }
+      "ref_id": "img_wikimedia_commons_9f2ab41c", "confidence": 0.72 }
   ],
   "action": [],
   "motion": [],
@@ -629,7 +643,10 @@ This same epistemic stance — *never assert what the medium cannot evidence* �
     { "value": "color.muted", "label": "muted teal palette", "source": "analyzer_image",
       "confidence": 0.64 }
   ],
-  "mood": [],
+  "mood": [
+    { "value": "mood.calm", "label": "quiet and intimate", "source": "analyzer_image",
+      "confidence": 0.58 }
+  ],
   "style": [
     { "value": "style.fashion_editorial", "label": "editorial photography",
       "source": "preset", "confidence": 0.7 }
@@ -643,7 +660,8 @@ This same epistemic stance — *never assert what the medium cannot evidence* �
   "confidence": {
     "subject": 1.0, "framing": 0.88, "camera_angle": 0.9, "camera_distance": 0.5,
     "lens": 0.61, "pose": 1.0, "clothing": 0.9, "scene": 0.81, "lighting": 0.79,
-    "composition": 1.0, "color": 0.64, "style": 0.7, "time": 0.69, "weather": 0.55
+    "composition": 1.0, "color": 0.64, "mood": 0.58, "style": 0.7, "time": 0.69,
+    "weather": 0.55
   }
 }
 ```
@@ -663,6 +681,35 @@ Read the `confidence` map against `aggConfidence`: `pose` is `1.0` (not `0.72`) 
 | a `camera_motion` chip may NOT have `source: "analyzer_image"` | schema (INV-VID-1) |
 | a `motion` chip with `source: "analyzer_image"` ⇒ `evidence.kind: "implied"` and `confidence ≤ 0.6` | schema (INV-VID-3) |
 | `confidence` keys are `intent_category` members only (never `props`) | schema |
+
+### 7.8 `Preset` and `data/presets.json`
+
+A preset is a **named set of chips, never a prompt string** — the one-click way to put a working intent on screen with AI off, and the reason `pst_` exists in §5 and `preset` in §8.3. It is deliberately **not** a tenth object and gets no eighth schema file: a preset's payload is a `VisualIntent` in the **ingest** profile (§7.2), so `LOAD_PRESET` is `normalizeVisualIntent` with `default_source = "preset"` followed by the merge rule `ADD_CHIP` already uses — `user` and `locked` chips are never overwritten.
+
+The file gets the same treatment §13.2 gives `data/taxonomy/*.json`:
+
+```json
+{ "schema_version": "1.0", "version": 1, "updated_at": "2026-09-09T09:00:00Z",
+  "presets": [
+    { "id": "pst_rainy_alley_editorial",
+      "name": "Rainy alley editorial",
+      "description": "blue-hour street portrait, backlit, muted palette",
+      "chips": { "scene": ["scene.alley"], "weather": ["weather.rain"],
+                 "time": ["time.blue_hour"], "lighting": ["lighting.backlighting"],
+                 "color": ["color.muted"] } }
+  ] }
+```
+
+| Field | Type | Req | Meaning |
+|---|---|---|---|
+| `id` | `pst_…` | **yes** | §5 grammar |
+| `name` | string | **yes** | the button label |
+| `description` | string | no | one line of what the preset does |
+| `chips` | `visual-intent.schema.json#/$defs/ingest` | **yes** | bare taxonomy ids **or** full `IntentChip` objects, any subset of the 20 keys — the same permissive wire shape every other input surface is normalised from |
+
+`schema_version` and the `version` counter sit on the **file**, exactly as they do on a taxonomy file; an individual preset carries neither, for the reason given in §6.3(a) — it is a value object inside a versioned container. Conformance is therefore checkable without a new schema: the file root against these four fields, each `chips` object against `#/$defs/ingest`.
+
+**Why `chips` and never `text`.** A preset that could carry a prompt string would make the product a prompt gallery, which the brief forbids outright. Chips go through the same normalisation, the same conflict detection and the same composer as anything else the user assembles, so a loaded preset is editable rather than a black box — and it works with `ai.enabled == false`, which is what makes presets part of the AI-free product (INV-AI-1).
 
 ---
 
@@ -721,7 +768,7 @@ Required: `value`, `source`.
 | `analyzer_video` | video analyzer | the **only** source allowed to author `camera_motion`; the only one that may carry a timespan |
 | `analyzer_text` | parsing/expanding free text into taxonomy ids | |
 | `reference` | inherited from a `Reference.visual_attributes` via a mix | `ref_id` required |
-| `preset` | from `data/presets.json` | |
+| `preset` | from `data/presets.json` | the preset record and file shape are §7.8 |
 | `query_expansion` | added by an alias/`related` hop | always low confidence, one-click removable |
 | `recipe` | restored from a `VisualRecipe` | |
 | `mix_resolution` | materialised by a human resolving a conflict | `ref_id` = the winner |
@@ -893,7 +940,7 @@ This is the brief's "do NOT store media binaries in the repo" turned from a poli
     "source_url": "https://commons.wikimedia.org/wiki/File:Rainy_alley_blue_hour.jpg",
     "media_url": "https://upload.wikimedia.org/.../Rainy_alley_blue_hour.jpg",
     "thumbnail_url": "https://upload.wikimedia.org/.../320px-Rainy_alley_blue_hour.jpg",
-    "attribution": "Rainy alley at blue hour by A. Photographer, CC BY 4.0, via Wikimedia Commons",
+    "attribution": "“Rainy alley at blue hour” by A. Photographer — Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Rainy_alley_blue_hour.jpg) — CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
     "retrieved_at": "2026-09-09T10:14:00Z",
     "license_policy_class": "allowed",
     "requires_attribution": true,
@@ -927,7 +974,7 @@ This is the brief's "do NOT store media binaries in the repo" turned from a poli
 | **INV-VID-4** `type: "video"` with a `media` block ⇒ `duration_s` **required** (so timespan evidence is checkable) | schema |
 | **INV-LIC-1** `status: "approved"` ⇒ non-empty `metadata.attribution` and `license ∉ {unknown, proprietary}` | schema |
 | **INV-LIC-2** `status: "approved"` with `license ∈ {cc_by, cc_by_sa}` ⇒ non-empty `creator` **and** `license_url` | schema |
-| **INV-LIC-3** `approved` also requires `license_check.status == "pass"` and `source_validation.status == "pass"` | **code** |
+| **INV-LIC-3** `approved` also requires `license_check.status`, `source_validation.status` **and** `attribution_metadata.status` all `== "pass"` — the brief's three stages before approval | **code** |
 | `creator` may be `null` only for `public_domain` / `pdm` / `cc0` / `user_owned` | schema |
 
 **Unverified licence can never reach `approved`** — the brief's words, made checkable. The default search filter is `status: ["approved"]`, so an unverified reference never reaches a normal result set in the first place.
@@ -989,7 +1036,7 @@ A public-domain Wikimedia record — the case that exercises the nullable `creat
   "source_url": "https://commons.wikimedia.org/wiki/File:Alley_1904_glass_plate.jpg",
   "media_url": "https://upload.wikimedia.org/.../Alley_1904_glass_plate.jpg",
   "thumbnail_url": "https://upload.wikimedia.org/.../320px-Alley_1904_glass_plate.jpg",
-  "attribution": "Alley, 1904 (glass plate) — public domain, via Wikimedia Commons",
+  "attribution": "“Alley, 1904” — Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Alley_1904_glass_plate.jpg) — Public domain (https://creativecommons.org/publicdomain/mark/1.0/)",
   "credit_line": "Unknown photographer, 1904. Public domain.",
   "retrieved_at": "2026-09-09T10:12:00Z",
   "title": "Alley, 1904",
@@ -1098,7 +1145,7 @@ Required: `category`, `candidates` (minItems 2).
 | `resolution` | `Resolution` | **required when `status == "resolved"`** (INV-MIX-3) |
 | `detected_at` | ISO datetime | |
 
-`Resolution` = `{winner_reference_id?, winner_value, strategy: user|priority|weight|first|last|keep_both, disposition: winner_only|keep_all, resolved_by, resolved_at, note}`. `winner_value` is required unless `strategy == "keep_both"`. **`user` is the only strategy reachable while `auto_resolve == false`** — i.e. the only one reachable by default.
+`Resolution` = `{winner_reference_id?, winner_value, strategy: user|priority|weight|first|last|keep_both, disposition: winner_only|keep_all, resolved_by, resolved_at, note}`. `winner_value` is required unless `strategy == "keep_both"`. **`user` and `keep_both` are the only strategies reachable while `auto_resolve == false`** — i.e. the only two reachable by default. Both are human decisions: `keep_both` sets `status: "ignored"` with `disposition: "keep_all"`, which is why the conflict card can offer it as a button ([`UNIFIED_MODAL_STATE.md`](./UNIFIED_MODAL_STATE.md) §7.5). `priority`, `weight`, `first` and `last` require the explicit automation opt-in.
 
 **Why the conflict id is deterministic.** A conflict is recomputed on every load and after every edit (§6.4). If ids were random, a user's resolution would be orphaned by the next recomputation and the UI would re-ask a question already answered. Hashing the *content* of the disagreement means the same disagreement always gets the same id, so `status: "resolved"` sticks.
 
@@ -1151,6 +1198,10 @@ Pure and deterministic: the same inputs produce the same intent and the same con
                   │
                   ▼
         a human picks  ──►  Resolution{strategy:"user"}  ──►  chip source becomes "mix_resolution"
+                  │
+                  └─ or a human keeps both  ──►  Resolution{strategy:"keep_both",
+                       disposition:"keep_all"}  ──►  conflict status "ignored";
+                       both values stay and both emit
 ```
 
 `auto_resolve` defaults to `false`; `on_unresolved` defaults to `"block"`. `"highest_priority"` and `"drop"` are explicit user opt-ins and **MUST be visibly indicated in the UI**. This is the brief's "detected and surfaced, never auto-resolved and never silently dropped", expressed as defaults rather than as a comment.
@@ -1167,7 +1218,7 @@ Pure and deterministic: the same inputs produce the same intent and the same con
       "use": ["composition", "framing", "camera_angle", "lighting"],
       "priority": 10, "pinned": true, "role": "composition anchor" },
     { "reference_id": "img_openverse_1a2b3c4d",
-      "use": ["clothing"],
+      "use": ["clothing", "camera_angle"],
       "exclude": ["clothing.beanie"], "role": "outfit" }
   ],
   "dominance": { "framing": "img_wikimedia_commons_9f2ab41c" },
@@ -1187,6 +1238,8 @@ Pure and deterministic: the same inputs produce the same intent and the same con
   ]
 }
 ```
+
+The second entry names `camera_angle` as well as `clothing` — the user pulled the outfit *and* the camera from that card — and that is precisely why there is something to disagree about. A mix entry contributes **only** what its `use` names (§11.5 steps 3–4), so a conflict can only arise in a category that two entries both name; `use: ["clothing"]` alone would make the `camera_angle` conflict below unreproducible, and `conflicts` is a derived cache that `applyMix` recomputes on every load (§11.2, §6.4).
 
 Note what is **not** here: the higher-priority entry did not win. `priority: 10` is recorded on the candidate for the UI to display, and it would decide the outcome only if a human opted into `on_unresolved: "highest_priority"`.
 
@@ -1236,7 +1289,7 @@ File: [`schemas/structured-prompt.schema.json`](./schemas/structured-prompt.sche
 
 | Field | Type | Req | Meaning |
 |---|---|---|---|
-| `text` | string | **yes** | the exact words the formatter will emit |
+| `text` | string | **yes** | the **mode-neutral** words to emit — what the formatter emits verbatim unless the target mode overrides them through `model_hints` (§12.3) |
 | `source_category` | `visual_category` | no | which category produced it — drives emit order and the "why is this here?" tooltip |
 | `value` | `taxonomy_id` | no | the chip's value |
 | `ref_id` | `reference_id` | no | which reference contributed it |
@@ -1244,7 +1297,7 @@ File: [`schemas/structured-prompt.schema.json`](./schemas/structured-prompt.sche
 | `confidence` | 0..1 | no | carried through from the chip |
 | `weight` | 0..1 (`1`) | no | emphasis |
 | `order` | integer | no | |
-| `hedged` | boolean | no | true when the text is epistemically hedged. **Mandatory `true` in `lens`** (INV-LENS-2) |
+| `hedged` | boolean | no | true when the text is epistemically hedged. **Mandatory `true` in `lens`** — INV-LENS-2, **(code)** in the builder (§7.5) |
 
 `ConstraintFragment` = `{text, kind: negative|technical|aspect|quality|safety, source_category?, value?, ref_id?}`.
 
@@ -1258,16 +1311,22 @@ buildStructuredPrompt(intent, taxonomy, mix?) -> { prompt, blocked }
 1. Route every chip by CATEGORY_TO_PROMPT_SLOT (§4).
 2. OVERRIDE: any chip with negate == true routes to `constraints` regardless of category,
    emitting taxonomy[value].negative_fragment ?? ("no " + fragment), kind = "negative".
-3. Fragment text =  taxonomy[value].model_hints[mode]
-                 ?? taxonomy[value].prompt_fragment
+3. Fragment text =  taxonomy[value].prompt_fragment
                  ?? taxonomy[value].label
                  ?? humanize(value)              // a custom chip emits its label verbatim
+   MODE-NEUTRAL: no mode is in scope here. model_hints[mode] is resolved later, by
+   formatPrompt — see "Where mode enters" below.
 4. Order by PROMPT_SLOT_EMIT_ORDER, then order / confidence / value.
 5. A category with an OPEN conflict is NOT emitted while on_unresolved == "block";
    it is reported in blocked[] instead. Nothing auto-picked, nothing silently dropped.
-6. Media downgrade (INV-FMT-2): for a still-image target mode, camera_motion fragments are
-   dropped from `camera` with a warning; motion fragments survive in implied-motion phrasing.
+6. NO media downgrade here. camera_motion fragments are always routed into `camera`;
+   INV-FMT-2 is applied by formatPrompt, the only function that knows the target mode (§12.4).
 ```
+
+**Where `mode` enters — once, in `formatPrompt`.** `buildStructuredPrompt(intent, taxonomy, mix?)` takes no mode and must not acquire one, because a `StructuredPrompt` is **portable across modes**: that is what makes INV-FMT-1 — *same `StructuredPrompt` + mode + taxonomy version ⇒ byte-identical text* — a statement about the formatter instead of a tautology, and it is why the same built object can be rendered for `generic` and for a later `flux` without being rebuilt. Two consequences, both deliberate:
+
+- **`model_hints[mode]` is resolved lazily.** `formatPrompt` re-resolves each fragment through `Taxonomy.fragment(fragment.value, mode)` (`model_hints[mode] ?? prompt_fragment ?? label ?? humanize`), which is precisely why `PromptFragment.value` is carried on every fragment. A mode that defines a hint overrides the built text; a mode that does not, or an unknown mode, leaves it untouched without throwing. A `custom` fragment has no taxonomy `value` and so is emitted verbatim in every mode. **(code)** INV-LENS-2 survives this: a `model_hints` override in the `lens` slot must itself carry the hedge, since the schema patterns of §7.5 constrain `prompt_fragment` and not `model_hints`.
+- **The still-image downgrade is the formatter's** (INV-FMT-2, §12.4). The `camera_motion` fragments stay in the object; only the rendering drops them, with a warning.
 
 `BlockedSlot` = `{slot, category, reason: unresolved_conflict|missing_taxonomy|policy, conflict_id?, message?}`. The UI shows these as an **unresolved decision** — never as an error, never as a silent omission.
 
@@ -1296,32 +1355,35 @@ INV-FMT-3 is what stops a formatter from quietly becoming a second, hidden promp
 {
   "subject":     [ { "text": "a woman", "source_category": "subject", "value": "subject.adult_woman", "confidence": 1.0 } ],
   "appearance":  [],
-  "clothing":    [ { "text": "an oversized hoodie", "source_category": "clothing",
+  "clothing":    [ { "text": "a hoodie", "source_category": "clothing",
                      "value": "clothing.hoodie", "ref_id": "img_openverse_1a2b3c4d", "confidence": 0.9 },
                    { "text": "cargo trousers", "source_category": "clothing",
                      "value": "clothing.cargo_pants", "ref_id": "img_openverse_1a2b3c4d", "confidence": 0.84 } ],
-  "action":      [ { "text": "standing in contrapposto", "source_category": "pose", "value": "pose.contrapposto" },
-                   { "text": "arms crossed", "source_category": "pose", "value": "pose.arms_crossed" } ],
+  "action":      [ { "text": "arms crossed over the chest", "source_category": "pose", "value": "pose.arms_crossed" },
+                   { "text": "standing in contrapposto with the weight on one leg",
+                     "source_category": "pose", "value": "pose.contrapposto" } ],
   "framing":     [ { "text": "medium shot", "source_category": "framing", "value": "framing.medium_shot" } ],
-  "camera":      [],
+  "camera":      [ { "text": "with the camera a step or two from the subject",
+                     "source_category": "camera_distance", "value": "camera_distance.near",
+                     "confidence": 0.5 } ],
   "lens":        [ { "text": "35mm-like perspective", "source_category": "lens",
                      "value": "lens.35mm_like", "hedged": true } ],
-  "scene":       [ { "text": "a narrow alley", "source_category": "scene", "value": "scene.alley" },
+  "scene":       [ { "text": "in a narrow alley", "source_category": "scene", "value": "scene.alley" },
                    { "text": "in the rain", "source_category": "weather", "value": "weather.rain" },
-                   { "text": "holding a paper coffee cup", "source_category": "props", "value": "props.coffee_cup" } ],
-  "lighting":    [ { "text": "blue hour", "source_category": "time", "value": "time.blue_hour" },
-                   { "text": "backlit", "source_category": "lighting", "value": "lighting.backlighting" } ],
-  "composition": [ { "text": "centered composition", "source_category": "composition", "value": "composition.centered" } ],
-  "style":       [ { "text": "editorial photograph", "source_category": "style", "value": "style.fashion_editorial" },
-                   { "text": "quiet and intimate", "source_category": "mood", "value": "mood.calm" },
-                   { "text": "muted teal palette", "source_category": "color", "value": "color.muted" } ],
+                   { "text": "holding a coffee cup", "source_category": "props", "value": "props.coffee_cup" } ],
+  "lighting":    [ { "text": "during blue hour", "source_category": "time", "value": "time.blue_hour" },
+                   { "text": "backlit against the light", "source_category": "lighting", "value": "lighting.backlighting" } ],
+  "composition": [ { "text": "centred composition", "source_category": "composition", "value": "composition.centered" } ],
+  "style":       [ { "text": "fashion editorial photograph", "source_category": "style", "value": "style.fashion_editorial" },
+                   { "text": "calm", "source_category": "mood", "value": "mood.calm" },
+                   { "text": "a muted colour palette", "source_category": "color", "value": "color.muted" } ],
   "motion":      [],
   "constraints": [ { "text": "no text overlays", "kind": "negative" },
                    { "text": "3:2 aspect ratio", "kind": "aspect" } ]
 }
 ```
 
-`camera` is empty **because `camera_angle` is blocked** by the open conflict `cfl_ab12cd34ef56` from §11.7. The accompanying `blocked[]` is:
+`camera` carries **only** its `camera_distance` fragment: the `camera_angle` contribution is withheld because that **category** is blocked by the open conflict `cfl_ab12cd34ef56` from §11.7. Blocking is per category, not per slot (§12.3 step 5), so the rest of a fan-in slot still emits. The accompanying `blocked[]` is:
 
 ```json
 [ { "slot": "camera", "category": "camera_angle", "reason": "unresolved_conflict",
@@ -1331,7 +1393,7 @@ INV-FMT-3 is what stops a formatter from quietly becoming a second, hidden promp
 
 `formatPrompt(…, "generic")` over this object produces:
 
-> a woman, an oversized hoodie, cargo trousers, standing in contrapposto, arms crossed, a narrow alley, in the rain, holding a paper coffee cup, blue hour, backlit, centered composition, medium shot, 35mm-like perspective, editorial photograph, quiet and intimate, muted teal palette — no text overlays, 3:2 aspect ratio
+> a woman, a hoodie, cargo trousers, arms crossed over the chest, standing in contrapposto with the weight on one leg, in a narrow alley, in the rain, holding a coffee cup, during blue hour, backlit against the light, centred composition, medium shot, with the camera a step or two from the subject, 35mm-like perspective, fashion editorial photograph, calm, a muted colour palette — no text overlays, 3:2 aspect ratio
 
 The exact punctuation and joining are the formatter module's concern, not the schema's; what the schema fixes is the **slot content and the order**, which is what makes INV-FMT-1 checkable.
 
@@ -1387,11 +1449,11 @@ Required: `schema_version`, `id`, `category`, `label`.
 `#/$defs/taxonomy_file` describes `data/taxonomy/*.json`:
 
 ```json
-{ "schema_version": "1.0", "categories": ["camera_angle", "camera_distance", "camera_motion"],
-  "version": 3, "updated_at": "2026-09-09T09:00:00Z", "nodes": [] }
+{ "schema_version": "1.0", "categories": ["camera_angle", "camera_motion"],
+  "version": 1, "updated_at": "2026-09-09T09:00:00Z", "nodes": [] }
 ```
 
-One file may carry several categories — the brief ships **nine files for twenty categories** (e.g. `camera.json` holds `camera_angle` + `camera_distance` + `camera_motion`).
+One file may carry several categories, and a file is named for its dominant category rather than mapping 1:1 onto one — the shipped vocabulary is **ten taxonomy files for twenty categories** (`camera.json` holds `camera_angle` + `camera_motion`; the framing file adds `camera_distance`; the scene file also carries `time`, `weather` and `props`).
 
 ### 13.3 Worked example
 
@@ -1407,7 +1469,7 @@ One file may carry several categories — the brief ships **nine files for twent
   "description": "The mildly wide, natural-reportage look of a 35mm-equivalent lens: some environment around the subject, gentle perspective, minimal distortion at the edges.",
   "examples": ["street reportage", "environmental portrait"],
   "visual_hint": "img_wikimedia_commons_9f2ab41c",
-  "exclusivity_group": "focal_length",
+  "exclusivity_group": "focal_length_like",
   "media_scope": ["image", "video"],
   "prompt_fragment": "35mm-like perspective",
   "negative_fragment": "no wide-angle perspective",
@@ -1419,14 +1481,14 @@ One file may carry several categories — the brief ships **nine files for twent
 }
 ```
 
-Note `exclusivity_group: "focal_length"` on a **single_dominant** category: it marks this node as a *dominant* value rather than a modifier, so a second focal length arriving from another reference raises a `kind: "arity"` conflict. `lens.bokeh_heavy` would carry `exclusivity_group: null` and never conflict.
+Note `exclusivity_group: "focal_length_like"` on a **single_dominant** category: it marks this node as a *dominant* value rather than a modifier, so a second focal length arriving from another reference raises a `kind: "arity"` conflict. `lens.bokeh_heavy` would carry `exclusivity_group: null` and never conflict.
 
 ### 13.4 Validation rules
 
 | Rule | Enforcement |
 |---|---|
 | **INV-TAX-1** id has exactly two dotted segments; hierarchy lives in `parent` | schema |
-| **INV-TAX-2** `category` == id namespace | schema |
+| **INV-TAX-2** `category` == id namespace | code (`tests/validate-taxonomy.mjs`); the schema states it as a property description only |
 | **INV-TAX-3 / INV-LENS-1,2** lens honesty rule (§7.5) | schema |
 | **INV-TAX-4** `category == "camera_motion"` ⇒ `media_scope == ["video"]` | schema |
 | **INV-TAX-5** `still_inferable: true` ⇒ `category == "motion"` | schema |
@@ -1509,11 +1571,22 @@ Without this invariant the product is four search pages with a shared header. Wi
 | Sub-object | Shape |
 |---|---|
 | `query.text` | the typed string |
-| `query.image` | `{reference_id\|null, upload_id\|null, thumbnail_url, analysis_status, analysis_error, analyzed_at}` |
-| `query.video` | the same **plus** `{t_start_s, t_end_s}` — the window that lets the user say *"describe THIS camera move"*, not the whole clip |
+| `query.image` | `{reference_id\|null, upload_id\|null, thumbnail_url, analysis_status, analysis_error, analyzed_at, proposals[]}` |
+| `query.video` | the same — `proposals[]` included — **plus** `{t_start_s, t_end_s}`, the window that lets the user say *"describe THIS camera move"*, not the whole clip |
 | `query.browse` | `{category, parent, keyword, page}` |
 | `query.filters` | **shared across all modes**, below |
-| `query.expansion` | alias/`related` hop settings |
+| `query.expansion` | `{enabled, terms[], expanded_ids[]}` — alias/`related` hop settings and what the hop added |
+
+**`proposals[]` — the analyzer staging tray.** Analyzer output **stages here and nowhere else**. It reaches `intent` only through `ACCEPT_PROPOSAL`, and `REJECT_PROPOSAL` removes it from the tray only. This is the brief's *"AI output is a proposal, never a commitment"* expressed as structure rather than as a promise: a proposal nobody accepts leaves `intent` byte-identical.
+
+`Proposal` = `{category, chip}`, **both required**.
+
+| Field | Type | Meaning |
+|---|---|---|
+| `category` | `visual_category` | the `VisualIntent` array the chip is offered for. It is held next to the chip because **a chip does not name its own category** (§8.2); `ACCEPT_PROPOSAL` adds it there through the normal `ADD_CHIP` path |
+| `chip` | `IntentChip`, **`chip.id` required** | already carrying `source` (`analyzer_image` / `analyzer_video`), `confidence` and `evidence`; `chip.alternatives` supplies the swap menu. `chip.id` is mandatory because it is the `chip_id` that `REJECT_PROPOSAL` addresses |
+
+A video proposal's chip additionally carries `evidence.t_start_s` / `t_end_s` (§8.4), so a `camera_motion` proposal points at the window it was read from. A proposal is **not** part of `intent`, so it is neither routed by `buildStructuredPrompt` nor visible to conflict detection until it is accepted.
 
 `analysis_status ∈ none | pending | running | done | error | **mocked**`. **`mocked` is first-class**, not a test artefact: milestone v0.1 ships the upload UI with mock analysis before any analyzer exists, and the state that describes that must be nameable.
 
@@ -1521,7 +1594,7 @@ Without this invariant the product is four search pages with a shared header. Wi
 
 ### 14.4 `ResultSet`
 
-`{status, query_id, items[], total, cursor, ranking, ran_at, error}`.
+`{status, query_id, items[], total, cursor, ranking, ran_at, error}`, with `status ∈ idle | loading | ready | error`.
 
 `items[i] = {reference_id, rank, score, score_breakdown{semantic, metadata, rerank, keyword, recency}, matched_categories[], matched_values[], differs_categories[]}`.
 
@@ -1531,7 +1604,7 @@ Without this invariant the product is four search pages with a shared header. Wi
 
 ### 14.5 History — navigation, not document
 
-Each entry: `{mode, query, intent_snapshot, filters, origin}` (+ optional `id, at, origin_reference_id, origin_categories[], label, result_ref_ids[], ranking_snapshot`). `replay(entry)` = set mode, query and filters, then re-run retrieval with `intent_snapshot`. **Nothing outside the entry is needed** — that is the whole design requirement.
+Each entry: `{mode, query, intent_snapshot, filters, origin}` (+ optional `id, at, origin_reference_id, origin_categories[], label, result_ref_ids[], ranking_snapshot, difference_snapshot`). `replay(entry)` = set mode, query and filters, then re-run retrieval with `intent_snapshot` **and** `difference_snapshot`. **Nothing outside the entry is needed** — that is the whole design requirement.
 
 `origin ∈ initial, user_query, mode_switch, chip_edit, taxonomy_browse, reference_explore, reference_use, reference_extract, search_by_difference, preset_load, recipe_load, deep_link`.
 
@@ -1550,11 +1623,13 @@ The brief's key differentiator, as data:
 | `enabled` | |
 | `anchor_reference_id` | the reference being varied |
 | `keep[]` | `visual_category[]` → **hard structured filters** pinned to the anchor's values |
-| `change[]` | `visual_category[]` → **negative filters** against the anchor's values, plus a diversity boost |
+| `change[]` | `visual_category[]` → a soft overlap **penalty** against the anchor's values (λ = `tuning.change_lambda`, default `0.7`) **plus a hard requirement that the category be present at all**, plus a diversity boost on the CHANGE axis. **Never a filter on values**: excluding every reference that shares one of six clothing values is brittle and collapses the result set ([`SEARCH_ARCHITECTURE.md`](./SEARCH_ARCHITECTURE.md) §7.4 and D9; INV-SRCH-3 — a filter is never implemented as a penalty, nor a penalty as a filter) |
 | `change_targets` | *directed* change: "change clothing **TO streetwear**", not merely "not this outfit" |
 | `strictness` | default `0.8`; `1.0` requires an exact taxonomy match on KEEP, lower allows sibling nodes |
 
 Categories in neither list are **free**. **INV-EXP-5 (code, not expressible in JSON Schema): `keep` and `change` MUST be disjoint.**
+
+Because `keep` is a hard pool filter, this whole object is a **retrieval input exactly like `intent`**, and a difference query therefore records its KEEP/CHANGE state on the history entry as `difference_snapshot` (§14.5) — every step whose `origin` is `search_by_difference`, `reference_explore` or `reference_use`. Without it the step is not replayable: re-running with today's `difference` would search a different pool than the step it claims to be reproducing. `replay` reads the snapshot as an **input only** and never writes it back into `difference`, which stays a document-tier value that `back()` / `forward()` must not touch (INV-EXP-3).
 
 ### 14.7 AI settings and privacy
 
@@ -1565,7 +1640,7 @@ Categories in neither list are **free**. **INV-EXP-5 (code, not expressible in J
 
 `external_transmission.allowed` defaults to **`false`**. Any transmission of user media must be disclosed in the UI **before** it happens (`disclosed_at` records that it was), and a `Reference` with `privacy.local_only` **MUST be refused by every remote adapter**.
 
-### 14.8 Worked example (abridged; `intent` elided)
+### 14.8 Worked example (abridged; `intent`, `mix` and the history entries' payloads elided)
 
 ```json
 {
@@ -1580,12 +1655,13 @@ Categories in neither list are **free**. **INV-EXP-5 (code, not expressible in J
     "video": { "reference_id": null, "upload_id": null, "analysis_status": "none" },
     "browse": { "category": "lighting", "parent": null, "keyword": "", "page": 0 },
     "filters": { "license": ["public_domain", "pdm", "cc0", "cc_by", "user_owned"],
-                 "status": ["approved"], "type": ["image"], "orientation": "landscape" },
-    "expansion": { "enabled": true, "max_hops": 1 }
+                 "status": ["approved"], "type": ["image"], "orientation": ["landscape"] },
+    "expansion": { "enabled": true, "terms": ["alley", "rain"],
+                   "expanded_ids": ["scene.alley", "weather.rain"] }
   },
   "intent": { "…": "the VisualIntent of §7.6" },
   "results": {
-    "status": "done", "query_id": "q_0e11", "total": 42, "ran_at": "2026-09-09T10:20:04Z",
+    "status": "ready", "query_id": "q_0e11", "total": 42, "ran_at": "2026-09-09T10:20:04Z",
     "ranking": { "mode": "metadata_only", "semantic_weight": 0.6, "metadata_weight": 0.4,
                  "fusion": "weighted_sum", "reranker_enabled": false },
     "items": [
@@ -1699,7 +1775,7 @@ Snapshots are **frozen**. Editing the live library never silently rewrites a sav
                     "creator": "A. Photographer", "license": "cc_by",
                     "license_url": "https://creativecommons.org/licenses/by/4.0/",
                     "source_url": "https://commons.wikimedia.org/wiki/File:Rainy_alley_blue_hour.jpg",
-                    "attribution": "Rainy alley at blue hour by A. Photographer, CC BY 4.0, via Wikimedia Commons" },
+                    "attribution": "“Rainy alley at blue hour” by A. Photographer — Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Rainy_alley_blue_hour.jpg) — CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)" },
       "media": { "width": 2400, "height": 1600 },
       "snapshot_at": "2026-09-09T10:31:00Z", "media_state": "ok", "media_checked_at": "2026-09-09T10:31:02Z" },
     { "id": "img_openverse_1a2b3c4d", "type": "image", "status": "approved",
@@ -1708,15 +1784,15 @@ Snapshots are **frozen**. Editing the live library never silently rewrites a sav
       "metadata": { "source": "openverse", "source_id": "1a2b3c4d", "creator": "B. Shooter",
                     "license": "cc_by", "license_url": "https://creativecommons.org/licenses/by/4.0/",
                     "source_url": "https://openverse.org/image/1a2b3c4d",
-                    "attribution": "Street portrait by B. Shooter, CC BY 4.0, via Openverse" },
+                    "attribution": "“Street portrait, oversized hoodie” by B. Shooter — Openverse (https://openverse.org/image/1a2b3c4d) — CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)" },
       "snapshot_at": "2026-09-09T10:31:00Z", "media_state": "gone", "media_checked_at": "2026-09-30T08:00:00Z" }
   ],
   "license_summary": { "licenses": ["cc_by"], "requires_attribution": true, "share_alike": false,
                        "has_excluded": false,
-                       "attribution_block": "Rainy alley at blue hour by A. Photographer, CC BY 4.0, via Wikimedia Commons\nStreet portrait by B. Shooter, CC BY 4.0, via Openverse" },
-  "integrity": { "content_hash": "sha256:7c1f…", "taxonomy_version": 3, "app_version": "0.1.0" },
+                       "attribution_block": "References used\n───────────────\n1. “Rainy alley at blue hour” by A. Photographer — Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Rainy_alley_blue_hour.jpg) — CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n2. “Street portrait, oversized hoodie” by B. Shooter — Openverse (https://openverse.org/image/1a2b3c4d) — CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)" },
+  "integrity": { "content_hash": "sha256:7c1f…", "taxonomy_version": "3", "app_version": "0.1.0" },
   "media_health": { "checked_at": "2026-09-30T08:00:00Z", "ok": 1, "moved": 0, "gone": 1, "unchecked": 0 },
-  "exports": [ { "kind": "prompt", "prompt_mode": "generic", "text": "a woman, an oversized hoodie, …",
+  "exports": [ { "kind": "prompt", "prompt_mode": "generic", "text": "a woman, a hoodie, cargo trousers, …",
                  "generated_at": "2026-09-09T10:31:05Z" } ]
 }
 ```
@@ -1791,7 +1867,6 @@ A user drops a still into the modal. The analyzer emits a `VisualIntentDocument`
     "scene":       [ { "value": "scene.alley", "label": "a narrow alley", "source": "analyzer_image", "confidence": 0.81 },
                      { "value": "props.umbrella", "label": "an umbrella", "source": "analyzer_image", "confidence": 0.58,
                        "origin_category": "props" } ],
-    "weather":     [ { "value": "weather.wet_ground", "label": "wet asphalt", "source": "analyzer_image", "confidence": 0.66 } ],
     "lighting":    [ { "value": "lighting.backlighting", "label": "backlit", "source": "analyzer_image", "confidence": 0.79 },
                      { "value": "lighting.rim_lighting", "label": "rim light", "source": "analyzer_image", "confidence": 0.7 } ],
     "composition": [ { "value": "composition.centered", "label": "centered composition", "source": "analyzer_image", "confidence": 0.83 },
@@ -1800,12 +1875,13 @@ A user drops a still into the modal. The analyzer emits a `VisualIntentDocument`
     "mood":        [ { "value": "mood.calm", "label": "quiet, intimate", "source": "analyzer_image", "confidence": 0.58 } ],
     "style":       [ { "value": "style.fashion_editorial", "label": "editorial photography", "source": "analyzer_image", "confidence": 0.71 } ],
     "time":        [ { "value": "time.blue_hour", "label": "blue hour", "source": "analyzer_image", "confidence": 0.69 } ],
-    "weather":     [ { "value": "weather.rain", "label": "rain", "source": "analyzer_image", "confidence": 0.55 } ],
+    "weather":     [ { "value": "weather.wet_ground", "label": "wet asphalt", "source": "analyzer_image", "confidence": 0.66 },
+                     { "value": "weather.rain", "label": "rain", "source": "analyzer_image", "confidence": 0.55 } ],
     "confidence": {
       "subject": 0.93, "appearance": 0.87, "framing": 0.88, "camera_angle": 0.76,
-      "camera_distance": 0.5, "lens": 0.61, "pose": 0.72, "action": 0.64, "motion": 0.42,
+      "camera_distance": 0.5, "lens": 0.61, "pose": 0.72, "motion": 0.42,
       "clothing": 0.9, "scene": 0.81, "lighting": 0.79, "composition": 0.83,
-      "color": 0.64, "mood": 0.58, "style": 0.71, "time": 0.69, "weather": 0.55
+      "color": 0.64, "mood": 0.58, "style": 0.71, "time": 0.69, "weather": 0.66
     }
   }
 }
@@ -1847,17 +1923,19 @@ The same document type, from `analyzer_video`. Only the categories that differ f
         "evidence": { "kind": "observed", "t_start_s": 3.4, "t_end_s": 6.0, "shot_index": 0,
                       "detector": "analyzer-adapter:local@2" } }
     ],
-    "motion": [
-      { "value": "motion.walking", "label": "walking", "source": "analyzer_video",
+    "action": [
+      { "value": "action.walking", "label": "walking", "source": "analyzer_video",
         "ref_id": "vid_openverse_4d7e0a13", "confidence": 0.88,
-        "evidence": { "kind": "observed", "t_start_s": 0.0, "t_end_s": 6.0, "shot_index": 0 } },
+        "evidence": { "kind": "observed", "t_start_s": 0.0, "t_end_s": 6.0, "shot_index": 0 } }
+    ],
+    "motion": [
       { "value": "motion.slow", "label": "slow", "source": "analyzer_video",
         "ref_id": "vid_openverse_4d7e0a13", "confidence": 0.7 }
     ],
     "subject":     [ { "value": "subject.adult_man", "label": "a man", "source": "analyzer_video", "confidence": 0.91 } ],
     "framing":     [ { "value": "framing.wide_shot", "label": "wide shot", "source": "analyzer_video", "confidence": 0.85 } ],
     "scene":       [ { "value": "scene.urban_street", "label": "a city street", "source": "analyzer_video", "confidence": 0.8 } ],
-    "confidence": { "camera_motion": 0.82, "motion": 0.88, "subject": 0.91, "framing": 0.85, "scene": 0.8 }
+    "confidence": { "camera_motion": 0.82, "action": 0.88, "motion": 0.7, "subject": 0.91, "framing": 0.85, "scene": 0.8 }
   }
 }
 ```
@@ -1870,26 +1948,28 @@ The same document type, from `analyzer_video`. Only the categories that differ f
    │            │                        │                              │
    │            ├── camera_motion.dolly_in (order 0) ──┤                 │
    │                                     ├── camera_motion.pan_left (order 1) ──┤
-   ├── motion.walking (subject motion, the whole window) ────────────────┤
+   ├── action.walking (subject motion, the whole window) ────────────────┤
    └── shot_index 0 ─────────────────────────────────────────────────────┘
 ```
 
 A compound move is **several ordered chips with disjoint timespans**, not one merged value — which is exactly why `camera_motion` is a `multi` category (§3.1). `camera_motion.static` declares `conflicts_with` every other node, so "static + dolly in" is still caught.
 
-Feeding this intent into a still-image formatter mode drops the two `camera_motion` fragments with a warning and keeps `motion.walking` as implied-motion phrasing (INV-FMT-2).
+Feeding this intent into a still-image formatter mode drops the two `camera_motion` fragments with a warning and keeps the subject's own movement — `action.walking` with `motion.slow` — in implied-motion phrasing (INV-FMT-2).
 
 ### 16.4 The brief's two headline mixes
 
-**S1 — "Same composition as this photo, but the outfit from that one."** See §11.7. Two entries, disjoint `use` lists, one surfaced `camera_angle` conflict, one remembered `dominance` entry.
+**S1 — "Same composition as this photo, but the outfit from that one."** See §11.7. Two entries whose `use` lists overlap in exactly one category — `camera_angle`, which is where the single surfaced conflict comes from — and one remembered `dominance` entry.
 
 **S2 — "Same movement as this video, but the camera work of that video."**
 
 ```json
-{ "references": [ { "reference_id": "vid_a", "use": ["motion"] },
+{ "references": [ { "reference_id": "vid_a", "use": ["motion", "action"] },
                   { "reference_id": "vid_b", "use": ["camera_motion"] } ] }
 ```
 
-Two **different** categories ⇒ **no conflict, by construction**. This is the payoff of the `camera_motion` → `camera` (not `motion`) mapping decision in §4.2: the subject-motion / camera-motion seam exists in the category enum, so the brief's sentence becomes a two-line document rather than a feature.
+`vid_a` names two categories because the subject's *movement* is split across them (§3.1): the activity is `action` (`action.walking` in §16.3) and the temporal reading — pace, quality, secondary motion — is `motion` (`motion.slow`). `use: ["motion"]` alone would inherit the pace and leave the walking behind. The card's EXTRACT `motion` button expands to `motion` only, and `action` sits outside every EXTRACT group by design (§4.3), so this mix is authored by USE-everything narrowed with `only`, or by hand; whether EXTRACT should reach `action` is a UI question, not a schema one.
+
+Still **different** categories on either side ⇒ **no conflict, by construction**. This is the payoff of the `camera_motion` → `camera` (not `motion`) mapping decision in §4.2: the subject-motion / camera-motion seam exists in the category enum, so the brief's sentence becomes a two-line document rather than a feature.
 
 ### 16.5 A surfaced conflict, end to end
 
@@ -1928,13 +2008,13 @@ until a human chooses. When they do, the chosen chip's `source` becomes `mix_res
 | INV-REF-3 | `EmbeddingRecord` has exactly one of `vector` / `vector_ref` | schema |
 | INV-LIC-1 | `approved` ⇒ non-empty attribution, `license ∉ {unknown, proprietary}` | schema |
 | INV-LIC-2 | `approved` + `cc_by`/`cc_by_sa` ⇒ non-empty `creator` and `license_url` | schema |
-| INV-LIC-3 | `approved` also requires `license_check` and `source_validation` = `pass` | code |
+| INV-LIC-3 | `approved` also requires `license_check`, `source_validation` and `attribution_metadata` = `pass` | code |
 | INV-VID-1 | `camera_motion` chip may not have `source: "analyzer_image"` | schema |
 | INV-VID-2 | `type: "image"` ⇒ no `camera_motion`, no temporal media fields | schema |
 | INV-VID-3 | `motion` chip from `analyzer_image` ⇒ `evidence.kind: "implied"` and `confidence ≤ 0.6` | schema |
 | INV-VID-4 | `type: "video"` with a `media` block ⇒ `duration_s` required | schema |
 | INV-TAX-1 | Taxonomy id has exactly two dotted segments; hierarchy lives in `parent` | schema |
-| INV-TAX-2 | `category` == id namespace | schema |
+| INV-TAX-2 | `category` == id namespace | code |
 | INV-TAX-4 | `camera_motion` nodes have `media_scope: ["video"]` | schema |
 | INV-TAX-5 | `still_inferable` only in `motion` | schema |
 | INV-TAX-6 | `replaced_by` set ⇒ `deprecated: true` | schema |
@@ -1960,7 +2040,7 @@ until a human chooses. When they do, the chosen chip's `source` becomes `mix_res
 
 ## 18. Validation status and how to check it
 
-All seven schema files pass `Draft202012Validator.check_schema`. A **57-case instance matrix** exercises them, covering:
+All seven schema files pass `Draft202012Validator.check_schema`. A **57-case instance matrix** exercises them — it is a design-time matrix, not yet part of the repository's `tests/` harness; [`MVP_V0.1_TASKS.md`](./MVP_V0.1_TASKS.md) T-68 ports it there. It covers:
 
 - the 20-key and 13-slot counts; extra-key and missing-key rejection
 - the namespace rule (INV-INT-2) and the props/scene carrier rule (INV-PROPS-1)

@@ -100,7 +100,7 @@ shape would collapse us into the "pick a few options -> get a prompt" product th
 prohibits. Also, no ingestion of their prompt DB.
 
 **Our differentiation.** PromptHero's filters *narrow a list of finished prompts*. Our taxonomy
-(`data/taxonomy/{framing,camera,lens,pose,motion,clothing,scene,lighting,style}.json`) is the **schema of
+(`data/taxonomy/{framing,camera,lens,pose,motion,clothing,scene,lighting,style,subject}.json`) is the **schema of
 the artefact itself** — it is what makes **Reference Decomposition** possible, so an attribute can be
 lifted out of one reference and inherited into a new one.
 
@@ -503,10 +503,12 @@ the server starts with the app on **`http://localhost:41595`** by default, all v
 `/api/v2/`, requests from `localhost` / `127.0.0.1` / `0.0.0.0` are automatically trusted with no
 authentication, and it exposes three distinct retrieval styles side by side —
 **tag search** (`/api/v2/item/get` with a `tags` parameter), **full-text search** (`/api/v2/item/query`)
-and **AI semantic search** (`/api/v2/aiSearch/searchByText`). Hydrus contributes the booru **tag
-namespace** idea (typed tags rather than flat strings) and a strict privacy stance ("the program never
-phones home"). Diffusion Toolkit contributes the "index your own generations by their embedded prompt
-metadata, keep custom tags/ratings when files move" pattern.
+and **AI semantic search** (`/api/v2/aiSearch/searchByText`). (UNVERIFIED — the port, the prefix, the
+localhost rule and the three endpoint paths all come from search-result summaries; developer.eagle.cool
+and api.eagle.cool are blocked by the egress policy and were not read firsthand.) Hydrus contributes the
+booru **tag namespace** idea (typed tags rather than flat strings) and a strict privacy stance ("the
+program never phones home"). Diffusion Toolkit contributes the "index your own generations by their
+embedded prompt metadata, keep custom tags/ratings when files move" pattern.
 
 **Useful idea.** (1) **Eagle's three coexisting search modes are a shipped proof of the brief's
 AI-optional design**: exact tag match and full-text work with no model at all; semantic search is an
@@ -654,7 +656,9 @@ Sources: [OpenAI image-gen prompting guide](https://developers.openai.com/cookbo
 - **Eagle local API**: default listener **`http://localhost:41595`**, started with the app; v2 endpoints
   prefixed `/api/v2/`; requests from `localhost` / `127.0.0.1` / `0.0.0.0` are trusted with **no
   authentication**; tag search `/api/v2/item/get?tags=…`, full-text `/api/v2/item/query`, AI semantic
-  search `/api/v2/aiSearch/searchByText`. [source](https://developer.eagle.cool/web-api)
+  search `/api/v2/aiSearch/searchByText`. (UNVERIFIED — developer.eagle.cool and api.eagle.cool are
+  blocked by the egress policy; the whole bullet is second-hand from search-result summaries.)
+  [source](https://developer.eagle.cool/web-api)
 - **Cinekive stack**: SigLIP embeddings (~**800 MB** model download), **Qdrant on port 6333**, **SQLite**
   + on-disk `data/` for metadata, optional local VLM enrichment via **Ollama**, cloud VLM (OpenRouter /
   Claude) behind a **$19 one-time** Pro tier with **client-side gating**; MIT licensed.
@@ -725,6 +729,11 @@ thumbnail URL, metadata, embedding and visual attributes — **never media binar
    lighting, actively avoid that palette" is unclaimed territory adjacent to **Search by Difference**.
 9. **Video reference decomposition prior art.** This cluster is overwhelmingly stills-based. Camera-motion
    extraction (v0.4) may have no direct analogue here — needs a separate cluster.
+10. **Eagle's local Web API v2 surface.** The port `41595`, the `/api/v2/` prefix, the localhost-trust rule
+    and the three endpoint paths (`item/get`, `item/query`, `aiSearch/searchByText`) are all second-hand;
+    `developer.eagle.cool` and `api.eagle.cool` are blocked. Re-verify before the "three coexisting search
+    modes" observation is used as evidence for the `metadata-search` / `semantic-search` / `fusion-ranker`
+    separation — the argument, not just the prose, depends on those endpoints being real and distinct.
 
 ## Evidence log
 

@@ -59,7 +59,7 @@ There are exactly two licensing layers in this product and they never touch. Con
 
 **LP-1.** The MIT licence on this repository grants nothing whatsoever regarding any reference image, reference video, model checkpoint, or third-party dataset. It covers our source code, our taxonomy vocabulary, and our documentation. Nothing else.
 
-**LP-2.** Conversely, a reference's licence grants nothing regarding the code. A CC BY-SA reference does not make the codebase share-alike; a CC BY-NC reference does not make the product non-commercial. The product **points at** media; it does not incorporate it. This is only true because of the no-binaries rule (§7) — the moment we stored a byte of the media in the repository, this separation would become an argument instead of a fact.
+**LP-2.** Conversely, a reference's licence grants nothing regarding the code. A CC BY-SA reference does not make the codebase share-alike; a CC BY-NC reference does not make the product non-commercial. The product **points at** media; it does not incorporate it. This is only true because of the no-binaries rule (§7) — the moment we stored a byte of the media in the repository, this separation would become an argument instead of a fact. `(UNVERIFIED — legal question: whether embedding a remote image is itself a display or a reproduction is jurisdiction-dependent. The no-binaries rule is our conservative engineering branch, not a holding about linking.)`
 
 **LP-3.** `Reference.metadata.license` always means **the licence of the media asset we display**. It never means the licence of the catalogue record, the licence of the provider's API, the licence of the provider's code, or the licence of the page the media sits on. Three verified cases in the research make this a live hazard rather than pedantry:
 
@@ -77,7 +77,7 @@ There are exactly two licensing layers in this product and they never touch. Con
 
 ## 2. The licence matrix
 
-`LICENSE_ID` is a closed enum defined in [`DATA_SCHEMA.md §1.6`](./DATA_SCHEMA.md). An unrecognised licence string from any provider maps to `unknown` — never to a guess.
+`LICENSE_ID` is a closed enum defined in [`DATA_SCHEMA.md §2.5`](./DATA_SCHEMA.md). An unrecognised licence string from any provider maps to `unknown` — never to a guess.
 
 `classifyLicense(license_id)` returns `{ policy_class, requires_attribution, share_alike }` and is a pure lookup in this table.
 
@@ -86,7 +86,7 @@ There are exactly two licensing layers in this product and they never touch. Con
 | `public_domain` | Public domain | **allowed** | false | false | ✅ |
 | `pdm` | Public Domain Mark 1.0 | **allowed** | false | false | ✅ |
 | `cc0` | CC0 1.0 | **allowed** | false | false | ✅ |
-| `cc_by` | CC BY (2.0 / 3.0 / 4.0) | **allowed** | **true** | false | ✅ |
+| `cc_by` | CC BY (1.0 / 2.0 / 2.5 / 3.0 / 4.0) | **allowed** | **true** | false | ✅ |
 | `user_owned` | User's own media | **allowed** *(local scope only, §10)* | false | false | ✅ |
 | `cc_by_sa` | CC BY-SA | **optional** — off by default | **true** | **true** | ❌ until enabled |
 | `cc_by_nc` | CC BY-NC | **excluded** | — | — | ❌ |
@@ -137,6 +137,8 @@ Some large free-media providers publish under a bespoke licence that is neither 
 | **Unsplash** | proprietary "Unsplash License"; the `unsplash-js` **client** is MIT, the **photos** are not | Obligations are a *set*, not just attribution: attribute the photographer, hotlink the image, **and** *"trigger a download when appropriate"* via `/photos/{id}/download`. That last one is an outbound compliance call, which the brief's privacy rule requires us to disclose in the UI before it fires. `(UNVERIFIED — unsplash.com was blocked; read from the client README)` |
 
 **LP-12.** A custom-licensed provider maps to `license: "proprietary"`, never to `public_domain`, never to `cc0`, and never to `unknown`. `proprietary` is `excluded`, so such an item can **never reach `approved`** under the default policy. This is not a slight against those services — it is that "free to use" is a marketing phrase and our guard needs a per-item, machine-checkable licence.
+
+`proprietary` rather than `unknown` is deliberate, and the difference is not cosmetic: `proprietary` is a *named* exclusion, so stage 1 routes it to `rejected`, which is terminal, while `unknown` routes to `license_review`, which a re-fetch can resolve (LP-18). A blanket bespoke licence is a determined fact about the work — there is nothing for a re-fetch to determine. LP-13.4's permanent `license_review` gate is the sole exception, and it exists only inside an opt-in integration that would itself be an edit to this document.
 
 **LP-13.** If a custom-licensed provider is ever integrated, it must be:
 1. **opt-in per user**, never a shipped default provider;
@@ -221,7 +223,7 @@ The brief specifies four stages: `LICENSE CHECK → SOURCE VALIDATION → ATTRIB
 | **manual_review** → `license_review` | `license === "unknown"`. Indeterminate, and re-fetch may resolve it. |
 | **manual_review** → `license_review` | `policy_class === "optional"` and the operator setting for that class is off (today: `cc_by_sa` with `allow_share_alike: false`). |
 | **manual_review** → `license_review` | `license ∈ {cc_by, cc_by_sa}` and `license_url` is empty. See LP-19. |
-| **manual_review** → `license_review` | `license` is in the CC family and `license_version` is empty. Attribution wording and obligations differ across CC 2.0/3.0/4.0; an unversioned CC claim is not verified. |
+| **manual_review** → `license_review` | `license` is in the CC family and `license_version` is empty. Attribution wording and obligations differ across CC 1.0/2.0/2.5/3.0/4.0 and across jurisdiction ports (LP-33); an unversioned CC claim is not verified. `license_version` is copied from the provider, never inferred from that list. |
 | **manual_review** → `license_review` | `license_url` is present but its normalised form disagrees with the canonical deed URL for that `license_id` (LP-20). A mismatch is a provider bug or a mislabelled file; either way a human decides. |
 | **pass** | `policy_class ∈ enabled classes`, required fields present, no reject signal, no mismatch. |
 
@@ -240,7 +242,7 @@ The brief specifies four stages: `LICENSE CHECK → SOURCE VALIDATION → ATTRIB
 | `cc_by_nc`, `cc_by_nc_sa`, `cc_by_nd`, `cc_by_nc_nd` | `…/licenses/{code}/{version}/` — recorded for badge rendering only; these never reach stage 2 |
 | `public_domain` | no canonical URL; whatever the source supplies, unchecked |
 
-Normalisation before comparison: lowercase, force `https`, strip a trailing slash, drop `deed.*` and any query string or fragment.
+Normalisation before comparison: lowercase, force `https`, strip a trailing slash, drop `deed.*` and any query string or fragment. A jurisdiction segment is **not** stripped: `…/licenses/by-sa/3.0/de/` is a ported licence with its own text, so it mismatches the unported deed URL and routes to `license_review` — the same answer its licence code gets in LP-33, reached independently.
 
 ### 4.2 Stage 2 — SOURCE VALIDATION
 
@@ -294,7 +296,7 @@ This is the stage that turns "the search result said CC BY" into "the source say
 
 **LP-26 — the anti-laundering rule.** Editing any of `metadata.license`, `license_url`, `license_version`, `creator`, `source`, `source_id`, or `source_url` on an `approved` reference **demotes it to `candidate` and resets all four guard steps to `pending`**. Without this, a reference could be approved as CC BY and then edited into something else while keeping its green badge. `normalizeReference()` enforces the demotion on load, so it survives hand-edited storage.
 
-**LP-27.** The default search filter is `status: ["approved"]` (`DATA_SCHEMA.md §4.6`). Combined with LP-16, an unverified reference never reaches a normal result set in the first place. The gate is therefore defence in depth, not a single check.
+**LP-27.** The default search filter is `status: ["approved"]` (`DATA_SCHEMA.md §14.3`, restated at §9.6). Combined with LP-16, an unverified reference never reaches a normal result set in the first place. The gate is therefore defence in depth, not a single check.
 
 ---
 
@@ -369,7 +371,7 @@ Note `S_url` is the **`foreign_landing_url`** — the upstream human-facing page
 ```
 “IMG_4417.jpg” — Local upload (private) — User-owned
 ```
-No `S_url`, no `L_url`, no provider. This is the one shape that deviates from the template, and it is handled by a dedicated branch because a private reference has no public page to link to (§10, LP-38).
+No `S_url`, no `L_url`, no provider. This is the one shape that deviates from the template, and it is handled by a dedicated branch because a private reference has no public page to link to (§10, LP-48).
 
 ### 5.4 The attribution block
 
@@ -463,6 +465,8 @@ Base `https://api.openverse.org/v1/`. `CORS_ALLOW_ALL_ORIGINS = True` (verified 
 
 The `{v}` suffix populates `license_version`. Commons' exact emitted code strings beyond this shape are `(UNVERIFIED — commons.wikimedia.org was egress-blocked during research; the shape is confirmed from CommonsMetadata's `DataCollector.php`, the value set is not)`. The adapter must therefore log every unmapped code it sees so the table can be extended from evidence rather than from guessing.
 
+**Jurisdiction ports are a known gap, not an oversight.** CC issued ported licences for versions 1.0–3.0, and Commons emits their codes (`cc-by-sa-3.0-de`, `cc-by-2.0-fr`, `cc-by-sa-2.5-in`). None of them is in the table above, so under LP-33 they map to `unknown` → `license_review`: correctly-licensed free material lands in a human queue rather than in a result set. That is the conservative branch — a port is a distinct licence text, and pattern-matching `cc-by-sa-3.0-*` into `cc_by_sa` is exactly the fuzzy fallback this rule forbids. Extending both this table and LP-20's deed-URL family to an explicit, closed list of port suffixes is therefore the first extension to make, from logged codes rather than from guessing, and it is the point at which a `license_jurisdiction` field would have to be added under §14.
+
 **LP-34.** Flickr's numeric licence ids are a worked example of why these tables are data, not logic — and of the two traps in them. Recorded here for when a Flickr adapter is written, not because one exists: ids `4, 9, 10, 11` map to our default allow-list and `5, 12` to the optional tier; but id **7** ("No known copyright restrictions", the Flickr Commons marker) and id **8** ("United States Government Work") are **institutional assertions, not CC grants**, and map to `unknown` → `license_review`. Never auto-approve an assertion.
 
 ---
@@ -530,7 +534,7 @@ Licence compliance that is not visible is not compliance. These are hard UI requ
 | Markdown / file export of a prompt | Attribution block appended below the prompt, under a `References used` heading. |
 | **Copy prompt text to clipboard** | **The prompt text itself carries no attribution.** |
 
-**Why the prompt text stays clean.** Injecting a credit line into prompt text would corrupt the prompt — a generator would try to render it. It would also violate INV-FMT-3: *the formatter never invents a value not present in the `StructuredPrompt`*. So the notice travels **beside** the text, never inside it: the copy button sits next to a persistent, non-dismissible "References used" panel showing the full attribution block, and every *file* export includes the block. The obligation is discharged by the surface the user is actually looking at, not by polluting the artefact.
+**Why the prompt text stays clean.** Injecting a credit line into prompt text would corrupt the prompt — a generator would try to render it. It would also violate INV-FMT-3: *the formatter never invents a value not present in the `StructuredPrompt`*. So the notice travels **beside** the text, never inside it: the copy button sits next to a persistent, non-dismissible "References used" panel showing the full attribution block, and every *file* export includes the block. Whether an on-screen notice discharges an attribution term when only the prompt text leaves the app is `(UNVERIFIED — legal question)`. The product's answer is a policy choice, not a legal conclusion: make the notice unavoidable on the surface the user is looking at, and carry it inside every artefact that is a file.
 
 **LP-40.** `license_summary.has_excluded === true` ⇒ the recipe **must** warn on open and **must not** be exported by default. This is the case where a recipe was authored under a different operator policy, or where a revocation (§13) landed after the recipe was saved.
 
@@ -545,10 +549,12 @@ Licence compliance that is not visible is not compliance. These are hard UI requ
 | Platform | The term | Consequence for us |
 |---|---|---|
 | **Pinterest** | *"You agree not to use any robot, spider, crawler, scraper or other automated means or interface not provided by us to access the Services or to extract data"* | No pin import, no board import, no "paste a Pinterest URL" affordance. Pins also carry no reliable per-item licence, so even a permitted import would fail stage 1. |
-| **Instagram** | *"You may not access or collect data from our Products using automated means (without our prior permission)."* | No media copying, no metadata harvest, no embed-and-cache. |
+| **Instagram** | *"You may not access or collect data from our Products using automated means (without our prior permission)…"* — Meta Terms of Service (`https://www.facebook.com/terms/`), abridged; Instagram's own Terms of Use are a separate document | No media copying, no metadata harvest, no embed-and-cache. |
 | **TikTok** | prohibits *"scraping, crawling, exporting or otherwise extracting any data or content in any form, for any purpose, from the Platform using any automated system or software"* except with written approval | No video DB. This is doubly relevant because v0.4 needs video and TikTok is the obvious temptation. |
 | **Civitai** | prohibits access via spiders, robots, crawlers and data-mining tools except through the public API within rate limits | Reviewed as prior art only. Third-party bulk scrapers of it are an anti-pattern, not a template. |
 | **Lexica / prompt galleries** | user-generated model output with no per-image licence provenance | Fails stage 1 as `unknown`. Never a provider. |
+
+`(UNVERIFIED — pinterest.com, instagram.com, tiktok.com and civitai.com were all egress-blocked during research; the quoted terms are read from secondary sources, are abridged where an ellipsis marks the cut, and quote live, mutable documents we have not re-read firsthand. Before any of these is ever revisited, re-read the terms firsthand and record the source URL and a retrieval date beside the quotation.)`
 
 These are the brief's hard prohibitions, restated with the terms that make them non-negotiable. Note that two independent barriers apply to each: the platform's terms, **and** the absence of per-item licence metadata. Removing one would not unlock the other.
 
@@ -668,7 +674,7 @@ Three checklists, three cadences. Each item is mechanically checkable; anything 
 - [ ] `source`, `source_id`, `license`, `source_url` all present
 - [ ] `approved` ⇒ non-empty `attribution`, `license ∉ {unknown, proprietary}` (INV-LIC-1)
 - [ ] `approved` + `cc_by`/`cc_by_sa` ⇒ non-empty `creator` **and** `license_url` (INV-LIC-2)
-- [ ] `approved` ⇒ `license_check` and `source_validation` both `pass` (INV-LIC-3)
+- [ ] `approved` ⇒ `license_check`, `source_validation` and `attribution_metadata` all `pass` (INV-LIC-3)
 - [ ] guard step order not skipped
 - [ ] no `media_blob` / `media_base64` / `media_bytes` / `data_uri` / `binary` (INV-REF-2)
 - [ ] `license_url`, if present, matches the canonical deed URL family for its `license_id` (LP-20)
@@ -790,11 +796,11 @@ Everything below is a name this document introduces that [`DATA_SCHEMA.md`](./DA
 |---|---|---|---|---|
 | **A1** | `LICENSE_POLICY` operator settings | `{ allow_share_alike: false, require_human_approval_for_optional: true }`, a frozen export of `license-guard.js` | The canonical model says `license_policy_class` is derived from "`license` + operator settings" but does not name those settings. This names them. | **new name, no schema change** |
 | **A2** | `metadata.x_ext.obligations` | `{ hotlink_only?: boolean, download_ping?: {endpoint} }` | Uses the existing `x_ext` extension bucket rather than adding a field. Only populated if a custom-licence provider is ever enabled (LP-13). Core code never reads it. | **uses existing `x_ext`; no schema change** |
-| **A3** | `data/license-revocations.json` | `{ schema_version, revocations: [{ id, source, source_id, reported_at, reason, from_license, to_license, action, note, actor }] }` | Takedown propagation (§13) needs a durable, shippable, load-time-applied list. No existing file does this. | **new data file** |
-| **A4** | `rvk_` id prefix | `rvk_<slugify(source)>_<sha256(source + "\|" + source_id).slice(0,8)>` | Follows the canonical id-prefix convention (`DATA_SCHEMA.md §0.4`) and the deterministic minting rule, so a revocation id is reproducible from the durable identity. | **new id prefix** |
+| **A3** | `data/license-revocations.json` | `{ schema_version, revocations: [{ id, source, source_id, reported_at, reason, from_license, to_license, action, note, actor }] }` | Takedown propagation (§13) needs a durable, shippable, load-time-applied list. No existing file does this. | **new data file; deliberately without a `docs/schemas/` entry in v1 — the shape above is the contract** |
+| **A4** | `rvk_` id prefix | `rvk_<slugify(source)>_<sha256(source + "\|" + source_id).slice(0,8)>` | Follows the canonical id-prefix convention (`DATA_SCHEMA.md §5`) and the deterministic minting rule (§5.1), so a revocation id is reproducible from the durable identity. | **new id prefix** |
 | **A5** | `approval.scope` marker for private-source references | `"local"` recorded in the `approval` `GuardStep`'s `note` field | LP-48 needs approved-but-unexportable. Recorded in the existing `note` string rather than adding a field. | **uses existing field** |
 | **A6** | TASL attribution template and slot-drop rules | §5.2 | The canonical model requires `attribution` to be stored text but does not specify the render. Two providers producing differently-shaped credit lines would make the attribution block unreadable. | **behaviour spec, no schema change** |
-| **A7** | Canonical deed URL table | §5.2 / LP-20 | Validation only. Never used to synthesize a missing `license_url`. | **constant table** |
+| **A7** | Canonical deed URL table | §4.1 / LP-20 | Validation only. Never used to synthesize a missing `license_url`. | **constant table** |
 | **A8** | Snapshot licence re-check on recipe load | §13.3, LP-59 | Refines — does not contradict — the snapshot freeze rule: appearance stays frozen, licence does not. Without it, takedowns do not reach saved recipes. | **behaviour refinement** |
 
 **Deliberately not added:** a `metadata_license` field. LP-3/LP-4 handle the record-vs-asset trap by rule (`license` always means the media asset; a record-level-only provider writes `unknown`) rather than by a second field that would immediately need its own guard, its own badge and its own conflict semantics. If a provider ever publishes both licences per asset in a form we can verify, this decision should be revisited — and until then, the absence of the field is what prevents anyone from reading a CC0 catalogue statement as a licence on a picture.

@@ -5,6 +5,7 @@
  *
  * Checks the things that silently rot in a large doc set: dead relative links,
  * dead anchors, taxonomy ids cited in prose that do not exist in the data,
+ * node and file counts stated in prose that the data has since moved past,
  * schema files referenced but absent, and the brief-mandated doc set.
  */
 import fs from 'node:fs'
@@ -74,19 +75,30 @@ for (const f of fs.readdirSync(path.join(ROOT, 'data/taxonomy'))) {
 // Ids the docs cite *because* they are invalid. INV-LENS-1 forbids asserting a focal
 // length, so `lens.35mm` appears throughout as the canonical rejected example.
 const COUNTEREXAMPLES = new Set(['lens.35mm'])
-// Only inspect ids inside backticks: prose like "the scene.json file" is not a citation.
+// A citation is an id inside a delimited span — an inline-code span or a quoted string.
+// Backticked prose citations AND the quoted ids of fenced JSON examples therefore both
+// count (a worked example citing an id nothing defines is exactly the drift that wastes
+// an implementer's afternoon), while running prose "the scene.json file" does not. Spans
+// are scanned through rather than matched end to end, because one span often carries
+// several ids: `motion.walking -> action.walking`.
+const SPAN = /`([^`\n]+)`|"([^"\n]*)"|'([^'\n]*)'/g
+// Category names double as taxonomy filenames, so a path (`data/taxonomy/scene.json`) and
+// a wildcard family (`camera_motion.pan_*`) must not read as ids; FILE_SUFFIX catches the
+// bare filename form (`scene.json`) that the boundaries alone would let through.
+const CITED_ID = /(?<![\w./-])([a-z_]+)\.([a-z0-9_]+)(?![\w*.-])/g
+const FILE_SUFFIX = new Set(['json', 'md', 'js', 'mjs'])
 const ghost = new Map()
 for (const f of mdFiles) {
   const lines = fs.readFileSync(path.join(ROOT, f), 'utf8').split('\n')
   lines.forEach((line, i) => {
-    // Backticked prose citations AND quoted ids inside fenced JSON examples: a worked
-    // example that cites an id nothing defines is exactly the drift that wastes an
-    // implementer's afternoon, so both forms are checked.
-    for (const m of line.matchAll(/[`"']([a-z_]+)\.([a-z0-9_]+)[`"']/g)) {
-      const [id, cat] = [m[1] + '.' + m[2], m[1]]
-      if (!taxCats.has(cat) || taxIds.has(id) || COUNTEREXAMPLES.has(id)) continue
-      if (!ghost.has(id)) ghost.set(id, [])
-      ghost.get(id).push(`${f}:${i + 1}`)
+    for (const s of line.matchAll(SPAN)) {
+      for (const m of (s[1] ?? s[2] ?? s[3] ?? '').matchAll(CITED_ID)) {
+        const [id, cat] = [m[1] + '.' + m[2], m[1]]
+        if (!taxCats.has(cat) || taxIds.has(id) || COUNTEREXAMPLES.has(id)) continue
+        if (FILE_SUFFIX.has(m[2])) continue
+        if (!ghost.has(id)) ghost.set(id, [])
+        ghost.get(id).push(`${f}:${i + 1}`)
+      }
     }
   })
 }

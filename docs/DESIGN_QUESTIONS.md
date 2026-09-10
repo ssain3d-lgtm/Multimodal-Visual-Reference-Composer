@@ -5,7 +5,7 @@
 > ### 한국어 요약
 > 이 문서는 브리프 70절이 요구하는 아홉 개의 질문에 대한 **정식 답변서**입니다. 각 답변은 약속이 아니라 실제 스키마 필드·불변식(INV-\*)·모듈 경계로 증명되며, 어떤 답도 "나중에 하겠다"로 끝나지 않습니다.
 > 핵심은 네 가지입니다. `IntentChip`은 문자열이 아닌 **출처를 가진 객체**이고, `MixEntry`는 참조를 복사하지 않는 **간선(edge) 객체**이며, 충돌은 자동 해결되지 않고 `blocked[]`로 **드러나고**, AI는 어댑터 뒤에 있어 완전히 꺼도 제품이 완결됩니다.
-> 마지막 "Still open" 절은 아직 결정되지 않은 15개 항목을 **결정 방법·차단 대상·현재의 보수적 기본값**과 함께 나열합니다. 모두 해결된 척하는 것이 미해결을 이름 붙이는 것보다 나쁘기 때문입니다.
+> 마지막 "Still open" 절은 아직 결정되지 않은 17개 항목을 **결정 방법·차단 대상·현재의 보수적 기본값**과 함께 나열합니다. 모두 해결된 척하는 것이 미해결을 이름 붙이는 것보다 나쁘기 때문입니다.
 
 ---
 
@@ -179,11 +179,12 @@ Search and Prompt communicate **only through plain data owned by Core** — they
 
 ```
 type "rainy alley"          → mode: text    → results
-open a card, EXTRACT camera → mix += {img_A, use:[composition, framing, camera_angle]}
+open a card, EXTRACT composition → mix += {img_A, use:[composition]}
 drop a phone photo          → mode: image   ← intent, pins, mix ALL still here (INV-EXP-1)
 browse Clothing → Streetwear→ mode: browse  ← still here
+click a Streetwear hit      → chip {clothing.hoodie, source:"user"}
 open a card, EXTRACT clothing → mix += {img_B, use:[clothing], exclude:[clothing.beanie]}
-conflict: framing A vs B    → surfaced, resolved by click
+conflict: hoodie vs t-shirt → same exclusivity_group, surfaced, resolved by click
 read the prompt             → composer panel, same modal, never closed
 ```
 
@@ -750,7 +751,7 @@ LICENSE CHECK ──▶ SOURCE VALIDATION ──▶ ATTRIBUTION METADATA ──�
 |---|---|---|
 | **INV-LIC-1** | `approved` ⇒ non-empty `metadata.attribution`, and `license ∉ {unknown, proprietary}` | schema |
 | **INV-LIC-2** | `approved` + `cc_by`/`cc_by_sa` ⇒ non-empty `creator` **and** `license_url` | schema |
-| **INV-LIC-3** | `approved` also requires `license_check.status == "pass"` **and** `source_validation.status == "pass"` | code |
+| **INV-LIC-3** | `approved` also requires `license_check.status`, `source_validation.status` **and** `attribution_metadata.status` all `== "pass"` | code |
 
 Default search filter is `status: ["approved"]`, so an unverified reference never reaches a normal result set. And `C7`: **licence approval is never a ranking signal, and ranking is never an approval path** — a weight can be tuned to zero; a gate cannot.
 
@@ -884,7 +885,7 @@ The research environment's egress proxy blocked these. Full per-item lists: [`TH
 | `OPEN-13` | **A `metadata_license` field distinct from the media `license`** | not shipped in v1; LP-4 handles the hazard by writing `unknown` and routing to `license_review` | a MINOR schema bump (additive, optional field) if `license_review` volume shows LP-4 is too blunt in practice | nothing today; it is a refinement, not a fix |
 | `OPEN-14` | **A `formatter_capability` record per mode** — word budget, slot ordering, negative-prompt support, max simultaneous camera moves, drop order | `FORMATTER_MODE` is an open string and `model_hints` exists; a mode is a module | needs a home in the prompt layer and a MINOR bump; decide when the second formatter mode is written, not before — one mode is not evidence of a shape | modes beyond `generic` |
 | `OPEN-15` | **Multi-shot sequencing** — `exports[].kind` already names `storyboard` and `shot_list`, but a shot is a `VisualIntent` and v1 of the data model does not express how several intents relate in time | post-v0.5, explicitly unscheduled | design the sequencing model **before** the feature, per `NG-R5`: no feature is scheduled before the schema expresses it, and the model will not be improvised into shape mid-milestone | storyboard and shot-list exports |
-| `OPEN-16` | **Camera *level* as modifier nodes inside `camera_angle`** (`exclusivity_group: null`, so they never trigger an arity conflict) | proposed; the brief fixes the category list at 20, so a new category is unavailable and the modifier escape is the schema-legal resolution | ratify when `camera.json` is authored, with the arity consequences tested | the camera taxonomy's final shape |
+| `OPEN-16` | **Camera *level* as modifier nodes inside `camera_angle`** (`exclusivity_group: null`, so they never trigger an arity conflict) | proposed; the brief fixes the category list at 20, so a new category is unavailable and the modifier escape is the schema-legal resolution | ratify as a MINOR revision of the shipped `camera.json`, with the arity consequences tested | the camera taxonomy's final shape |
 | `OPEN-17` | **Donor-quality fields** (viewpoint, occlusion, scale) that would let the mixer warn "this flat-lay is a poor `pose` donor" | not in the model; the mixer warns about nothing | proposed as a MINOR addition to `attribute_meta`; decide only if real mixes show bad-donor confusion | nothing; a quality-of-life idea, honestly parked |
 
 ### S.4 Names this document introduces

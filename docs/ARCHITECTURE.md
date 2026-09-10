@@ -72,7 +72,7 @@ L2 │  CORE   src/core/ visual-intent · reference-mix · taxonomy · explorer-
                                       │ reads (injected as plain data, never fetched)
                                       ▼
    ┌──────────────────────────────────────────────────────────────────────────────────┐
-L1 │  DATA   data/taxonomy/*.json (9 files, 20 categories) · data/presets.json ·       │
+L1 │  DATA   data/taxonomy/*.json (10 files, 20 categories) · data/presets.json ·      │
    │         data/references.json          — inert JSON, no code, no binaries          │
    └──────────────────────────────────────────────────────────────────────────────────┘
    ┌──────────────────────────────────────────────────────────────────────────────────┐
@@ -82,7 +82,7 @@ L0 │  CONTRACT  docs/schemas/*.json — 7 JSON Schemas; the only cross-languag
 
 ### 1.2 The dependency rule, stated as law
 
-1. **Core is a leaf.** `src/core/*` imports nothing from `src/`. It has no DOM, no `fetch`, no `window`, no filesystem, no clock it did not receive (`ctx.now`), no randomness. Taxonomy and reference data arrive as function arguments.
+1. **Core is a leaf.** `src/core/*` imports nothing from `src/`. It has no DOM, no `fetch`, no `window`, no filesystem, no clock it did not receive (`ctx.now`), no randomness. Taxonomy and reference data arrive as function arguments. Two Core selectors need work that lives above them — `selectPromptPreview` needs Prompt's engine and formatter, `summarizeLicenses` needs Reference's licence classifier (§2.1) — and they receive those functions as arguments exactly as Search receives its adapters (rule 6). An injected function is not an import: the lint reads specifiers, and Core's specifier list stays empty.
 2. **UI depends on Core.** Every other layer's job is to be replaceable underneath the UI without the UI's state model changing.
 3. **Nothing depends on UI.** `src/ui/*` is imported only by `app/index.html`.
 4. **Search and Prompt never import each other.** Not directly, not through a shared helper module, not through a barrel file. Their only shared vocabulary is Core (`VisualIntent`, `TaxonomyNode`, category enums). This is the brief's "no coupling of search with prompt composer", enforced as a graph property rather than a convention.
@@ -97,7 +97,7 @@ Row **may import** column. `✗` is a build-breaking violation, not a smell.
 
 | ↓ imports → | core | search | prompt | reference | providers | ai (ports) | ui | concrete AI backend |
 |---|---|---|---|---|---|---|---|---|
-| **core** | ✓ (within) | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| **core** | ✓ (within) | ✗ | **inject only** | **inject only** | ✗ | ✗ | ✗ | ✗ |
 | **search** | ✓ | ✓ | **✗** | ✗ | ✗ | **inject only** | ✗ | ✗ |
 | **prompt** | ✓ | **✗** | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | **reference** | ✓ | ✗ | ✗ | ✓ | **inject only** | ✗ | ✗ | ✗ |
@@ -105,7 +105,7 @@ Row **may import** column. `✗` is a build-breaking violation, not a smell.
 | **ai (ports)** | ✓ (types) | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ | **✗** |
 | **ui** | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ |
 
-"inject only" means: the module names the interface in its documentation and accepts an implementation as an argument; it contains no `import` of the providing module.
+"inject only" means: the module names the interface in its documentation and accepts an implementation as an argument; it contains no `import` of the providing module. Core's two cells are the narrowest case of it — `{ buildStructuredPrompt, formatPrompt }` and `classifyLicense`, named in §2.1 and nowhere else — and the lint expresses the whole row as "zero `import` specifiers under `src/core/**` that begin with `src/`".
 
 **Enforcement.** A dependency-lint step (`tests/arch/dependency-rule.test.js`) parses every `import` specifier in `src/**` and fails the build on any `✗` cell, on any `src/ai/**` file importing outside `src/core`, and on any `src/{core,prompt}/**` file referencing `window`, `document`, `fetch`, `localStorage` or `node:`. The rule is machine-checked because a rule that is only written down is a rule that erodes in month three.
 
@@ -124,7 +124,7 @@ Row **may import** column. `✗` is a build-breaking violation, not a smell.
 
 ## 2. Module inventory
 
-The brief's target layout is reproduced **exactly**. Two files are added inside `src/core/` and flagged; nothing is renamed, moved or omitted.
+The brief's target layout is reproduced **exactly**: nothing is renamed, moved or omitted. Everything that ships beyond it is marked `*` and rationalised in §12.2.
 
 ```
 app/index.html
@@ -135,10 +135,11 @@ src/reference/{reference-manager, license-guard}.js
 src/providers/{openverse, wikimedia, local}.js
 src/ai/{analyzer, embedding, reranker}.js
 src/ui/{explorer-modal, reference-card, reference-detail, reference-mixer, intent-chips}.js
-data/taxonomy/{framing, camera, lens, pose, motion, clothing, scene, lighting, style}.json
+data/taxonomy/{framing, camera, lens, pose, motion, clothing, scene, lighting, style, subject*}.json
 data/{presets, references}.json
 docs/{PRODUCT_VISION, COMPETITIVE_ANALYSIS, ARCHITECTURE, DATA_SCHEMA, SEARCH_ARCHITECTURE,
       LICENSE_POLICY, THIRD_PARTY_REVIEW, ROADMAP}.md + docs/schemas/*.json
+docs/{DESIGN_QUESTIONS, MVP_V0.1_TASKS, UNIFIED_MODAL_STATE}.md* + docs/research/*.md*
 tests/                                   (unit, conformance, arch lint)
 LICENSE, THIRD_PARTY_NOTICES.md, README.md
 ```
@@ -147,7 +148,7 @@ LICENSE, THIRD_PARTY_NOTICES.md, README.md
 
 ### 2.1 `src/core/` — pure, environment-agnostic, imports nothing
 
-#### `taxonomy.js` — the controlled vocabulary and the three constant tables
+#### `taxonomy.js` — the controlled vocabulary and the seven frozen tables
 
 Owns loading and querying `TaxonomyNode`s and re-exports the frozen tables that the schemas carry as `const` in `taxonomy-node.schema.json#/$defs`. It never ranks and never scores (that is Search's job).
 
@@ -180,7 +181,10 @@ CATEGORY_ARITY                 // 7 single_dominant / 13 multi
 CATEGORY_TO_PROMPT_SLOT        // 20 -> 13
 PROMPT_SLOT_EMIT_ORDER         // multi-source slot ordering
 EXTRACT_GROUPS                 // 8 groups -> categories
-humanize(id) -> string
+humanize(id) -> string         // last-resort label: drop everything up to the first ".",
+                               // "_" -> " ", case untouched. A value with no "." (a custom
+                               // chip) is returned unchanged apart from the "_" rule:
+                               // humanize("camera_angle.low_angle") === "low angle"
 ```
 
 #### `visual-intent.js` — the intent document
@@ -195,7 +199,7 @@ normalizeVisualIntent(input, ctx)                -> NormalizeResult
 compactVisualIntent(intent)                      -> { compact: VisualIntentCompact, warnings }
   // drops custom and negated chips WITH a warning; lossless for the semantic payload
 aggConfidence(intent, category)                  -> number         // max, not mean; 1.0 if any chip locked/user
-recomputeConfidence(intent)                      -> VisualIntent   // derived-cache rule 0.3
+recomputeConfidence(intent)                      -> VisualIntent   // derived cache: DATA_SCHEMA §6.4
 targetArrayFor(category, value)                  -> intent_category // props.* -> "scene"
 addChip(intent, category, chip, ctx)             -> VisualIntent   // dedupe = AGREEMENT, then sort
 removeChip(intent, selector)                     -> VisualIntent   // selector: chip_id | {category,value}
@@ -237,12 +241,21 @@ initExplorerState(opts)                       -> ExplorerState
 reduceExplorer(state, event, ctx)             -> { state, effects: Effect[] }
   // PURE. Never awaits, never fetches, never touches the DOM. Every side effect is returned
   // as a plain descriptor for the host to run.
-EXPLORER_EVENTS                                // frozen list, §3.3
+  // ctx is plain data (taxonomy, referencesById, now, capabilities, locale) plus ONE injected
+  // member, ctx.compose = { buildStructuredPrompt, formatPrompt } (§1.2 rule 6), read only by
+  // the events that refresh prompt_preview. Absent it, those events leave prompt_preview
+  // untouched and mark it stale; Core still imports nothing from src/.
+EXPLORER_EVENTS                                // frozen list: the 28 events of §3.3 plus the six
+                                               // introduced by UNIFIED_MODAL_STATE.md §3.2 — 34 total
 pushHistory(state, origin, meta)              -> ExplorerState        // truncate-forward-tail semantics
-navigate(state, delta)                        -> { state, effects }   // back/forward; pushes nothing
-replayEntry(state, entry, { apply_intent })   -> { state, effects }
+restoreEntry(state, entry, { apply_intent })  -> { state, effects }
+  // `state` first, always. The one-argument spelling used in §3.4, DATA_SCHEMA §14 and
+  // explorer-state.schema.json — restoreEntry(entry, { apply_intent: true }) — is shorthand
+  // for this call from inside the reducer, where `state` is already in hand.
 deriveCapabilityProfile(ai_settings, capability_records) -> CapabilityProfile   // §5.4
-selectPromptPreview(state, taxonomy)          -> StructuredPromptDocument       // derived selector
+selectPromptPreview(state, taxonomy, compose) -> StructuredPromptDocument       // derived selector
+  // compose = { buildStructuredPrompt, formatPrompt } from src/prompt/ — INJECTED, never
+  // imported (§1.2 rule 1). The same pair the reducer receives as ctx.compose.
 assertExplorerInvariants(prev, next, event)   -> Violation[]          // INV-EXP-1/3/4/5; dev + test only
 ```
 
@@ -250,10 +263,12 @@ assertExplorerInvariants(prev, next, event)   -> Violation[]          // INV-EXP
 
 ```js
 buildRecipe(state, references, ctx)   -> VisualRecipe        // freezes ReferenceSnapshots (INV-RCP-1)
-openRecipe(recipe, taxonomy)          -> { state_patch, notices }
-  // re-derives the prompt; emits a "regenerated" notice instead of trusting prompt_preview;
+openRecipe(recipe, taxonomy, compose) -> { state_patch, notices }
+  // re-derives the prompt through the same injected compose pair as selectPromptPreview;
+  // emits a "regenerated" notice instead of trusting prompt_preview;
   // rewrites deprecated ids via replaced_by, or keeps them as custom chips badged "deprecated"
-summarizeLicenses(snapshots)          -> license_summary     // re-exported from license-guard's classifier
+summarizeLicenses(snapshots, { classifyLicense })  -> license_summary
+  // classifier INJECTED from license-guard (§2.4); Core never imports src/reference/
 contentHash(recipe)                   -> string              // integrity.content_hash
 bumpVersion(recipe)                   -> VisualRecipe        // monotonic content revision
 ```
@@ -270,13 +285,18 @@ bumpVersion(recipe)                   -> VisualRecipe        // monotonic conten
 ```js
 // query-builder.js
 buildQuery(state)                              -> Query
-  // Query = { query_id, text_terms[], expansion[], intent_filters, filters,
-  //           difference?, ranking, embedding_key|null }
-buildKeywordQuery(text, taxonomy, opts)        -> { terms[], node_hits[], expansions[] }
+  // Query = { query_id, text_tokens[], expansion[], intent_filters, filters,
+  //           difference?, ranking, embedding_key|null }   // full shape: SEARCH_ARCHITECTURE §2.1
+buildKeywordQuery(text, taxonomy, opts)        -> { text_tokens[], node_hits[], expansion[] }
 buildMetadataFilter(intent, filters)           -> MetadataFilter
 buildDifferenceQuery(difference, anchor, taxonomy)
-  -> { keep_filters, change_negatives, change_targets, diversity_boost, strictness }
+  -> { keep_filters, keep_threshold, change_penalty, change_presence, change_targets,
+       diversity_mu, strictness }
   // asserts INV-EXP-5: keep ∩ change === ∅
+  // KEEP is a hard filter pinned to the anchor's values at keep_threshold (the §7.3
+  // strictness ladder). CHANGE is NEVER a value exclusion (INV-SRCH-3): change_penalty is
+  // the soft overlap penalty (λ = 0.7) and change_presence is a presence-only requirement,
+  // reusing filters.require_categories. Full contract: SEARCH_ARCHITECTURE §7.2–§7.5.
 nextQueryId()                                  -> string     // monotonic; stale responses are dropped
 
 // metadata-search.js
@@ -357,8 +377,9 @@ runLicenseCheck(reference, policy)             -> GuardStep
 runSourceValidation(reference, providers)      -> Promise<GuardStep>
 buildAttribution(reference)                    -> { attribution, credit_line }
 approve(reference, actor)                      -> { reference, violations: Violation[] }
-  // INV-LIC-1/2 schema-level + INV-LIC-3 process-level: license_check and source_validation
-  // must both be "pass". Unverified licence can never reach `approved`.
+  // INV-LIC-1/2 schema-level + INV-LIC-3 process-level: license_check, source_validation
+  // and attribution_metadata must ALL be "pass" — the brief's three stages before approval
+  // (DATA_SCHEMA §17, LICENSE_POLICY LP-16). Unverified licence can never reach `approved`.
 summarizeLicenses(snapshots)                   -> license_summary   // has_excluded ⇒ warn + no default export
 ```
 
@@ -387,15 +408,15 @@ Each file exports: the port's documented shape, a registry, a `NULL_*` adapter (
 
 | File | Responsibility | Public API |
 |---|---|---|
-| `explorer-modal.js` | Mounts the one modal; owns the dispatch loop `dispatch → reduceExplorer → render + run effects`; renders mode tabs, the four query surfaces, the shared filter bar. | `mountExplorerModal(el, deps) -> { dispatch, getState, subscribe, destroy }` |
+| `explorer-modal.js` | Mounts the one modal; owns the dispatch loop `dispatch → reduceExplorer → render + run effects`; renders mode tabs, the four query surfaces, the shared filter bar. It is also the module that imports `src/prompt/` (matrix row `ui` → `prompt`) and builds each `ctx`, so `ctx.compose = { buildStructuredPrompt, formatPrompt }` is injected here and nowhere else. | `mountExplorerModal(el, deps) -> { dispatch, getState, subscribe, destroy }` |
 | `reference-card.js` | One result tile: thumbnail, licence badge, USE / EXTRACT×8 / EXPLORE actions, pin toggle. Fixed height for virtualization. | `renderReferenceCard(reference, handlers, caps) -> HTMLElement`, `CARD_SIZE` |
-| `reference-detail.js` | The decomposition panel: all 20 categories of `visual_attributes` — the 17 reachable through the 8 EXTRACT groups plus `subject`, `appearance`, `action`, which are shown but reachable only via USE-everything — with per-attribute confidence, EXPLORE-along-one-axis, licence and attribution block, media-state badge. | `renderReferenceDetail(reference, deps) -> HTMLElement` |
-| `reference-mixer.js` | The mix panel: entries with `use`/`only`/`exclude`/`role`/`priority`, the conflict two-up with both thumbnails, dominance selector, blocked-slot indicator. | `renderMixer(mix, deps) -> HTMLElement` |
-| `intent-chips.js` | The intent editor: 19 rows + confidence, per-chip lock / negate / delete / alternatives menu, provenance hover, `contested` badge, category filter. | `renderIntentChips(intent, deps) -> HTMLElement` |
+| `reference-detail.js` | The decomposition panel: all 20 categories of `visual_attributes` — the 17 reachable through the 8 EXTRACT groups plus `subject`, `appearance`, `action`, which are shown but reachable only via USE-everything — with per-attribute confidence, EXPLORE-along-one-axis, licence and attribution block, media-state badge. | `renderReferenceDetail(reference, deps) -> HTMLElement` — `deps` adds `ui` (for `ui.detail_tab`) |
+| `reference-mixer.js` | The mix panel: entries with `use`/`only`/`exclude`/`role`/`priority`, the conflict two-up with both thumbnails, dominance selector, blocked-slot indicator. | `renderMixer(mix, deps) -> HTMLElement` — `deps` adds `referencesById` (the two-up needs both thumbnails) |
+| `intent-chips.js` | The intent editor: 19 rows + confidence, per-chip lock / negate / delete / alternatives menu, provenance hover, `contested` badge, category filter. | `renderIntentChips(intent, deps) -> HTMLElement` — `deps` adds `conflicts` and `ui` |
 
-`deps` always carries `{ dispatch, taxonomy, capabilities }` and never a network client: the UI dispatches events; effects are executed by the effect runner in `explorer-modal.js`.
+`deps` always carries `{ dispatch, taxonomy, capabilities }` and never a network client: the UI dispatches events; effects are executed by the effect runner in `explorer-modal.js`. Each renderer additionally receives, on the same `deps` object, the **read-only** state slices its region reads in [`UNIFIED_MODAL_STATE.md`](./UNIFIED_MODAL_STATE.md) §1.3 — `conflicts` (`mix.conflicts`) and `ui` for `renderIntentChips` (R5: per-row conflict count, `ui.chip_filter_category`, `ui.show_conflicts_only`), `referencesById` for `renderMixer` (R8 reads `mix` **and** the references, so the conflict two-up can name and thumbnail both sources), and `ui` for `renderReferenceDetail` (R7's `ui.detail_tab`). They are slices, not stores: a renderer reads them and dispatches; it never writes one.
 
-`app/index.html` is the shell: a `<dialog>`, an ESM import of `explorer-modal.js`, a `fetch` of the ten taxonomy JSON files and `data/presets.json`, and nothing else. It contains no product logic, so the same modules mount unchanged in any other host.
+`app/index.html` is the shell: a `<dialog>`, an ESM import of `explorer-modal.js`, a `fetch` of the ten taxonomy JSON files, `data/presets.json` and `data/references.json`, and nothing else. It contains no product logic, so the same modules mount unchanged in any other host.
 
 ---
 
@@ -480,8 +501,9 @@ Effect kinds (defined here; §12.2): `retrieve`, `analyze`, `embed_query`, `inde
 | `ANALYSIS_SETTLED` | `{ token, result \| error }` | `query.<mode>.analysis_status`, `analyzed_at`; proposals staged, **not merged** | — | — | Stale token ⇒ discarded. Proposals are greyed until accepted; the analyzer never writes `intent` directly. |
 | `ACCEPT_PROPOSAL` / `REJECT_PROPOSAL` | `{ chip \| chip_id }` | `intent` | `chip_edit` (accept) | — | "AI output is a proposal, never a commitment." |
 | `SELECT_REFERENCE` | `{ reference_id }` | `selected_reference_id`, `ui.active_panel="detail"` | — | `resolve_media` | Selection is **not** mix membership. |
-| `EXTRACT_ATTRIBUTES` | `{ reference_id, groups[] \| categories[] }` | `mix` (upsert entry), `pinned_reference_ids` | `reference_extract` | `retrieve` (mix changed ⇒ preview refresh only, no new search unless asked) | UI expands EXTRACT groups → categories **before** dispatch; `use` never stores a group name. |
+| `EXTRACT_ATTRIBUTES` | `{ reference_id, groups[] \| categories[] }` | `mix` (upsert entry), `pinned_reference_ids` | `reference_extract` | — | Mix changed ⇒ `mix.conflicts` and `prompt_preview` are recomputed **in the reducer**; no retrieval, ever (§1.4: an acquisition is not a query). UI expands EXTRACT groups → categories **before** dispatch; `use` never stores a group name. |
 | `ADD_TO_MIX` | `{ reference_id, use[], only?, exclude?, role?, priority?, weight? }` | `mix`, `pinned_reference_ids` | `reference_use` | — | `use: ["*"]` = USE-everything. INV-MIX-1 and INV-EXP-4 enforced in the reducer. |
+| `EXPLORE_FROM_CARD` | `{ reference_id, explore_action }` | `query.filters` (a `type` pin), `difference` for the six "same X" actions, `results.status="loading"` | `reference_explore` (carrying `origin_reference_id` + `origin_categories`) | `retrieve` (+`embed_query` for `find_similar` when semantic is on) | The brief's third card action. Touches neither `intent` nor `mix`: EXPLORE is a **query**, not an acquisition. Nine `explore_action` values, defined here: `find_similar`, `same_composition`, `same_lighting`, `same_outfit`, `same_pose`, `same_camera`, `same_scene`, `similar_video`, `similar_image`. |
 | `UPDATE_MIX_ENTRY` / `REMOVE_FROM_MIX` | `{ reference_id, patch? }` | `mix` | `chip_edit` | — | Removing an entry removes its contributed chips but never `user`/`locked` ones. |
 | `SET_DOMINANT` | `{ category, reference_id }` | `mix.dominance`, resolves the matching conflict | `chip_edit` | — | Remembered, so the question is never re-asked on the next edit. |
 | `RESOLVE_CONFLICT` | `{ conflict_id, resolution }` | `mix.conflicts[i]`, `intent` (materialises a `mix_resolution` chip) | `chip_edit` | — | `strategy:"user"` is the only strategy reachable while `auto_resolve=false`. |
@@ -489,7 +511,7 @@ Effect kinds (defined here; §12.2): `retrieve`, `analyze`, `embed_query`, `inde
 | `EDIT_CHIP` | `{ chip_id, patch }` (lock, negate, weight, order, swap alternative, delete) | `intent` | `chip_edit` | — | Every chip action is one event; per-chip granularity is the product. |
 | `NAVIGATE_BACK` / `NAVIGATE_FORWARD` | — | `mode`, `query`, `query.filters`, `results` | **never** | `retrieve` | Do **not** touch `intent`, `pinned_reference_ids`, `mix` (INV-EXP-3). |
 | `SET_KEEP_CHANGE` | `{ keep[], change[], change_targets?, anchor_reference_id, strictness? }` | `difference` | `search_by_difference` | `retrieve` | Rejects overlapping keep/change (INV-EXP-5) before writing. |
-| `COMPOSE` | `{ prompt_mode? }` | `prompt_mode`, `prompt_preview` | — | — | Pure recomputation: `buildStructuredPrompt` → `formatPrompt`. No retrieval, ever. |
+| `COMPOSE` | `{ prompt_mode? }` | `prompt_mode`, `prompt_preview` | — | — | Pure recomputation through the injected `ctx.compose`: `buildStructuredPrompt` → `formatPrompt`. Core calls them; it never imports them (§1.2 rule 1). No retrieval, ever. |
 | `SET_FILTERS` | `{ patch }` | `query.filters` | `user_query` | `retrieve` | Shared across all four modes. |
 | `SET_AI` | `{ patch }` | `ai` | — | `disclose` when enabling external transmission | Toggling AI off must never lose a chip. |
 | `BROWSE_CATEGORY` | `{ category, parent?, page? }` | `query.browse` | `taxonomy_browse` | `retrieve` | The "I don't know what Low Angle means" path. |
@@ -499,9 +521,11 @@ Effect kinds (defined here; §12.2): `retrieve`, `analyze`, `embed_query`, `inde
 
 Two events are conspicuously absent, on purpose: there is no `RESET`, and there is no `CLEAR_ON_MODE_CHANGE`. Neither can be added without breaking pillar 1.
 
+**The table above is 28 of 34.** §3.3 names and fixes the core vocabulary; six further events are introduced by [`UNIFIED_MODAL_STATE.md`](./UNIFIED_MODAL_STATE.md) §3.2, which owns the complete surface with preconditions and per-field transitions: `OPEN_MODAL` (the counterpart of `CLOSE_MODAL`), `ADD_CHIP` (the only path by which a browse tile or a keyword hit reaches `intent`), `SET_UI`, `DISCLOSURE_ANSWERED` (releases or discards the effect held behind the `disclose` barrier, §10), `SAVE_RECIPE` and `RESTORE_ENTRY` (§3.4). `EXPLORER_EVENTS` is the union — **34 names, and a reducer that handles fewer is incomplete**. Where the two tables describe the same event they must agree; UNIFIED_MODAL_STATE §3.2 is the tiebreak on payload, precondition and effects, this section on the seam rationale.
+
 ### 3.4 History: recorded, replayed, and deliberately narrow
 
-An entry is `{ id?, at?, mode, query, intent_snapshot, filters, origin, origin_reference_id?, origin_categories?, label?, result_ref_ids?, ranking_snapshot? }` — **fully self-contained**, so replay needs nothing outside the entry.
+An entry is `{ id?, at?, mode, query, intent_snapshot, filters, origin, origin_reference_id?, origin_categories?, label?, result_ref_ids?, ranking_snapshot?, difference_snapshot? }` — **fully self-contained**, so replay needs nothing outside the entry. `difference_snapshot` is recorded by every step whose origin is `search_by_difference`, `reference_explore` or `reference_use`, because `difference.keep` is a hard pool filter and therefore a retrieval input exactly like `intent`; without it a "same X" step cannot be replayed.
 
 ```
 push(entry):
@@ -514,8 +538,9 @@ empty history ⇒ cursor = -1
 
 replay(entry):
     set mode, query, query.filters from the entry
-    re-run retrieval using entry.intent_snapshot
-    DO NOT touch pinned_reference_ids, mix, difference
+    re-run retrieval using entry.intent_snapshot and entry.difference_snapshot
+    DO NOT touch pinned_reference_ids, mix, difference   ← difference_snapshot is read as
+                                                          input; it is never written back
     DO NOT overwrite the live intent unless history.restore_intent_on_navigate === true
        or the caller passes restoreEntry(entry, { apply_intent: true })
 ```
@@ -730,7 +755,7 @@ Every `degrade_notice` renders as a one-line explanation with the missing capabi
 | Multi-reference mixing + conflict detection + resolution | ✅ full | ✅ full | `applyMix` is pure logic, not inference |
 | Structured prompt build + generic formatter | ✅ full | ✅ full | `prompt/` never calls a model |
 | Visual Recipe save / open / re-derive | ✅ full | ✅ full | pixel-free data |
-| Search by Difference | ✅ **structured**: KEEP/CHANGE as hard filters over taxonomy ids | ✅ **+ diversity re-ranking** on the CHANGE axis | `buildDifferenceQuery` |
+| Search by Difference | ✅ **structured**: KEEP as hard filters over taxonomy ids; CHANGE as an overlap penalty (λ) **plus a presence requirement, never a value exclusion** (INV-SRCH-3); MMR diversity on the CHANGE axis is Jaccard over `visual_attributes` and needs no model | ✅ **+ semantic kNN** in the fused pool | `buildDifferenceQuery` |
 | Similar-reference search | ✅ **structured similarity**: shared taxonomy ids, weighted by category | ✅ semantic kNN fused 60/40 | `fusion-ranker.js` |
 | Image → chips | ❌ (upload accepted; `mocked` in v0.1) | ✅ analyzer proposals with `bbox` evidence | `analyzeImage` |
 | Video → chips, camera motion, timespans | ❌ (upload + filmstrip + manual window still work) | ✅ `analyzer_video`, `t_start_s/t_end_s`, `shot_index` | `analyzeVideo` |
@@ -767,13 +792,13 @@ Everything in the brief's own v0.1 milestone sits in the **AI OFF** column. That
   │                     ├─ effectRunner ──▶ buildQuery(state) │                      │
   │                     │                  │─────────────────▶│ searchTaxonomy       │
   │                     │                  │                  │  "golden hour"→       │
-  │                     │                  │                  │  time.golden_hour .90 │
-  │                     │                  │                  │  (exact alias)        │
+  │                     │                  │                  │  time.golden_hour .95 │
+  │                     │                  │                  │  (exact label)        │
   │                     │                  │                  │  "alley"→scene.alley  │
   │                     │                  │                  │  .95 (exact label)    │
   │                     │                  │                  │  related hop →        │
   │                     │                  │                  │  lighting.golden_hour_sun
-  │                     │                  │                  │  0.35 × 0.90          │
+  │                     │                  │                  │  0.35 × 0.95          │
   │                     │                  │                  │─── filterReferences ─▶│
   │                     │                  │                  │   status=approved     │
   │                     │                  │                  │   licence ∈ default   │
@@ -839,11 +864,16 @@ Two seams are load-bearing here. **The analyzer never writes `intent`** — it w
 ```
  user        ui/reference-card+mixer   core/reference-mix        core/visual-intent   prompt/*
   │                    │                       │                        │               │
-  │ EXTRACT ▸ clothing on card B                │                        │               │
+  │ EXTRACT ▸ clothing + camera on card B       │                        │               │
   ├───────────────────▶│ expand group→categories│                        │               │
-  │                    │ EXTRACT_ATTRIBUTES(B, ["clothing"])             │               │
+  │                    │ EXTRACT_ATTRIBUTES(B, ["clothing",              │               │
+  │                    │   "camera_angle","camera_distance","framing",   │               │
+  │                    │   "lens","camera_motion"])                      │               │
   │                    ├──────────────────────▶│ addEntry({reference_id:B,               │
-  │                    │                       │   use:["clothing"], role:"outfit"})     │
+  │                    │                       │   use:["clothing","camera_angle",       │
+  │                    │                       │         "camera_distance","framing",    │
+  │                    │                       │         "lens","camera_motion"],        │
+  │                    │                       │   role:"outfit + camera work"})         │
   │                    │                       │ + pinned_reference_ids ∪ {B} (INV-EXP-4)│
   │                    │                       │                        │               │
   │                    │                       │ applyMix(mix, refs, base_intent, tax)   │
@@ -880,10 +910,12 @@ Two seams are load-bearing here. **The analyzer never writes `intent`** — it w
   │◀─ prompt text with the camera slot greyed: “1 decision pending” ──────────────────────│
   │                    │                       │                        │               │
   │ clicks "keep mine" │                       │                        │               │
-  ├───────────────────▶│ SET_DOMINANT(camera_angle, <your value>)                        │
+  ├───────────────────▶│ RESOLVE_CONFLICT(cfl_ab12…, {strategy:"user",                   │
+  │                    │   winner_value:"camera_angle.low_angle"})                       │
   │                    ├──────────────────────▶│ conflict.status="resolved"              │
-  │                    │                       │ strategy:"user", dominance remembered   │
-  │                    │                       │ (never re-asked on the next edit)       │
+  │                    │                       │ chip source becomes "mix_resolution"    │
+  │                    │                       │ (SET_DOMINANT instead when a REFERENCE  │
+  │                    │                       │  wins: {category, reference_id})        │
   │◀─ camera slot now emits “shot from a low angle looking up at the subject” ────────────│
 ```
 
@@ -902,8 +934,8 @@ The brief defers the node until the web MVP proves the concepts, and names the s
 | `src/core/taxonomy.js` | **pure** | ✅ verbatim | no I/O; data is injected |
 | `src/core/visual-intent.js` | **pure** | ✅ verbatim | |
 | `src/core/reference-mix.js` | **pure** | ✅ verbatim | |
-| `src/core/explorer-state.js` | **pure** | ✅ verbatim (reducer usable headlessly for tests / batch) | pure reducer, effects are descriptors |
-| `src/core/visual-recipe.js` | **pure** | ✅ verbatim | a recipe is the node's natural input |
+| `src/core/explorer-state.js` | **pure** | ✅ verbatim (reducer usable headlessly for tests / batch) | pure reducer, effects are descriptors; the prompt composer arrives in `ctx.compose`, so the bundle's wiring — not the module — decides whether a preview is produced |
+| `src/core/visual-recipe.js` | **pure** | ✅ verbatim | a recipe is the node's natural input; composer and licence classifier are injected |
 | `src/prompt/prompt-engine.js` | **pure** | ✅ verbatim | |
 | `src/prompt/formatter-generic.js` | **pure** | ✅ verbatim | |
 | `data/taxonomy/*.json`, `data/presets.json` | **data** | ✅ verbatim | inert JSON |
@@ -994,7 +1026,7 @@ Targets below are **budgets to build against**, on a mid-range laptop, with a li
 | `applyMix` cost | O(entries × categories × values). Memoized on `(mix revision, intent revision, taxonomy version)`; recomputed on any mix or chip edit, which is far below one per frame. |
 | `formatPrompt` cost | Pure and cheap; recomputed on every intent change. Memoized on the same key triple to keep the preview render trivial. |
 | History memory | 200 entries × an `intent_snapshot` each. Snapshots use structural sharing from the immutable core mutators, so unchanged categories are shared, not copied. |
-| Taxonomy load | Nine JSON files fetched in parallel, parsed once, frozen. `loadTaxonomy` is the only validation pass. |
+| Taxonomy load | Ten JSON files fetched in parallel, parsed once, frozen. `loadTaxonomy` is the only validation pass. |
 | Results ↛ intent | `results` never writes into `intent`, which removes a whole class of feedback-loop re-render storms by construction. |
 
 ---
@@ -1014,7 +1046,8 @@ Targets below are **budgets to build against**, on a mid-range laptop, with a li
                  │  → contains NO network call of any kind              │
                  └──────────────────────┬───────────────────────────────┘
                                         │
-                   ══════════ EGRESS GATE ══════════   assertEgressAllowed()
+                   ══════════ EGRESS GATE ══════════   assertEgressAllowed()  (AI adapters)
+                                                         assertProviderEgressAllowed()
                                         │
                  ┌──────────────────────┴───────────────────────────────┐
                  │  MAY LEAVE THE DEVICE — exactly two module families  │
@@ -1025,9 +1058,10 @@ Targets below are **budgets to build against**, on a mid-range laptop, with a li
                  └──────────────────────────────────────────────────────┘
 ```
 
-The gate is one function, called at exactly two call sites (the analyzer/embedding façades and the provider client factory):
+The gate is one module with two entry points, one per call site, because the two sites answer **different privacy questions**: shipping the user's own bytes to a model is not the same act as fetching metadata about a public work. Collapsing them would either gate a Wikimedia search behind an AI consent record, or let a user upload ride out on a provider's ticket.
 
 ```js
+// call site 1 — the analyzer / embedding façades. User media may be in play.
 assertEgressAllowed(handle: MediaHandle, adapter_caps, ai.external_transmission)
   -> void | throws EgressRefused
 // 1. handle.local_only === true                       -> REFUSE, unconditionally, no override
@@ -1036,6 +1070,22 @@ assertEgressAllowed(handle: MediaHandle, adapter_caps, ai.external_transmission)
 // 4. ai.external_transmission.disclosed_at is unset   -> REFUSE (consent must precede, not follow)
 // 5. endpoint ∉ ai.external_transmission.endpoints[]  -> REFUSE
 // otherwise ALLOW, and record the transmission for the UI's activity indicator
+
+// call site 2 — the provider client factory. There is NO MediaHandle: what leaves is a
+// query string or a source id, and what returns is metadata + a thumbnail of a PUBLIC work.
+assertProviderEgressAllowed(provider_caps, endpoint, providers_policy)
+  -> void | throws EgressRefused
+// 1. provider_caps.offline === true                   -> ALLOW (`local.js`; nothing leaves)
+// 2. providers_policy.live_search_enabled !== true    -> REFUSE (the v0.1 default: an AI-OFF
+//                                                        install performs zero outbound
+//                                                        requests beyond `data/`)
+// 3. endpoint host ∉ providers_policy.endpoints[]     -> REFUSE
+// otherwise ALLOW, and record the request for the UI's activity indicator
+// `ai.external_transmission` is NOT consulted here — it is the AI-adapter consent record, and
+// its `endpoints[]` is an AI-adapter list. The provider host list, together with the
+// per-provider throttle and the required identification headers, is `providers_policy`,
+// specified in LICENSE_POLICY.md LP-23 and shipped as a policy constant, not a code path (§2.5).
+// A user file can never arrive here: no method on the provider interface accepts one.
 ```
 
 ### 10.2 The rules that follow
@@ -1064,7 +1114,7 @@ These restate the brief's hard prohibitions in module terms. Each is machine-che
 | **C1** | **UI must never be coupled to the prompt engine.** `src/prompt/**` may not import `src/ui/**`, may not touch the DOM, and may not receive a DOM node. | The prompt engine has to run in the ComfyUI node and in tests. A single `document.` reference kills §8. | arch lint |
 | **C2** | **Search must never be coupled to the prompt composer.** `src/search/**` ↮ `src/prompt/**` in both directions, including via a shared helper module. | The brief's explicit prohibition. Structurally it prevents "the search box quietly rewrites the prompt", which is the failure that turns the product into an interrogator. | arch lint (both directions) |
 | **C3** | **No module may import a concrete AI backend.** Backends are registered at runtime; no model name appears as an import specifier or a branch condition. | Brief question 7 (model swap) and INV-AI-2. | arch lint + grep for reserved model names in `src/` |
-| **C4** | **Core must import nothing from `src/`.** No DOM, no `fetch`, no clock, no randomness. | Purity is what makes the invariants testable and the node possible. | arch lint |
+| **C4** | **Core must import nothing from `src/`.** No DOM, no `fetch`, no clock, no randomness. Functions handed in as arguments (`ctx.compose`, `classifyLicense`) are the two sanctioned exceptions and are *not* imports — the lint reads specifiers, not signatures. | Purity is what makes the invariants testable and the node possible. | arch lint |
 | **C5** | **Analyzer and retriever stay separate.** The analyzer may not rank; the retriever may not propose chips. `results` never writes into `intent`. | "Analyzer understands; retriever ranks." Merging them makes AI-OFF retrieval impossible. | code review + reducer test: no event path writes `intent` from `results` |
 | **C6** | **Providers must not leak upward.** No layer above `src/providers/**` may branch on a provider name or a provider-specific field. | Provider swap and the Wikimedia-then-Openverse priority stay policy, not code paths. | grep: `wikimedia`/`openverse` absent outside `src/providers/**` and policy constants |
 | **C7** | **Licence approval is never a ranking signal, and ranking is never an approval path.** `license-guard` decides `approved`; search only filters on `status`. | INV-LIC-3. A weight can be tuned to zero; a gate cannot. | code review + test: no `status` transition inside `src/search/**` |
@@ -1098,13 +1148,14 @@ These restate the brief's hard prohibitions in module terms. Each is machine-che
 
 1. **`src/core/explorer-state.js` is added** beyond the brief's file list. The brief lists a target layout but no home for the modal state machine. Putting the reducer in `src/ui/explorer-modal.js` would make INV-EXP-1 a browser-only, DOM-coupled property, untestable headlessly and unusable in the node — a direct violation of C1/C4. It is placed in Core, where it is pure.
 2. **`src/core/visual-recipe.js` is added**, deferred to the recipe milestone. `VisualRecipe` is a first-class schema in the canonical data model; it composes intent + mix + frozen snapshots and belongs to none of `reference-manager`, `reference-mix` or `prompt`.
-3. **`normalizeVisualIntent` returns `{ intent, rewrites, warnings }`.** The canonical spec writes the signature as returning `VisualIntent` while also describing "the returned rewrites log". This is a clarification of the return envelope, not a renamed field: `result.intent` is exactly the canonical `VisualIntent`.
-4. **Effect kinds** (`retrieve`, `analyze`, `embed_query`, `index_upsert`, `resolve_media`, `provider_call`, `disclose`, `persist`) and the **event names** in §3.3 beyond the assignment's required set (`ANALYSIS_SETTLED`, `ACCEPT_PROPOSAL`, `REJECT_PROPOSAL`, `UPDATE_MIX_ENTRY`, `REMOVE_FROM_MIX`, `RESOLVE_CONFLICT`, `UNPIN`, `EDIT_CHIP`, `SET_FILTERS`, `SET_AI`, `BROWSE_CATEGORY`, `LOAD_PRESET`, `LOAD_RECIPE`, `RESULTS_ARRIVED`, `CLOSE_MODAL`) are defined here. They are runtime vocabulary, not persisted data, and appear in no schema.
-5. **`MediaHandle`, `AdapterCapabilities`, `AnalyzerResult`, `CapabilityProfile`, `Effect`, `Query`, `MetadataFilter`, `SearchIndex`, `SemanticIndex`, `GuardStep`, `Violation`, `Warning`** are runtime types introduced here. None is persisted; none collides with a schema name.
-6. **`assertEgressAllowed` and the two-call-site egress gate** are an architectural commitment made here; the brief states the policy, not the mechanism.
-7. **The ASCII modal layout in §4.2** is a design commitment made in this repository, derived from the brief's behavioural constraints. The brief contains no ASCII drawing.
-8. **`tests/` and `dist/`** are not in the brief's layout. `tests/` holds unit, conformance (§8.2) and architecture-lint suites; `dist/uvrc-core.mjs` is a build artefact for the node, not a source module.
-9. **Performance numbers in §9 are targets, not measurements** (UNVERIFIED until `tests/perf/` exists). Node-runtime availability inside arbitrary ComfyUI installations is likewise (UNVERIFIED) and is probed, never assumed.
+3. **`data/taxonomy/subject.json` is added** beyond the brief's data layout. The brief fixes twenty categories but its layout line names only nine taxonomy filenames, none of which is a home for `subject` or `appearance`; the tenth file carries exactly those two categories and nothing else. Ten files, twenty categories.
+4. **`normalizeVisualIntent` returns `{ intent, rewrites, warnings }`.** The canonical spec writes the signature as returning `VisualIntent` while also describing "the returned rewrites log". This is a clarification of the return envelope, not a renamed field: `result.intent` is exactly the canonical `VisualIntent`.
+5. **Effect kinds** (`retrieve`, `analyze`, `embed_query`, `index_upsert`, `resolve_media`, `provider_call`, `disclose`, `persist`) and the **event names** in §3.3 beyond the assignment's required set (`ANALYSIS_SETTLED`, `ACCEPT_PROPOSAL`, `REJECT_PROPOSAL`, `EXPLORE_FROM_CARD`, `UPDATE_MIX_ENTRY`, `REMOVE_FROM_MIX`, `RESOLVE_CONFLICT`, `UNPIN`, `EDIT_CHIP`, `SET_FILTERS`, `SET_AI`, `BROWSE_CATEGORY`, `LOAD_PRESET`, `LOAD_RECIPE`, `RESULTS_ARRIVED`, `CLOSE_MODAL`) are defined here, as is the nine-value `explore_action` enum they carry. They are runtime vocabulary, not persisted data, and appear in no schema.
+6. **`MediaHandle`, `AdapterCapabilities`, `AnalyzerResult`, `CapabilityProfile`, `Effect`, `Query`, `MetadataFilter`, `SearchIndex`, `SemanticIndex`, `GuardStep`, `Violation`, `Warning`** are runtime types introduced here. None is persisted; none collides with a schema name.
+7. **`assertEgressAllowed`, `assertProviderEgressAllowed` and the two-call-site egress gate** are an architectural commitment made here; the brief states the policy, not the mechanism. So is `providers_policy` — the `{ live_search_enabled, endpoints[], per-provider throttle, identification headers }` record the provider entry point consults; the brief and LICENSE_POLICY LP-23 state the obligations, not where they are held.
+8. **The ASCII modal layout in §4.2** is a design commitment made in this repository, derived from the brief's behavioural constraints. The brief contains no ASCII drawing.
+9. **`tests/`, `dist/` and four working documents** are not in the brief's layout. `tests/` holds unit, conformance (§8.2) and architecture-lint suites; `dist/uvrc-core.mjs` is a build artefact for the node, not a source module; `docs/{DESIGN_QUESTIONS, MVP_V0.1_TASKS, UNIFIED_MODAL_STATE}.md` and `docs/research/` sit beside the brief's eight documents and replace none of them.
+10. **Performance numbers in §9 are targets, not measurements** (UNVERIFIED until `tests/perf/` exists). Node-runtime availability inside arbitrary ComfyUI installations is likewise (UNVERIFIED) and is probed, never assumed.
 
 ### 12.3 Where to go next
 

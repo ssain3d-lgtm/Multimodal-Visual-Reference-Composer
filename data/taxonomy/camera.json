@@ -578,8 +578,10 @@
         "camera_motion.zoom",
         "camera_motion.zoom_in",
         "camera_motion.zoom_out",
+        "camera_motion.move_speed",
         "camera_motion.slow_move",
-        "camera_motion.moderate_move"
+        "camera_motion.moderate_move",
+        "camera_motion.fast_move"
       ],
       "exclusivity_group": null,
       "media_scope": [
@@ -1516,12 +1518,15 @@
       "description": "How quickly the camera itself travels, which is separate from how fast the subject is moving.",
       "examples": [],
       "visual_hint": null,
-      "conflicts_with": [],
+      "conflicts_with": [
+        "camera_motion.static"
+      ],
       "exclusivity_group": null,
       "media_scope": [
         "video"
       ],
       "prompt_fragment": "camera moving at a distinct pace",
+      "sort_order": 120,
       "children": [
         "camera_motion.slow_move",
         "camera_motion.moderate_move",
@@ -1560,6 +1565,7 @@
         "video"
       ],
       "prompt_fragment": "the camera moving slowly and deliberately",
+      "sort_order": 121,
       "children": []
     },
     {
@@ -1591,6 +1597,7 @@
         "video"
       ],
       "prompt_fragment": "the camera moving at a moderate pace",
+      "sort_order": 122,
       "children": []
     },
     {
@@ -1616,13 +1623,15 @@
       "visual_hint": null,
       "conflicts_with": [
         "camera_motion.slow_move",
-        "camera_motion.moderate_move"
+        "camera_motion.moderate_move",
+        "camera_motion.static"
       ],
       "exclusivity_group": "camera_move_speed",
       "media_scope": [
         "video"
       ],
       "prompt_fragment": "the camera moving fast",
+      "sort_order": 123,
       "children": []
     }
   ]

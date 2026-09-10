@@ -15,7 +15,7 @@
     "type": { "enum": ["image", "video"], "description": "Media kind. Drives which attribute categories and media fields are legal." },
     "status": {
       "enum": ["candidate", "approved", "rejected", "license_review"],
-      "description": "License Guard lifecycle state. candidate = ingested, unverified. license_review = a human must decide (unknown/ambiguous/share-alike). approved = license verified AND attribution captured - the ONLY state that may appear in search results or be exported in a VisualRecipe by default. rejected = excluded license or failed source validation; kept as a tombstone so the same source_id is not re-ingested. INV-LIC-1: status may only become 'approved' when license_guard.license_check.status = 'pass', license_guard.source_validation.status = 'pass', metadata.license is in the operator's allowed set, and metadata.attribution is a non-empty string. Unverified license can NEVER reach approved."
+      "description": "License Guard lifecycle state. candidate = ingested, unverified. license_review = a human must decide (unknown/ambiguous/share-alike). approved = license verified AND attribution captured - the ONLY state that may appear in search results or be exported in a VisualRecipe by default. rejected = excluded license or failed source validation; kept as a tombstone so the same source_id is not re-ingested. INV-LIC-1 (schema, the allOf below): status may only become 'approved' when metadata.attribution is a non-empty string and metadata.license is neither 'unknown' nor 'proprietary'. INV-LIC-3 (code, because JSON Schema cannot express step ordering): 'approved' additionally requires license_guard.license_check.status, license_guard.source_validation.status and license_guard.attribution_metadata.status to all be 'pass', with metadata.license in the operator's allowed set. Unverified license can NEVER reach approved."
     },
     "visual_attributes": {
       "type": "object",
@@ -199,6 +199,23 @@
         "allOf": [
           { "properties": { "status": { "const": "approved" } }, "required": ["status"] },
           { "properties": { "metadata": { "properties": { "license": { "enum": ["cc_by", "cc_by_sa"] } }, "required": ["license"] } }, "required": ["metadata"] }
+        ]
+      },
+      "then": {
+        "properties": {
+          "metadata": {
+            "required": ["creator", "license_url"],
+            "properties": { "creator": { "type": "string", "minLength": 1 }, "license_url": { "type": "string", "minLength": 1 } }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "creator may be null ONLY for public_domain / pdm / cc0 / user_owned. Every other license - the whole BY family, not just the two names INV-LIC-2 calls out - needs a named creator and a deed URL before approval, which is what the creator and license_url descriptions promise.",
+      "if": {
+        "allOf": [
+          { "properties": { "status": { "const": "approved" } }, "required": ["status"] },
+          { "properties": { "metadata": { "properties": { "license": { "not": { "enum": ["public_domain", "pdm", "cc0", "user_owned"] } } }, "required": ["license"] } }, "required": ["metadata"] }
         ]
       },
       "then": {

@@ -23,8 +23,8 @@
         "lokomotion"
       ],
       "related": [
-        "motion.walking",
-        "motion.running",
+        "action.walking",
+        "action.running",
         "motion.speed",
         "motion.motion_quality"
       ],
@@ -41,7 +41,7 @@
         "motion.turning",
         "motion.walking"
       ],
-      "description": "The branch for what the body itself is doing — whether the subject is still, travelling across the ground, or changing level. Motion is a video-first attribute: a clip shows it directly, while a photograph can only hint at it, so pick a specific child node when you know which movement you mean.",
+      "description": "The branch for what the body itself is doing — whether the subject is still, travelling across the ground, or changing level. Motion is a video-first attribute: a clip shows it directly, while a photograph can only hint at it, so pick a specific child node when you know which movement you mean. Note that named activities such as walking or running belong in action: what stays in this branch is the travel a clip shows directly.",
       "examples": [
         "a figure crossing the frame on foot",
         "a dancer moving across a stage"
@@ -289,8 +289,8 @@
         "faling"
       ],
       "related": [
-        "motion.jumping",
-        "motion.sitting",
+        "action.jumping",
+        "pose.sitting",
         "motion.fast",
         "motion.staggered"
       ],
@@ -414,7 +414,7 @@
       ],
       "related": [
         "motion.moving_away_from_camera",
-        "motion.walking",
+        "action.walking",
         "camera_motion.dolly_in",
         "camera_motion.push_in"
       ],
@@ -455,7 +455,7 @@
       ],
       "related": [
         "motion.approaching_camera",
-        "motion.walking",
+        "action.walking",
         "camera_motion.dolly_out",
         "camera_motion.pull_out"
       ],
@@ -495,9 +495,9 @@
         "gestrue"
       ],
       "related": [
-        "motion.reaching",
-        "motion.waving",
-        "motion.pointing",
+        "action.reaching",
+        "action.waving",
+        "action.pointing",
         "motion.locomotion"
       ],
       "parent": null,
@@ -506,7 +506,7 @@
         "motion.reaching",
         "motion.waving"
       ],
-      "description": "The branch for movements of the hands, arms or head that communicate something, rather than moving the whole body somewhere. Gestures sit happily alongside locomotion — someone can walk and wave at once — so choosing one never rules out a travelling movement.",
+      "description": "The branch for movements of the hands, arms or head that communicate something, rather than moving the whole body somewhere. Gestures sit happily alongside locomotion — someone can walk and wave at once — so choosing one never rules out a travelling movement. Note that named gestures such as waving or pointing are the activity itself and belong in action: use this node when you mean the gestural movement rather than one particular gesture.",
       "examples": [
         "hands moving while talking",
         "a small greeting made with one hand"
@@ -706,7 +706,7 @@
       "related": [
         "motion.clothing_movement",
         "motion.secondary_motion",
-        "motion.turning",
+        "action.turning",
         "motion.motion_blur"
       ],
       "parent": "motion.secondary_motion",
@@ -747,7 +747,7 @@
       "related": [
         "motion.hair_movement",
         "motion.secondary_motion",
-        "motion.dancing",
+        "action.dancing",
         "motion.fluid"
       ],
       "parent": "motion.secondary_motion",
@@ -833,7 +833,7 @@
       ],
       "related": [
         "motion.looping",
-        "motion.dancing",
+        "action.dancing",
         "motion.fluid",
         "motion.motion_quality"
       ],
@@ -1003,7 +1003,7 @@
       ],
       "related": [
         "motion.rhythmic",
-        "motion.turning",
+        "action.turning",
         "motion.motion_quality",
         "motion.medium_speed"
       ],
@@ -1042,7 +1042,7 @@
       ],
       "related": [
         "motion.frozen_action",
-        "motion.running",
+        "action.running",
         "motion.fast",
         "motion.secondary_motion"
       ],
@@ -1085,9 +1085,9 @@
       ],
       "related": [
         "motion.motion_blur",
-        "motion.jumping",
+        "action.jumping",
         "motion.sharp",
-        "motion.standing"
+        "pose.standing"
       ],
       "parent": "motion.motion_quality",
       "children": [],
@@ -1213,7 +1213,7 @@
       "related": [
         "motion.slow",
         "motion.fast",
-        "motion.walking",
+        "action.walking",
         "motion.speed"
       ],
       "parent": "motion.speed",
@@ -1254,7 +1254,7 @@
       "related": [
         "motion.medium_speed",
         "motion.slow",
-        "motion.running",
+        "action.running",
         "motion.motion_blur"
       ],
       "parent": "motion.speed",

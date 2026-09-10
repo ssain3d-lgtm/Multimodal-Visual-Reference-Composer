@@ -8,6 +8,9 @@
 > 채택할 만한 패턴은 출처와 **채택 시 발생하는 라이선스 의무**까지 함께 기록했습니다.
 > 문서 간 충돌 시 `BRIEF.md` → [정본 데이터 모델](./DATA_SCHEMA.md) → 본 문서 순으로 우선합니다.
 
+> **⚠️ This document is an engineering record, not legal advice.**
+> It states what we surveyed, what we verified with our own eyes, and the rules this codebase enforces about what may and may not be taken from other people's work. It is written by engineers, not lawyers. Where a question is genuinely legal rather than technical — how far copyright reaches an idea rather than its expression, whether a fair-use posture would hold — this document says so, marks it `(UNVERIFIED — legal question)`, and takes the conservative branch rather than guessing. It is not a substitute for counsel.
+
 ---
 
 ## 0. Document contract
@@ -224,7 +227,7 @@ On the mandated axes every row here scores **○ for reference model, attribute 
 | `requestVideoFrameCallback` | WICG spec | universal decode fallback | Yes — likely primary | Cross-origin video taints the canvas: remote video may be un-analysable |
 | ffmpeg.wasm | MIT wrapper over LGPL/GPL core | exotic container fallback | Lazy-load only | Licence stack is the hazard; multi-thread needs COOP/COEP |
 | Openverse API | MIT (code) | provider #2 | **Yes** | `license_type=commercial` still admits `by-nd`. Filter with explicit codes |
-| Wikimedia Commons API | GPL-2.0 (software; call over HTTP only) | provider #1, and our only CC video source | **Yes** | `AttributionRequired` as an explicit boolean is the single best idea in C5 |
+| Wikimedia Commons API | GPL-2.0-or-later (software; call over HTTP only) | provider #1, and our only CC video source | **Yes** | `AttributionRequired` as an explicit boolean is the single best idea in C5 |
 | Europeana | EUPL-1.2 (client) | optional provider | Optional, user key | `reusability` open/restricted/permission maps onto our `status` ladder |
 | Smithsonian Open Access | CC0-1.0 (data repo) | optional provider | Optional | Licence is per *media asset* (`usage.access`), not per record |
 | The Met Open Access | CC0-1.0 (metadata **only**) | optional provider | Optional | "Images are not included and are not part of the dataset" |
@@ -260,6 +263,8 @@ The shape is not an accident, and it is the whole argument of this document comp
 ## 3. Per-project analysis
 
 Every entry uses the same seven headings. "Our differentiation" always names a pillar. Where a licence could not be read firsthand it is marked **(UNVERIFIED)** and must be re-checked before any dependency, citation of specifics, or entry in [`THIRD_PARTY_REVIEW.md`](./THIRD_PARTY_REVIEW.md).
+
+**On the cluster labels.** `C1`–`C5` below are *this document's* five analytical groupings and are local to it. They are not the eight dossier clusters of [`THIRD_PARTY_REVIEW.md`](./THIRD_PARTY_REVIEW.md) §2.1, which also run `C1`–`C8` and carry different meanings — a `C`-label is only ever readable inside the document that defines it.
 
 ### 3.1 C1 · Prompt builders and prompt vaults
 
@@ -676,7 +681,7 @@ This cluster confirms the demand and marks the wall. Every product here treats a
 **Main function** — Curated, film-by-film galleries of high-resolution movie frames, browsed by title and director rather than by craft attribute.
 **Overlap** — The free ancestor of ShotDeck; it organises references by *provenance* (which film) instead of by *attribute* (which lighting).
 **Useful idea** — **Provenance-first browsing is a legitimate second axis.** `Reference.metadata` already carries `source`, `source_id`, `creator`, `license` and `attribution`, so "more from this source" is a nearly free EXPLORE action and matches how people actually recall references ("that shot from that film"). Film-Grab's explicit statement of its legal posture is also good practice; our per-card licence badge is the same instinct done rigorously.
-**What we must NOT copy** — The fair-use posture itself. Film stills are copyrighted; fair use is a fact-specific defence applied inconsistently, and commercial use weighs against it. A tool that ingests film frames at scale and re-emits derived attributes is not a review blog. Under our policy such assets are `unknown` → excluded by default, and can never reach `approved`.
+**What we must NOT copy** — The fair-use posture itself. Film stills are copyrighted; fair use is a fact-specific defence applied inconsistently, and commercial use weighs against it `(UNVERIFIED — legal question)`. A tool that ingests film frames at scale and re-emits derived attributes is not a review blog. Under our policy such assets are `unknown` → excluded by default, and can never reach `approved`.
 **Our differentiation** — **Visual Intent.** Film-Grab is a browsing archive with no schema. Every input — text, image, video, card — converts to the same structured schema for us regardless of source, which is what makes cross-source mixing possible; and we do it only over sources whose licence we can verify.
 **Sources:** [fair-use posture](https://forfilmssake1.wixsite.com/home/post/film-grab-a-true-library-of-stills) · [film stills and fair use](https://education.onehowto.com/article/are-movie-screenshots-copyrighted-12627.html)
 
@@ -780,7 +785,7 @@ This cluster is not competition; it is **evidence**. Fashion computer vision and
 **Overlap** — Its 13-class taxonomy is a compressed version of our Tops/Bottoms/Outerwear/Dresses split.
 **Useful idea** — **Per-item qualifiers as donor-quality signals**: `scale` 1–3, `occlusion` 1–3, `zoom_in` 1–3, `viewpoint` 1–3 (1 = no wear / flat-lay, 2 = frontal, 3 = side-back), plus `style` and `pair_id` linking the same product across shots. `viewpoint` is directly actionable: a flat-lay packshot is an excellent `clothing` donor and a useless `pose` donor, and the mixer could warn accordingly. *(No donor-quality field exists in the canonical data model today; see §11.)*
 **What we must NOT copy** — No LICENSE file means no grant of rights; "downloadable after a form" is not a licence. Do not vendor the 13-class list verbatim, and do not fine-tune anything shippable on it. Also do not copy the class design: it **fuses sleeve length into the class name**.
-**Our differentiation** — **Selective Inheritance.** Because DeepFashion2 folds sleeve length into the category id, "same silhouette, different sleeves" is inexpressible. Our clothing subtree keeps fit, materials and style as orthogonal axes — expressed as separate `exclusivity_group`s — precisely so one axis can be inherited without dragging the others.
+**Our differentiation** — **Selective Inheritance.** Because DeepFashion2 folds sleeve length into the category id, "same silhouette, different sleeves" is inexpressible. Our clothing subtree keeps fit, materials and style as orthogonal *branches* (`clothing.fit`, `clothing.materials`, `clothing.styles`) instead of folding them into the garment id, precisely so one axis can be inherited without dragging the others. Exclusivity groups are reserved for the six garment slots (`garment_top`, `garment_bottom`, `garment_outer`, `garment_full_body`, `footwear`, `headwear`); fit, material and style nodes ship with `exclusivity_group: null`, so two references contributing `clothing.oversized` and `clothing.slim_fit` coexist rather than conflict. Per-axis conflict detection on those three branches is not implemented today and would be a `data/taxonomy/clothing.json` change.
 **Sources:** [repo](https://github.com/switchablenorms/DeepFashion2) · [root tree, showing no LICENSE](https://github.com/switchablenorms/DeepFashion2/tree/master)
 
 #### 3.4.5 IDM-VTON
@@ -1067,7 +1072,7 @@ These are not competitors; they are the parts bin, and the reason the product is
 ##### transformers.js + ONNX Runtime Web
 
 **Repository** — [huggingface/transformers.js](https://github.com/huggingface/transformers.js) · [microsoft/onnxruntime](https://github.com/microsoft/onnxruntime)
-**License** — transformers.js Apache-2.0; ONNX Runtime MIT. Both verified via LICENSE/labels. (The transformers.js README badge suggests MIT; the repository label is authoritative.)
+**License** — transformers.js Apache-2.0 (LICENSE file, `package.json` `"license"`, GitHub label); ONNX Runtime MIT (LICENSE file). Both verified. (The transformers.js README's only licence mention is a dynamic shields.io `github/license` badge, which mirrors the repository label rather than asserting a licence of its own.)
 **Main function** — Run transformer models directly in the browser via ONNX Runtime Web with no server. Dtypes `fp32` (WebGPU default), `fp16`, `q8` (WASM default), `q4`; backends WASM (CPU), WebGL (maintenance), WebGPU (experimental), WebNN (experimental). Supported architectures include CLIP, SigLIP, JinaCLIP, Qwen2-VL, Qwen2.5-VL and Qwen3-VL.
 **Overlap** — The only realistic path to "AI ON but still local-first, still zero server", and the mechanism that honours processing user media locally by default.
 **Useful idea** — **A dtype/device policy exposed as a user-visible setting with a documented fallback chain** — `q8` + WASM on a low-end laptop, `fp16` + WebGPU on a capable desktop. Combined with Matryoshka truncation this gives an honest quality/size dial, which is the brief's "enhanced search mode" implemented as a setting rather than a hardcoded model. The realistic browser-side AI for us is **embeddings, not generation**: a CLIP-class embedder runs in-tab; a VLM analyzer does not.
@@ -1297,11 +1302,11 @@ These fill `Reference.metadata`. For each, the question is not "is it good searc
 ##### Wikimedia Commons — MediaWiki Action API + CommonsMetadata
 
 **Repository** — [wikimedia/mediawiki](https://github.com/wikimedia/mediawiki) · [mediawiki-extensions-CommonsMetadata](https://github.com/wikimedia/mediawiki-extensions-CommonsMetadata); endpoint `https://commons.wikimedia.org/w/api.php`
-**License** — GPL-2.0 for the software (COPYING fetched). Media items carry per-file CC/PD licences.
+**License** — GPL-2.0-or-later for the software (CommonsMetadata `COPYING` fetched; MediaWiki core's own `COPYING` was not read — **(UNVERIFIED for core)**). Media items carry per-file CC/PD licences.
 **Main function** — A full media repository API: file search, `prop=imageinfo` with `iiprop=url|extmetadata|mediatype|mime|size|dimensions`, server-side thumbnails via `iiurlwidth`, and machine-readable licence/attribution through the `extmetadata` block. Media types include `MEDIATYPE_VIDEO`, making Commons **the only licence-clean video source in this survey**. Anonymous browser calls work with `origin=*`.
 **Overlap** — Similar-reference search and, uniquely, the licence+attribution half of our License Guard: `extmetadata` already carries a normalised `License` code plus an explicit `AttributionRequired` boolean.
 **Useful idea** — **`AttributionRequired` as an explicit boolean is the single most reusable idea in C5.** Rather than *inferring* "CC BY needs credit" from a licence string, the source states it. Our `metadata.requires_attribution` is a derived cache recomputed on load, and it must **fail closed** — default `true` when a source is silent. Second: `iiurlwidth` server-side thumbnailing makes `thumbnail_url` a derived URL and never a stored byte, satisfying INV-REF-2 for free.
-**What we must NOT copy** — Do not vendor MediaWiki or CommonsMetadata PHP: GPL-2.0 is copyleft and would infect our codebase; calling the API over HTTP is not a derivative work. Do not scrape Commons category trees into `data/taxonomy/*.json` — our vocabulary must be our own. Do not re-host media. And do not import free-text `ImageDescription` blobs as if they were structured intent; they are prose and must go through the analyzer.
+**What we must NOT copy** — Do not vendor MediaWiki or CommonsMetadata PHP: GPL-2.0-or-later is copyleft. We call the API over HTTP and vendor no PHP, so nothing of theirs is linked into our build; whether a network-boundary API call could ever carry a copyleft obligation across is `(UNVERIFIED — legal question)`, and we take the conservative branch by never importing rather than by relying on that boundary. Do not scrape Commons category trees into `data/taxonomy/*.json` — our vocabulary must be our own. Do not re-host media. And do not import free-text `ImageDescription` blobs as if they were structured intent; they are prose and must go through the analyzer.
 **Our differentiation** — **Selective Inheritance.** Commons can tell us a file is CC BY-SA 4.0 and who shot it; it cannot let a user take the composition from that file and the lighting from another. Commons is the licence-clean substrate; the product is the attribute-level layer above it.
 **Sources:** [CommonsMetadata COPYING](https://raw.githubusercontent.com/wikimedia/mediawiki-extensions-CommonsMetadata/master/COPYING) · [TemplateParser.php, extmetadata keys](https://raw.githubusercontent.com/wikimedia/mediawiki-extensions-CommonsMetadata/master/src/TemplateParser.php) · [ApiQueryImageInfo.php](https://raw.githubusercontent.com/wikimedia/mediawiki/master/includes/Api/ApiQueryImageInfo.php) · [ApiMain.php, CORS](https://raw.githubusercontent.com/wikimedia/mediawiki/master/includes/Api/ApiMain.php) · [Mime/defines.php, media types](https://raw.githubusercontent.com/wikimedia/mediawiki/master/includes/libs/Mime/defines.php)
 
@@ -1594,7 +1599,7 @@ Each is a real observed behaviour, attributed, followed by the rule it generates
 
 ## 6. Patterns worth adopting
 
-Each row states the source, exactly what we take, and **the licence implication of taking it**. The recurring answer is "an idea, not an artefact" — ideas are not copyrightable, and taking the idea while authoring our own implementation is what keeps our tree clean.
+Each row states the source, exactly what we take, and **the licence implication of taking it**. The recurring answer is "an idea, not an artefact": we author every implementation ourselves and copy no source, no data file and no vocabulary dump, and that is what keeps our tree clean. How far copyright reaches an idea rather than its expression is `(UNVERIFIED — legal question)`; the rule above does not depend on the answer.
 
 | # | Pattern | Source (licence) | What we adopt | Licence implication |
 |---|---|---|---|---|
@@ -1789,7 +1794,7 @@ This document is bound by [`DATA_SCHEMA.md`](./DATA_SCHEMA.md) and introduces no
 | 7 | **Camera level as modifier nodes inside `camera_angle`** — `exclusivity_group: null`, so they never trigger an arity conflict and coexist with the dominant angle | CineScale2's angle ⊥ level finding | **Our design decision.** The brief fixes the category list at 20, so a new category is not available; the modifier escape is the schema-legal resolution. Needs ratification when `camera.json` is authored |
 | 8 | **Category-scoped negative reference weight** | Extends Krea's whole-image negative | **Proposed.** Adjacent to `difference.change_targets`; appears to be unclaimed territory. Would require a signed weight or a separate avoid-list on a mix entry |
 | 9 | **The framing/composition boundary rule** — `framing` = subject count and relationship (single, two-shot, OTS, POV); `composition` = spatial organisation (rule of thirds, symmetry, leading lines, negative space, centred) | AVE and ShotBench both keep them separate; Veo flattens them | **Proposed wording** for the taxonomy authoring guide. The brief lists both categories but does not draw the line |
-| 10 | The count "106 project entries" | This document's own tally across the eight research dossiers. Some entries deliberately group closely related projects (VITON-HD + Dress Code; Eagle + Hydrus + Diffusion Toolkit; hnswlib-wasm + hnswlib + FAISS; RAFT + OpenCV; transformers.js + ONNX Runtime Web; LM Studio + vLLM), so the count of *named* components is higher | Editorial |
+| 10 | The count "106 project entries" | This document's own tally across the eight research dossiers. Some entries deliberately group closely related projects (VITON-HD + Dress Code; Eagle + Hydrus + Diffusion Toolkit; hnswlib-wasm + hnswlib + FAISS; RAFT + OpenCV; transformers.js + ONNX Runtime Web; LM Studio + vLLM), so the count of *named* components is higher; [`THIRD_PARTY_REVIEW.md`](./THIRD_PARTY_REVIEW.md) §2.1 tallies the same survey as 108 dossier rows under its own grouping | Editorial |
 
 ---
 

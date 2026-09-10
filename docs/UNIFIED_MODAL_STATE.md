@@ -21,7 +21,7 @@
 
 Sibling depth: [`SEARCH_ARCHITECTURE.md`](./SEARCH_ARCHITECTURE.md) owns how a query becomes a ranked result set; [`LICENSE_POLICY.md`](./LICENSE_POLICY.md) owns the badge and the approval gate; [`PRODUCT_VISION.md`](./PRODUCT_VISION.md) owns the *why*; [`ROADMAP.md`](./ROADMAP.md) owns what ships in which milestone.
 
-**Scope boundary.** This document specifies the modal. It does **not** specify ranking (see `SEARCH_ARCHITECTURE.md`), prompt text generation (`DATA_SCHEMA.md` §4.4), or licence verification (`LICENSE_POLICY.md`). Where the modal *calls* those, it calls them as an **effect descriptor** and never as an inline function — the reducer is pure by construction.
+**Scope boundary.** This document specifies the modal. It does **not** specify ranking (see `SEARCH_ARCHITECTURE.md`), prompt text generation (`DATA_SCHEMA.md` §12.4), or licence verification (`LICENSE_POLICY.md`). Where the modal *calls* those, it calls them as an **effect descriptor** and never as an inline function — the reducer is pure by construction.
 
 **Naming contract.** Every field name, enum value, category key, id prefix and invariant id used here comes from the canonical data model. Names this document must introduce — layout region ids, event names not already in `ARCHITECTURE.md` §3.3, keyboard bindings, UI copy patterns — are defined inline and listed in §12. They are **runtime and presentation vocabulary; they appear in no schema and are never persisted**, with the single exception of `ui.*`, which the schema already defines.
 
@@ -58,13 +58,13 @@ R11║ PINS (3)  ▤ A  ▤ B  ▤ C                                    [ clear 
    ║  19 chip rows + conf      │                                   │                          ║
    ║                           │ ┌────────┐ ┌────────┐ ┌────────┐  │ ▤ A  look anchor         ║
    ║ framing                   │ │  ▤     │ │  ▤     │ │  ▤     │  │   use: composition,      ║
-   ║  ▸ medium_shot    🔒 0.81 │ │        │ │        │ │        │  │        lighting, time    ║
-   ║ camera_angle       ⚠ 1    │ │ CC BY  │ │ CC0    │ │ PD     │  │   priority 10 · pinned   ║
-   ║  ▸ low_angle   (you) 1.00 │ ├────────┤ ├────────┤ ├────────┤  │                          ║
+   ║  ▸ medium_shot    🔒 0.81 │ │        │ │        │ │        │  │        lighting, time,   ║
+   ║ camera_angle       ⚠ 1    │ │ CC BY  │ │ CC0    │ │ PD     │  │        lens              ║
+   ║  ▸ low_angle   (you) 1.00 │ ├────────┤ ├────────┤ ├────────┤  │   priority 10 · pinned   ║
    ║  ▸ high_angle   (B)  0.80 │ │USE EXT▾│ │USE EXT▾│ │USE EXT▾│  │ ▤ B  outfit              ║
-   ║ clothing                  │ │ EXPLORE│ │ EXPLORE│ │ EXPLORE│  │   use: clothing          ║
-   ║  ▸ hoodie       (B)  0.77 │ └────────┘ └────────┘ └────────┘  │   exclude: beanie        ║
-   ║  ▸ cargo_pants  (B)  0.72 │                                   │                          ║
+   ║ clothing                  │ │ EXPLORE│ │ EXPLORE│ │ EXPLORE│  │   use: clothing,         ║
+   ║  ▸ hoodie       (B)  0.77 │ └────────┘ └────────┘ └────────┘  │        camera_angle      ║
+   ║  ▸ cargo_pants  (B)  0.72 │                                   │   exclude: beanie        ║
    ║ lighting                  │  R7 DETAIL overlays R6 when       │ ⚠ 1 DECISION PENDING     ║
    ║  ▸ golden_hour_sun   0.66 │     ui.active_panel == "detail"   │  camera_angle            ║
    ║ …                         │     tabs: attributes · metadata · │  ▤ low_angle  (from you) ║
@@ -184,7 +184,7 @@ This is the structural expression of pillar 1. A single polymorphic `payload` re
 | `query.video.t_start_s` / `t_end_s` | The analysed window. This is what lets the user say "describe **this** camera move", not "describe the clip". A still has no analogue and the schema gives it none. |
 | `query.browse.category` / `parent` | Where the user is in the taxonomy grid. `parent` is a taxonomy id, never encoded in a child's id (INV-TAX-1). |
 | `query.browse.keyword` | The AI-free keyword box over labels, aliases, related nodes, descriptions, and reference titles/tags. |
-| `query.filters` | 14 filter fields; defaults matter. `license` defaults to the allowed-by-default set `[public_domain, pdm, cc0, cc_by]`; `status` defaults to `["approved"]`, so an unverified reference never reaches a normal result set. `require_categories` and `has_camera_motion` are how a camera-move hunt restricts itself to references that can actually answer the question. |
+| `query.filters` | 13 filter fields; defaults matter. `license` defaults to whatever `defaultLicenseFilter()` returns — the allowed-by-default set of LICENSE_POLICY LP-5, `[public_domain, pdm, cc0, cc_by, user_owned]`; `user_owned` is in it so the local-first path never filters out the user’s own uploads; `status` defaults to `["approved"]`, so an unverified reference never reaches a normal result set. `require_categories` and `has_camera_motion` are how a camera-move hunt restricts itself to references that can actually answer the question. |
 | `query.expansion` | Alias/related-hop expansion. **Needs no model and stays available with AI off.** Any chip it produces carries `source: "query_expansion"`, low confidence, and is removable in one click. |
 
 #### `results` — disposable, and guarded
@@ -267,7 +267,7 @@ Columns: **Payload** · **Precondition** (what must hold, else the event is a no
 | 16 | `UPDATE_MIX_ENTRY` | `{ reference_id, patch }` | entry exists | `mix.references[i]`; conflicts + preview recomputed | — | `chip_edit` |
 | 17 | `REMOVE_FROM_MIX` | `{ reference_id }` | entry exists | entry removed; **its contributed chips are removed, but chips with `source:"user"` or `locked:true` are not** (they were promoted out of the mix's ownership); conflicts + preview recomputed; the reference **stays pinned** | — | `chip_edit` |
 | 18 | `SET_DOMINANT` | `{ category, reference_id }` | `category` ∈ the 20; that reference contributes to it | `mix.dominance[category]`; the matching conflict → `status: "resolved"` with `strategy: "user"`; a `mix_resolution` chip is materialized | — | `chip_edit` |
-| 19 | `RESOLVE_CONFLICT` | `{ conflict_id, resolution }` | conflict exists and `status == "open"`; while `auto_resolve == false`, `resolution.strategy` MUST be `"user"`; `winner_value` required unless `strategy == "keep_both"` (INV-MIX-3) | `mix.conflicts[i].status/resolution`; `intent` gains a `mix_resolution` chip (`ref_id` = winner) or, for `keep_both`, both chips remain and the conflict becomes `ignored`; preview recomputed | — | `chip_edit` |
+| 19 | `RESOLVE_CONFLICT` | `{ conflict_id, resolution }` | conflict exists and `status == "open"`; while `auto_resolve == false`, `resolution.strategy` MUST be `"user"` or `"keep_both"`; `winner_value` required unless `strategy == "keep_both"` (INV-MIX-3) | `mix.conflicts[i].status/resolution`; `intent` gains a `mix_resolution` chip (`ref_id` = winner) or, for `keep_both`, both chips remain and the conflict becomes `ignored`; preview recomputed | — | `chip_edit` |
 | 20 | `PIN` | `{ reference_id }` | not already pinned | `pinned_reference_ids` gains the id | `resolve_media` | — |
 | 21 | `UNPIN` | `{ reference_id }` | **`reference_id` ∉ `mix.references[].reference_id`** — otherwise the event is **refused** (INV-EXP-4) and the UI offers "remove from mix" instead | `pinned_reference_ids` loses the id | — | — |
 | 22 | `SET_KEEP_CHANGE` | `{ keep[], change[], change_targets?, anchor_reference_id?, strictness? }` | `keep ∩ change == ∅` (INV-EXP-5) — **validated before any write**; an overlapping payload is refused whole | `difference`; `difference.enabled = true` if either list is non-empty; `results.status = "loading"` | `retrieve` | `search_by_difference` |
@@ -322,7 +322,7 @@ Rows are every field of `ExplorerState`. Columns are the four possible `SET_MODE
 | `mix.conflicts` + resolutions | preserved | preserved | preserved | preserved |
 | `mix.resolution_policy` | preserved | preserved | preserved | preserved |
 | `difference` (enabled, anchor, keep, change, targets, strictness) | preserved | preserved | preserved | preserved |
-| `query.filters` (all 14) | preserved | preserved | preserved | preserved |
+| `query.filters` (all 13) | preserved | preserved | preserved | preserved |
 | `query.text` | **visible** | preserved | preserved | preserved |
 | `query.image` | preserved | **visible** | preserved | preserved |
 | `query.video` | preserved | preserved | **visible** | preserved |
@@ -339,7 +339,7 @@ Rows are every field of `ExplorerState`. Columns are the four possible `SET_MODE
 | `ui.active_panel` | may reset to `results` | may reset to `results` | may reset to `results` | may reset to `browse` |
 | `ui.*` (other) | preserved | preserved | preserved | preserved |
 
-**Read the matrix in one line:** exactly three rows are allowed to change, and all three are recomputable.
+**Read the matrix in one line:** exactly four rows are allowed to change — `results`, `selected_reference_id` and `ui.active_panel`, all three recomputable, plus `history`, which gains exactly one `mode_switch` entry and nothing else.
 
 ### 4.3 The round-trip proof obligation
 
@@ -383,11 +383,14 @@ HistoryEntry = {
   origin_categories?,             // which categories an EXPLORE/EXTRACT targeted
   label?,                         // human breadcrumb: "similar lighting to img_…"
   result_ref_ids?,                // optional id cache so back() paints instantly
-  ranking_snapshot?               // optional copy of results.ranking
+  ranking_snapshot?,              // optional copy of results.ranking
+  difference_snapshot?            // the Search by Difference state in force for THIS retrieval
 }
 ```
 
 `origin ∈ {initial, user_query, mode_switch, chip_edit, taxonomy_browse, reference_explore, reference_use, reference_extract, search_by_difference, preset_load, recipe_load, deep_link}`.
+
+`difference_snapshot` is recorded by every step whose `origin` is `search_by_difference`, `reference_explore` or `reference_use` — the six "same X" EXPLORE actions of §6.3 all set `difference.keep`, and KEEP is a **hard pool filter**, which makes `difference` a retrieval input exactly like `intent`. A replay that re-ran with today's `difference` would return a different pool than the step it claims to be replaying, for the same three reasons §5.3 gives about the intent.
 
 **An entry is fully self-contained: `replay(entry)` needs nothing outside the entry.** That is the design rule that makes the breadcrumb trail trustworthy and makes history serialisable into a shared session.
 
@@ -410,7 +413,8 @@ empty history ⇒ cursor = -1
 
 replay(entry):
     set mode, query, query.filters from the entry
-    re-run retrieval with entry.intent_snapshot
+    re-run retrieval with entry.intent_snapshot AND entry.difference_snapshot
+        ← both are read as retrieval INPUTS only; neither is written back into state
     DO NOT touch pinned_reference_ids, mix, difference
     DO NOT overwrite the live intent unless
         history.restore_intent_on_navigate === true
@@ -577,14 +581,14 @@ Copy is specified, not left to the implementer, because the difference between a
 | Candidate from a reference | `{value label} · {role or reference title} · {confidence}` | `high angle · outfit · 0.80` |
 | Buttons | `( use {A} )` `( use {B} )` `( keep both — I'll decide in the prompt )` | |
 | R10 blocked slot | `[{slot} ▒ blocked: {n} decision{s} pending]` with accessible name `{slot} slot: {n} decision pending, activate to resolve` | `[camera ▒ blocked: 1 decision pending]` |
-| After resolution | `{category} resolved: {winner} — {loser} is still in your intent, unused.` with an `undo` affordance | |
+| After resolution | `{category} resolved: {winner}. {loser} is off your intent and still on {loser source}, one click away.` with an `undo` affordance | `camera_angle resolved: high angle. low angle is off your intent and still on Reference B, one click away.` |
 | Auto-resolve opt-in active | persistent banner `Auto-resolve is ON ({strategy}). Conflicts will be decided without asking you.` | |
 
 Wording rules, binding:
 
 - **Never the words** *error*, *invalid*, *failed*, *problem*, *warning* for a conflict. It is a decision the machine is not entitled to make.
 - **Never a red destructive style.** Amber/attention styling, decision iconography.
-- **Never "we removed X".** Nothing was removed; say what is still there.
+- **Never "we removed X" for a conflict the user has not yet decided.** Detection removes nothing; say what is still there. After an explicit `winner_only` resolution the losing value does leave the resolved intent — then name where it still lives (the source reference, and the `undo` affordance), never report a bare deletion.
 - **Always name both sources.** A conflict with an anonymous side is unresolvable in practice.
 - The `from you` candidate is **pre-selected and can only lose by an explicit click** — the user's own choice is never quietly outvoted by a reference's confidence score.
 
@@ -602,12 +606,12 @@ The state-level consequence worth memorising: **a conflicting state must be repr
 
 | Path | Event | Result |
 |---|---|---|
-| Click a candidate in R8 | `RESOLVE_CONFLICT {conflict_id, resolution:{winner_reference_id, winner_value, strategy:"user", disposition:"winner_only"}}` | conflict `resolved`; a `mix_resolution` chip is materialized with `ref_id` = winner; the losing chip **remains in `intent`**, marked unused |
+| Click a candidate in R8 | `RESOLVE_CONFLICT {conflict_id, resolution:{winner_reference_id, winner_value, strategy:"user", disposition:"winner_only"}}` | conflict `resolved`; a `mix_resolution` chip is materialized with `ref_id` = winner; the losing chip is **removed from the resolved intent** and stays reconstructible from the mix — the source reference still lists that value, so `undo` restores it |
 | "Keep both" | `RESOLVE_CONFLICT {..., strategy:"keep_both", disposition:"keep_all"}` | conflict becomes `ignored` — an explicit human decision to coexist; both values emit into the prompt; `winner_value` is not required for this strategy |
 | Set a dominant reference for the category | `SET_DOMINANT {category, reference_id}` | the answer is remembered in `mix.dominance`, so the question is not re-asked on the next edit |
 | Remove one side | `UPDATE_MIX_ENTRY` writing `exclude` | the contribution stops; the conflict disappears on recomputation because one candidate no longer exists |
 
-`strategy: "user"` is the only strategy reachable while `auto_resolve == false`, which is the default. The other strategies (`priority`, `weight`, `first`, `last`) exist for a user who has explicitly opted into automation and must be visibly indicated while active.
+`strategy: "user"` and `strategy: "keep_both"` are the only strategies reachable while `auto_resolve == false`, which is the default — both are human decisions, which is why the third button on the conflict card can dispatch `keep_both`. The remaining strategies (`priority`, `weight`, `first`, `last`) exist for a user who has explicitly opted into automation and must be visibly indicated while active.
 
 ---
 
@@ -747,7 +751,7 @@ Two absolute rules follow:
 | Live regions | `results.status` announces politely (`Searching…` / `12 results`); analysis status announces politely; a **conflict announces politely as a decision**, never via `role="alert"`. `role="alert"` is reserved for genuine failures (adapter unreachable, upload rejected). |
 | Reflow / zoom (WCAG 1.4.10) | Usable at 320 px width and at 400 % zoom. The three-column band stacks; R5/R8/R10 collapse to summary strips (§1.4) but never disappear. |
 | Timing | No component of the modal has a time limit. Nothing auto-dismisses except non-critical success toasts (≥ 6 s, dismissible, and mirrored in a status log). The disclosure gate never times out. |
-| Debounce vs. announcement | Query input is debounced at 300 ms for *retrieval only*; the typed value is committed to `query.text` on every keystroke, so a mode switch mid-typing loses nothing. |
+| Debounce vs. announcement | Query input is debounced for *retrieval only* at the canonical **180 ms** — trailing edge, minimum 2 characters, immediate flush on Enter, owned by [`ARCHITECTURE.md`](./ARCHITECTURE.md) §9.2 and restated here, not redecided; the typed value is committed to `query.text` on every keystroke, so a mode switch mid-typing loses nothing. |
 | Language | `lang` is set on the root; `i18n` labels come from taxonomy `i18n[lang]`. **`prompt_fragment` is never localized** — the prompt is a machine-facing artefact, and translating it would silently change the generation result. |
 
 ---
@@ -808,12 +812,12 @@ Notation: `+` added, `~` changed, `=` unchanged. Every row's `open` column is `t
 | T | User act | Event | `open` | `mode` | Document tier (`intent` / `mix` / `pins` / `difference` / `filters`) | Disposable tier | History |
 |---|---|---|---|---|---|---|---|
 | **T0** | Opens the composer | `OPEN_MODAL` | **true** | `text` | all empty; `filters` at defaults (`licence: PD·CC0·CC BY`, `status: [approved]`) | `results: idle` | `[initial]` cursor 0 |
-| **T1** | Types `golden hour alley`, hits Search. No model runs. | `SUBMIT_QUERY` → `ADD_CHIP` ×2 (+1 expansion) | **true** | `text` | `intent +time.golden_hour (user 1.0)`, `+scene.alley (user 1.0)`, `+lighting.golden_hour_sun (query_expansion, low)`; mix `=`; pins `=` | `results: loading → ready`, `ranking.mode = keyword_only` | `+user_query` |
+| **T1** | Types `golden hour alley`, hits Search. No model runs. | `SUBMIT_QUERY` → `ADD_CHIP` ×3 (+1 expansion) | **true** | `text` | `intent +time.golden_hour (user 1.0)`, `+scene.alley (user 1.0)`, `+lighting.golden_hour_sun (user 1.0)` — three direct alias hits, scored in [`SEARCH_ARCHITECTURE.md`](./SEARCH_ARCHITECTURE.md) §3.5 — plus `+lighting.backlit_haze (query_expansion, low)` from one `related` hop; mix `=`; pins `=` | `results: loading → ready`, `ranking.mode = keyword_only` | `+user_query` |
 | **T2** | Can't name the angle. Switches to BROWSE, opens `camera_angle`, recognises a picture, clicks it. | `SET_MODE {browse}` → `BROWSE_CATEGORY` → `ADD_CHIP` | **true** | `browse` | **`intent` chips from T1 all `=`** (INV-EXP-1); `+camera_angle.low_angle (user 1.0)`; `query.text` still holds `golden hour alley` | `results` refreshed | `+mode_switch`, `+taxonomy_browse`, `+chip_edit` |
 | **T3** | Switches to IMAGE, drops her look reference. Analyzer proposes 5 chips; she accepts 3, rejects the lens guess, locks `composition.rule_of_thirds`. | `SET_MODE {image}` → `ANALYZE_MEDIA` → `ANALYSIS_SETTLED` → `ACCEPT_PROPOSAL` ×3, `REJECT_PROPOSAL` ×1, `EDIT_CHIP {lock}` | **true** | `image` | `intent +composition.rule_of_thirds (locked)`, `+composition.leading_lines`, `+framing.medium_shot`; **T1/T2 chips untouched — the analyzer never overwrites** | `query.image.analysis_status: pending → done` | `+mode_switch`, `+chip_edit` ×3 (coalesced) |
-| **T4** | Opens a result card, clicks `EXTRACT → composition` and `EXTRACT → lighting`. | `SELECT_REFERENCE` → `EXTRACT_ATTRIBUTES` ×2 | **true** | `image` | `mix +entry{img_wikimedia_commons_9f2ab41c, use:[composition,lighting,time], role:"look anchor", priority 10}`; **`pins +` same id in the same reduction** (INV-EXP-4) | `ui.active_panel: detail` | `+reference_extract` |
-| **T5** | Back to IMAGE, drops the outfit photo, `EXTRACT → clothing` only, then × on the beanie chip. | `EXTRACT_ATTRIBUTES` → `UPDATE_MIX_ENTRY {exclude:["clothing.beanie"]}` | **true** | `image` | `mix +entry{img_openverse_1a2b3c4d, use:[clothing], exclude:[clothing.beanie], role:"outfit"}`; `pins +` | preview recomputed | `+reference_extract`, `+chip_edit` |
-| **T6** | The outfit photo was shot from above. **Conflict surfaces.** She clicks her own value. | *(automatic)* → `RESOLVE_CONFLICT` / `SET_DOMINANT` | **true** | `image` | `mix.conflicts +cfl_… {camera_angle, arity, open}`; **both chips remain in `intent`**; after the click: `status: resolved`, `strategy: user`, `dominance.camera_angle = img_wikimedia…`; `intent +mix_resolution` chip | `prompt_preview.blocked = [{slot:"camera", …}] → []` | `+chip_edit` |
+| **T4** | Opens a result card, clicks `EXTRACT → composition` and `EXTRACT → lighting`, then adds the anchor's `lens` alone from the attributes tab. | `SELECT_REFERENCE` → `EXTRACT_ATTRIBUTES` ×3 | **true** | `image` | `mix +entry{img_wikimedia_commons_9f2ab41c, use:[composition,lighting,time,lens], role:"look anchor", priority 10}`; **`pins +` same id in the same reduction** (INV-EXP-4) | `ui.active_panel: detail` | `+reference_extract` |
+| **T5** | Still in IMAGE, drops a second file — the outfit photo — and takes `EXTRACT → clothing` only, then × on the beanie chip. | `EXTRACT_ATTRIBUTES` → `UPDATE_MIX_ENTRY {exclude:["clothing.beanie"]}` | **true** | `image` | `mix +entry{img_openverse_1a2b3c4d, use:[clothing], exclude:[clothing.beanie], role:"outfit"}`; `pins +` | preview recomputed | `+reference_extract`, `+chip_edit` |
+| **T6** | The outfit photo was shot from above and she wants that angle too, so she pulls `camera_angle` from it — one category, not the whole `camera` group. **Conflict surfaces** against her own T2 chip. She clicks the outfit photo's value. | `EXTRACT_ATTRIBUTES {categories:["camera_angle"]}` → *(detection)* → `RESOLVE_CONFLICT` / `SET_DOMINANT` | **true** | `image` | `mix` entry `img_openverse_1a2b3c4d` gains `use +camera_angle` — without it nothing in that category could contribute and there would be no conflict to surface; `mix.conflicts +cfl_… {camera_angle, arity, open}`; **both chips remain in `intent`**; after the click: `status: resolved`, `strategy: user`, `dominance.camera_angle = img_openverse…` (event 18's precondition holds: that reference now contributes to the category); `intent +mix_resolution` chip | `prompt_preview.blocked = [{slot:"camera", …}] → []` | `+reference_extract`, `+chip_edit` |
 | **T7** | Switches to VIDEO, uploads a 6 s clip, scrubs to `1.2 s → 3.4 s`, accepts `camera_motion.dolly_in`, adds `camera_motion.pan_left` with `order: 1`. | `SET_MODE {video}` → `ANALYZE_MEDIA {window}` → `ANALYSIS_SETTLED` → `ACCEPT_PROPOSAL` → `ADD_CHIP` | **true** | `video` | `intent.camera_motion +dolly_in (analyzer_video, evidence t 1.2–3.4, order 0)`, `+pan_left (order 1)`; **everything from T1–T6 `=`**; `query.image` still holds her look reference | `query.video.t_start_s/t_end_s` set | `+mode_switch`, `+chip_edit` |
 | **T8** | Marks KEEP = composition, lighting, camera_angle, framing; CHANGE = clothing → `clothing.streetwear`. Browses alternatives, swaps one in. | `SET_KEEP_CHANGE` → `EXPLORE`-driven `SUBMIT_QUERY` → `UPDATE_MIX_ENTRY` | **true** | `video` | `difference {enabled, keep:[…4], change:["clothing"], change_targets:{clothing:["clothing.streetwear"]}, strictness 0.8}`; camera/composition/lighting decisions **untouched** | `results.items[].differs_categories = ["clothing"]` | `+search_by_difference` |
 | **T9** | Reads the prompt. Hovers a fragment; it names its chip, category and reference. | `COMPOSE` | **true** | `video` | all `=` — composing is pure recomputation | `prompt_preview` rebuilt; `lens` fragment reads **`35mm-like perspective`**, never `35mm` (INV-LENS-1/2) | — |
@@ -826,8 +830,8 @@ Notation: `+` added, `~` changed, `=` unchanged. Every row's `open` column is `t
 | Claim | Evidence in the log |
 |---|---|
 | **The modal never closes mid-exploration.** | `open == true` in every row from T0 to T11. The only `false` is T12, following an explicit user dismissal through a confirmation. |
-| **Mode switches are lossless.** | Four switches (T2, T3, T7, and the return at T5). After each, every document-tier field is `=`, and `query.text` from T1 is still intact at T7 — six steps and three modes later. |
-| **AI adds, never owns.** | T1 and T2 run with no model at all and produce a working intent and result set. T3 and T7 add proposals that require an explicit accept; T3's rejected lens guess leaves no trace in `intent`. |
+| **Mode switches are lossless.** | Three switches (T2, T3, T7) — T4–T6 all run inside IMAGE without one. After each, every document-tier field is `=`, and `query.text` from T1 is still intact at T7 — six steps and three modes later. |
+| **AI adds, never owns.** | T1 and T2 run with no model at all and produce a working intent and result set. T3 and T7 add proposals that require an explicit accept; T3's rejected lens guess leaves no trace in `intent` — the `lens` fragment T9 reads is the anchor's own attribute, taken by hand at T4. |
 | **Conflicts are surfaced, not resolved.** | T6: both competing chips stay in `intent`, the `camera` slot is `blocked` rather than guessed, and the resolution is a human click recorded with `strategy: "user"` and remembered in `dominance`. |
 | **Selective inheritance is real.** | T4 takes composition + lighting from one reference and T5 takes clothing (minus the beanie) from another. Neither took a picture; both took parts. |
 | **A recipe is a combination, not a prompt.** | T10 saves intent + mix + frozen snapshots. T11 re-renders the same combination under a different formatter without touching any of it. |
@@ -853,7 +857,7 @@ Everything below is **runtime or presentation vocabulary**. None of it appears i
 | The layered Escape ladder (L0–L4) and the dirty-session definition (§8.4) | Behaviour | Escape is the highest-risk key in the UI; "Escape closes the dialog" would discard an unsaved mix |
 | Outside-click dismissal **disabled** | Behaviour | A misclick beside the dialog must not be able to end an exploration session |
 | History MVP scope: **back only** in v0.1 | Milestone scoping | A forward button without a visible breadcrumb trail is unexplainable and is misread as redo |
-| Debounce 300 ms for retrieval; value committed to `query.text` per keystroke | Input behaviour | Keeps mode switching lossless while typing |
+| Value committed to `query.text` on every keystroke, while retrieval waits for [`ARCHITECTURE.md`](./ARCHITECTURE.md) §9.2's 180 ms debounce | Input behaviour | Keeps mode switching lossless while typing; only the per-keystroke commit is decided here, the constant is not |
 
 ### 12.2 Assumptions about upstream material
 
@@ -876,18 +880,18 @@ Everything below is **runtime or presentation vocabulary**. None of it appears i
 | `difference.keep` and `difference.change` are disjoint, validated before any write (INV-EXP-5) | `explorer-state.schema.json` `$defs/difference` |
 | Pins never affect ranking | [`SEARCH_ARCHITECTURE.md`](./SEARCH_ARCHITECTURE.md) §2.4 |
 | EXTRACT has exactly 8 groups covering 17 of 20 categories; `subject`, `appearance`, `action` are excluded and reachable only via USE-everything or manual authoring | `taxonomy-node.schema.json#/$defs/extract_group_map`, [`ARCHITECTURE.md`](./ARCHITECTURE.md) §2 module table, [`ROADMAP.md`](./ROADMAP.md) `GATE-P3-a` |
-| The UI expands EXTRACT group names to categories before dispatch; `use` never stores a group name | [`DATA_SCHEMA.md`](./DATA_SCHEMA.md) §3.1, `reference-mix.schema.json` |
-| Removing a mix-contributed value writes `exclude` on the entry rather than deleting the chip | [`DATA_SCHEMA.md`](./DATA_SCHEMA.md) §4.3 `applyMix` |
-| Conflicts are detected and surfaced, never auto-resolved or silently dropped; `auto_resolve` default `false`, `on_unresolved` default `"block"`; `strategy:"user"` is the only strategy reachable while `auto_resolve` is false (INV-MIX-2) | `reference-mix.schema.json`, [`DATA_SCHEMA.md`](./DATA_SCHEMA.md) §4.3, [`PRODUCT_VISION.md`](./PRODUCT_VISION.md) §5 |
+| The UI expands EXTRACT group names to categories before dispatch; `use` never stores a group name | [`DATA_SCHEMA.md`](./DATA_SCHEMA.md) §4.3, `reference-mix.schema.json` |
+| Removing a mix-contributed value writes `exclude` on the entry rather than deleting the chip | [`DATA_SCHEMA.md`](./DATA_SCHEMA.md) §11.5 `applyMix` |
+| Conflicts are detected and surfaced, never auto-resolved or silently dropped; `auto_resolve` default `false`, `on_unresolved` default `"block"`; `strategy:"user"` and `strategy:"keep_both"` are the only strategies reachable while `auto_resolve` is false (INV-MIX-2) | `reference-mix.schema.json`, [`DATA_SCHEMA.md`](./DATA_SCHEMA.md) §11.6, [`PRODUCT_VISION.md`](./PRODUCT_VISION.md) §5 |
 | Conflict ids are deterministic, so a resolution survives recomputation | `reference-mix.schema.json` `Conflict.id` |
-| Arity is a conflict-detection rule, not a cardinality limit — no `maxItems` on single-dominant categories (INV-MIX-4) | `visual-intent.schema.json` (absence), [`DATA_SCHEMA.md`](./DATA_SCHEMA.md) §2 |
-| A blocked slot is reported in `blocked[]` and rendered as a pending decision, never an error or a silent omission | `structured-prompt.schema.json` `BlockedSlot`, [`DATA_SCHEMA.md`](./DATA_SCHEMA.md) §4.4 |
+| Arity is a conflict-detection rule, not a cardinality limit — no `maxItems` on single-dominant categories (INV-MIX-4) | `visual-intent.schema.json` (absence), [`DATA_SCHEMA.md`](./DATA_SCHEMA.md) §3.1, §11.8 |
+| A blocked slot is reported in `blocked[]` and rendered as a pending decision, never an error or a silent omission | `structured-prompt.schema.json` `BlockedSlot`, [`DATA_SCHEMA.md`](./DATA_SCHEMA.md) §12.3 |
 | `analysis_status` includes `mocked` as a first-class v0.1 state | `explorer-state.schema.json` `$defs/media_query`, [`ROADMAP.md`](./ROADMAP.md) v0.1 |
 | Disclosure precedes transmission; the gate blocks the effect and never defaults to allow | [`ARCHITECTURE.md`](./ARCHITECTURE.md) §10 privacy table, `explorer-state.schema.json` `ai.external_transmission` |
 | With AI off the product is complete, and `expansion_enabled` stays available (INV-AI-1) | [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5, [`SEARCH_ARCHITECTURE.md`](./SEARCH_ARCHITECTURE.md), [`PRODUCT_VISION.md`](./PRODUCT_VISION.md) §8.1 |
 | Lens fragments are always hedged (`35mm-like perspective`, never `35mm`) (INV-LENS-1/2) | `visual-intent.schema.json`, `taxonomy-node.schema.json`, [`../data/taxonomy/lens.json`](../data/taxonomy/lens.json) |
 | `camera_motion` cannot be authored by `analyzer_image`; `type:image` references carry no `camera_motion` (INV-VID-1/2) | `visual-intent.schema.json`, `reference.schema.json` |
-| Media rot degrades the card, never the recipe; attribution is stored text and survives a dead URL | [`LICENSE_POLICY.md`](./LICENSE_POLICY.md), [`DATA_SCHEMA.md`](./DATA_SCHEMA.md) §4.7 R1–R5 |
+| Media rot degrades the card, never the recipe; attribution is stored text and survives a dead URL | [`LICENSE_POLICY.md`](./LICENSE_POLICY.md), [`DATA_SCHEMA.md`](./DATA_SCHEMA.md) §10.4 R1–R5 |
 | Default filters: `licence` = the allowed-by-default set, `status` = `["approved"]` | `explorer-state.schema.json` `$defs/filters`, [`LICENSE_POLICY.md`](./LICENSE_POLICY.md) |
 | `ui.*` never influences retrieval, intent or the prompt | `explorer-state.schema.json` `$defs/ui_state`, [`ARCHITECTURE.md`](./ARCHITECTURE.md) §11 coupling rules |
 | There is no `RESET` and no `CLEAR_ON_MODE_CHANGE` event | [`ARCHITECTURE.md`](./ARCHITECTURE.md) §3.3 |

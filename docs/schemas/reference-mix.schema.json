@@ -113,13 +113,16 @@
       "type": "object",
       "additionalProperties": false,
       "required": ["category", "candidates"],
-      "description": "Two or more references contributing incompatible values to the same category.",
+      "description": "Two or more references contributing incompatible values to the same category - or, when kind = 'explicit', to two categories the taxonomy declares incompatible through conflicts_with. See `category` for the one category such a record is anchored to.",
       "properties": {
         "id": {
           "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/conflict_id",
           "description": "Deterministic so a resolution survives recomputation: cfl_ + sha1(category + '|' + (group ?? '') + '|' + sorted(candidate values).join(',')).slice(0,12)."
         },
-        "category": { "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category" },
+        "category": {
+          "$ref": "https://schema.uvrc.dev/v1/taxonomy-node.schema.json#/$defs/visual_category",
+          "description": "The single category this conflict is RECORDED under: the key hashed into `id`, looked up in `dominance`, and reported as the blocked slot's category. For arity and exclusivity_group it is the one category both values live in. A cross-category `explicit` conflict is ANCHORED to the category namespace of the FIRST value in sorted(candidate values), so the record, its deterministic id and its dominance lookup stay single-valued; the other participant stays visible in `candidates[]` and its chip is still flagged contested by applyMix step 6."
+        },
         "kind": {
           "enum": ["arity", "exclusivity_group", "explicit"],
           "description": "arity = the category is single_dominant and two different non-modifier values arrived from different references. exclusivity_group = two values in a multi category share a non-null taxonomy exclusivity_group (two tops, two locomotion states, high_key vs low_key). explicit = the taxonomy declares conflicts_with between the two ids, possibly across categories."
@@ -153,7 +156,7 @@
         },
         {
           "if": { "properties": { "kind": { "const": "exclusivity_group" } }, "required": ["kind"] },
-          "then": { "properties": { "group": { "type": "string", "minLength": 1 } } }
+          "then": { "required": ["group"], "properties": { "group": { "type": "string", "minLength": 1 } } }
         }
       ]
     },
@@ -167,7 +170,7 @@
         "winner_value": { "type": "string", "maxLength": 120, "description": "The taxonomy id (or custom text) that wins. Required unless strategy = 'keep_both'." },
         "strategy": {
           "enum": ["user", "priority", "weight", "first", "last", "keep_both"],
-          "description": "'user' is the only strategy reachable while resolution_policy.auto_resolve is false. 'keep_both' records an explicit human decision to let the values coexist."
+          "description": "'user' and 'keep_both' are the only strategies reachable while resolution_policy.auto_resolve is false (INV-MIX-2); both are human decisions - 'keep_both' records an explicit human decision to let the values coexist. 'priority', 'weight', 'first' and 'last' require the explicit automation opt-in."
         },
         "disposition": {
           "enum": ["winner_only", "keep_all"],

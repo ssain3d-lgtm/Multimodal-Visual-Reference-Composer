@@ -126,7 +126,7 @@
         }
       ],
       "default": null,
-      "description": "Conflict bucket. Two chips in the same category sharing a non-null exclusivity_group conflict. In a single_dominant category, a node with exclusivity_group=null is a MODIFIER and never conflicts (e.g. camera_angle.dutch_tilt, pose.arms_crossed, weather.fog). Reserved values: garment_top, garment_bottom, garment_outer, garment_full_body, footwear, headwear, locomotion, speed, key_level, light_direction, frame_geometry, interiority, location, camera_move_primary, pose_base, time_of_day, weather_primary, palette_scheme, era."
+      "description": "Conflict bucket. Two chips in the same category sharing a non-null exclusivity_group conflict. In a single_dominant category, a node with exclusivity_group=null is a MODIFIER and never conflicts (e.g. camera_angle.dutch_tilt, pose.arms_crossed, weather.fog). Group names are free-form slugs and are NOT enumerated by this schema; the pattern above is the only constraint. The 51 groups in use in the shipped taxonomy are: beard_style, body_build, camera_angle_primary, camera_move_dolly_axis, camera_move_pan_axis, camera_move_pedestal_axis, camera_move_speed, camera_move_tilt_axis, camera_move_truck_axis, camera_move_zoom_axis, color_temperature, distance_band, focal_length_like, footwear, frame_geometry, garment_bottom, garment_full_body, garment_outer, garment_top, hair_color, hair_length, hair_style, hair_texture, headwear, height_impression, horizon_placement, interiority, key_level, light_direction, light_quality, location, locomotion, makeup_level, monochrome_variant, mood_energy, mood_scale, mood_valence, palette_scheme, portrait_pattern, pose_base, render_medium, saturation_level, shot_size, skin_tone, speed, subject_count, subject_density, subject_presence, symmetry_mode, time_of_day, weather_primary. camera_move_primary and era are reserved for future use and are carried by no node today."
     },
     "media_scope": {
       "type": "array",
@@ -293,6 +293,9 @@
         ]
       },
       "then": {
+        "required": [
+          "media_scope"
+        ],
         "properties": {
           "media_scope": {
             "const": [
@@ -424,7 +427,7 @@
       "type": "string",
       "maxLength": 96,
       "pattern": "^(subject|appearance|framing|camera_angle|camera_distance|lens|pose|action|motion|camera_motion|clothing|scene|lighting|composition|color|mood|style|time|weather|props)\\.[a-z0-9]+(_[a-z0-9]+)*$",
-      "description": "'<visual_category>.<snake_case_slug>'. Exactly two segments. Examples: framing.medium_shot, lens.35mm_like, camera_motion.dolly_in, clothing.oversized_hoodie."
+      "description": "'<visual_category>.<snake_case_slug>'. Exactly two segments. Examples: framing.medium_shot, lens.35mm_like, camera_motion.dolly_in, clothing.zip_hoodie."
     },
     "reference_id": {
       "type": "string",
@@ -680,7 +683,7 @@
       }
     },
     "taxonomy_file": {
-      "$comment": "Shape of data/taxonomy/<group>.json. A file MAY carry more than one category (the brief ships nine files for twenty categories, e.g. camera.json holds camera_angle + camera_distance + camera_motion).",
+      "$comment": "Shape of data/taxonomy/<group>.json. A file MAY carry more than one category (this repository ships ten files for twenty categories, e.g. camera.json holds camera_angle + camera_motion, and framing.json holds framing + camera_distance).",
       "type": "object",
       "additionalProperties": false,
       "required": [

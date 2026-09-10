@@ -236,7 +236,7 @@
         ]
       },
       "default": [],
-      "description": "Physical subject-to-camera distance band (macro, near, mid, far, distant). SINGLE-DOMINANT. Kept separate from framing because a long lens at distance and a wide lens up close can produce the same framing with very different rendering."
+      "description": "Physical subject-to-camera distance band (macro, near, medium_range, far, very_far). SINGLE-DOMINANT. Kept separate from framing because a long lens at distance and a wide lens up close can produce the same framing with very different rendering."
     },
     "lens": {
       "type": "array",
@@ -341,7 +341,7 @@
         ]
       },
       "default": [],
-      "description": "Body configuration of the subject (standing_contrapposto, sitting_cross_legged, leaning_on_wall). SINGLE-DOMINANT for base poses; limb/head modifier nodes (pose.arms_crossed, pose.head_tilted) carry exclusivity_group=null and coexist freely."
+      "description": "Body configuration of the subject (contrapposto, sitting_cross_legged, leaning_against_wall). SINGLE-DOMINANT for base poses; limb/head modifier nodes (pose.arms_crossed, pose.head_tilted) carry exclusivity_group=null and coexist freely."
     },
     "action": {
       "type": "array",
@@ -383,7 +383,7 @@
         ]
       },
       "default": [],
-      "description": "What the subject is semantically doing (drinking_coffee, looking_back, reading). Multi-valued: actions compose."
+      "description": "What the subject is semantically doing (drinking, checking_phone, reading). Multi-valued: actions compose."
     },
     "motion": {
       "type": "array",
@@ -460,7 +460,7 @@
         ]
       },
       "default": [],
-      "description": "SUBJECT motion, including implied motion visible in a still (hair_movement, clothing_movement) and locomotion (walking, running) plus a speed band. Multi-valued with exclusivity groups 'locomotion' and 'speed'."
+      "description": "SUBJECT motion, including implied motion visible in a still (hair_movement, clothing_movement) and locomotion relative to the camera (approaching_camera, falling) plus a speed band. Multi-valued with exclusivity groups 'locomotion' and 'speed'; the activity itself (walking, running) lives in `action`."
     },
     "camera_motion": {
       "type": "array",
@@ -917,7 +917,7 @@
         ]
       },
       "default": [],
-      "description": "Dominant meteorological condition (sunny, overcast, rain, snow). SINGLE-DOMINANT for the dominant condition; secondary atmospherics (weather.fog, weather.mist, weather.haze) are modifier nodes with exclusivity_group=null so 'rain + fog' never registers as a conflict."
+      "description": "Dominant meteorological condition (clear, overcast, rain, snow). SINGLE-DOMINANT for the dominant condition; secondary atmospherics (weather.fog, weather.mist, weather.haze) are modifier nodes with exclusivity_group=null so 'rain + fog' never registers as a conflict."
     },
     "confidence": {
       "type": "object",
@@ -948,7 +948,7 @@
         {
           "const": "analyzer_video",
           "title": "analyzer_video",
-          "description": "Produced by the video analyzer adapter. The only source allowed to author camera_motion, and the only one that can carry a t_start_s/t_end_s timespan."
+          "description": "Produced by the video analyzer adapter. The only ANALYZER source allowed to author camera_motion (INV-VID-1 forbids analyzer_image) and the only one that can carry a t_start_s/t_end_s timespan; user, reference and mix_resolution chips are unaffected, so camera_motion stays hand-authorable with AI off."
         },
         {
           "const": "analyzer_text",
@@ -1353,7 +1353,7 @@
             ]
           },
           "default": [],
-          "description": "Physical subject-to-camera distance band (macro, near, mid, far, distant). SINGLE-DOMINANT. Kept separate from framing because a long lens at distance and a wide lens up close can produce the same framing with very different rendering."
+          "description": "Physical subject-to-camera distance band (macro, near, medium_range, far, very_far). SINGLE-DOMINANT. Kept separate from framing because a long lens at distance and a wide lens up close can produce the same framing with very different rendering."
         },
         "lens": {
           "type": "array",
@@ -1394,7 +1394,7 @@
             ]
           },
           "default": [],
-          "description": "Body configuration of the subject (standing_contrapposto, sitting_cross_legged, leaning_on_wall). SINGLE-DOMINANT for base poses; limb/head modifier nodes (pose.arms_crossed, pose.head_tilted) carry exclusivity_group=null and coexist freely."
+          "description": "Body configuration of the subject (contrapposto, sitting_cross_legged, leaning_against_wall). SINGLE-DOMINANT for base poses; limb/head modifier nodes (pose.arms_crossed, pose.head_tilted) carry exclusivity_group=null and coexist freely."
         },
         "action": {
           "type": "array",
@@ -1410,7 +1410,7 @@
             ]
           },
           "default": [],
-          "description": "What the subject is semantically doing (drinking_coffee, looking_back, reading). Multi-valued: actions compose."
+          "description": "What the subject is semantically doing (drinking, checking_phone, reading). Multi-valued: actions compose."
         },
         "motion": {
           "type": "array",
@@ -1426,7 +1426,7 @@
             ]
           },
           "default": [],
-          "description": "SUBJECT motion, including implied motion visible in a still (hair_movement, clothing_movement) and locomotion (walking, running) plus a speed band. Multi-valued with exclusivity groups 'locomotion' and 'speed'."
+          "description": "SUBJECT motion, including implied motion visible in a still (hair_movement, clothing_movement) and locomotion relative to the camera (approaching_camera, falling) plus a speed band. Multi-valued with exclusivity groups 'locomotion' and 'speed'; the activity itself (walking, running) lives in `action`."
         },
         "camera_motion": {
           "type": "array",
@@ -1586,7 +1586,7 @@
             ]
           },
           "default": [],
-          "description": "Dominant meteorological condition (sunny, overcast, rain, snow). SINGLE-DOMINANT for the dominant condition; secondary atmospherics (weather.fog, weather.mist, weather.haze) are modifier nodes with exclusivity_group=null so 'rain + fog' never registers as a conflict."
+          "description": "Dominant meteorological condition (clear, overcast, rain, snow). SINGLE-DOMINANT for the dominant condition; secondary atmospherics (weather.fog, weather.mist, weather.haze) are modifier nodes with exclusivity_group=null so 'rain + fog' never registers as a conflict."
         },
         "confidence": {
           "type": "object",

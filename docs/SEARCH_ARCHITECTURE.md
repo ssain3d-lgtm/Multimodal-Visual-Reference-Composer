@@ -150,29 +150,39 @@ Query = {
   // --- context ------------------------------------------------------------
   pins          : reference_id[],          // excluded from results, §2.4
   exclude_ids   : reference_id[],          // anchor, already-seen, mix members
-  ranking       : Ranking
+  ranking       : Ranking,                 // persisted on the ResultSet, §2.1
+  tuning        : Tuning                   // module constants, NOT persisted, §2.1
 }
 ```
 
-`Ranking` is stored on the `ResultSet` so a replayed history entry reproduces the identical ordering:
+**Two objects, because only one of them is canonical.** `Ranking` is the configuration the schema stores: `explorer-state.schema.json#/$defs/result_set.ranking` is `additionalProperties: false` over exactly six fields ([`DATA_SCHEMA.md §14.4`](./DATA_SCHEMA.md)), and per §0 that model wins over this document. So `Ranking` is those six fields and no more; it is stored on the `ResultSet` so a replayed history entry reproduces the identical ordering:
 
 ```js
-DEFAULT_RANKING = Object.freeze({
+DEFAULT_RANKING = Object.freeze({        // == ResultSet.ranking, exactly the schema's six fields
   mode            : "hybrid",              // hybrid|semantic_only|metadata_only|keyword_only
   semantic_weight : 0.6,                   // the brief's ~60
   metadata_weight : 0.4,                   // the brief's ~40
   fusion          : "weighted_sum",        // or "rrf"
+  reranker_enabled: false,
+  embedding_key   : null
+});
+```
+
+The remaining constants this document introduces are **module tuning constants**, not part of the canonical `ResultSet`. They are frozen exports of `src/search/fusion-ranker.js`, they are what the evaluation harness sweeps (§11), and when a run uses anything other than the defaults the effective pair `{...ranking, ...tuning}` is written into `history_entry.ranking_snapshot` — an open object in the schema, and the one place a replay may read them back from:
+
+```js
+DEFAULT_TUNING = Object.freeze({         // fusion-ranker.js; never written to ResultSet.ranking
   keyword_share   : 0.25,                  // keyword's share INSIDE the metadata component
   rerank_weight   : 0.5,                   // ρ, §9
   recency_weight  : 0.0,                   // §6.6 — recency does not rank by default
   diversity_mu    : 0.3,                   // μ, §7.5
   change_lambda   : 0.7,                   // λ, §7.4
-  reranker_enabled: false,
-  embedding_key   : null,
   category_weight : {},                    // per-category overrides; empty = uniform
   pool_size       : 200                    // per-list candidate cap, §6.2
 });
 ```
+
+Throughout the rest of this document `ranking.x` names a field of the first object and `tuning.x` a field of the second. Writing a `tuning` field onto `ResultSet.ranking` makes the state invalid against the shipped schema, which is the point of keeping them apart.
 
 The assignment's compound query `{intent, embedding?, keep, change, filters, pins}` maps onto this exactly: `intent → intent_filters`, `embedding → embedding`, `keep/change → difference.keep/change`, `filters → filters`, `pins → pins`. It is one object, not four; that is the structural expression of Pillar 1 (Unified Modal).
 
@@ -183,7 +193,7 @@ The assignment's compound query `{intent, embedding?, keep, change, filters, pin
 | Mode | Text channel | Structured channel | Semantic channel | Notes |
 |---|---|---|---|---|
 | **text** | `query.text` → normalize, tokenize, resolve to `node_hits` (§3) | intent chips **+** `node_hits` promoted to targets at `0.6 × node_score` | `embedText(query.text)` if adapter present | The v0.1 path. Fully functional with AI off. |
-| **image** | empty | intent chips only (accepted analyzer proposals land in `intent` through `ACCEPT_PROPOSAL`, never directly) | `embedImage(handle)` — the raw pixels, independent of whether analysis succeeded | If the analyzer is absent or `mocked`, the image contributes **only** through the embedding. With AI fully off an image contributes nothing retrievable, and the UI says so rather than pretending. |
+| **image** | empty | intent chips only (accepted analyzer proposals land in `intent` through `ACCEPT_PROPOSAL`, never directly) | `embedImage(handle)` — the raw pixels, independent of whether analysis succeeded | Accepted proposals — including v0.1's `mocked` ones — sit in `intent` and drive the structured channel like any other chip. It is the **raw pixels** that contribute only through the embedding, so with no analyzer *and* no embedding adapter the uploaded media itself adds no retrieval signal, and the UI says so rather than pretending. |
 | **video** | empty | intent chips | `embedVideo(handle, {t_start_s, t_end_s})` — the **window**, not the clip | The time window is the query. "Describe *this* camera move" is a windowed query, not a whole-file query. |
 | **browse** | `query.browse.keyword` (scoped to `query.browse.category`) | intent chips + the browsed `category`/`parent` as `require_categories` | none (browsing is structured navigation) | Ranking mode is `metadata_only` by construction. |
 
@@ -201,9 +211,11 @@ The card actions from the brief compile to concrete queries. `A` is the card.
 | USE (everything) | every `A.visual_attributes[c]` value, weight `attribute_meta[v].confidence ?? 0.7` | — | `[A.id]` | anchor on `A` |
 | EXTRACT *(group)* | only the categories of that EXTRACT group ([`DATA_SCHEMA.md §4.3`](./DATA_SCHEMA.md)) | — | `[A.id]` | anchor on `A` |
 | EXPLORE → find similar | all of `A`'s values at weight `0.5` | — | `[A.id]` | anchor on `A` |
-| EXPLORE → same lighting | `A.visual_attributes.lighting` at weight `1.0` | `keep: ["lighting"]`, `change: []`, anchor `A` | `[A.id]` | anchor on `A`, weight halved |
-| EXPLORE → same composition / camera / pose / outfit / scene | as above for that category (camera expands to `camera_angle, camera_distance, framing, lens, camera_motion`) | `keep: [<those>]` | `[A.id]` | as above |
+| EXPLORE → same lighting | `A`'s values in `lighting` **and** `time` at weight `1.0` | `keep: ["lighting","time"]`, `change: []`, anchor `A` | `[A.id]` | anchor on `A`, weight halved |
+| EXPLORE → same composition / camera / pose / outfit / scene | `A`'s values in that group's categories, at weight `1.0` | `keep:` the group's categories — `composition` → `["composition"]`; `camera` → `["camera_angle","camera_distance","framing","lens","camera_motion"]`; `pose` → `["pose"]`; `outfit` → `["clothing"]`; `scene` → `["scene","weather","props"]` | `[A.id]` | as above |
 | EXPLORE → similar video / similar image | all values at `0.5` | — | `[A.id]` | anchor on `A`; `filters.type` pinned to `video` / `image` |
+
+Every "same X" action expands through the same `extract_group_map` as the EXTRACT buttons ([`DATA_SCHEMA.md §4.3`](./DATA_SCHEMA.md)) — one mapping, one source of truth, which is why [`UNIFIED_MODAL_STATE.md`](./UNIFIED_MODAL_STATE.md) §6.3 lists the identical KEEP sets as the state effect of these queries.
 
 Note that "same lighting" is a **difference query with an empty CHANGE set**. That is not a trick — it is the same machinery, which is why Search by Difference is a v0.5 *UI* milestone over a retrieval capability that exists from v0.1.
 
@@ -363,28 +375,42 @@ Token pass, for the three nodes that matter:
 
 | Node | boost | `golden` | `hour` | `alley` | Σ | `s_token_agg` = Σ/3 | `s_raw` | **`score_kw`** |
 |---|---|---|---|---|---|---|---|---|
-| `time.golden_hour` — aliases include `golden hour`, `goldenhour`, `magic hour`, `golden light` | 1.45 | PREFIX on `golden hour` → **0.70** | SUBSTRING in `golden hour` → **0.50** | 0 | 1.20 | 0.400 | 0.400 | **0.580** |
-| `scene.alley` — aliases `alley`, `alleyway`, `back street`, `narrow lane` | 1.25 | 0 | 0 | EXACT_ALIAS `alley` → **0.90** | 0.90 | 0.300 | 0.300 | **0.375** |
-| `lighting.golden_hour_sun` *(related to `time.golden_hour`)* | 1.2 *(illustrative)* | PREFIX → 0.70 | SUBSTRING → 0.50 | 0 | 1.20 | 0.400 | 0.400 | **0.480** |
+| `time.golden_hour` — label `Golden hour`, aliases include `goldenhour`, `magic hour`, `golden light` | 1.45 | PREFIX on `golden hour` → **0.70** | word-internal PREFIX on `golden hour` → 0.70 × 0.9 = **0.63** | 0 | 1.33 | 0.443 | 0.443 | **0.643** |
+| `scene.alley` — label `Alley`, aliases `alleyway`, `back street`, `narrow lane` | 1.25 | 0 | 0 | EXACT_LABEL `alley` → **0.95** | 0.95 | 0.317 | 0.317 | **0.396** |
+| `lighting.golden_hour_sun` — label `Golden hour sunlight`, alias `golden hour` too *(related to `time.golden_hour`)* | 1.5 | PREFIX → 0.70 | word-internal PREFIX → **0.63** | 0 | 1.33 | 0.443 | 0.443 | **0.665** |
+
+`hour` scores 0.63, not the 0.50 a naive substring test would give: `golden hour` *contains* `hour`, but one of its **words also starts with** it, and §3.4 evaluates the word-internal prefix row above the substring row.
+
+The ranking is therefore `lighting.golden_hour_sun` (0.665) > `time.golden_hour` (0.643) > `scene.alley` (0.396). The two golden-hour nodes tie at 0.443 before boost and are separated only by `search_boost` — which is the right outcome for a query that is genuinely ambiguous between a time of day and a quality of light: both surface, and the user picks. Nothing in §3.4 tries to guess.
 
 Now compare with the single-term query `"golden hour"` (n = 2):
 
 ```
-s_phrase(time.golden_hour) = EXACT_ALIAS("golden hour") = 0.90
-s_token_agg                = (0.70 + 0.50) / 2 = 0.60
-s_raw = max(0.90, 0.60)    = 0.90
-score_kw = 0.90 × 1.45     = 1.305        <- phrase dominance, as designed
+s_phrase(time.golden_hour) = EXACT_LABEL("golden hour") = 0.95   <- its label IS "Golden hour"
+s_token_agg                = (0.70 + 0.63) / 2 = 0.665
+s_raw = max(0.95, 0.665)   = 0.95
+score_kw = 0.95 × 1.45     = 1.3775       <- phrase dominance, as designed
+
+lighting.golden_hour_sun carries "golden hour" only as an ALIAS (its label is
+"Golden hour sunlight", a prefix match at 0.70):
+s_raw = 0.90 ; score_kw = 0.90 × 1.5 = 1.350
 ```
+
+Note the flip: on the full query `golden hour alley` the light node leads on `search_boost`, but on the
+bare phrase `golden hour` the time node leads, because the phrase is that node's **label** and only the
+other node's alias. That is the tier table doing exactly its job — a label is a stronger claim on a term
+than an alias — and it is another reason both nodes must surface rather than one being guessed at.
 
 And the misspelling case, which is the whole reason the taxonomy ships deliberate misspelling aliases:
 
 ```
 "goldenhour alley"  ->  tokens ["goldenhour","alley"], n = 2
-  time.golden_hour : EXACT_ALIAS("goldenhour") = 0.90 ; alley 0 -> 0.450 × 1.45 = 0.653
-  scene.alley      : 0 ; EXACT_ALIAS("alley")  = 0.90 -> 0.450 × 1.25 = 0.563
+  lighting.golden_hour_sun : EXACT_ALIAS("goldenhour") = 0.90 ; alley 0 -> 0.450 × 1.5  = 0.675
+  time.golden_hour         : EXACT_ALIAS("goldenhour") = 0.90 ; alley 0 -> 0.450 × 1.45 = 0.653
+  scene.alley              : 0 ; EXACT_LABEL("alley")  = 0.95 -> 0.475 × 1.25 = 0.594
 ```
 
-Both surface. No spell-checker, no model, no edit-distance code — the correction lives in `aliases[]`, which is data a non-programmer can extend. That is the same "vocabulary lives in user-editable data files" pattern the research dossier records across WildPromptor, Workflow Studio and ComfyUI-Custom-Scripts ([`research/comfyui-prompt-builders.md`](./research/comfyui-prompt-builders.md)) — with the difference that our files are authored by us, so no third-party prompt database enters the tree.
+All three surface. No spell-checker, no model, no edit-distance code — the correction lives in `aliases[]`, which is data a non-programmer can extend. That is the same "vocabulary lives in user-editable data files" pattern the research dossier records across WildPromptor, Workflow Studio and ComfyUI-Custom-Scripts ([`research/comfyui-prompt-builders.md`](./research/comfyui-prompt-builders.md)) — with the difference that our files are authored by us, so no third-party prompt database enters the tree.
 
 ### 3.6 From node hits to two channels
 
@@ -399,6 +425,20 @@ node_hits  ──(a)──>  intent_filters.targets, weight = 0.6 × min(1, s_ra
 ```
 
 The `0.6` factor exists because a text-derived target is weaker evidence of intent than a chip the user placed by hand. A hand-placed chip carries weight 1.0. The user always sees text-derived targets as chips and can promote, edit, lock or delete any of them — AI-free, but still a proposal.
+
+**Not every hit is promoted.** A weight without a cutoff is not a specification: over the shipped 740-node taxonomy a two- or three-token query produces a long tail of single-token PREFIX hits, and promoting all of them would put `appearance.hair_blonde` and `composition.golden_ratio` into the user's intent for a lighting query. The cutoff is frozen alongside the weight, in the same style as §8.1's expansion controls:
+
+```
+TARGET_PROMOTION = Object.freeze({    // metadata-search.js — addition, §14
+  rel_floor : 0.60,   // s_raw ≥ 0.60 × (max s_raw over the hit list)
+  abs_floor : 0.20,   // AND s_raw > 0.20 — i.e. strictly above DESCRIPTION_SUB
+  cap       : 8       // then the top `cap` survivors by score_kw
+});
+```
+
+Hits that clear both floors are promoted, ranked by `score_kw`, and truncated at `cap`; the rest are **discarded, not hidden** — they never became chips, so there is nothing for the user to dismiss. The floor is *relative* on purpose: `s_token_agg` divides by `n`, so a fixed absolute threshold would quietly disable promotion on longer queries. `abs_floor` then stops the degenerate single-token case where a description-only match (0.20) would otherwise be the top hit and clear a relative floor trivially.
+
+Checked against §3.5's `golden hour alley`: the top `s_raw` is 0.443, so the floor is 0.266. `lighting.golden_hour_sun` (0.443), `time.golden_hour` (0.443) and `scene.alley` (0.317) clear it — the three chips [`UNIFIED_MODAL_STATE.md §11.2`](./UNIFIED_MODAL_STATE.md) T1 and QA-02 both expect — while every `golden`-only PREFIX hit (`appearance.hair_blonde`, `appearance.skin_tan`, `lighting.warm_light`, `color.warm_tone`, `composition.golden_ratio`, all at 0.70/3 = 0.233) falls below it. The misspelling case `goldenhour alley` (§3.5, top `s_raw` 0.475 → floor 0.285) keeps all three of its hits, as that example states. Expansion nodes are promoted through their own controls (§8.1: seeds 5, hops 1, cap 24) and are chipped as `query_expansion`, visibly distinct from these.
 
 ---
 
@@ -424,7 +464,18 @@ Two operations that must never be conflated: **filters exclude**, **matches rank
 | `tags`, `collections` | set intersection non-empty | `[]` |
 | `local_only` | `privacy.local_only === true` | off |
 
-**Empty result sets are explained, never faked.** If the filter gate empties the pool, the `ResultSet` carries `status: "empty"` and the UI must state the cause with counts: *"0 of 340 matches are CC BY or freer — 218 are excluded by licence."* Silently widening the query (the pattern the gallery dossier records across Openverse and Europeana, [`research/license-safe-media-apis.md`](./research/license-safe-media-apis.md)) is forbidden: it hides a policy decision behind a result list.
+**Empty result sets are explained, never faked.** If the filter gate empties the pool the retrieval still *completed*, so the `ResultSet` carries `status: "ready"` with `total: 0` and `items: []` — there is no `empty` status, because the canonical enum is `idle | loading | ready | error` ([`DATA_SCHEMA.md §14.4`](./DATA_SCHEMA.md)) and this document does not get to add to it. What makes the case explicable is not a status value but the per-filter exclusion tally the gate already produces while evaluating the table above. `filterReferences` keeps the `-> Reference[]` return that [`ARCHITECTURE.md §2.2`](./ARCHITECTURE.md) declares for it — this document owns behaviour, not signatures (§0) — so the tally is a **second export of the same module** rather than a tuple every caller would have to unpack (§6.2 consumes the plain array):
+
+```js
+// metadata-search.js — addition, §14
+explainFilterGate(references, filters) -> {
+  total       : number,                    // references handed to the gate, BEFORE any filter
+  surviving   : number,                    // === filterReferences(references, filters).length
+  excluded_by : { <filter>: number }       // keys are the filter names of the table above
+}
+```
+
+`total` is the pre-gate count, `status` included: the default `["approved"]` is a filter like any other and is tallied like any other, because "everything you can't see is unapproved" is exactly the kind of policy decision this section refuses to hide. Each excluded reference is counted **once**, against the first filter that rejected it in table order, so `Σ excluded_by === total − surviving` and the counts can be read aloud without double-counting. The UI must then state the cause with those counts: *"0 of 340 matches are CC BY or freer — 218 are excluded by licence."* INV-SRCH-13 is a requirement about that explanation, not about a distinct status value. Silently widening the query (the pattern the gallery dossier records across Openverse and Europeana, [`research/license-safe-media-apis.md`](./research/license-safe-media-apis.md)) is forbidden: it hides a policy decision behind a result list.
 
 ### 4.2 Targets and relatedness credit
 
@@ -461,7 +512,7 @@ rel(v, v') = the highest applicable row (evaluated in the order above)
 credit(target, ref) = max over v' ∈ ref.visual_attributes[target.category] of rel(target.value, v')
                       (0 if the reference has no values in that category)
 
-cw(c) = ranking.category_weight[c] ?? 1.0
+cw(c) = tuning.category_weight[c] ?? 1.0
 
                      Σ_{t ∈ positive targets} t.weight · cw(t.category) · credit(t, ref)
 metadata_match(ref) = ───────────────────────────────────────────────────────────────────
@@ -472,7 +523,7 @@ negated targets:  metadata_match ×= (1 − 0.8 · credit(t, ref))   for each t 
 
 Normalized to 0..1 by construction, and readable as *"the weighted fraction of what you asked for that this reference actually has"*. That readability is why min-max fusion is preferable to rank fusion (§6.4) — this number means something, and throwing it away for a rank position would be a loss.
 
-**Category weights default to uniform, and that is a decision, not laziness.** Baking editorial priorities ("lighting matters more than props") into the ranker would be an invisible opinion the user cannot see or override — precisely the class of behaviour [`PRODUCT_VISION.md §10`](./PRODUCT_VISION.md) lists as drift. The user's own chips already encode priority through `confidence`, `weight` and `locked`. `ranking.category_weight` exists as an override so the evaluation harness (§11) can sweep it, and so an advanced UI can expose it explicitly.
+**Category weights default to uniform, and that is a decision, not laziness.** Baking editorial priorities ("lighting matters more than props") into the ranker would be an invisible opinion the user cannot see or override — precisely the class of behaviour [`PRODUCT_VISION.md §10`](./PRODUCT_VISION.md) lists as drift. The user's own chips already encode priority through `confidence`, `weight` and `locked`. `tuning.category_weight` exists as an override so the evaluation harness (§11) can sweep it, and so an advanced UI can expose it explicitly.
 
 ### 4.4 Worked example
 
@@ -489,11 +540,11 @@ Candidate references:
 | Ref | `lighting` | `framing` | `time` | credits | `metadata_match` |
 |---|---|---|---|---|---|
 | `img_a` | `backlighting` | `medium_shot` | `golden_hour` | 1.00, 1.00, 1.00 | (1.00+1.00+0.54)/2.54 = **1.000** |
-| `img_b` | `rim_lighting` *(sibling under `light_direction`)* | `medium_shot` | `sunset` *(sibling under `time.day`)* | 0.30, 1.00, 0.30 | (0.30+1.00+0.162)/2.54 = **0.576** |
-| `img_c` | `light_direction` *(the parent branch)* | `close_up` *(sibling)* | — | 0.45, 0.30, 0 | (0.45+0.30+0)/2.54 = **0.295** |
+| `img_b` | `rim_lighting` *(sibling under `light_direction`)* | `medium_shot` | `sunset` *(not a sibling — `parent: time.twilight` — but in `golden_hour.related`)* | 0.30, 1.00, 0.25 | (0.30+1.00+0.135)/2.54 = **0.565** |
+| `img_c` | `light_direction` *(the parent branch)* | `close_up` *(root-level, like `medium_shot`: no shared non-null parent, not in its `related[]`)* | — | 0.45, 0, 0 | (0.45+0+0)/2.54 = **0.177** |
 | `img_d` | — | — | — | 0,0,0 | **0.000** |
 
-`img_b` outranking `img_c` is the intended behaviour: a specific-but-adjacent lighting value is worth more than a vague-but-nominally-correct branch node.
+`img_b` outranking `img_c` is the intended behaviour: a specific-but-adjacent lighting value is worth more than a vague-but-nominally-correct branch node. `img_c`'s `close_up` earning **0.00** against `medium_shot` is the same rule seen from the other side — SIBLING requires a shared *non-null* parent, and both framing nodes sit at the root of their category, so "also a framing value" buys nothing (§4.2).
 
 ---
 
@@ -714,7 +765,7 @@ satisfied(ref, c) ⟺ ∃ v ∈ anchor.visual_attributes[c],
 
 Unsatisfied ⇒ excluded from the pool. KEEP is genuinely a filter because it is the *premise* of the query: "same framing" is not a preference to be traded off, it is the thing being held constant.
 
-If `anchor.visual_attributes[c]` is empty, the KEEP is **vacuous**: it is dropped, and a warning is attached to the `ResultSet` (*"KEEP lighting was ignored — the anchor has no lighting attributes"*). Silently satisfying an impossible constraint would be the worst of both options.
+If `anchor.visual_attributes[c]` is empty, the KEEP is **vacuous**: it is dropped, and the drop is *announced* — as a dismissible notice on the difference panel, the same UI channel as §2.2's camera-motion narrowing (*"KEEP lighting was ignored — the anchor has no lighting attributes"*), and mirrored into `explain().notes` (§10.2) so the reason survives into the derivation. It is **not** a field on the `ResultSet`: those eight fields are closed by `explorer-state.schema.json` and restated in [`DATA_SCHEMA.md §14.4`](./DATA_SCHEMA.md), and this document does not get to extend them (§14.1 D16). Silently satisfying an impossible constraint would be the worst of both options.
 
 ### 7.3 `strictness` — the ladder
 
@@ -739,7 +790,7 @@ CHANGE has three components, and the first design decision is that **it is not a
 overlap(ref, c) = ( Σ_{v ∈ anchor[c]} max_{v' ∈ ref[c]} rel(v, v') ) / |anchor[c]|
 change_penalty(ref) = ( Σ_{c ∈ change} overlap(ref, c) ) / |change|
 
-metadata_match(ref) ×= (1 − λ · change_penalty(ref)),   λ = ranking.change_lambda = 0.7
+metadata_match(ref) ×= (1 − λ · change_penalty(ref)),   λ = tuning.change_lambda = 0.7
 ```
 
 Why a penalty rather than an exclusion filter:
@@ -774,7 +825,7 @@ select next = argmax over remaining r of:
 
 sim_change(a, b) = mean over c ∈ change of Jaccard(a.visual_attributes[c],
                                                    b.visual_attributes[c])
-μ = ranking.diversity_mu = 0.3
+μ = tuning.diversity_mu = 0.3
 ```
 
 Without this, "same lighting, different outfit" returns twenty references from the same shoot wearing twenty slightly different black coats: each individually satisfies the query, and collectively they answer nothing. MMR on exactly the CHANGE categories is the minimal targeted fix — it does not diversify what the user asked to keep, which would be a bug.
@@ -820,13 +871,16 @@ adds `Target{category: clothing, value: clothing.streetwear, weight: 1.0}`. `img
 *"Same movement as this video, but a different setting."*
 
 ```
-anchor  vid_b : motion [walking, medium_speed]
+anchor  vid_b : action [walking]
+                motion [medium_speed]
                 camera_motion [dolly_in]
                 scene [alley, night_city]
 
-keep    ["motion", "camera_motion"]
+keep    ["action", "motion", "camera_motion"]
 change  ["scene"]
 ```
+
+`action` is in `keep` deliberately, and the anchor's split is not cosmetic: `motion.walking` is one of the deprecated nodes that `normalizeVisualIntent` rewrites to `action.walking` (§8.1), so no anchor can hold it — the activity lives in `action` and what stays in `motion` is the temporal reading, pace and secondary movement. `keep: ["motion", "camera_motion"]` would therefore hold the *pace* and let the *walking* go, which is exactly the failure [`DATA_SCHEMA.md §16.4`](./DATA_SCHEMA.md) records for the mix form of this same headline case (*"`use: ["motion"]` alone would inherit the pace and leave the walking behind"*). "Same movement" needs both categories, in KEEP as in a mix.
 
 `filters.type` narrows to `["video"]` automatically (§2.2) because `camera_motion` is in play and INV-VID-2 makes it unsatisfiable by an image. KEEP on `camera_motion` is exact-or-descendant; `camera_motion.dolly` (the parent branch) fails at `rel = 0.45 < 0.60`, correctly, because "dolly" does not tell you *in or out*. This is also the brief's mixing case in retrieval form: `motion` and `camera_motion` are different categories, so combining them from two different videos raises no conflict by construction ([`DATA_SCHEMA.md §5`](./DATA_SCHEMA.md)).
 
@@ -873,7 +927,7 @@ Computed against the shipped taxonomy.
 | `style.fashion_editorial` — alias `fashion editorial`, label *Fashion editorial* | 1.30 | 0 | PREFIX **0.70** | 0.350 | **0.4550** |
 | `clothing.styles` — alias `fashion style` | 1.30 | 0 | PREFIX **0.70** | 0.350 | **0.4550** |
 | `style.street_fashion` — alias `fashion week street`, `street fashion` | 1.30 | 0 | PREFIX **0.70** | 0.350 | **0.4550** |
-| `clothing.korean_fashion` — alias `korean fashion` | 1.30 | 0 | SUBSTRING **0.50** | 0.250 | **0.3250** |
+| `clothing.korean_fashion` — alias `korean fashion` | 1.30 | 0 | word-internal PREFIX **0.63** | 0.315 | **0.4095** |
 
 **Step 4 — expansion.** Seeds = the top 5 above.
 
@@ -887,8 +941,8 @@ Computed against the shipped taxonomy.
 | | **child** | `clothing.casual` | 0.30 × 0.4550 × 1.40 = **0.191** |
 | | **child** | `clothing.minimal` | 0.30 × 0.4550 × 1.20 = **0.164** |
 | `style.street_fashion` (0.4550) | related | `style.street_photography`, `style.documentary`, `style.snapshot` | 0.35 × 0.4550 × boost |
-| `clothing.korean_fashion` (0.3250) | related | `clothing.oversized` | 0.35 × 0.3250 × 1.40 = **0.159** |
-| | related | `clothing.layered`, `clothing.minimal` *(dedupe: keeps 0.164)* | |
+| `clothing.korean_fashion` (0.4095) | related | `clothing.oversized` | 0.35 × 0.4095 × 1.40 = **0.201** |
+| | related | `clothing.layered`, `clothing.minimal` | 0.35 × 0.4095 × 1.20 = **0.172** *(`minimal` also arrives from `clothing.styles` at 0.164; dedupe keeps the max, 0.172)* |
 
 **Step 5 — what the user sees.** Direct chips: `scene.airport_terminal`, `style.street_fashion`, `style.fashion_editorial`, `clothing.korean_fashion`. Expansion chips, badged and removable: `props.suitcase`, `clothing.streetwear`, `clothing.casual`, `clothing.oversized`, `clothing.minimal`, `style.snapshot`.
 
@@ -923,7 +977,7 @@ Rules:
 |---|---|
 | **Scope** | Applies to the top `min(max_candidates, 50)` of the fused list. Never to the whole pool. |
 | **Set-preserving** | The reranker may reorder. It may **not** add, remove or filter candidates (INV-SRCH-8). A returned id not in the input is dropped with a warning; a missing id keeps its fused score. |
-| **Blended, not substituted** | `final = (1 − ρ) · fused + ρ · norm_rerank`, `ρ = ranking.rerank_weight = 0.5`. |
+| **Blended, not substituted** | `final = (1 − ρ) · fused + ρ · norm_rerank`, `ρ = tuning.rerank_weight = 0.5`. |
 | **Cancellable** | Carries `query_id` and an `AbortSignal`; a stale rerank never mutates a live `ResultSet`. |
 | **Visible** | `ranking.reranker_enabled` is stored; `score_breakdown.rerank` is populated; `explain()` reports `delta_rank`. |
 | **Optional by construction** | With `NULL_RERANKER` the fused order is final. No feature degrades to an error message. |
@@ -978,7 +1032,7 @@ Explanation = {
 }
 ```
 
-`explain()` is pure and takes the same inputs as the ranker, so the derivation is reproducible from stored state and cannot drift from the ranking it describes (INV-SRCH-6). It is a test target: for every result in the evaluation set, `Σ contribution_pct === 100` and the reconstructed score must equal `items[i].score` to 1e-9.
+`explain()` is pure and takes the same inputs as the ranker — `ResultSet.ranking` and the `Tuning` constants of §2.1 — so the derivation is reproducible from stored state and cannot drift from the ranking it describes (INV-SRCH-6). It is a test target: for every result in the evaluation set, `Σ contribution_pct === 100` and the reconstructed score must equal `items[i].score` to 1e-9.
 
 ### 10.3 What the UI renders
 
@@ -1108,7 +1162,7 @@ Notes a builder needs:
 | INV-SRCH-3 | Hard filters exclude; soft signals rank. A filter is never implemented as a penalty, and a penalty never as a filter. | code review + §4.1/§7.4 tests |
 | INV-SRCH-4 | `filters.status` defaults to `["approved"]`; an unverified reference never appears in a normal result set. | code, default constant |
 | INV-SRCH-5 | A missing signal renormalizes the remaining weights per item; it never becomes a zero score. | code + unit test on `fused()` |
-| INV-SRCH-6 | Every result carries a `score_breakdown`, and `explain()` reproduces its score to 1e-9 from stored state. | test: explanation integrity |
+| INV-SRCH-6 | Every result carries a `score_breakdown`, and `explain()` reproduces its score to 1e-9 from stored state — `ResultSet.ranking` plus the `Tuning` constants in effect (§2.1), which a replay reads from `history_entry.ranking_snapshot`. | test: explanation integrity |
 | INV-SRCH-7 | `difference.keep ∩ difference.change === ∅` (= INV-EXP-5). | `buildDifferenceQuery` throws |
 | INV-SRCH-8 | The reranker may reorder but may never add, remove or filter candidates. | code, set comparison after rerank |
 | INV-SRCH-9 | Retrieval is pure: same `(Query, library, taxonomy_version, ranking)` ⇒ identical order. Ties break `(score desc, reference_id asc)`. | test: repeated-run equality |
@@ -1150,10 +1204,12 @@ Notes a builder needs:
 | `related[]` treated as **symmetric for search only** | §8.1 | The canonical spec declares symmetry for `conflicts_with`, not for `related`. Storage stays directed; only the expansion index is symmetrized. |
 | `REL` table (descendant/ancestor/sibling/related partial credit) | §4.2 | The canonical spec defines taxonomy hierarchy but no retrieval credit function. All five constants are new and tunable. |
 | `keep_threshold` ladder from `strictness` | §7.3 | The canonical spec gives `strictness` a default of 0.8 and the words "1.0 requires exact match, lower allows sibling nodes" but no mapping. This is the mapping. |
-| `λ` (change penalty), `μ` (MMR diversity), `ρ` (rerank blend), `keyword_share`, `pool_size`, `ANN_THRESHOLD` | §6, §7, §9 | New ranking constants; all live on `Ranking` and are swept by the evaluation harness. |
+| `λ` (change penalty), `μ` (MMR diversity), `ρ` (rerank blend), `keyword_share`, `pool_size`, `ANN_THRESHOLD` | §2.1, §6, §7, §9 | New ranking constants. They live on `Tuning` — frozen module exports, recorded in `history_entry.ranking_snapshot` — and are swept by the evaluation harness. They are deliberately **not** added to `ResultSet.ranking`, whose six fields are fixed by `explorer-state.schema.json`. |
 | `STOPWORDS`, normalization steps, word-internal prefix at `PREFIX × 0.9` | §3.1–3.4 | The canonical spec names the match tiers but not the tokenizer. |
 | Reference field → tier mapping (`title`↔label, `tags/aliases`↔alias, `description`↔description, `id`↔id) | §3.3 | The canonical spec lists the indexed reference fields but assigns them no weights. |
 | CHANGE **presence** requirement | §7.4(b) | Not in the canonical spec; implemented by reusing `filters.require_categories`. |
+| `explainFilterGate()` — the per-filter exclusion tally | §4.1 | New **export**, not a new return type: `filterReferences` keeps the `-> Reference[]` signature ARCHITECTURE.md §2.2 declares. Needed because INV-SRCH-13 requires an empty pool to be explained with counts. |
+| `TARGET_PROMOTION` (`rel_floor` 0.60, `abs_floor` 0.20, `cap` 8) | §3.6 | New. The canonical spec gives node hits a promotion weight but no cutoff; without one a long-tail PREFIX hit becomes a chip. |
 | Near-duplicate grouping thresholds (0.90 Jaccard, 0.98 cosine) | §7.5 | New; both are tunable and both are measured by `duplicate rate@10`. |
 | `license` / `license_url` on the embedding adapter descriptor | §5.4 | New field on `EmbeddingCapabilities`, so a non-commercial model is badged like a non-commercial photograph. |
 | Product metrics: category coverage@k, change-yield@k, duplicate rate@k, explanation integrity, AI-OFF completeness | §11.2 | New; the standard IR metrics do not measure this product's actual claims. |

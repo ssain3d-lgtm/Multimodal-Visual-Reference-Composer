@@ -56,11 +56,11 @@ Three properties hold at every milestone and are re-tested at every milestone:
 | Contract | All 7 files in [`schemas/`](./schemas/) frozen at `schema_version: "1.0"`; `data/taxonomy/*.json` covering all 20 `visual_category` values; `data/presets.json` (`pst_*`); `data/references.json` seed library (metadata + URLs + `visual_attributes` only) |
 | Core | `src/core/taxonomy.js`, `visual-intent.js` (`normalizeVisualIntent`, `compactVisualIntent`, `aggConfidence`), `reference-mix.js` (`applyMix`, conflict detection, deterministic `cfl_` ids), `explorer-state.js` reducer, `visual-recipe.js` |
 | Modal | One `ExplorerState`; four modes (`text`, `image`, `video`, `browse`); `query` holds all four payloads simultaneously; INV-EXP-1 enforced by test |
-| Text mode | Free text → `analyzer_text` chips via the taxonomy index; unknown terms become `custom: true` chips, never errors |
+| Text mode | Free text → taxonomy index → chips: a direct hit carries `source: "user"`, an alias/`related` hop carries `source: "query_expansion"`; unknown terms become `custom: true` chips, never errors. `analyzer_text` is the AI-ON path and does not ship here |
 | Browse mode | Category → `parent`/`children` tiles with `visual_hint` thumbnails. This is the answer to *"I don't know what Low Angle means"* and it ships first, not last |
 | Image/Video mode | Upload UI complete: `upl_` handle, thumbnail, `query.video.t_start_s/t_end_s` window control, and `analysis_status: "mocked"` returning a deterministic fixture intent. The mock is labelled in the UI as mocked; it never pretends to be analysis |
 | Search | Keyword engine: inverted index over `{id, label, aliases[], i18n, description}` + reference `{title, description, tags[], aliases[]}`; the exact score table from the canonical model; one-hop `related[]` expansion; structured metadata search over `visual_attributes`; `ranking.mode` falls back to `keyword_only`/`metadata_only` |
-| Cards | `USE` (`use: ["*"]`), `EXTRACT` (the 8 groups, expanded to categories before storage), `EXPLORE` (same-composition / same-lighting / same-outfit / same-pose / same-camera / same-scene — implemented as metadata queries, no embeddings needed) |
+| Cards | `USE` (`use: ["*"]`), `EXTRACT` (the 8 groups, expanded to categories before storage), `EXPLORE` (all nine brief actions: find-similar / same-composition / same-lighting / same-outfit / same-pose / same-camera / same-scene / similar-image / similar-video — implemented as metadata queries, no embeddings needed. The six "same X" write `difference.keep`; the three "similar" run as structured similarity over shared taxonomy ids, with `filters.type` pinned for similar-image / similar-video) |
 | Mixing | `ReferenceMix` with `weight`, `priority`, `pinned`, `only`, `exclude`, `role`; `applyMix` merge with AGREEMENT dedupe; conflict detection for all three `kind`s; the resolution UI with both thumbnails side by side; `dominance` memory |
 | Composer | `buildStructuredPrompt` → 13 slots with `PromptFragment` provenance; `formatPrompt(…, "generic")`; `blocked[]` rendered as an unresolved *decision*; `negative_text` from `constraints` |
 | Licence | Badge on every card and in the composer; `status: ["approved"]` default filter; `license_summary` + `attribution_block` on recipes; seed library is Public Domain / CC0 / CC BY only |
@@ -72,7 +72,7 @@ Three properties hold at every milestone and are re-tested at every milestone:
 - Any network call to any provider. `src/providers/*.js` exists as an interface with `local.js` implemented only.
 - Any model, any embedding, any vector, any reranker. `src/ai/*.js` ships as ports with a **mock analyzer** and no backend.
 - Real image or video analysis. `analysis_status: "mocked"` is the whole feature.
-- Search by Difference (`difference` block is present in `ExplorerState` and inert).
+- Search by Difference, CHANGE axis — `difference.change`, `change_targets`, the `strictness` ladder and the diversity boost are v0.5. `difference.keep` does ship, written by the six "same X" EXPLORE actions and executed as hard structured filters; the KEEP/CHANGE bar is a read-only KEEP readout.
 - Formatter modes other than `generic`.
 - Recipe *sharing*, import of foreign recipes, comparison view, alternative export kinds.
 - Localisation beyond the `i18n` field existing on `TaxonomyNode`.
@@ -131,7 +131,7 @@ Three properties hold at every milestone and are re-tested at every milestone:
 | Id | Criterion |
 |---|---|
 | `DOD-02-1` | A live search in text mode returns cards from both providers, each with a correct licence badge, creator, `source_url` and stored `attribution` text |
-| `DOD-02-2` | INV-LIC-3 test: a reference whose `license_check` or `source_validation` is not `pass` **cannot** reach `approved` through any code path, including the "add to mix" path |
+| `DOD-02-2` | INV-LIC-3 test: a reference whose `license_check`, `source_validation` **or** `attribution_metadata` is not `pass` **cannot** reach `approved` through any code path, including the "add to mix" path |
 | `DOD-02-3` | Attribution strings are produced from stored text, not computed links, and a reference with a dead `media_url` still renders a complete credit line (R4) |
 | `DOD-02-4` | Analyzer produces a `VisualIntent` for an uploaded image in which **every** chip is user-editable, deletable and lockable; no chip is written to a locked or `source: "user"` chip's slot (`applyMix` step 1) |
 | `DOD-02-5` | INV-VID-1/2 enforced on real analyzer output: an image analyzer can never author a `camera_motion` chip, and a `motion` chip it authors carries `evidence.kind: "implied"` with `confidence ≤ 0.6` and only for `still_inferable` nodes |
@@ -250,7 +250,7 @@ Three properties hold at every milestone and are re-tested at every milestone:
 **Scope.**
 
 - `ExplorerState.difference`: `{enabled, anchor_reference_id, keep[], change[], change_targets, strictness}`.
-- KEEP categories become hard structured filters pinned to the anchor's values; CHANGE categories become negative filters against the anchor's values plus a diversity boost; unlisted categories are free.
+- KEEP categories become hard structured filters pinned to the anchor's values at `keep_threshold` (derived from `strictness`); CHANGE categories become a soft overlap penalty (λ = `tuning.change_lambda` = 0.7) plus a hard *presence* requirement via `filters.require_categories` plus MMR diversity on the CHANGE axis — never a filter on values (SEARCH_ARCHITECTURE §7.4, `D9`, INV-SRCH-3); unlisted categories are free.
 - `change_targets` for *directed* change ("change clothing **to** streetwear", not merely "not this outfit").
 - `strictness` (default `0.8`): `1.0` requires exact taxonomy match on KEEP; lower allows sibling nodes via `parent`/`children`.
 - `results.items[].differs_categories[]` populated and rendered, so the user can see *why* a card is a valid alternative.
@@ -403,7 +403,7 @@ The node exposes the **core**, never the UI. Specifically, the node ships **none
 | `reference-mix` → prompt composer | `blocked[]` cannot exist without conflict detection |
 | v0.2 providers → v0.3 embeddings | Embedding a 400-item seed library measures nothing. Semantic ranking needs a real corpus |
 | v0.2 analyzer ports → v0.4 video analyzer | The video analyzer is a second adapter on a proven port, not a new subsystem |
-| v0.3 diversity/MMR → v0.5 difference | CHANGE is a diversity problem with a negative filter attached |
+| v0.3 diversity/MMR → v0.5 difference | CHANGE is a diversity problem with an overlap penalty and a presence requirement attached, never a value exclusion (`D9`) |
 | v0.1 `visual-recipe` → ComfyUI phase | A recipe is the node's natural input; without it the node has no way to receive a combination |
 | **All of v0.1–v0.5 → ComfyUI phase** | §4 |
 
