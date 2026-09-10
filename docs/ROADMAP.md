@@ -26,7 +26,7 @@ The sequenced delivery plan: what ships in v0.1 through v0.5, what unblocks what
 
 | Milestone | Theme | AI required? | New network egress? | Relative size | Exit gate |
 |---|---|---|---|---|---|
-| **v0.1** | The complete AI-free product | **No** — `ai.enabled = false` is the default and is fully functional | **None** (seed library is local JSON) | XL | `DOD-01-1 … -12` |
+| **v0.1** | The complete AI-free product | **No** — `ai.enabled = false` is the default and is fully functional | **None** (seed library is local JSON) | M — see the note below | `DOD-01-1 … -12` |
 | **v0.2** | Live providers, License Guard, real image analysis | No (analysis is opt-in) | Openverse, Wikimedia Commons | L | `DOD-02-1 … -9` |
 | **v0.3** | Multimodal embedding, similar-image, hybrid ranking | No (semantic is opt-in) | None new (embeddings local by default) | L | `DOD-03-1 … -8` |
 | **v0.4** | Video analysis, camera motion, motion mixing | No (analysis is opt-in) | None new | L | `DOD-04-1 … -9` |
@@ -563,7 +563,7 @@ Severity × likelihood is judged against the product's identity, not against eng
 | `RSK-08` | **Evaluation overfitting.** Ranking is tuned to 40 golden queries and gets worse in reality | Med | An nDCG gain with no A/B agreement | Grade before tuning; never grade a result you just watched win; ≥ 20 blind A/B judgements required alongside any metric delta; treat an nDCG@10 difference below ~0.05 as noise (a rule of thumb, **UNVERIFIED** as a computed interval — compute a bootstrap CI before quoting any number externally) | v0.3 |
 | `RSK-09` | **ComfyUI runtime variance.** The Node sidecar is unavailable in some installs | Med | Sidecar probe failures | Probe at node load and report in node status, never assume (`DOD-CU-6`); the Python fallback exists and is accepted only on byte-for-byte conformance | ComfyUI phase |
 | `RSK-10` | **Privacy incident.** User media is transmitted without disclosure | **Critical** | Any adapter call carrying media with `external_transmission.allowed === false` | Egress boundary is a single choke point; `local_only` references are refused by every remote adapter; disclosure is required *before* transmission and stamps `disclosed_at`; `DOD-02-8` tests it. An `upl_` handle **never** implies bytes left the device | v0.2 onward |
-| `RSK-11` | **v0.1 is too large and gets salami-sliced.** "Ship the modal now, mixing in v0.1.1" | High | Any proposal to move mixing, conflict UI or the composer out of v0.1 | v0.1's definition of done is atomic. The milestone is large because the *product* is the pipeline; a partial pipeline is a different, worse product (`D3`). Slice by *reference-library size and taxonomy depth*, never by pipeline stage | v0.1 |
+| `RSK-11` | **v0.1 is too large and never ships.** The first plan had 72 tasks at size XL and produced a hundred times more documentation than code before a screen existed | Realised | Documentation growing while `app/` and `src/` stay empty | The pipeline stays atomic — mixing, the conflict UI and the composer all ship together, because a partial pipeline is a worse product (`D3`). What was cut instead was *everything not on that path*: live providers, embeddings, reranking, video analysis, recipes. v0.1 is now twelve tasks, and it is built. See [`MVP_V0.1_TASKS.md`](./MVP_V0.1_TASKS.md) | v0.1 |
 
 ---
 

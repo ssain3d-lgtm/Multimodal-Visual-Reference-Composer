@@ -539,6 +539,10 @@ Common to all nine:
 
 ---
 
+> **Amended by [PRODUCT_BRIEF.md](./PRODUCT_BRIEF.md) A-1.** Conflicts are graded: a HARD conflict
+> resolves to a visible winner the user can flip, a SOFT one only warns, nothing is deleted, and
+> generation is never blocked.
+
 ## 7. The conflict UI
 
 ### 7.1 The doctrine, restated because it is the product

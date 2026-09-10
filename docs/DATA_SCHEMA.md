@@ -1081,6 +1081,10 @@ It carries **no embeddings and no binaries**. Five rules govern URL rot:
 
 ---
 
+> **Amended by [PRODUCT_BRIEF.md](./PRODUCT_BRIEF.md) A-1.** Conflicts are graded: a HARD conflict
+> resolves to a visible winner the user can flip, a SOFT one only warns, nothing is deleted, and
+> generation is never blocked.
+
 ## 11. `ReferenceMix`
 
 **Purpose.** Identity pillar 5, and the answer to the brief's question 4 (*"what data structure lets you take only SOME attributes from one reference?"*). A mix is a set of **instructions**: which references contribute, which categories each contributes, and what to do when two of them disagree.

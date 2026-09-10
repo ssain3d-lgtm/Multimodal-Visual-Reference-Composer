@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # No runtime dependencies: the app is vanilla ES modules and the checkers
+      # are dependency-free on purpose, so there is nothing to install.
+      - name: Taxonomy integrity
+        run: node tests/validate-taxonomy.mjs
+      - name: Schema integrity
+        run: node tests/validate-schemas.mjs
+      - name: Documentation integrity
+        run: node tests/validate-docs.mjs
+      - name: Unit tests
+        run: node --test tests/*.test.mjs
+
+      # The seed library is generated. If regenerating changes it, the committed
+      # file is stale and the two would drift apart silently.
+      - name: Seed library is up to date
+        run: |
+          node tools/gen-seed.mjs
+          git diff --exit-code -- data/references.json

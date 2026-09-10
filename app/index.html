@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unified Visual Reference Composer</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23161a21'/%3E%3Ccircle cx='16' cy='11' r='4' fill='%236ea8fe'/%3E%3Crect x='12' y='17' width='8' height='9' rx='3' fill='%236ea8fe'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="./app.css">
+</head>
+<body>
+<noscript>This app needs JavaScript and must be served over http:// — ES modules do not load from file://.</noscript>
+
+<dialog id="explorer" open aria-label="Unified Visual Explorer">
+  <header class="bar">
+    <h1>Unified Visual Explorer</h1>
+    <nav class="modes" id="modes" role="tablist" aria-label="Input mode"></nav>
+    <div class="bar-right">
+      <button id="settings-btn" class="ghost" type="button">Analyzer: off</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <section class="pane input" aria-label="Input">
+      <div id="mode-panel"></div>
+      <h2 class="pane-title">Current visual intent</h2>
+      <div id="intent" class="chips" aria-live="polite"></div>
+      <div id="difference" class="difference"></div>
+    </section>
+
+    <section class="pane results" aria-label="Matched references">
+      <div class="pane-head">
+        <h2 class="pane-title" id="results-title">Matched references</h2>
+        <div id="results-meta" class="meta"></div>
+      </div>
+      <div id="grid" class="grid"></div>
+      <div id="detail" class="detail" hidden></div>
+    </section>
+
+    <section class="pane mix" aria-label="Active reference mix">
+      <h2 class="pane-title">Active reference mix</h2>
+      <div id="mix" class="mix-list"></div>
+      <div id="conflicts" class="conflicts"></div>
+    </section>
+  </div>
+
+  <footer class="composer">
+    <div class="composer-head">
+      <h2 class="pane-title">Composed prompt</h2>
+      <div class="composer-actions">
+        <button id="copy" class="primary" type="button">Copy prompt</button>
+        <button id="toggle-structured" class="ghost" type="button">Show structured</button>
+      </div>
+    </div>
+    <output id="prompt" class="prompt"></output>
+    <pre id="structured" class="structured" hidden></pre>
+    <div id="provenance" class="provenance"></div>
+  </footer>
+</dialog>
+
+<dialog id="settings">
+  <form method="dialog" class="settings-form">
+    <h2>Image analyzer</h2>
+    <p class="hint">Optional. The app is complete without it — everything below only adds image understanding.
+      Anything you enter is kept in this browser and sent only to the endpoint you name.</p>
+    <label>Endpoint <input name="endpoint" type="url" placeholder="http://localhost:11434/v1/chat/completions"></label>
+    <label>Model <input name="model" type="text" placeholder="qwen2.5-vl"></label>
+    <label>API key <input name="apiKey" type="password" placeholder="leave empty for a local server"></label>
+    <label class="row"><input name="enabled" type="checkbox"> Enable analyzer</label>
+    <menu><button value="cancel" formnovalidate>Cancel</button><button value="save" class="primary">Save</button></menu>
+  </form>
+</dialog>
+
+<script type="module" src="../src/ui/explorer.js"></script>
+</body>
+</html>

@@ -1,0 +1,1310 @@
+{
+  "schema_version": "1.0",
+  "version": 1,
+  "note": "Seed library for v0.1. No media bytes: each card is drawn from its own attributes. Regenerate with `node tools/gen-seed.mjs`.",
+  "references": [
+    {
+      "schema_version": "1.0",
+      "id": "img_seed_night_flash_street",
+      "type": "image",
+      "status": "approved",
+      "title": "Night street, direct flash",
+      "description": "Night street, direct flash. Seed reference drawn procedurally from its own attributes.",
+      "tags": [
+        "street",
+        "night",
+        "flash",
+        "fashion"
+      ],
+      "visual_attributes": {
+        "subject": [
+          "subject.adult_woman"
+        ],
+        "framing": [
+          "framing.full_body"
+        ],
+        "camera_angle": [
+          "camera_angle.low_angle"
+        ],
+        "camera_distance": [
+          "camera_distance.near"
+        ],
+        "lens": [
+          "lens.35mm_like"
+        ],
+        "pose": [
+          "pose.standing"
+        ],
+        "clothing": [
+          "clothing.streetwear",
+          "clothing.leather_jacket",
+          "clothing.sneakers"
+        ],
+        "scene": [
+          "scene.urban_street"
+        ],
+        "time": [
+          "time.night"
+        ],
+        "lighting": [
+          "lighting.direct_flash"
+        ],
+        "composition": [
+          "composition.centered"
+        ],
+        "color": [
+          "color.high_saturation"
+        ],
+        "mood": [
+          "mood.energetic"
+        ],
+        "style": [
+          "style.street_fashion"
+        ]
+      },
+      "metadata": {
+        "source": "local",
+        "source_id": "night-flash-street",
+        "creator": "Unified Visual Reference Composer seed set",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source_url": "data/references.json#night-flash-street",
+        "attribution": "CC0 1.0 — no attribution required",
+        "license_policy_class": "allow",
+        "requires_attribution": false,
+        "share_alike": false
+      },
+      "license_guard": {
+        "license_check": "pass",
+        "source_validation": "pass",
+        "attribution_metadata": "pass"
+      },
+      "media": {
+        "width": 1024,
+        "height": 1365,
+        "orientation": "portrait"
+      },
+      "x_ext": {
+        "render": "procedural"
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "id": "img_seed_golden_hour_portrait",
+      "type": "image",
+      "status": "approved",
+      "title": "Golden hour portrait, backlit",
+      "description": "Golden hour portrait, backlit. Seed reference drawn procedurally from its own attributes.",
+      "tags": [
+        "portrait",
+        "golden hour",
+        "warm"
+      ],
+      "visual_attributes": {
+        "subject": [
+          "subject.adult_woman"
+        ],
+        "framing": [
+          "framing.waist_up"
+        ],
+        "camera_angle": [
+          "camera_angle.eye_level"
+        ],
+        "camera_distance": [
+          "camera_distance.near"
+        ],
+        "lens": [
+          "lens.85mm_like",
+          "lens.shallow_depth_of_field"
+        ],
+        "pose": [
+          "pose.looking_at_camera"
+        ],
+        "clothing": [
+          "clothing.knit_sweater"
+        ],
+        "scene": [
+          "scene.field"
+        ],
+        "time": [
+          "time.golden_hour"
+        ],
+        "lighting": [
+          "lighting.rim_lighting",
+          "lighting.backlighting"
+        ],
+        "composition": [
+          "composition.rule_of_thirds"
+        ],
+        "color": [
+          "color.warm_tone"
+        ],
+        "mood": [
+          "mood.calm"
+        ],
+        "style": [
+          "style.portrait_studio"
+        ]
+      },
+      "metadata": {
+        "source": "local",
+        "source_id": "golden-hour-portrait",
+        "creator": "Unified Visual Reference Composer seed set",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source_url": "data/references.json#golden-hour-portrait",
+        "attribution": "CC0 1.0 — no attribution required",
+        "license_policy_class": "allow",
+        "requires_attribution": false,
+        "share_alike": false
+      },
+      "license_guard": {
+        "license_check": "pass",
+        "source_validation": "pass",
+        "attribution_metadata": "pass"
+      },
+      "media": {
+        "width": 1024,
+        "height": 1365,
+        "orientation": "portrait"
+      },
+      "x_ext": {
+        "render": "procedural"
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "id": "img_seed_studio_editorial",
+      "type": "image",
+      "status": "approved",
+      "title": "Studio editorial, soft key",
+      "description": "Studio editorial, soft key. Seed reference drawn procedurally from its own attributes.",
+      "tags": [
+        "studio",
+        "editorial",
+        "clean"
+      ],
+      "visual_attributes": {
+        "subject": [
+          "subject.adult_woman"
+        ],
+        "framing": [
+          "framing.full_body"
+        ],
+        "camera_angle": [
+          "camera_angle.eye_level"
+        ],
+        "camera_distance": [
+          "camera_distance.medium_range"
+        ],
+        "lens": [
+          "lens.50mm_like"
+        ],
+        "pose": [
+          "pose.contrapposto"
+        ],
+        "clothing": [
+          "clothing.blazer",
+          "clothing.trousers"
+        ],
+        "scene": [
+          "scene.studio"
+        ],
+        "lighting": [
+          "lighting.studio_softbox",
+          "lighting.soft_light"
+        ],
+        "composition": [
+          "composition.centered"
+        ],
+        "color": [
+          "color.muted"
+        ],
+        "mood": [
+          "mood.dramatic"
+        ],
+        "style": [
+          "style.fashion_editorial"
+        ]
+      },
+      "metadata": {
+        "source": "local",
+        "source_id": "studio-editorial",
+        "creator": "Unified Visual Reference Composer seed set",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source_url": "data/references.json#studio-editorial",
+        "attribution": "CC0 1.0 — no attribution required",
+        "license_policy_class": "allow",
+        "requires_attribution": false,
+        "share_alike": false
+      },
+      "license_guard": {
+        "license_check": "pass",
+        "source_validation": "pass",
+        "attribution_metadata": "pass"
+      },
+      "media": {
+        "width": 1024,
+        "height": 1365,
+        "orientation": "portrait"
+      },
+      "x_ext": {
+        "render": "procedural"
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "id": "img_seed_airport_travel",
+      "type": "image",
+      "status": "approved",
+      "title": "Airport terminal, travel look",
+      "description": "Airport terminal, travel look. Seed reference drawn procedurally from its own attributes.",
+      "tags": [
+        "airport",
+        "travel",
+        "walking"
+      ],
+      "visual_attributes": {
+        "subject": [
+          "subject.adult_woman"
+        ],
+        "framing": [
+          "framing.full_body"
+        ],
+        "camera_angle": [
+          "camera_angle.eye_level"
+        ],
+        "camera_distance": [
+          "camera_distance.far"
+        ],
+        "lens": [
+          "lens.35mm_like"
+        ],
+        "pose": [
+          "pose.mid_stride"
+        ],
+        "action": [
+          "action.walking"
+        ],
+        "clothing": [
+          "clothing.trench_coat",
+          "clothing.sneakers"
+        ],
+        "scene": [
+          "scene.airport_terminal"
+        ],
+        "props": [
+          "props.suitcase"
+        ],
+        "lighting": [
+          "lighting.overcast_soft"
+        ],
+        "composition": [
+          "composition.leading_lines"
+        ],
+        "color": [
+          "color.neutral_tone"
+        ],
+        "mood": [
+          "mood.calm"
+        ],
+        "style": [
+          "style.documentary"
+        ]
+      },
+      "metadata": {
+        "source": "local",
+        "source_id": "airport-travel",
+        "creator": "Unified Visual Reference Composer seed set",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source_url": "data/references.json#airport-travel",
+        "attribution": "CC0 1.0 — no attribution required",
+        "license_policy_class": "allow",
+        "requires_attribution": false,
+        "share_alike": false
+      },
+      "license_guard": {
+        "license_check": "pass",
+        "source_validation": "pass",
+        "attribution_metadata": "pass"
+      },
+      "media": {
+        "width": 1024,
+        "height": 1365,
+        "orientation": "portrait"
+      },
+      "x_ext": {
+        "render": "procedural"
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "id": "img_seed_rain_neon_alley",
+      "type": "image",
+      "status": "approved",
+      "title": "Rainy alley, neon",
+      "description": "Rainy alley, neon. Seed reference drawn procedurally from its own attributes.",
+      "tags": [
+        "rain",
+        "neon",
+        "night",
+        "cinematic"
+      ],
+      "visual_attributes": {
+        "subject": [
+          "subject.adult_man"
+        ],
+        "framing": [
+          "framing.medium_shot"
+        ],
+        "camera_angle": [
+          "camera_angle.low_angle"
+        ],
+        "camera_distance": [
+          "camera_distance.near"
+        ],
+        "lens": [
+          "lens.35mm_like"
+        ],
+        "pose": [
+          "pose.standing"
+        ],
+        "clothing": [
+          "clothing.hood_up"
+        ],
+        "scene": [
+          "scene.alley"
+        ],
+        "time": [
+          "time.night"
+        ],
+        "weather": [
+          "weather.rain"
+        ],
+        "lighting": [
+          "lighting.neon"
+        ],
+        "composition": [
+          "composition.framing_within_frame"
+        ],
+        "color": [
+          "color.teal_and_orange"
+        ],
+        "mood": [
+          "mood.moody"
+        ],
+        "style": [
+          "style.cinematic"
+        ]
+      },
+      "metadata": {
+        "source": "local",
+        "source_id": "rain-neon-alley",
+        "creator": "Unified Visual Reference Composer seed set",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source_url": "data/references.json#rain-neon-alley",
+        "attribution": "CC0 1.0 — no attribution required",
+        "license_policy_class": "allow",
+        "requires_attribution": false,
+        "share_alike": false
+      },
+      "license_guard": {
+        "license_check": "pass",
+        "source_validation": "pass",
+        "attribution_metadata": "pass"
+      },
+      "media": {
+        "width": 1024,
+        "height": 1365,
+        "orientation": "portrait"
+      },
+      "x_ext": {
+        "render": "procedural"
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "id": "img_seed_beach_resort",
+      "type": "image",
+      "status": "approved",
+      "title": "Beach at midday, resort wear",
+      "description": "Beach at midday, resort wear. Seed reference drawn procedurally from its own attributes.",
+      "tags": [
+        "beach",
+        "summer",
+        "bright"
+      ],
+      "visual_attributes": {
+        "subject": [
+          "subject.adult_woman"
+        ],
+        "framing": [
+          "framing.full_body"
+        ],
+        "camera_angle": [
+          "camera_angle.eye_level"
+        ],
+        "camera_distance": [
+          "camera_distance.far"
+        ],
+        "lens": [
+          "lens.28mm_like"
+        ],
+        "pose": [
+          "pose.walking_pose"
+        ],
+        "clothing": [
+          "clothing.linen",
+          "clothing.sandals",
+          "clothing.resort"
+        ],
+        "scene": [
+          "scene.beach"
+        ],
+        "time": [
+          "time.midday"
+        ],
+        "weather": [
+          "weather.clear"
+        ],
+        "lighting": [
+          "lighting.hard_light"
+        ],
+        "composition": [
+          "composition.low_horizon"
+        ],
+        "color": [
+          "color.pastel"
+        ],
+        "mood": [
+          "mood.playful"
+        ],
+        "style": [
+          "style.lookbook"
+        ]
+      },
+      "metadata": {
+        "source": "local",
+        "source_id": "beach-resort",
+        "creator": "Unified Visual Reference Composer seed set",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source_url": "data/references.json#beach-resort",
+        "attribution": "CC0 1.0 — no attribution required",
+        "license_policy_class": "allow",
+        "requires_attribution": false,
+        "share_alike": false
+      },
+      "license_guard": {
+        "license_check": "pass",
+        "source_validation": "pass",
+        "attribution_metadata": "pass"
+      },
+      "media": {
+        "width": 1024,
+        "height": 1365,
+        "orientation": "portrait"
+      },
+      "x_ext": {
+        "render": "procedural"
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "id": "img_seed_techwear_rooftop",
+      "type": "image",
+      "status": "approved",
+      "title": "Rooftop, techwear, blue hour",
+      "description": "Rooftop, techwear, blue hour. Seed reference drawn procedurally from its own attributes.",
+      "tags": [
+        "techwear",
+        "rooftop",
+        "blue hour"
+      ],
+      "visual_attributes": {
+        "subject": [
+          "subject.adult_man"
+        ],
+        "framing": [
+          "framing.full_body"
+        ],
+        "camera_angle": [
+          "camera_angle.worms_eye"
+        ],
+        "camera_distance": [
+          "camera_distance.near"
+        ],
+        "lens": [
+          "lens.wide_24mm_like"
+        ],
+        "pose": [
+          "pose.arms_crossed"
+        ],
+        "clothing": [
+          "clothing.techwear",
+          "clothing.cargo_pants"
+        ],
+        "scene": [
+          "scene.rooftop"
+        ],
+        "time": [
+          "time.blue_hour"
+        ],
+        "lighting": [
+          "lighting.practical_lights"
+        ],
+        "composition": [
+          "composition.negative_space"
+        ],
+        "color": [
+          "color.cool_tone"
+        ],
+        "mood": [
+          "mood.tense"
+        ],
+        "style": [
+          "style.cinematic"
+        ]
+      },
+      "metadata": {
+        "source": "local",
+        "source_id": "techwear-rooftop",
+        "creator": "Unified Visual Reference Composer seed set",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source_url": "data/references.json#techwear-rooftop",
+        "attribution": "CC0 1.0 — no attribution required",
+        "license_policy_class": "allow",
+        "requires_attribution": false,
+        "share_alike": false
+      },
+      "license_guard": {
+        "license_check": "pass",
+        "source_validation": "pass",
+        "attribution_metadata": "pass"
+      },
+      "media": {
+        "width": 1024,
+        "height": 1365,
+        "orientation": "portrait"
+      },
+      "x_ext": {
+        "render": "procedural"
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "id": "img_seed_y2k_digicam",
+      "type": "image",
+      "status": "approved",
+      "title": "Y2K digicam party snapshot",
+      "description": "Y2K digicam party snapshot. Seed reference drawn procedurally from its own attributes.",
+      "tags": [
+        "y2k",
+        "flash",
+        "snapshot"
+      ],
+      "visual_attributes": {
+        "subject": [
+          "subject.small_group"
+        ],
+        "framing": [
+          "framing.medium_shot"
+        ],
+        "camera_angle": [
+          "camera_angle.eye_level"
+        ],
+        "camera_distance": [
+          "camera_distance.near"
+        ],
+        "lens": [
+          "lens.28mm_like"
+        ],
+        "pose": [
+          "pose.looking_at_camera"
+        ],
+        "clothing": [
+          "clothing.y2k"
+        ],
+        "scene": [
+          "scene.home_interior"
+        ],
+        "time": [
+          "time.night"
+        ],
+        "lighting": [
+          "lighting.on_camera_flash"
+        ],
+        "composition": [
+          "composition.tight_crop"
+        ],
+        "color": [
+          "color.high_saturation"
+        ],
+        "mood": [
+          "mood.playful"
+        ],
+        "style": [
+          "style.snapshot"
+        ]
+      },
+      "metadata": {
+        "source": "local",
+        "source_id": "y2k-digicam",
+        "creator": "Unified Visual Reference Composer seed set",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source_url": "data/references.json#y2k-digicam",
+        "attribution": "CC0 1.0 — no attribution required",
+        "license_policy_class": "allow",
+        "requires_attribution": false,
+        "share_alike": false
+      },
+      "license_guard": {
+        "license_check": "pass",
+        "source_validation": "pass",
+        "attribution_metadata": "pass"
+      },
+      "media": {
+        "width": 1024,
+        "height": 1365,
+        "orientation": "portrait"
+      },
+      "x_ext": {
+        "render": "procedural"
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "id": "img_seed_office_formal",
+      "type": "image",
+      "status": "approved",
+      "title": "Office window light, formal",
+      "description": "Office window light, formal. Seed reference drawn procedurally from its own attributes.",
+      "tags": [
+        "office",
+        "formal",
+        "window"
+      ],
+      "visual_attributes": {
+        "subject": [
+          "subject.adult_man"
+        ],
+        "framing": [
+          "framing.waist_up"
+        ],
+        "camera_angle": [
+          "camera_angle.eye_level"
+        ],
+        "camera_distance": [
+          "camera_distance.near"
+        ],
+        "lens": [
+          "lens.50mm_like"
+        ],
+        "pose": [
+          "pose.standing"
+        ],
+        "clothing": [
+          "clothing.suit",
+          "clothing.necktie"
+        ],
+        "scene": [
+          "scene.office"
+        ],
+        "lighting": [
+          "lighting.natural_window",
+          "lighting.side_lighting"
+        ],
+        "composition": [
+          "composition.rule_of_thirds"
+        ],
+        "color": [
+          "color.muted"
+        ],
+        "mood": [
+          "mood.calm"
+        ],
+        "style": [
+          "style.documentary"
+        ]
+      },
+      "metadata": {
+        "source": "local",
+        "source_id": "office-formal",
+        "creator": "Unified Visual Reference Composer seed set",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source_url": "data/references.json#office-formal",
+        "attribution": "CC0 1.0 — no attribution required",
+        "license_policy_class": "allow",
+        "requires_attribution": false,
+        "share_alike": false
+      },
+      "license_guard": {
+        "license_check": "pass",
+        "source_validation": "pass",
+        "attribution_metadata": "pass"
+      },
+      "media": {
+        "width": 1024,
+        "height": 1365,
+        "orientation": "portrait"
+      },
+      "x_ext": {
+        "render": "procedural"
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "id": "img_seed_winter_street",
+      "type": "image",
+      "status": "approved",
+      "title": "Snowy street, winter layers",
+      "description": "Snowy street, winter layers. Seed reference drawn procedurally from its own attributes.",
+      "tags": [
+        "winter",
+        "snow",
+        "layered"
+      ],
+      "visual_attributes": {
+        "subject": [
+          "subject.adult_woman"
+        ],
+        "framing": [
+          "framing.knee_up"
+        ],
+        "camera_angle": [
+          "camera_angle.eye_level"
+        ],
+        "camera_distance": [
+          "camera_distance.near"
+        ],
+        "lens": [
+          "lens.50mm_like"
+        ],
+        "pose": [
+          "pose.hands_in_pockets"
+        ],
+        "clothing": [
+          "clothing.puffer_jacket",
+          "clothing.scarf",
+          "clothing.boots"
+        ],
+        "scene": [
+          "scene.urban_street"
+        ],
+        "weather": [
+          "weather.snow"
+        ],
+        "lighting": [
+          "lighting.overcast_soft"
+        ],
+        "composition": [
+          "composition.centered"
+        ],
+        "color": [
+          "color.desaturated_film"
+        ],
+        "mood": [
+          "mood.melancholic"
+        ],
+        "style": [
+          "style.documentary"
+        ]
+      },
+      "metadata": {
+        "source": "local",
+        "source_id": "winter-street",
+        "creator": "Unified Visual Reference Composer seed set",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source_url": "data/references.json#winter-street",
+        "attribution": "CC0 1.0 — no attribution required",
+        "license_policy_class": "allow",
+        "requires_attribution": false,
+        "share_alike": false
+      },
+      "license_guard": {
+        "license_check": "pass",
+        "source_validation": "pass",
+        "attribution_metadata": "pass"
+      },
+      "media": {
+        "width": 1024,
+        "height": 1365,
+        "orientation": "portrait"
+      },
+      "x_ext": {
+        "render": "procedural"
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "id": "img_seed_gallery_minimal",
+      "type": "image",
+      "status": "approved",
+      "title": "Gallery interior, minimal",
+      "description": "Gallery interior, minimal. Seed reference drawn procedurally from its own attributes.",
+      "tags": [
+        "gallery",
+        "minimal",
+        "clean"
+      ],
+      "visual_attributes": {
+        "subject": [
+          "subject.adult_woman"
+        ],
+        "framing": [
+          "framing.full_body"
+        ],
+        "camera_angle": [
+          "camera_angle.eye_level"
+        ],
+        "camera_distance": [
+          "camera_distance.far"
+        ],
+        "lens": [
+          "lens.35mm_like"
+        ],
+        "pose": [
+          "pose.standing"
+        ],
+        "clothing": [
+          "clothing.minimal"
+        ],
+        "scene": [
+          "scene.gallery"
+        ],
+        "lighting": [
+          "lighting.soft_light"
+        ],
+        "composition": [
+          "composition.negative_space",
+          "composition.symmetry"
+        ],
+        "color": [
+          "color.neutral_tone"
+        ],
+        "mood": [
+          "mood.calm"
+        ],
+        "style": [
+          "style.fine_art_photography"
+        ]
+      },
+      "metadata": {
+        "source": "local",
+        "source_id": "gallery-minimal",
+        "creator": "Unified Visual Reference Composer seed set",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source_url": "data/references.json#gallery-minimal",
+        "attribution": "CC0 1.0 — no attribution required",
+        "license_policy_class": "allow",
+        "requires_attribution": false,
+        "share_alike": false
+      },
+      "license_guard": {
+        "license_check": "pass",
+        "source_validation": "pass",
+        "attribution_metadata": "pass"
+      },
+      "media": {
+        "width": 1024,
+        "height": 1365,
+        "orientation": "portrait"
+      },
+      "x_ext": {
+        "render": "procedural"
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "id": "img_seed_crosswalk_topdown",
+      "type": "image",
+      "status": "approved",
+      "title": "Crosswalk from above",
+      "description": "Crosswalk from above. Seed reference drawn procedurally from its own attributes.",
+      "tags": [
+        "crosswalk",
+        "top down",
+        "graphic"
+      ],
+      "visual_attributes": {
+        "subject": [
+          "subject.crowd"
+        ],
+        "framing": [
+          "framing.wide_shot"
+        ],
+        "camera_angle": [
+          "camera_angle.top_down"
+        ],
+        "camera_distance": [
+          "camera_distance.very_far"
+        ],
+        "lens": [
+          "lens.telephoto_like"
+        ],
+        "scene": [
+          "scene.crosswalk"
+        ],
+        "time": [
+          "time.midday"
+        ],
+        "lighting": [
+          "lighting.hard_light"
+        ],
+        "composition": [
+          "composition.symmetry",
+          "composition.diagonal"
+        ],
+        "color": [
+          "color.monochrome"
+        ],
+        "mood": [
+          "mood.energetic"
+        ],
+        "style": [
+          "style.documentary"
+        ]
+      },
+      "metadata": {
+        "source": "local",
+        "source_id": "crosswalk-topdown",
+        "creator": "Unified Visual Reference Composer seed set",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source_url": "data/references.json#crosswalk-topdown",
+        "attribution": "CC0 1.0 — no attribution required",
+        "license_policy_class": "allow",
+        "requires_attribution": false,
+        "share_alike": false
+      },
+      "license_guard": {
+        "license_check": "pass",
+        "source_validation": "pass",
+        "attribution_metadata": "pass"
+      },
+      "media": {
+        "width": 1024,
+        "height": 1365,
+        "orientation": "portrait"
+      },
+      "x_ext": {
+        "render": "procedural"
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "id": "vid_seed_studio_dance",
+      "type": "video",
+      "status": "approved",
+      "title": "Studio dance, slow dolly in",
+      "description": "Studio dance, slow dolly in. Seed reference drawn procedurally from its own attributes.",
+      "tags": [
+        "dance",
+        "studio",
+        "dolly"
+      ],
+      "visual_attributes": {
+        "subject": [
+          "subject.adult_woman"
+        ],
+        "framing": [
+          "framing.full_body"
+        ],
+        "camera_angle": [
+          "camera_angle.eye_level"
+        ],
+        "pose": [
+          "pose.standing"
+        ],
+        "action": [
+          "action.dancing"
+        ],
+        "motion": [
+          "motion.rhythmic",
+          "motion.hair_movement"
+        ],
+        "camera_motion": [
+          "camera_motion.dolly_in",
+          "camera_motion.slow_move"
+        ],
+        "clothing": [
+          "clothing.minimal"
+        ],
+        "scene": [
+          "scene.studio"
+        ],
+        "lighting": [
+          "lighting.front_lighting",
+          "lighting.rim_lighting"
+        ],
+        "style": [
+          "style.fashion_editorial"
+        ]
+      },
+      "metadata": {
+        "source": "local",
+        "source_id": "studio-dance",
+        "creator": "Unified Visual Reference Composer seed set",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source_url": "data/references.json#studio-dance",
+        "attribution": "CC0 1.0 — no attribution required",
+        "license_policy_class": "allow",
+        "requires_attribution": false,
+        "share_alike": false
+      },
+      "license_guard": {
+        "license_check": "pass",
+        "source_validation": "pass",
+        "attribution_metadata": "pass"
+      },
+      "media": {
+        "width": 1024,
+        "height": 576,
+        "orientation": "landscape",
+        "duration_s": 12,
+        "fps": 24
+      },
+      "x_ext": {
+        "render": "procedural"
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "id": "vid_seed_street_tracking",
+      "type": "video",
+      "status": "approved",
+      "title": "Street walk, tracking shot",
+      "description": "Street walk, tracking shot. Seed reference drawn procedurally from its own attributes.",
+      "tags": [
+        "walking",
+        "tracking",
+        "street"
+      ],
+      "visual_attributes": {
+        "subject": [
+          "subject.adult_woman"
+        ],
+        "framing": [
+          "framing.full_body"
+        ],
+        "camera_angle": [
+          "camera_angle.eye_level"
+        ],
+        "pose": [
+          "pose.mid_stride"
+        ],
+        "action": [
+          "action.walking"
+        ],
+        "motion": [
+          "motion.clothing_movement"
+        ],
+        "camera_motion": [
+          "camera_motion.tracking",
+          "camera_motion.moderate_move"
+        ],
+        "clothing": [
+          "clothing.trench_coat"
+        ],
+        "scene": [
+          "scene.urban_street"
+        ],
+        "time": [
+          "time.golden_hour"
+        ],
+        "lighting": [
+          "lighting.backlighting"
+        ],
+        "style": [
+          "style.cinematic"
+        ]
+      },
+      "metadata": {
+        "source": "local",
+        "source_id": "street-tracking",
+        "creator": "Unified Visual Reference Composer seed set",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source_url": "data/references.json#street-tracking",
+        "attribution": "CC0 1.0 — no attribution required",
+        "license_policy_class": "allow",
+        "requires_attribution": false,
+        "share_alike": false
+      },
+      "license_guard": {
+        "license_check": "pass",
+        "source_validation": "pass",
+        "attribution_metadata": "pass"
+      },
+      "media": {
+        "width": 1024,
+        "height": 576,
+        "orientation": "landscape",
+        "duration_s": 18,
+        "fps": 24
+      },
+      "x_ext": {
+        "render": "procedural"
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "id": "vid_seed_handheld_market",
+      "type": "video",
+      "status": "approved",
+      "title": "Market handheld, fast move",
+      "description": "Market handheld, fast move. Seed reference drawn procedurally from its own attributes.",
+      "tags": [
+        "handheld",
+        "market",
+        "documentary"
+      ],
+      "visual_attributes": {
+        "subject": [
+          "subject.crowd"
+        ],
+        "framing": [
+          "framing.medium_shot"
+        ],
+        "camera_angle": [
+          "camera_angle.eye_level"
+        ],
+        "action": [
+          "action.walking"
+        ],
+        "motion": [
+          "motion.motion_blur"
+        ],
+        "camera_motion": [
+          "camera_motion.handheld",
+          "camera_motion.fast_move"
+        ],
+        "scene": [
+          "scene.storefront"
+        ],
+        "time": [
+          "time.midday"
+        ],
+        "lighting": [
+          "lighting.hard_light"
+        ],
+        "style": [
+          "style.documentary"
+        ]
+      },
+      "metadata": {
+        "source": "local",
+        "source_id": "handheld-market",
+        "creator": "Unified Visual Reference Composer seed set",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source_url": "data/references.json#handheld-market",
+        "attribution": "CC0 1.0 — no attribution required",
+        "license_policy_class": "allow",
+        "requires_attribution": false,
+        "share_alike": false
+      },
+      "license_guard": {
+        "license_check": "pass",
+        "source_validation": "pass",
+        "attribution_metadata": "pass"
+      },
+      "media": {
+        "width": 1024,
+        "height": 576,
+        "orientation": "landscape",
+        "duration_s": 9,
+        "fps": 24
+      },
+      "x_ext": {
+        "render": "procedural"
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "id": "vid_seed_orbit_portrait",
+      "type": "video",
+      "status": "approved",
+      "title": "Portrait orbit, blue hour",
+      "description": "Portrait orbit, blue hour. Seed reference drawn procedurally from its own attributes.",
+      "tags": [
+        "orbit",
+        "portrait",
+        "blue hour"
+      ],
+      "visual_attributes": {
+        "subject": [
+          "subject.adult_man"
+        ],
+        "framing": [
+          "framing.waist_up"
+        ],
+        "camera_angle": [
+          "camera_angle.eye_level"
+        ],
+        "pose": [
+          "pose.looking_at_camera"
+        ],
+        "motion": [
+          "motion.fluid"
+        ],
+        "camera_motion": [
+          "camera_motion.orbit",
+          "camera_motion.slow_move"
+        ],
+        "clothing": [
+          "clothing.leather_jacket"
+        ],
+        "scene": [
+          "scene.rooftop"
+        ],
+        "time": [
+          "time.blue_hour"
+        ],
+        "lighting": [
+          "lighting.practical_lights",
+          "lighting.rim_lighting"
+        ],
+        "style": [
+          "style.cinematic"
+        ]
+      },
+      "metadata": {
+        "source": "local",
+        "source_id": "orbit-portrait",
+        "creator": "Unified Visual Reference Composer seed set",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source_url": "data/references.json#orbit-portrait",
+        "attribution": "CC0 1.0 — no attribution required",
+        "license_policy_class": "allow",
+        "requires_attribution": false,
+        "share_alike": false
+      },
+      "license_guard": {
+        "license_check": "pass",
+        "source_validation": "pass",
+        "attribution_metadata": "pass"
+      },
+      "media": {
+        "width": 1024,
+        "height": 576,
+        "orientation": "landscape",
+        "duration_s": 14,
+        "fps": 24
+      },
+      "x_ext": {
+        "render": "procedural"
+      }
+    }
+  ]
+}
