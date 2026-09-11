@@ -48,13 +48,20 @@ search → cards → take attributes → mix → prompt.
 
 ## Run it
 
-ES modules need an HTTP server; `file://` will not work.
+**Windows:** double-click **`start.bat`**. It starts a local server and opens the
+app; close the window to stop it.
+
+**Anything else:**
 
 ```sh
-python3 -m http.server 8765      # or: npm start
-# then open http://localhost:8765/app/index.html
+npm start          # starts a server and opens the app
+# or, without npm:
+node tools/serve.mjs --open
 ```
 
+ES modules need an HTTP server — `file://` will not work, which is the only reason
+a server is involved at all. `tools/serve.mjs` has no dependencies and takes the
+first free port from 8765, so a second copy will not collide with the first.
 There is no build step and no runtime dependency.
 
 ```sh
@@ -77,6 +84,7 @@ name. Nothing is uploaded anywhere by default.
 ## Layout
 
 ```
+start.bat      double-click launcher for Windows
 app/           the shell: one dialog, one stylesheet
 src/core/      taxonomy, visual intent, reference mix, ids, canonical constants
 src/search/    query expansion, scoring, fusion, search by difference
@@ -86,7 +94,7 @@ src/ai/        the analyzer adapter (optional backends)
 src/ui/        the explorer and the procedural card art
 data/taxonomy/ 740 nodes across 10 files
 data/          references.json — the generated seed library
-tools/         gen-seed.mjs
+tools/         gen-seed.mjs, serve.mjs
 tests/         behavioural tests and three integrity checkers
 docs/          the brief, the design documents, and the research behind them
 ```
